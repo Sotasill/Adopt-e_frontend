@@ -1,98 +1,102 @@
-import {
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  REGISTER_REQUEST,
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-  LOGOUT,
-  UPDATE_AVATAR_SUCCESS
-} from './authConstant';
+import { AUTH_TYPES } from "./authTypes";
 
 const initialState = {
   isAuthenticated: false,
   user: null,
-  token: localStorage.getItem('token'),
+  error: null,
   loading: false,
-  error: null
 };
 
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case REGISTER_REQUEST:
-    case LOGIN_REQUEST:
+    case AUTH_TYPES.LOGIN_SUCCESS:
       return {
         ...state,
-        loading: true,
-        error: null
-      };
-
-    case REGISTER_SUCCESS:
-    case LOGIN_SUCCESS:
-      return {
-        ...state,
-        loading: false,
         isAuthenticated: true,
         user: action.payload,
-        error: null
+        error: null,
+        loading: false,
       };
 
-    case REGISTER_FAIL:
-    case LOGIN_FAIL:
+    case AUTH_TYPES.LOGIN_FAILURE:
       return {
         ...state,
-        loading: false,
         isAuthenticated: false,
         user: null,
-        error: action.payload
+        error: action.payload,
+        loading: false,
       };
 
-    case LOGOUT:
+    case AUTH_TYPES.LOGOUT:
       return {
         ...state,
-        loading: false,
         isAuthenticated: false,
         user: null,
-        token: null
+        error: null,
+        loading: false,
       };
 
-    case UPDATE_AVATAR_SUCCESS:
+    case AUTH_TYPES.SET_USER:
       return {
         ...state,
-        user: {
-          ...state.user,
-          avatar: action.payload
-        }
+        user: action.payload,
       };
 
-    case 'UPDATE_PROFILE_BACKGROUND_START':
+    case AUTH_TYPES.SET_AUTH:
+    case AUTH_TYPES.SET_AUTHENTICATED:
+      return {
+        ...state,
+        isAuthenticated: action.payload,
+      };
+
+    case AUTH_TYPES.REFRESH_TOKEN_SUCCESS:
+      return {
+        ...state,
+        error: null,
+      };
+
+    case AUTH_TYPES.REFRESH_TOKEN_FAILURE:
+      return {
+        ...state,
+        isAuthenticated: false,
+        user: null,
+        error: "Ошибка обновления токена",
+      };
+
+    case AUTH_TYPES.UPDATE_PROFILE_BACKGROUND_START:
+    case AUTH_TYPES.UPDATE_AVATAR_START:
       return {
         ...state,
         loading: true,
-        error: null
+        error: null,
       };
-    
-    case 'UPDATE_PROFILE_BACKGROUND_SUCCESS':
+
+    case AUTH_TYPES.UPDATE_PROFILE_BACKGROUND_SUCCESS:
       return {
         ...state,
         loading: false,
         user: {
           ...state.user,
-          profileBackground: action.payload
-        }
+          profileBackground: action.payload,
+        },
       };
-    
-    case 'UPDATE_PROFILE_BACKGROUND_FAILURE':
+
+    case AUTH_TYPES.UPDATE_AVATAR_SUCCESS:
       return {
         ...state,
         loading: false,
-        error: action.payload
+        user: {
+          ...state.user,
+          avatar: action.payload,
+        },
       };
 
-    case 'SET_AUTHENTICATED':
+    case AUTH_TYPES.UPDATE_PROFILE_BACKGROUND_FAILURE:
+    case AUTH_TYPES.UPDATE_AVATAR_FAILURE:
       return {
         ...state,
-        isAuthenticated: action.payload
+        loading: false,
+        error: action.payload,
       };
 
     default:

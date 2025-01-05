@@ -1,40 +1,50 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const registrationSlice = createSlice({
+const initialState = {
+  loading: false,
+  error: null,
+  success: false,
+  userData: null,
+};
+
+export const registrationSlice = createSlice({
   name: "registration",
-  initialState: {
-    role: "", // Роль пользователя: 'buyer' или 'breeder'
-    isLoading: false, // Состояние загрузки
-    error: null, // Ошибки, если есть
-  },
+  initialState,
   reducers: {
-    setRole: (state, action) => {
-      state.role = action.payload;
-    },
-    resetRole: (state) => {
-      state.role = "";
-    },
-    startLoading: (state) => {
-      state.isLoading = true;
-    },
-    stopLoading: (state) => {
-      state.isLoading = false;
-    },
-    setError: (state, action) => {
-      state.error = action.payload;
-    },
-    clearError: (state) => {
+    registrationStart: (state) => {
+      state.loading = true;
       state.error = null;
+      state.success = false;
+    },
+    registrationSuccess: (state, action) => {
+      state.loading = false;
+      state.success = true;
+      state.userData = action.payload;
+      state.error = null;
+    },
+    registrationFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+      state.success = false;
+    },
+    resetRegistration: (state) => {
+      state.loading = false;
+      state.error = null;
+      state.success = false;
+      state.userData = null;
     },
   },
 });
 
 export const {
-  setRole,
-  resetRole,
-  startLoading,
-  stopLoading,
-  setError,
-  clearError,
+  registrationStart,
+  registrationSuccess,
+  registrationFailure,
+  resetRegistration,
 } = registrationSlice.actions;
-export default registrationSlice.reducer;
+
+// Селекторы
+export const selectRegistrationLoading = (state) => state.registration.loading;
+export const selectRegistrationError = (state) => state.registration.error;
+export const selectRegistrationSuccess = (state) => state.registration.success;
+export const selectRegistrationData = (state) => state.registration.userData;

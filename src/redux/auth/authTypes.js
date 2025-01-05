@@ -1,0 +1,16 @@
+export const AUTH_TYPES = {
+  LOGIN_SUCCESS: "auth/loginSuccess",
+  LOGIN_FAILURE: "auth/loginFailure",
+  LOGOUT: "auth/logout",
+  SET_USER: "auth/setUser",
+  SET_AUTH: "auth/setAuth",
+  SET_AUTHENTICATED: "auth/setAuthenticated",
+  REFRESH_TOKEN_SUCCESS: "auth/refreshTokenSuccess",
+  REFRESH_TOKEN_FAILURE: "auth/refreshTokenFailure",
+  UPDATE_PROFILE_BACKGROUND_START: "auth/updateProfileBackgroundStart",
+  UPDATE_PROFILE_BACKGROUND_SUCCESS: "auth/updateProfileBackgroundSuccess",
+  UPDATE_PROFILE_BACKGROUND_FAILURE: "auth/updateProfileBackgroundFailure",
+  UPDATE_AVATAR_START: "auth/updateAvatarStart",
+  UPDATE_AVATAR_SUCCESS: "auth/updateAvatarSuccess",
+  UPDATE_AVATAR_FAILURE: "auth/updateAvatarFailure",
+};

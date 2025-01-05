@@ -1,0 +1,60 @@
+.quickLinksContainer {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.contentWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  position: relative;
+}
+
+.buttonsContainer {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 800px;
+}
+
+.quickLinkButton {
+  min-width: 120px !important;
+  max-width: 160px !important;
+  padding: 6px 12px !important;
+  text-transform: none !important;
+  font-size: 0.875rem !important;
+}
+
+.searchBox {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Для мобильных устройств */
+@media (max-width: 768px) {
+  .contentWrapper {
+    flex-direction: column;
+  }
+  
+  .searchBox {
+    position: static;
+    transform: none;
+    margin-top: 1rem;
+    width: 100%;
+  }
+  
+  .buttonsContainer {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .quickLinkButton {
+    min-width: 100px !important;
+  }
+}

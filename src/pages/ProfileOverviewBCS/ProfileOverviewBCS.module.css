@@ -1,0 +1,43 @@
+.profileOverview {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  margin-top: 2rem;
+  min-height: 200px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+.editBackgroundButton {
+  position: absolute !important;
+  top: 1rem !important;
+  right: 1rem !important;
+  z-index: 2 !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+}
+
+.avatarSection {
+  position: relative;
+  z-index: 2;
+}
+
+.modalContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow: auto;
+}
+
+.avatar {
+  cursor: pointer;
+  width: 100px !important;
+  height: 100px !important;
+}
