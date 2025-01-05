@@ -1,31 +1,34 @@
 import { Link } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
+import styles from "./Navigation.module.css";
 
 const Navigation = () => {
-  const { isAuthenticated } = useSelector(state => state.auth);
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
+    <nav className={styles.navigation}>
+      <div className={styles.leftSide}>
+        <Link to="/" className={styles.homeLink}>
+          <h2>Adopt-e</h2>
+        </Link>
+      </div>
+      <div className={styles.rightSide}>
         {!isAuthenticated && (
           <>
-            <li>
-              <Link to="/register">Registration</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
+            <Link to="/register" className={styles.navButton}>
+              Registration
+            </Link>
+            <Link to="/login" className={styles.navButton}>
+              Login
+            </Link>
           </>
         )}
         {isAuthenticated && (
-          <li>
-            <Link to="/MainBCS">MainBCS</Link>
-          </li>
+          <Link to="/MainBCS" className={styles.navButton}>
+            MainBCS
+          </Link>
         )}
-      </ul>
+      </div>
     </nav>
   );
 };

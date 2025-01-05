@@ -25,9 +25,12 @@ const UserRegistrationForm = () => {
     setError("");
 
     try {
-      await authService.registerUser(formData);
-      // После успешной регистрации перенаправляем на страницу входа
-      navigate("/login");
+      const response = await authService.registerUser(formData);
+      // После успешной регистрации сохраняем токен и перенаправляем на главную
+      if (response.token) {
+        localStorage.setItem("token", response.token);
+      }
+      navigate("/"); // Редирект на главную страницу
     } catch (err) {
       setError(err.message || "Ошибка при регистрации. Попробуйте позже.");
     }

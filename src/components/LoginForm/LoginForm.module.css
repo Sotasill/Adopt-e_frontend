@@ -4,14 +4,13 @@
   align-items: center;
   min-height: 100vh;
   padding: 20px;
-  background-color: #f5f5f5;
 }
 
 .loginForm {
   background: white;
   padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
 }
@@ -24,42 +23,57 @@
 
 .formGroup {
   margin-bottom: 20px;
+  position: relative;
 }
 
 .formGroup label {
   display: block;
-  margin-bottom: 5px;
-  color: #666;
+  margin-bottom: 8px;
   font-weight: 500;
+  color: #333;
 }
 
-.formGroup input {
+.input {
   width: 100%;
   padding: 10px;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 4px;
   font-size: 16px;
-  transition: all 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.formGroup input:focus {
+.input:focus {
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 
-.formGroup input:disabled {
+.input:disabled {
   background-color: #f8f9fa;
   cursor: not-allowed;
 }
 
+.inputError {
+  border-color: #dc3545;
+}
+
+.inputError:focus {
+  box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.25);
+}
+
+.fieldError {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
 .error {
   color: #dc3545;
-  background-color: #f8d7da;
-  padding: 10px;
-  border-radius: 5px;
   margin-bottom: 20px;
-  text-align: center;
+  padding: 10px;
+  background-color: #fff3f3;
+  border-radius: 4px;
+  border: 1px solid #ffebee;
 }
 
 .submitButton {
@@ -68,10 +82,10 @@
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: background-color 0.2s;
 }
 
 .submitButton:hover:not(:disabled) {
@@ -81,14 +95,67 @@
 .submitButton:disabled {
   background-color: #ccc;
   cursor: not-allowed;
-  opacity: 0.8;
 }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+.passwordInputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passwordInputContainer .input {
+  padding-right: 100px;
+}
+
+.togglePasswordButton {
+  position: absolute;
+  right: 10px;
+  padding: 5px 10px;
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 14px;
+  z-index: 1;
+}
+
+.togglePasswordButton:hover:not(:disabled) {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.togglePasswordButton:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.rememberMeContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.rememberMeLabel {
+  display: flex;
+  align-items: center;
+  color: #333;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.rememberMeCheckbox {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.forgotPasswordLink {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.forgotPasswordLink:hover {
+  color: #0056b3;
+  text-decoration: underline;
 }

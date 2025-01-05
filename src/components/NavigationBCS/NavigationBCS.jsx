@@ -1,16 +1,35 @@
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { List, ListItem, ListItemIcon, ListItemText} from '@mui/material';
-import HomeIcon from '@mui/icons-material/Home';
-import PetsIcon from '@mui/icons-material/Pets';
-import SettingsIcon from '@mui/icons-material/Settings';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
+import {
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  
+} from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
+import PetsIcon from "@mui/icons-material/Pets";
+import SettingsIcon from "@mui/icons-material/Settings";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { logout } from "../../redux/auth/authActions";
 
 const Navigation = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
+  const handleLogout = async () => {
+    try {
+      await dispatch(logout());
+      navigate("/");
+    } catch (error) {
+      console.error("Ошибка при выходе:", error);
+    }
+  };
+
   return (
-    <List component="nav" sx={{ width: '100%' }}>
+    <List component="nav" sx={{ width: "100%" }}>
       <ListItem button component={Link} to="/">
         <ListItemIcon>
           <HomeIcon />
@@ -39,6 +58,13 @@ const Navigation = () => {
               <SettingsIcon />
             </ListItemIcon>
             <ListItemText primary="Настройки" />
+          </ListItem>
+
+          <ListItem button onClick={handleLogout}>
+            <ListItemIcon>
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText primary="Выйти" />
           </ListItem>
         </>
       )}

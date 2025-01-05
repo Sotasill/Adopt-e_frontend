@@ -11,18 +11,18 @@ export const loginFailure = (error) => ({
   payload: error,
 });
 
-export const logoutAction = () => ({
+export const logout = () => ({
   type: AUTH_TYPES.LOGOUT,
-});
-
-export const setUser = (user) => ({
-  type: AUTH_TYPES.SET_USER,
-  payload: user,
 });
 
 export const setAuth = (isAuthenticated) => ({
   type: AUTH_TYPES.SET_AUTH,
   payload: isAuthenticated,
+});
+
+export const setUser = (user) => ({
+  type: AUTH_TYPES.SET_USER,
+  payload: user,
 });
 
 export const setAuthenticated = (isAuthenticated) => ({
@@ -72,19 +72,12 @@ export const login = (credentials) => async (dispatch) => {
   try {
     const response = await authService.login(credentials);
     dispatch(loginSuccess(response.user));
+    dispatch(setAuthenticated(true));
     return response;
   } catch (error) {
     dispatch(loginFailure(error.message));
+    dispatch(setAuthenticated(false));
     throw error;
-  }
-};
-
-export const logout = () => async (dispatch) => {
-  try {
-    await authService.logout();
-    dispatch(logoutAction());
-  } catch (error) {
-    console.error("Ошибка при выходе:", error);
   }
 };
 

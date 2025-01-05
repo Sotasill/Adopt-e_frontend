@@ -1,12 +1,15 @@
-import RegistrationSelector from "../../components/RegistrationSelector/RegistrationSelector";
 import RegistrationForm from "../../components/RegistrationForm/RegistrationForm";
+import styles from "./RegistrationPage.module.css";
+
 
 const RegistrationPage = () => {
   return (
-    <div>
-      <RegistrationSelector /> {/* Выбор роли */}
-      <RegistrationForm /> {/* Форма регистрации */}
-    </div>
+    <>
+      
+      <div className={styles.registrationPage}>
+        <RegistrationForm />
+      </div>
+    </>
   );
 };
 

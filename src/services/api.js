@@ -1,6 +1,6 @@
 import axios from "axios";
 import store from "../redux/store";
-import { refreshToken, logoutAction } from "../redux/auth/authActions";
+import { refreshToken, logout } from "../redux/auth/authActions";
 
 // Создаем экземпляр axios с базовой конфигурацией
 const api = axios.create({
@@ -95,7 +95,7 @@ api.interceptors.response.use(
         isRefreshing = false;
         processQueue(refreshError, null);
 
-        store.dispatch(logoutAction());
+        store.dispatch(logout());
         localStorage.removeItem("token");
         window.location.href = "/login";
 

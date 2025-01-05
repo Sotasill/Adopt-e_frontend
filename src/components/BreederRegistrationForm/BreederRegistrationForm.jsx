@@ -11,9 +11,7 @@ const BreederRegistrationForm = () => {
     email: "",
     password: "",
     companyName: "",
-    address: "",
-    country: "",
-    specialization: "dog", // значение по умолчанию
+    specialization: "",
   });
 
   const handleChange = (e) => {
@@ -29,9 +27,12 @@ const BreederRegistrationForm = () => {
     setError("");
 
     try {
-      await authService.registerBreeder(formData);
-      // После успешной регистрации перенаправляем на страницу входа
-      navigate("/login");
+      const response = await authService.registerBreeder(formData);
+      // После успешной регистрации сохраняем токен и перенаправляем на главную
+      if (response.token) {
+        localStorage.setItem("token", response.token);
+      }
+      navigate("/"); // Редирект на главную страницу
     } catch (err) {
       setError(err.message || "Ошибка при регистрации. Попробуйте позже.");
     }
@@ -94,30 +95,6 @@ const BreederRegistrationForm = () => {
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="address">Адрес:</label>
-          <input
-            type="text"
-            id="address"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label htmlFor="country">Страна:</label>
-          <input
-            type="text"
-            id="country"
-            name="country"
-            value={formData.country}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className={styles.formGroup}>
           <label htmlFor="specialization">Специализация:</label>
           <select
             id="specialization"
@@ -126,6 +103,7 @@ const BreederRegistrationForm = () => {
             onChange={handleChange}
             required
           >
+            <option value="">Выберите специализацию</option>
             <option value="dog">Собаки</option>
             <option value="cat">Кошки</option>
           </select>

@@ -1,42 +1,61 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setAuth } from "../../redux/auth/authActions";
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { Toaster } from "react-hot-toast";
 import Layout from "../Layout/Layout";
 import HomePage from "../../pages/HomePage/HomePage";
 import RegistrationPage from "../../pages/RegistrationPage/RegistrationPage";
-import LoginForm from "../LoginForm/LoginForm";
+import LoginPage from "../../pages/LoginPage/LoginPage";
 import MainBCS from "../../pages/MainBCS/MainBCS";
+import AuthProvider from "../AuthProvider/AuthProvider";
 
 const PrivateRoute = ({ children }) => {
   const { isAuthenticated } = useSelector((state) => state.auth);
-  const token = localStorage.getItem("token");
+  return isAuthenticated ? children : <Navigate to="/login" />;
+};
 
-  return isAuthenticated || token ? children : <Navigate to="/login" />;
+const PublicRoute = ({ children }) => {
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  return children;
 };
 
 PrivateRoute.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
+PublicRoute.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
 const App = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      dispatch(setAuth(true));
-    }
-  }, [dispatch]);
-
   return (
-    <Layout>
-      <div className="App">
+    <AuthProvider>
+      <Layout>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/register" element={<RegistrationPage />} />
-          <Route path="/login" element={<LoginForm />} />
+          <Route
+            path="/"
+            element={
+              <PublicRoute>
+                <HomePage />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <PublicRoute>
+                <RegistrationPage />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <LoginPage />
+              </PublicRoute>
+            }
+          />
           <Route
             path="/MainBCS"
             element={
@@ -46,8 +65,9 @@ const App = () => {
             }
           />
         </Routes>
-      </div>
-    </Layout>
+        <Toaster position="top-right" />
+      </Layout>
+    </AuthProvider>
   );
 };
 

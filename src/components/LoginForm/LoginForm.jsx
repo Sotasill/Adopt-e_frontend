@@ -1,79 +1,126 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { Formik, Form } from "formik";
+import toast from "react-hot-toast";
 import { login } from "../../redux/auth/authActions";
+import { TextField, PasswordField, CheckboxField } from "./FormFields";
+import {
+  LoginSchema,
+  getErrorMessage,
+  loadSavedCredentials,
+  saveCredentials,
+} from "./loginUtils";
 import styles from "./LoginForm.module.css";
 
 const LoginForm = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-  });
-
-  const { error: authError, loading } = useSelector((state) => state.auth);
+  const [showPassword, setShowPassword] = useState(false);
+  const {
+    error: authError,
+    loading,
+    isAuthenticated,
+  } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  // Следим за изменением статуса аутентификации
+  useEffect(() => {
+    if (isAuthenticated) {
+      toast.success("Вход выполнен успешно!");
+      const timer = setTimeout(() => {
+        navigate("/mainbcs");
+      }, 500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isAuthenticated, navigate]);
+
+  // Следим за ошибками аутентификации
+  useEffect(() => {
+    if (authError) {
+      const userFriendlyMessage = getErrorMessage(authError);
+      toast.error(userFriendlyMessage);
+    }
+  }, [authError]);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
     try {
-      await dispatch(login(formData));
-      navigate("/MainBCS");
+      await dispatch(
+        login({ username: values.username, password: values.password })
+      );
+      saveCredentials(values);
     } catch (err) {
-      // Ошибка уже обработана в редьюсере
+      const userFriendlyMessage = getErrorMessage(err.message);
+      toast.error(userFriendlyMessage);
+
+      if (userFriendlyMessage === "Неверное имя пользователя или пароль") {
+        setFieldError("password", "Проверьте правильность введенного пароля");
+      } else if (userFriendlyMessage === "Пользователь не найден") {
+        setFieldError("username", "Пользователь с таким именем не найден");
+      }
+
       console.error("Ошибка входа:", err);
+    } finally {
+      setSubmitting(false);
     }
   };
 
   return (
     <div className={styles.loginContainer}>
-      <form onSubmit={handleSubmit} className={styles.loginForm}>
-        <h2>Вход</h2>
-        {authError && <div className={styles.error}>{authError}</div>}
+      <Formik
+        initialValues={loadSavedCredentials()}
+        validationSchema={LoginSchema}
+        onSubmit={handleSubmit}
+      >
+        {({ errors, touched, isSubmitting }) => (
+          <Form className={styles.loginForm}>
+            <h2>Вход</h2>
 
-        <div className={styles.formGroup}>
-          <label htmlFor="username">Имя пользователя:</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-            disabled={loading}
-          />
-        </div>
+            <TextField
+              name="username"
+              label="Имя пользователя:"
+              autoComplete="username"
+              disabled={loading || isSubmitting}
+              error={errors.username}
+              touched={touched.username}
+            />
 
-        <div className={styles.formGroup}>
-          <label htmlFor="password">Пароль:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            disabled={loading}
-          />
-        </div>
+            <PasswordField
+              name="password"
+              label="Пароль:"
+              autoComplete="current-password"
+              showPassword={showPassword}
+              onTogglePassword={togglePasswordVisibility}
+              disabled={loading || isSubmitting}
+              error={errors.password}
+              touched={touched.password}
+            />
 
-        <button
-          type="submit"
-          className={styles.submitButton}
-          disabled={loading}
-        >
-          {loading ? "Вход..." : "Войти"}
-        </button>
-      </form>
+            <div className={styles.rememberMeContainer}>
+              <CheckboxField
+                name="rememberMe"
+                label="Запомнить меня"
+                disabled={loading || isSubmitting}
+              />
+              <Link to="/forgot-password" className={styles.forgotPasswordLink}>
+                Забыли пароль?
+              </Link>
+            </div>
+
+            <button
+              type="submit"
+              className={styles.submitButton}
+              disabled={loading || isSubmitting}
+            >
+              {loading || isSubmitting ? "Вход..." : "Войти"}
+            </button>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };

@@ -1,0 +1,175 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.content {
+  max-width: 1200px;
+  width: 100%;
+  text-align: center;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+  backdrop-filter: blur(4px);
+  box-sizing: border-box;
+}
+
+.title {
+  font-size: 3.5rem;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: #34495e;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.accordion {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.accordionItem {
+  margin-bottom: 15px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.accordionHeader {
+  padding: 20px;
+  background: #3498db;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.accordionHeader:hover {
+  background: #2980b9;
+}
+
+.accordionContent {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  background: white;
+}
+
+.accordionContent.active {
+  max-height: 300px;
+  padding: 20px;
+}
+
+.accordionIcon {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.accordionIcon.active {
+  transform: rotate(180deg);
+}
+
+.accordionText {
+  color: #34495e;
+  line-height: 1.6;
+  font-size: 1.1rem;
+  text-align: left;
+}
+
+/* Mobile - 320px */
+@media (max-width: 320px) {
+  .content {
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+
+  .accordionHeader {
+    font-size: 1rem;
+    padding: 15px;
+  }
+
+  .accordionContent.active {
+    padding: 15px;
+  }
+
+  .accordionText {
+    font-size: 0.9rem;
+  }
+}
+
+/* Tablet - 760px */
+@media (min-width: 321px) and (max-width: 760px) {
+  .content {
+    padding: 30px;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+  }
+
+  .accordionHeader {
+    font-size: 1.1rem;
+  }
+}
+
+/* Desktop - 1200px */
+@media (min-width: 761px) and (max-width: 1200px) {
+  .content {
+    max-width: 90%;
+  }
+
+  .title {
+    font-size: 3rem;
+  }
+
+  .subtitle {
+    font-size: 1.3rem;
+  }
+}
+
+/* Large Desktop - 1400px */
+@media (min-width: 1201px) and (max-width: 1400px) {
+  .content {
+    max-width: 1100px;
+  }
+}
+
+@media (min-width: 1401px) {
+  .content {
+    max-width: 1200px;
+  }
+}
