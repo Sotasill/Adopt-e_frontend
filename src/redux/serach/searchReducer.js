@@ -1,58 +1,32 @@
-import {
-  SET_SEARCH_QUERY,
-  SEARCH_REQUEST,
-  SEARCH_SUCCESS,
-  SEARCH_FAIL,
-  CLEAR_SEARCH,
-} from "./searchConstants";
+import { SEARCH_USER, SEARCH_BCS, CLEAR_SEARCH } from "./searchConstants";
 
 const initialState = {
   query: "",
+  searchType: null, // 'user' или 'bcs'
   results: [],
-  loading: false,
-  error: null,
 };
 
-export const searchReducer = (state = initialState, action) => {
+const searchReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_SEARCH_QUERY:
+    case SEARCH_USER:
       return {
         ...state,
         query: action.payload,
+        searchType: "user",
+        results: [], // Здесь будут результаты поиска после интеграции с API
       };
-
-    case SEARCH_REQUEST:
+    case SEARCH_BCS:
       return {
         ...state,
-        loading: true,
-        error: null,
+        query: action.payload,
+        searchType: "bcs",
+        results: [], // Здесь будут результаты поиска после интеграции с API
       };
-
-    case SEARCH_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        results: action.payload,
-        error: null,
-      };
-
-    case SEARCH_FAIL:
-      return {
-        ...state,
-        loading: false,
-        results: [],
-        error: action.payload,
-      };
-
     case CLEAR_SEARCH:
-      return {
-        ...state,
-        query: "",
-        results: [],
-        error: null,
-      };
-
+      return initialState;
     default:
       return state;
   }
 };
+
+export default searchReducer;

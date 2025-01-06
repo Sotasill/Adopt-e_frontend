@@ -1,16 +1,21 @@
 import { useState } from "react";
-import { Button } from "@mui/material";
+import { Button, Modal, Box } from "@mui/material";
 import SearchbarBCS from "../../components/SearchbarBCS/SearchbarBCS";
 import Notifications from "../../components/Notifications/Notifications";
 import Settings from "../../components/Settings/Settings";
+import AnimalRegistration from "../../components/AnimalRegistration/AnimalRegistration";
 import styles from "./QuickLinks.module.css";
 
 const QuickLinks = () => {
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const handleSearchToggle = () => {
     setIsSearchExpanded(!isSearchExpanded);
   };
+
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
 
   return (
     <div className={styles.quickLinksContainer}>
@@ -22,6 +27,7 @@ const QuickLinks = () => {
               color="primary"
               className={styles.quickLinkButton}
               size="small"
+              onClick={handleOpenModal}
             >
               Добавить животное
             </Button>
@@ -62,6 +68,16 @@ const QuickLinks = () => {
           </div>
         </div>
       </div>
+
+      <Modal
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="modal-animal-registration"
+      >
+        <Box className={styles.modalBox}>
+          <AnimalRegistration userType="breeder" onClose={handleCloseModal} />
+        </Box>
+      </Modal>
     </div>
   );
 };

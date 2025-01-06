@@ -4,6 +4,8 @@ import {
   SEARCH_SUCCESS,
   SEARCH_FAIL,
   CLEAR_SEARCH,
+  SEARCH_USER,
+  SEARCH_BCS,
 } from "./searchConstants";
 
 export const setSearchQuery = (query) => ({
@@ -13,6 +15,11 @@ export const setSearchQuery = (query) => ({
 
 export const clearSearch = () => ({
   type: CLEAR_SEARCH,
+});
+
+export const searchUser = (query) => ({
+  type: SEARCH_USER,
+  payload: query,
 });
 
 export const searchBCS = (query) => async (dispatch) => {

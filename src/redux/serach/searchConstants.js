@@ -3,3 +3,5 @@ export const SEARCH_REQUEST = "SEARCH_REQUEST";
 export const SEARCH_SUCCESS = "SEARCH_SUCCESS";
 export const SEARCH_FAIL = "SEARCH_FAIL";
 export const CLEAR_SEARCH = "CLEAR_SEARCH";
+export const SEARCH_USER = "SEARCH_USER";
+export const SEARCH_BCS = "SEARCH_BCS";

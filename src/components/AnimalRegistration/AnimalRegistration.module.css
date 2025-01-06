@@ -1,73 +1,590 @@
 .container {
-  max-width: 600px;
+  padding: 20px;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 20px;
 }
 
-.step {
-  background-color: #ffffff;
+.registrationTypeSelection {
+  background: #ffffff;
+  padding: 20px;
   border-radius: 8px;
-  padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
-.options {
+.registrationTypeSelection h3 {
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.typeButtons {
   display: flex;
-  gap: 10px;
-  margin-top: 20px;
-  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.optionButton {
-  padding: 10px 20px;
-  border: none;
+.typeButton {
+  padding: 15px;
+  background-color: #ffffff;
+  border: 2px solid #4a90e2;
   border-radius: 4px;
-  background-color: #4a90e2;
-  color: white;
+  color: #4a90e2;
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.2s;
 }
 
-.optionButton:hover {
-  background-color: #357abd;
+.typeButton:hover {
+  background-color: #4a90e2;
+  color: #ffffff;
 }
 
 .form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
 }
 
-.form input {
+.parentForm {
+  border-top: 3px solid #4a90e2;
+  margin-top: 30px;
+}
+
+.registrationForm {
+  border-top: 3px solid #4caf50;
+  margin-top: 30px;
+}
+
+.parentForm h3,
+.registrationForm h3 {
+  margin-top: 0;
+  color: #333;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.inputGroup {
+  margin-bottom: 20px;
+}
+
+.inputGroup label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: 500;
+}
+
+.input,
+.select {
+  width: 100%;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 16px;
+  transition: border-color 0.2s;
 }
 
-.form input:focus {
+.select {
+  background-color: white;
+  cursor: pointer;
+}
+
+.input:focus,
+.select:focus {
   outline: none;
   border-color: #4a90e2;
 }
 
-.submitButton {
+.fileInput {
+  width: 100%;
+  padding: 10px 0;
+}
+
+.imagePreview {
+  margin-top: 10px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.imagePreview img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.button {
+  width: 100%;
   padding: 12px;
-  background-color: #4caf50;
+  background-color: #4a90e2;
   color: white;
   border: none;
   border-radius: 4px;
-  cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.3s;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
-.submitButton:hover {
-  background-color: #45a049;
+.button:hover:not(:disabled) {
+  background-color: #357abd;
 }
 
-h2 {
-  text-align: center;
+.button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.error {
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #ffebee;
+  color: #c62828;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.result {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.result h3 {
+  margin: 0 0 10px 0;
   color: #333;
+}
+
+.result pre {
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+.successResult {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+  overflow: hidden;
+}
+
+.successHeader {
+  background: #4caf50;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.successHeader h3 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.animalImage {
+  margin: 20px auto 0;
+  max-width: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.animalImage img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.animalDetails {
+  padding: 20px;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.detailGroup {
+  background: #f5f5f5;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.detailGroup h4 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 1.1rem;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #4caf50;
+}
+
+.detailGroup p {
+  margin: 8px 0;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.detailGroup strong {
+  color: #333;
+}
+
+.parentInfo {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #ddd;
+}
+
+.parentInfo:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+@media (max-width: 768px) {
+  .detailsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 768px) {
+  .typeButtons {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .typeButton {
+    flex: 1;
+    max-width: 300px;
+  }
+}
+
+.inputError {
+  border-color: #dc3545;
+}
+
+.errorText {
+  color: #dc3545;
+  font-size: 0.85rem;
+  margin-top: 4px;
+  display: block;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
-} 
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #666;
+  cursor: pointer;
+  padding: 5px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.closeButton:hover {
+  color: #333;
+}
+
+.select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.select option {
+  padding: 8px 8px 8px 30px;
+  position: relative;
+}
+
+.select option::before {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+  border: 1px solid #ccc;
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Цвета для каждого варианта */
+.eyeColor_aqua::before {
+  background-color: #00ffff;
+}
+
+.eyeColor_blue::before {
+  background-color: #0000ff;
+}
+
+.eyeColor_cooper::before {
+  background-color: #b87333;
+}
+
+.eyeColor_gold::before {
+  background-color: #ffd700;
+}
+
+.eyeColor_hazel::before {
+  background-color: #8e7618;
+}
+
+.eyeColor_oddEyed::before {
+  background: linear-gradient(to right, #0000ff 50%, #8e7618 50%);
+}
+
+.eyeColor_pink::before {
+  background-color: #ffc0cb;
+}
+
+.eyeColor_unknown::before {
+  background-color: #808080;
+}
+
+.customSelect {
+  position: relative;
+  width: 100%;
+}
+
+.selectHeader {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  justify-content: space-between;
+  min-height: 42px;
+}
+
+.selectHeader:hover {
+  border-color: #4a90e2;
+}
+
+.selectedValue {
+  flex: 1;
+  margin-right: 8px;
+}
+
+.arrow {
+  color: #666;
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+.optionsList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.option:hover {
+  background: #f5f5f5;
+}
+
+.option.selected {
+  background: #e3f2fd;
+}
+
+.colorDot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin-right: 8px;
+  border: 1px solid #ddd;
+  flex-shrink: 0;
+}
+
+.searchableSelect {
+  position: relative;
+  width: 100%;
+}
+
+.searchableSelect .selectHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  min-height: 42px;
+}
+
+.searchableSelect .selectHeader:hover {
+  border-color: #4a90e2;
+}
+
+.searchableSelect .arrow {
+  color: #666;
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+.searchableSelect .dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 4px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.searchableSelect .searchInput {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  outline: none;
+  font-size: 14px;
+}
+
+.searchableSelect .optionsContainer {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.searchableSelect .categoryGroup {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.searchableSelect .categoryGroup:last-child {
+  border-bottom: none;
+}
+
+.searchableSelect .categoryHeader {
+  padding: 8px 10px;
+  background: #f5f5f5;
+  font-weight: 500;
+  color: #666;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.searchableSelect .option {
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.searchableSelect .option:hover {
+  background-color: #f5f5f5;
+}
+
+.searchableSelect .option.selected {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+/* Стилизация скроллбара */
+.searchableSelect .optionsContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.searchableSelect .optionsContainer::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.searchableSelect .optionsContainer::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.searchableSelect .optionsContainer::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+.radioGroup {
+  display: flex;
+  gap: 20px;
+  margin-top: 5px;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.radioInput {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  margin-right: 8px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.radioInput:checked {
+  border-color: #4a90e2;
+}
+
+.radioInput:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background-color: #4a90e2;
+  border-radius: 50%;
+}
+
+.radioInput:hover {
+  border-color: #4a90e2;
+}
+
+.radioText {
+  font-size: 16px;
+  color: #333;
+}

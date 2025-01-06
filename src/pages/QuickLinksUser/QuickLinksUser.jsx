@@ -1,16 +1,21 @@
 import { useState } from "react";
-import { Button } from "@mui/material";
-import SearchbarBCS from "../../components/SearchbarBCS/SearchbarBCS";
+import { Button, Modal, Box } from "@mui/material";
+import SearchbarUser from "../../components/SearchbarUser/SearchbarUser";
 import Notifications from "../../components/Notifications/Notifications";
 import Settings from "../../components/Settings/Settings";
+import AnimalRegistration from "../../components/AnimalRegistration/AnimalRegistration";
 import styles from "./QuickLinksUser.module.css";
 
-const QuickLinks = () => {
+const QuickLinksUser = () => {
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const handleSearchToggle = () => {
     setIsSearchExpanded(!isSearchExpanded);
   };
+
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
 
   return (
     <div className={styles.quickLinksContainer}>
@@ -22,8 +27,9 @@ const QuickLinks = () => {
               color="primary"
               className={styles.quickLinkButton}
               size="small"
+              onClick={handleOpenModal}
             >
-              Добавить питомца
+              Зарегистрировать питомца
             </Button>
             <Button
               variant="contained"
@@ -54,7 +60,7 @@ const QuickLinks = () => {
             <Notifications />
             <Settings />
             <div className={styles.searchBox}>
-              <SearchbarBCS
+              <SearchbarUser
                 isExpanded={isSearchExpanded}
                 onToggle={handleSearchToggle}
               />
@@ -62,8 +68,18 @@ const QuickLinks = () => {
           </div>
         </div>
       </div>
+
+      <Modal
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="modal-animal-registration"
+      >
+        <Box className={styles.modalBox}>
+          <AnimalRegistration userType="user" onClose={handleCloseModal} />
+        </Box>
+      </Modal>
     </div>
   );
 };
 
-export default QuickLinks;
+export default QuickLinksUser;
