@@ -4,6 +4,7 @@ const ANIMAL_API_URLS = {
   registerAnimal: "/animals/register",
   checkBreederCode: "/animals/check-breeder-code",
   checkParent: "/animals/check-parent",
+  getUserAnimals: "/animals/user",
 };
 
 export const animalService = {
@@ -21,6 +22,11 @@ export const animalService = {
     const response = await api.get(
       `${ANIMAL_API_URLS.checkParent}/${parentId}`
     );
+    return response.data;
+  },
+
+  async getUserAnimals() {
+    const response = await api.get(ANIMAL_API_URLS.getUserAnimals);
     return response.data;
   },
 };

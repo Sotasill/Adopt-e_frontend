@@ -17,22 +17,11 @@ const AuthProvider = ({ children }) => {
         console.log("Decoded token (full):", decodedToken);
 
         // Пытаемся найти данные пользователя в разных местах токена
-        let userData = null;
-        if (decodedToken.user) {
-          console.log("Found user in decodedToken.user:", decodedToken.user);
-          userData = decodedToken.user;
-        } else if (decodedToken.data) {
-          console.log("Found user in decodedToken.data:", decodedToken.data);
+        let userData;
+        if (decodedToken.data) {
           userData = decodedToken.data;
         } else {
-          console.log("Using token data directly");
-          // Если нет специального поля, используем сам токен
-          userData = {
-            id: decodedToken.id || decodedToken._id,
-            username: decodedToken.username,
-            email: decodedToken.email,
-            role: decodedToken.role || decodedToken.userType || "user",
-          };
+          userData = decodedToken;
         }
 
         console.log("Final extracted user data:", userData);

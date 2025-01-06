@@ -14,20 +14,10 @@ export const registerUser = createAsyncThunk(
       }
 
       // Фильтруем данные и добавляем роль для обычного пользователя
-      const { username, email, password } = userData;
       const filteredUserData = {
-        username,
-        email,
-        password,
+        ...userData,
         role: "user",
       };
-
-      console.log("Тип роли:", typeof filteredUserData.role);
-      console.log("Значение роли:", filteredUserData.role);
-      console.log(
-        "Все данные для регистрации:",
-        JSON.stringify(filteredUserData, null, 2)
-      );
 
       const response = await api.post(API_URLS.registerUser, filteredUserData);
       return response.data;
@@ -65,13 +55,6 @@ export const registerBreeder = createAsyncThunk(
         ...breederData,
         role: "breeder",
       };
-
-      console.log("Тип роли заводчика:", typeof breederDataWithRole.role);
-      console.log("Значение роли заводчика:", breederDataWithRole.role);
-      console.log(
-        "Все данные для регистрации заводчика:",
-        JSON.stringify(breederDataWithRole, null, 2)
-      );
 
       const response = await api.post(
         API_URLS.registerBreeder,

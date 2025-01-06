@@ -4,11 +4,13 @@ import SearchbarBCS from "../../components/SearchbarBCS/SearchbarBCS";
 import Notifications from "../../components/Notifications/Notifications";
 import Settings from "../../components/Settings/Settings";
 import AnimalRegistration from "../../components/AnimalRegistration/AnimalRegistration";
+import AnimalsList from "../../components/AnimalsList/AnimalsList";
 import styles from "./QuickLinks.module.css";
 
 const QuickLinks = () => {
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [openAnimalsListModal, setOpenAnimalsListModal] = useState(false);
 
   const handleSearchToggle = () => {
     setIsSearchExpanded(!isSearchExpanded);
@@ -16,6 +18,9 @@ const QuickLinks = () => {
 
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
+
+  const handleOpenAnimalsListModal = () => setOpenAnimalsListModal(true);
+  const handleCloseAnimalsListModal = () => setOpenAnimalsListModal(false);
 
   return (
     <div className={styles.quickLinksContainer}>
@@ -36,6 +41,7 @@ const QuickLinks = () => {
               color="primary"
               className={styles.quickLinkButton}
               size="small"
+              onClick={handleOpenAnimalsListModal}
             >
               Просмотр животных
             </Button>
@@ -76,6 +82,16 @@ const QuickLinks = () => {
       >
         <Box className={styles.modalBox}>
           <AnimalRegistration userType="breeder" onClose={handleCloseModal} />
+        </Box>
+      </Modal>
+
+      <Modal
+        open={openAnimalsListModal}
+        onClose={handleCloseAnimalsListModal}
+        aria-labelledby="modal-animals-list"
+      >
+        <Box className={styles.modalBox}>
+          <AnimalsList />
         </Box>
       </Modal>
     </div>

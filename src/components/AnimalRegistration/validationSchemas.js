@@ -14,18 +14,23 @@ const getMinDate = () => {
 };
 
 // Константы для валидации
+const SEX_OPTIONS = {
+  male: { label: "Male (Самец)" },
+  female: { label: "Female (Самка)" },
+};
+
 const EYE_COLORS = {
-  aqua: { label: "Аква", color: "#00ffff" },
-  blue: { label: "Голубой", color: "#0000ff" },
-  cooper: { label: "Медный", color: "#b87333" },
-  gold: { label: "Золотой", color: "#ffd700" },
-  hazel: { label: "Ореховый", color: "#8e7618" },
+  aqua: { label: "Aqua", color: "#00ffff" },
+  blue: { label: "Blue", color: "#0000ff" },
+  cooper: { label: "Cooper", color: "#b87333" },
+  gold: { label: "Gold", color: "#ffd700" },
+  hazel: { label: "Hazel", color: "#8e7618" },
   oddEyed: {
-    label: "Разные глаза",
+    label: "Odd-eyed",
     color: "linear-gradient(to right, #0000ff 50%, #8e7618 50%)",
   },
-  pink: { label: "Розовый", color: "#ffc0cb" },
-  unknown: { label: "Неизвестно", color: "#808080" },
+  pink: { label: "Pink", color: "#ffc0cb" },
+  unknown: { label: "Unknown", color: "#808080" },
 };
 
 // Константы для цветов шерсти
@@ -90,12 +95,58 @@ const FUR_TYPES = {
   plush: { label: "Plush (Плюшевый)" },
 };
 
+// Функция для проверки уникальности имени животного
+const checkNameUniqueness = async (name) => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await fetch(
+      "http://localhost:3000/api/animals/check-name",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ name }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.status === "success") {
+      return !data.data.exists; // Возвращаем true если имя уникально (exists: false)
+    }
+
+    console.error("Ошибка при проверке имени:", data);
+    return false; // В случае неуспешного ответа считаем имя неуникальным
+  } catch (error) {
+    console.error("Ошибка при проверке имени:", error);
+    return false; // В случае ошибки считаем имя неуникальным
+  }
+};
+
 // Схема валидации для формы регистрации животного
 export const animalRegistrationSchema = Yup.object().shape({
   name: Yup.string()
     .required("Кличка обязательна")
     .min(2, "Минимум 2 символа")
-    .max(50, "Максимум 50 символов"),
+    .max(50, "Максимум 50 символов")
+    .matches(
+      /^[A-Z][a-z]+$/,
+      "Кличка должна начинаться с большой буквы и содержать только латинские буквы"
+    )
+    .test(
+      "name-unique",
+      "У вас уже есть животное с таким именем",
+      async (value) => {
+        if (!value) return true;
+        return await checkNameUniqueness(value);
+      }
+    ),
+
+  sex: Yup.string()
+    .required("Пол животного обязателен")
+    .oneOf(["male", "female"], "Пол животного должен быть male или female"),
 
   breed: Yup.string()
     .required("Порода обязательна")
@@ -120,4 +171,4 @@ export const animalRegistrationSchema = Yup.object().shape({
 });
 
 // Экспортируем константы для использования в компоненте
-export { EYE_COLORS, FUR_COLORS, FUR_TYPES };
+export { EYE_COLORS, FUR_COLORS, FUR_TYPES, SEX_OPTIONS };

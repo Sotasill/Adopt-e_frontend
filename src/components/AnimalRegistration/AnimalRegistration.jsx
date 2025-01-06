@@ -462,6 +462,41 @@ AnimalTypeSelect.propTypes = {
   form: PropTypes.object.isRequired,
 };
 
+// Компонент для выбора пола животного
+const SexSelect = ({ field, form }) => {
+  return (
+    <div className={styles.radioGroup}>
+      <label className={styles.radioLabel}>
+        <input
+          type="radio"
+          name={field.name}
+          value="male"
+          checked={field.value === "male"}
+          onChange={() => form.setFieldValue(field.name, "male")}
+          className={styles.radioInput}
+        />
+        <span className={styles.radioText}>Male (Самец)</span>
+      </label>
+      <label className={styles.radioLabel}>
+        <input
+          type="radio"
+          name={field.name}
+          value="female"
+          checked={field.value === "female"}
+          onChange={() => form.setFieldValue(field.name, "female")}
+          className={styles.radioInput}
+        />
+        <span className={styles.radioText}>Female (Самка)</span>
+      </label>
+    </div>
+  );
+};
+
+SexSelect.propTypes = {
+  field: PropTypes.object.isRequired,
+  form: PropTypes.object.isRequired,
+};
+
 const AnimalRegistration = ({ onClose }) => {
   // Состояние для типа регистрации
   const [registrationType, setRegistrationType] = useState(null);
@@ -648,14 +683,7 @@ const AnimalRegistration = ({ onClose }) => {
         type: values.type,
       };
 
-      // Подробное логирование перед отправкой
-      console.log("=== Данные для отправки ===");
-      console.log("JSON данные:", jsonData);
-      console.log("Строка JSON:", JSON.stringify(jsonData));
-      console.log("Content-Type:", "application/json");
-
       const token = localStorage.getItem("token");
-      console.log("Токен авторизации:", token ? "Присутствует" : "Отсутствует");
 
       const response = await fetch("http://localhost:3000/api/animals", {
         method: "POST",
@@ -666,15 +694,7 @@ const AnimalRegistration = ({ onClose }) => {
         body: JSON.stringify(jsonData),
       });
 
-      console.log("=== Ответ сервера ===");
-      console.log("Статус ответа:", response.status);
-      console.log(
-        "Заголовки ответа:",
-        Object.fromEntries(response.headers.entries())
-      );
-
       const data = await response.json();
-      console.log("Тело ответа:", data);
 
       if (!response.ok) {
         throw new Error(data.message || "Ошибка при регистрации животного");
@@ -911,6 +931,21 @@ const AnimalRegistration = ({ onClose }) => {
                   </Field>
                   <ErrorMessage
                     name="type"
+                    render={(msg) => (
+                      <span className={styles.errorText}>{msg}</span>
+                    )}
+                  />
+                </div>
+
+                <div className={styles.inputGroup}>
+                  <label htmlFor="sex">Пол животного*:</label>
+                  <Field name="sex">
+                    {({ field, form }) => (
+                      <SexSelect field={field} form={form} />
+                    )}
+                  </Field>
+                  <ErrorMessage
+                    name="sex"
                     render={(msg) => (
                       <span className={styles.errorText}>{msg}</span>
                     )}
