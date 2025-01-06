@@ -89,9 +89,14 @@ const QuickLinks = () => {
         open={openAnimalsListModal}
         onClose={handleCloseAnimalsListModal}
         aria-labelledby="modal-animals-list"
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
       >
-        <Box className={styles.modalBox}>
-          <AnimalsList />
+        <Box sx={{ width: "100%", height: "100%" }}>
+          <AnimalsList onClose={handleCloseAnimalsListModal} />
         </Box>
       </Modal>
     </div>

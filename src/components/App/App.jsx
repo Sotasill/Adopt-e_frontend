@@ -10,6 +10,7 @@ import MainBCS from "../../pages/MainBCS/MainBCS";
 import MainUserSystem from "../../pages/MainUserSysytem/MainUserSysytem";
 import AuthProvider from "../AuthProvider/AuthProvider";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import AnimalDetails from "../AnimalDetails/AnimalDetails";
 
 // Определяем разрешенные маршруты для каждой роли
 const ROLE_ROUTES = {
@@ -97,6 +98,7 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+          <Route path="/animals/:id" element={<AnimalDetails />} />
           {/* Перенаправляем все неизвестные маршруты на домашнюю страницу */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
