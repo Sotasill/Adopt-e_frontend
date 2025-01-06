@@ -1,0 +1,43 @@
+.notifications {
+  display: inline-block;
+}
+
+.notificationButton {
+  padding: 8px;
+}
+
+.notificationButton:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.notificationMenu {
+  margin-top: 8px;
+}
+
+/* Стили для выпадающего меню */
+.notificationMenu :global(.MuiPaper-root) {
+  min-width: 300px;
+  max-width: 400px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.notificationItem {
+  padding: 12px 16px !important;
+  white-space: normal !important;
+}
+
+.notificationItem:hover {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+.notificationTitle {
+  font-weight: 600 !important;
+  margin-bottom: 4px !important;
+}
+
+.notificationText {
+  color: rgba(0, 0, 0, 0.7) !important;
+  margin-bottom: 4px !important;
+  line-height: 1.4 !important;
+}

@@ -19,21 +19,53 @@ const LoginForm = () => {
     error: authError,
     loading,
     isAuthenticated,
+    user,
   } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // Следим за изменением статуса аутентификации
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && user) {
+      console.log("Login successful, user data:", {
+        user,
+        isAuthenticated,
+        role: user.role,
+        roleType: typeof user.role,
+      });
+
+      const redirectUser = () => {
+        if (!user.role) {
+          console.error("Роль пользователя не определена");
+          toast.error("Ошибка: роль пользователя не определена");
+          return;
+        }
+
+        const userRole = user.role.toLowerCase();
+        console.log("Redirecting user with role:", {
+          originalRole: user.role,
+          normalizedRole: userRole,
+        });
+
+        switch (userRole) {
+          case "breeder":
+            navigate("/mainbcs");
+            break;
+          case "user":
+            navigate("/mainusersystem");
+            break;
+          default:
+            console.error("Неизвестная роль пользователя:", user.role);
+            toast.error("Ошибка: неизвестная роль пользователя");
+        }
+      };
+
       toast.success("Вход выполнен успешно!");
-      const timer = setTimeout(() => {
-        navigate("/mainbcs");
-      }, 500);
+      const timer = setTimeout(redirectUser, 500);
 
       return () => clearTimeout(timer);
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate, user]);
 
   // Следим за ошибками аутентификации
   useEffect(() => {
@@ -49,11 +81,29 @@ const LoginForm = () => {
 
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
     try {
-      await dispatch(
+      console.log("Attempting login with credentials:", {
+        username: values.username,
+        hasPassword: !!values.password,
+      });
+
+      const response = await dispatch(
         login({ username: values.username, password: values.password })
       );
+
+      console.log("Login response:", {
+        success: !!response,
+        userData: response?.user,
+        userRole: response?.user?.role,
+      });
+
       saveCredentials(values);
     } catch (err) {
+      console.error("Login error details:", {
+        error: err,
+        message: err.message,
+        stack: err.stack,
+      });
+
       const userFriendlyMessage = getErrorMessage(err.message);
       toast.error(userFriendlyMessage);
 
@@ -62,8 +112,6 @@ const LoginForm = () => {
       } else if (userFriendlyMessage === "Пользователь не найден") {
         setFieldError("username", "Пользователь с таким именем не найден");
       }
-
-      console.error("Ошибка входа:", err);
     } finally {
       setSubmitting(false);
     }

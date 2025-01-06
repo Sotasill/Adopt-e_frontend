@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { Toaster } from "react-hot-toast";
@@ -7,20 +7,45 @@ import HomePage from "../../pages/HomePage/HomePage";
 import RegistrationPage from "../../pages/RegistrationPage/RegistrationPage";
 import LoginPage from "../../pages/LoginPage/LoginPage";
 import MainBCS from "../../pages/MainBCS/MainBCS";
+import MainUserSystem from "../../pages/MainUserSysytem/MainUserSysytem";
 import AuthProvider from "../AuthProvider/AuthProvider";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
-const PrivateRoute = ({ children }) => {
-  const { isAuthenticated } = useSelector((state) => state.auth);
-  return isAuthenticated ? children : <Navigate to="/login" />;
+// Определяем разрешенные маршруты для каждой роли
+const ROLE_ROUTES = {
+  user: ["/mainusersystem"],
+  breeder: ["/mainbcs"],
 };
 
 const PublicRoute = ({ children }) => {
-  const { isAuthenticated } = useSelector((state) => state.auth);
-  return children;
-};
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const location = useLocation();
 
-PrivateRoute.propTypes = {
-  children: PropTypes.node.isRequired,
+  console.log("PublicRoute check:", {
+    isAuthenticated,
+    user,
+    currentPath: location.pathname,
+    userRole: user?.role,
+  });
+
+  if (isAuthenticated && user) {
+    const userRole = user.role?.toLowerCase();
+    const allowedRoutes = ROLE_ROUTES[userRole] || [];
+
+    console.log("Redirecting authenticated user:", {
+      role: userRole,
+      allowedRoutes,
+      currentPath: location.pathname,
+    });
+
+    // Перенаправляем на первый разрешенный маршрут для роли
+    if (allowedRoutes.length > 0) {
+      return <Navigate to={allowedRoutes[0]} replace />;
+    }
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
 };
 
 PublicRoute.propTypes = {
@@ -57,13 +82,23 @@ const App = () => {
             }
           />
           <Route
-            path="/MainBCS"
+            path="/mainbcs/*"
             element={
-              <PrivateRoute>
+              <ProtectedRoute allowedRoles={["breeder", "Breeder", "BREEDER"]}>
                 <MainBCS />
-              </PrivateRoute>
+              </ProtectedRoute>
             }
           />
+          <Route
+            path="/mainusersystem/*"
+            element={
+              <ProtectedRoute allowedRoles={["user", "User", "USER"]}>
+                <MainUserSystem />
+              </ProtectedRoute>
+            }
+          />
+          {/* Перенаправляем все неизвестные маршруты на домашнюю страницу */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         <Toaster position="top-right" />
       </Layout>

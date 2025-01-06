@@ -1,0 +1,22 @@
+.settings {
+  display: inline-block;
+}
+
+.settingsButton {
+  padding: 8px;
+}
+
+.settingsButton:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.settingsMenu {
+  margin-top: 8px;
+}
+
+/* Стили для выпадающего меню */
+.settingsMenu :global(.MuiPaper-root) {
+  min-width: 200px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}

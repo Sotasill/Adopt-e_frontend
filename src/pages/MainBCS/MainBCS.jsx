@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileOverview from "../ProfileOverviewBCS/ProfileOverviewBCS";
 import QuickLinks from "../QuickLinksBCS/QuickLinks";
 import Navigation from "../../components/NavigationBCS/NavigationBCS";
 import AvatarEditorComponent from "../../components/AvatarEditor/AvatarEditor";
-import { Container, Modal, Typography } from "@mui/material";
+import { Container, Modal, Typography, IconButton } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import {
   updateAvatar,
   updateProfileBackground,
@@ -18,7 +19,32 @@ const MainBCSPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isBackgroundEditing, setIsBackgroundEditing] = useState(false);
   const [selectedBackground, setSelectedBackground] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  // Закрываем сайдбар при клике вне его на мобильных устройствах
+  const handleClickOutside = useCallback((event) => {
+    const sidebar = document.querySelector(`.${styles.sidebar}`);
+    const menuButton = document.querySelector(`.${styles.menuButton}`);
+
+    if (
+      window.innerWidth <= 760 &&
+      sidebar &&
+      !sidebar.contains(event.target) &&
+      menuButton &&
+      !menuButton.contains(event.target)
+    ) {
+      setIsSidebarOpen(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [handleClickOutside]);
+
+  // Обработчики для изображений
   const handleImageSelect = (event) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
@@ -61,11 +87,22 @@ const MainBCSPage = () => {
 
   return (
     <div className={styles.mainContainer}>
-      <aside className={styles.sidebar}>
+      <aside
+        className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ""}`}
+        onMouseEnter={() => window.innerWidth > 760 && setIsSidebarOpen(true)}
+        onMouseLeave={() => window.innerWidth > 760 && setIsSidebarOpen(false)}
+      >
         <Navigation />
       </aside>
 
       <main className={styles.mainContent}>
+        <IconButton
+          className={styles.menuButton}
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        >
+          <MenuIcon />
+        </IconButton>
+
         <Modal
           open={isEditing}
           onClose={() => setIsEditing(false)}
@@ -99,15 +136,17 @@ const MainBCSPage = () => {
         </Modal>
 
         <Container>
-          <QuickLinks />
           <div className={styles.welcomeBlock}>
             <Typography variant="h4" className={styles.welcomeTitle}>
               Welcome to Breeder Control System,{" "}
-              <span className={styles.userName}>{user?.name || "User"}</span>
+              <span className={styles.userName}>
+                {user?.username || "User"} (ID: {user?.userId || "N/A"})
+              </span>
             </Typography>
             <Typography variant="h5" className={styles.welcomeSubtitle}>
               Manage your breeding program efficiently
             </Typography>
+            <QuickLinks />
           </div>
           <ProfileOverview
             onAvatarClick={() =>

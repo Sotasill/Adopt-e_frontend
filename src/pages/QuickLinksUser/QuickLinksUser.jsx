@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import SearchbarBCS from "../../components/SearchbarBCS/SearchbarBCS";
 import Notifications from "../../components/Notifications/Notifications";
 import Settings from "../../components/Settings/Settings";
-import styles from "./QuickLinks.module.css";
+import styles from "./QuickLinksUser.module.css";
 
 const QuickLinks = () => {
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
@@ -23,7 +23,7 @@ const QuickLinks = () => {
               className={styles.quickLinkButton}
               size="small"
             >
-              Добавить животное
+              Добавить питомца
             </Button>
             <Button
               variant="contained"
@@ -31,7 +31,7 @@ const QuickLinks = () => {
               className={styles.quickLinkButton}
               size="small"
             >
-              Просмотр животных
+              Мои питомцы
             </Button>
             <Button
               variant="contained"

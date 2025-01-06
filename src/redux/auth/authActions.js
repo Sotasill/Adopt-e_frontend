@@ -71,12 +71,27 @@ export const updateAvatarFailure = (error) => ({
 export const login = (credentials) => async (dispatch) => {
   try {
     const response = await authService.login(credentials);
-    dispatch(loginSuccess(response.user));
+    const { token, user } = response;
+
+    if (!token || !user) {
+      throw new Error("Неверный формат ответа от сервера");
+    }
+
+    // Проверяем и нормализуем роль пользователя
+    if (user && !user.role) {
+      user.role = user.userType || user.type || "user";
+    }
+
+    // Сохраняем токен
+    localStorage.setItem("token", token);
+
+    // Обновляем состояние
+    dispatch(loginSuccess(user));
     dispatch(setAuthenticated(true));
-    return response;
+
+    return { user, token };
   } catch (error) {
     dispatch(loginFailure(error.message));
-    dispatch(setAuthenticated(false));
     throw error;
   }
 };

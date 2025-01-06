@@ -9,6 +9,8 @@ import {
   registerUser,
   registerBreeder,
 } from "../../redux/registration/registrationThunks";
+import { login } from "../../redux/auth/authActions";
+import { addNotification } from "../../redux/notifications/notificationsSlice";
 import {
   selectRegistrationLoading,
   selectRegistrationError,
@@ -205,29 +207,6 @@ const RegistrationForm = () => {
   const error = useSelector(selectRegistrationError);
   const success = useSelector(selectRegistrationSuccess);
 
-  useEffect(() => {
-    if (success) {
-      toast.success(
-        "Регистрация прошла успешно! Перенаправление на страницу входа...",
-        {
-          duration: 3000,
-          position: "top-center",
-          style: {
-            background: "#4caf50",
-            color: "#fff",
-            fontSize: "16px",
-            padding: "16px",
-            borderRadius: "8px",
-          },
-        }
-      );
-      const timer = setTimeout(() => {
-        navigate("/login");
-      }, 500);
-      return () => clearTimeout(timer);
-    }
-  }, [success, navigate]);
-
   const initialValues = {
     username: "",
     email: "",
@@ -242,25 +221,77 @@ const RegistrationForm = () => {
   const handleSubmit = async (values, { setSubmitting, setStatus }) => {
     try {
       setStatus(null);
+
       if (values.role === "breeder") {
-        await dispatch(registerBreeder(values)).unwrap();
+        const breederData = {
+          username: values.username,
+          email: values.email,
+          password: values.password,
+          companyName: values.companyName,
+          address: values.address,
+          country: values.country,
+          specialization: values.specialization,
+        };
+        await dispatch(registerBreeder(breederData));
       } else {
-        await dispatch(registerUser(values)).unwrap();
+        const userData = {
+          username: values.username,
+          email: values.email,
+          password: values.password,
+        };
+        await dispatch(registerUser(userData));
       }
-    } catch (err) {
-      toast.error(err.message || "Произошла ошибка при регистрации", {
+
+      toast.success("Регистрация прошла успешно!", {
         duration: 3000,
         position: "top-center",
         style: {
-          background: "#f44336",
+          background: "#4caf50",
           color: "#fff",
           fontSize: "16px",
           padding: "16px",
           borderRadius: "8px",
         },
       });
-      setStatus(err.message || "Произошла ошибка при регистрации");
-      console.error("Ошибка при регистрации:", err);
+
+      // Добавляем приветственное уведомление
+      dispatch(
+        addNotification({
+          id: Date.now(),
+          title: "Добро пожаловать!",
+          message: `Здравствуйте, ${
+            values.username
+          }! Мы рады приветствовать вас на нашей платформе. Здесь вы найдете все необходимые инструменты для ${
+            values.role === "breeder"
+              ? "управления вашим питомником"
+              : "заботы о ваших питомцах"
+          }. Если у вас возникнут вопросы, наша служба поддержки всегда готова помочь.`,
+          timestamp: new Date().toISOString(),
+        })
+      );
+
+      // Делаем небольшую задержку перед входом
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      const loginResult = await dispatch(
+        login({
+          username: values.username,
+          password: values.password,
+        })
+      );
+
+      if (loginResult?.payload?.user) {
+        const userRole = loginResult.payload.user.role.toLowerCase();
+        const redirectPath =
+          userRole === "breeder" ? "/mainbcs" : "/mainusersystem";
+        navigate(redirectPath);
+      }
+    } catch (error) {
+      console.error("Registration/Login error:", error);
+      setStatus("Ошибка при регистрации");
+      toast.error(
+        error.response?.data?.message || "Произошла ошибка при регистрации"
+      );
     } finally {
       setSubmitting(false);
     }
@@ -277,7 +308,7 @@ const RegistrationForm = () => {
           <Form className={styles.registrationForm}>
             <h2>Регистрация</h2>
             {status && <div className={styles.error}>{status}</div>}
-            {error && <div className={styles.error}>{error}</div>}
+            {error && <div className={styles.error}>{error.toString()}</div>}
 
             <div className={styles.formGroup}>
               <label htmlFor="role">Тип пользователя:</label>
