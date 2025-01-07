@@ -77,15 +77,14 @@ export const login = (credentials) => async (dispatch) => {
       throw new Error("Неверный формат ответа от сервера");
     }
 
-    // Проверяем и нормализуем роль пользователя
     if (user && !user.role) {
       user.role = user.userType || user.type || "user";
     }
 
-    // Сохраняем токен
+    user.role = user.role.toLowerCase();
     localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(user));
 
-    // Обновляем состояние
     dispatch(loginSuccess(user));
     dispatch(setAuthenticated(true));
 
@@ -99,10 +98,28 @@ export const login = (credentials) => async (dispatch) => {
 export const refreshToken = () => async (dispatch) => {
   try {
     const response = await authService.refreshToken();
-    dispatch(refreshTokenSuccess(response.token));
+    const { token, user } = response;
+
+    if (token) {
+      localStorage.setItem("token", token);
+
+      // Если с новым токеном пришли обновленные данные пользователя
+      if (user) {
+        localStorage.setItem("user", JSON.stringify(user));
+        dispatch(setUser(user));
+      }
+
+      dispatch(refreshTokenSuccess(token));
+    }
+
     return response;
   } catch (error) {
     dispatch(refreshTokenFailure());
+    // При ошибке обновления токена очищаем все данные
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    dispatch(setAuthenticated(false));
+    dispatch(setUser(null));
     throw error;
   }
 };

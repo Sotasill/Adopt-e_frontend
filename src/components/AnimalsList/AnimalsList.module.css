@@ -211,3 +211,44 @@
 .clickableRow:hover {
   background-color: rgba(0, 0, 0, 0.04);
 }
+
+.responsiveTable {
+  width: 100%;
+}
+
+.responsiveRow {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.responsiveCell {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+}
+
+.responsiveCell[data-label]::before {
+  content: attr(data-label);
+  font-weight: bold;
+  margin-right: 10px;
+  min-width: 120px;
+}
+
+@media (max-width: 768px) {
+  .responsiveRow {
+    margin-bottom: 16px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .responsiveCell {
+    border-bottom: 1px solid #eee;
+  }
+
+  .responsiveCell:last-child {
+    border-bottom: none;
+  }
+}

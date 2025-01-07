@@ -1,12 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import {
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  
-} from "@mui/material";
+import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import PetsIcon from "@mui/icons-material/Pets";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -30,7 +24,7 @@ const Navigation = () => {
 
   return (
     <List component="nav" sx={{ width: "100%" }}>
-      <ListItem button component={Link} to="/">
+      <ListItem component={Link} to="/" sx={{ cursor: "pointer" }}>
         <ListItemIcon>
           <HomeIcon />
         </ListItemIcon>
@@ -39,28 +33,28 @@ const Navigation = () => {
 
       {isAuthenticated && (
         <>
-          <ListItem button component={Link} to="/pets">
+          <ListItem component={Link} to="/pets" sx={{ cursor: "pointer" }}>
             <ListItemIcon>
               <PetsIcon />
             </ListItemIcon>
             <ListItemText primary="Мои питомцы" />
           </ListItem>
 
-          <ListItem button component={Link} to="/calendar">
+          <ListItem component={Link} to="/calendar" sx={{ cursor: "pointer" }}>
             <ListItemIcon>
               <CalendarMonthIcon />
             </ListItemIcon>
             <ListItemText primary="Календарь" />
           </ListItem>
 
-          <ListItem button component={Link} to="/settings">
+          <ListItem component={Link} to="/settings" sx={{ cursor: "pointer" }}>
             <ListItemIcon>
               <SettingsIcon />
             </ListItemIcon>
             <ListItemText primary="Настройки" />
           </ListItem>
 
-          <ListItem button onClick={handleLogout}>
+          <ListItem onClick={handleLogout} sx={{ cursor: "pointer" }}>
             <ListItemIcon>
               <LogoutIcon />
             </ListItemIcon>

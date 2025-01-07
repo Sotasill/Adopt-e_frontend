@@ -7,43 +7,45 @@ const AuthProvider = ({ children }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    console.log("Current token:", token);
+    const initializeAuth = () => {
+      const token = localStorage.getItem("token");
+      const storedUser = localStorage.getItem("user");
 
-    if (token) {
+      if (!token) {
+        dispatch(setAuth(false));
+        dispatch(setUser(null));
+        return;
+      }
+
       try {
-        // Декодируем токен для получения данных пользователя
-        const decodedToken = jwtDecode(token);
-        console.log("Decoded token (full):", decodedToken);
-
-        // Пытаемся найти данные пользователя в разных местах токена
-        let userData;
-        if (decodedToken.data) {
-          userData = decodedToken.data;
-        } else {
-          userData = decodedToken;
+        let userData = null;
+        if (storedUser) {
+          userData = JSON.parse(storedUser);
         }
 
-        console.log("Final extracted user data:", userData);
+        if (!userData) {
+          const decodedToken = jwtDecode(token);
+          userData = decodedToken.data || decodedToken;
+        }
 
         if (!userData || !userData.role) {
-          console.error("Missing required user data:", userData);
-          throw new Error("Не удалось получить данные пользователя из токена");
+          throw new Error("Не удалось получить данные пользователя");
         }
 
-        console.log("Setting user data in Redux:", userData);
-        // Устанавливаем данные пользователя в Redux
+        userData.role = userData.role.toLowerCase();
+        localStorage.setItem("user", JSON.stringify(userData));
+
         dispatch(setUser(userData));
         dispatch(setAuth(true));
       } catch (error) {
-        console.error("Detailed error when decoding token:", error);
         localStorage.removeItem("token");
+        localStorage.removeItem("user");
         dispatch(setAuth(false));
         dispatch(setUser(null));
       }
-    } else {
-      console.log("No token found in localStorage");
-    }
+    };
+
+    initializeAuth();
   }, [dispatch]);
 
   return children;

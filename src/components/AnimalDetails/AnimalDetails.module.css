@@ -13,6 +13,7 @@
   height: auto !important;
   aspect-ratio: 1;
   border-radius: 8px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .loader {
@@ -20,4 +21,366 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.actionButtons {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.statusChip {
+  margin-top: 8px;
+  width: 100%;
+}
+
+.sectionPaper {
+  padding: 16px;
+  height: 100%;
+}
+
+.sectionPaper h6 {
+  margin-bottom: 16px;
+  color: #1976d2;
+  border-bottom: 2px solid #1976d2;
+  padding-bottom: 8px;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 16px;
+  }
+
+  .paper {
+    padding: 16px;
+  }
+
+  .actionButtons {
+    flex-direction: column;
+  }
+
+  .actionButtons button {
+    width: 100%;
+  }
+}
+
+/* Анимация при наведении на карточки */
+.sectionPaper {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.sectionPaper:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для списков */
+.sectionPaper ul {
+  margin: 0;
+  padding: 0;
+}
+
+.sectionPaper li {
+  border-bottom: 1px solid #eee;
+  padding: 8px 0;
+}
+
+.sectionPaper li:last-child {
+  border-bottom: none;
+}
+
+.notesHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.notesTextField {
+  margin-top: 8px;
+}
+
+.notesText {
+  min-height: 100px;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.notesText:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* Стили для пустых заметок */
+.notesText:empty::before {
+  content: "Нажмите для добавления заметок";
+  color: #666;
+  font-style: italic;
+}
+
+.editableFieldsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.editableField {
+  margin-bottom: 8px;
+}
+
+.litterTrainingField {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 0;
+}
+
+.litterButton {
+  min-width: 80px !important;
+}
+
+.habitField {
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.habitField:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* Стили для пустых полей */
+.habitField:empty::before {
+  content: "Нажмите для добавления информации";
+  color: #666;
+  font-style: italic;
+}
+
+.medicalSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.addButton {
+  align-self: flex-start;
+  margin-bottom: 8px !important;
+}
+
+.medicalList {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  padding: 8px !important;
+}
+
+.medicalList .MuiListItem-root {
+  background-color: white;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.medicalList .MuiListItem-root:last-child {
+  margin-bottom: 0;
+}
+
+.dialogContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 300px;
+  padding: 16px 0;
+}
+
+/* Стили для полей даты */
+.dialogContent .MuiTextField-root {
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .medicalSection {
+    gap: 8px;
+  }
+
+  .medicalList {
+    padding: 4px !important;
+  }
+
+  .dialogContent {
+    min-width: 250px;
+  }
+}
+
+.treatmentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.treatmentPosts {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.treatmentPost {
+  padding: 16px;
+  background-color: #fff;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.treatmentPost:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.treatmentPostHeader {
+  margin-bottom: 12px;
+  color: #666;
+}
+
+.treatmentPostContent {
+  margin-bottom: 16px;
+  white-space: pre-wrap;
+}
+
+.treatmentPostImages {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.treatmentImage {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.treatmentImage:hover {
+  transform: scale(1.05);
+}
+
+.treatmentPostForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 0;
+}
+
+.imageUploadSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.imagePreviewContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.imagePreviewWrapper {
+  position: relative;
+}
+
+.imagePreview {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.removeImageButton {
+  position: absolute !important;
+  top: 4px;
+  right: 4px;
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  padding: 4px !important;
+}
+
+.removeImageButton:hover {
+  background-color: rgba(255, 255, 255, 1) !important;
+}
+
+@media (max-width: 600px) {
+  .treatmentPostImages {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+
+  .treatmentImage {
+    height: 100px;
+  }
+
+  .imagePreviewContainer {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  }
+
+  .imagePreview {
+    height: 80px;
+  }
+}
+
+.imageSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.galleryContainer {
+  width: 100%;
+  margin-top: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.avatar {
+  width: 200px !important;
+  height: 200px !important;
+  margin-bottom: 16px;
+}
+
+/* Стили для галереи */
+:global(.image-gallery-slide) {
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+:global(.image-gallery-thumbnail) {
+  border-radius: 4px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+:global(.image-gallery-thumbnail:hover) {
+  transform: scale(1.05);
+}
+
+:global(.image-gallery-thumbnail.active) {
+  border: 2px solid #1976d2;
+}
+
+/* Стили для кнопок галереи */
+:global(.image-gallery-icon) {
+  color: #fff;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
+}
+
+:global(.image-gallery-bullet) {
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+:global(.image-gallery-bullet.active) {
+  background-color: #1976d2;
 }

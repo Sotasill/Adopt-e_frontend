@@ -181,7 +181,7 @@ const AnimalsList = ({ onClose }) => {
   const renderMobileView = () => (
     <div className={styles.responsiveTable}>
       {animals.map((animal) => (
-        <div key={animal.id} className={styles.responsiveTable}>
+        <div key={animal.id} className={styles.responsiveRow}>
           <div className={styles.responsiveCell}>
             <Avatar
               src={getDefaultImage(animal.species)}
@@ -195,11 +195,15 @@ const AnimalsList = ({ onClose }) => {
               </Typography>
             </div>
           </div>
-          <TableCell data-label="Порода">{animal.breed}</TableCell>
-          <TableCell data-label="Пол">{animal.sex}</TableCell>
-          <TableCell data-label="Дата рождения">
+          <div className={styles.responsiveCell} data-label="Порода">
+            {animal.breed}
+          </div>
+          <div className={styles.responsiveCell} data-label="Пол">
+            {animal.sex}
+          </div>
+          <div className={styles.responsiveCell} data-label="Дата рождения">
             {formatDate(animal.birthDate)}
-          </TableCell>
+          </div>
         </div>
       ))}
     </div>

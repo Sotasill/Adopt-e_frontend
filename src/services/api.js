@@ -25,10 +25,9 @@ export const API_URLS = {
 // Проверка доступности сервера
 export const checkServerAvailability = async () => {
   try {
-    await api.get("/health"); // Предполагаем, что есть эндпоинт для проверки здоровья сервера
+    await api.get("/health");
     return true;
   } catch (error) {
-    console.error("Сервер недоступен:", error.message);
     return false;
   }
 };
@@ -37,8 +36,23 @@ export const checkServerAvailability = async () => {
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
-    if (token) {
+    const user = localStorage.getItem("user");
+
+    // Публичные эндпоинты, не требующие авторизации
+    const publicEndpoints = [
+      API_URLS.login,
+      API_URLS.registerBreeder,
+      API_URLS.registerUser,
+      API_URLS.refresh,
+      "/health",
+    ];
+
+    if (token && user) {
       config.headers.Authorization = `Bearer ${token}`;
+    } else if (!publicEndpoints.includes(config.url)) {
+      // Если нет токена и пользователя, и это не публичный эндпоинт
+      window.location.href = "/login";
+      return Promise.reject("Не авторизован");
     }
     return config;
   },
@@ -51,7 +65,6 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
-    // Если нет ответа от сервера вообще
     if (!error.response) {
       throw new Error(
         "Сервер недоступен. Пожалуйста, проверьте подключение к интернету или попробуйте позже."
@@ -60,7 +73,7 @@ api.interceptors.response.use(
 
     const originalRequest = error.config;
 
-    // Если ошибка 401 и это не запрос на обновление токена
+    // Проверяем, является ли ошибка связанной с авторизацией
     if (
       error.response?.status === 401 &&
       !originalRequest._retry &&
@@ -87,16 +100,28 @@ api.interceptors.response.use(
         const response = await dispatch(refreshToken());
         const { token } = response;
 
+        if (!token) {
+          throw new Error("Не удалось обновить токен");
+        }
+
+        // Обновляем заголовок авторизации для текущего запроса
+        originalRequest.headers.Authorization = `Bearer ${token}`;
+
         isRefreshing = false;
         processQueue(null, token);
 
+        // Повторяем оригинальный запрос с новым токеном
         return api(originalRequest);
       } catch (refreshError) {
         isRefreshing = false;
         processQueue(refreshError, null);
 
-        store.dispatch(logout());
+        // Очищаем данные пользователя
         localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        store.dispatch(logout());
+
+        // Перенаправляем на страницу входа
         window.location.href = "/login";
 
         return Promise.reject(refreshError);
@@ -106,7 +131,6 @@ api.interceptors.response.use(
     // Обработка других ошибок
     let errorMessage = error.response?.data?.message || error.message;
 
-    // Специфичные сообщения об ошибках
     switch (error.response?.status) {
       case 400:
         errorMessage = error.response.data.message || "Неверный запрос";
