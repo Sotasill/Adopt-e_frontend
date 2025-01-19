@@ -337,10 +337,17 @@
 }
 
 .galleryContainer {
+  margin-top: 20px;
   width: 100%;
-  margin-top: 16px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.customGallery {
+  background-color: #fff;
   border-radius: 8px;
-  overflow: hidden;
+  padding: 16px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -383,4 +390,9 @@
 
 :global(.image-gallery-bullet.active) {
   background-color: #1976d2;
+}
+
+:global(.image-gallery-image) {
+  max-height: 400px;
+  object-fit: contain;
 }

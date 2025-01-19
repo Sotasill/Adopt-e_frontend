@@ -37,7 +37,7 @@ const AuthProvider = ({ children }) => {
 
         dispatch(setUser(userData));
         dispatch(setAuth(true));
-      } catch (error) {
+      } catch  {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         dispatch(setAuth(false));

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { toast } from "react-hot-toast";
+import { toast } from "sonner";
 import PropTypes from "prop-types";
 import {
   animalRegistrationSchema,

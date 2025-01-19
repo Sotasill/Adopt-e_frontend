@@ -5,9 +5,6 @@ import { refreshToken, logout } from "../redux/auth/authActions";
 // Создаем экземпляр axios с базовой конфигурацией
 const api = axios.create({
   baseURL: "http://localhost:3000/api",
-  headers: {
-    "Content-Type": "application/json",
-  },
   timeout: 5000, // Таймаут в 5 секунд
 });
 
@@ -46,6 +43,11 @@ api.interceptors.request.use(
       API_URLS.refresh,
       "/health",
     ];
+
+    // Добавляем Content-Type: application/json только если это не multipart/form-data
+    if (!config.headers["Content-Type"] && !(config.data instanceof FormData)) {
+      config.headers["Content-Type"] = "application/json";
+    }
 
     if (token && user) {
       config.headers.Authorization = `Bearer ${token}`;

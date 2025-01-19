@@ -36,6 +36,7 @@
     "react-select": "^5.9.0",
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
+    "sonner": "^1.7.2",
     "yet-another-react-lightbox": "^3.21.7",
     "yup": "^1.6.1"
   },

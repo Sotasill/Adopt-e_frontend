@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { Toaster } from "react-hot-toast";
+import { Toaster } from "sonner";
 import Layout from "../Layout/Layout";
 import HomePage from "../../pages/HomePage/HomePage";
 import RegistrationPage from "../../pages/RegistrationPage/RegistrationPage";
@@ -102,7 +102,7 @@ const App = () => {
           {/* Перенаправляем все неизвестные маршруты на домашнюю страницу */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-        <Toaster position="top-right" />
+        <Toaster position="top-right" richColors />
       </Layout>
     </AuthProvider>
   );

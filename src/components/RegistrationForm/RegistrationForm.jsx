@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import Select from "react-select";
 import * as Yup from "yup";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import {
   registerUser,
   registerBreeder,

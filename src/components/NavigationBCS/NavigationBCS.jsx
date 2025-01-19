@@ -24,34 +24,74 @@ const Navigation = () => {
 
   return (
     <List component="nav" sx={{ width: "100%" }}>
-      <ListItem component={Link} to="/" sx={{ cursor: "pointer" }}>
-        <ListItemIcon>
-          <HomeIcon />
-        </ListItemIcon>
-        <ListItemText primary="Главная" />
+      <ListItem disablePadding>
+        <Link
+          to="/"
+          style={{ textDecoration: "none", color: "inherit", width: "100%" }}
+        >
+          <ListItem>
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary="Главная" />
+          </ListItem>
+        </Link>
       </ListItem>
 
       {isAuthenticated && (
         <>
-          <ListItem component={Link} to="/pets" sx={{ cursor: "pointer" }}>
-            <ListItemIcon>
-              <PetsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Мои питомцы" />
+          <ListItem disablePadding>
+            <Link
+              to="/pets"
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                width: "100%",
+              }}
+            >
+              <ListItem>
+                <ListItemIcon>
+                  <PetsIcon />
+                </ListItemIcon>
+                <ListItemText primary="Мои питомцы" />
+              </ListItem>
+            </Link>
           </ListItem>
 
-          <ListItem component={Link} to="/calendar" sx={{ cursor: "pointer" }}>
-            <ListItemIcon>
-              <CalendarMonthIcon />
-            </ListItemIcon>
-            <ListItemText primary="Календарь" />
+          <ListItem disablePadding>
+            <Link
+              to="/calendar"
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                width: "100%",
+              }}
+            >
+              <ListItem>
+                <ListItemIcon>
+                  <CalendarMonthIcon />
+                </ListItemIcon>
+                <ListItemText primary="Календарь" />
+              </ListItem>
+            </Link>
           </ListItem>
 
-          <ListItem component={Link} to="/settings" sx={{ cursor: "pointer" }}>
-            <ListItemIcon>
-              <SettingsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Настройки" />
+          <ListItem disablePadding>
+            <Link
+              to="/settings"
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                width: "100%",
+              }}
+            >
+              <ListItem>
+                <ListItemIcon>
+                  <SettingsIcon />
+                </ListItemIcon>
+                <ListItemText primary="Настройки" />
+              </ListItem>
+            </Link>
           </ListItem>
 
           <ListItem onClick={handleLogout} sx={{ cursor: "pointer" }}>

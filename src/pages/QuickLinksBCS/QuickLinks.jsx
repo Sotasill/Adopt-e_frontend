@@ -40,7 +40,24 @@ const QuickLinks = () => {
     const fetchAnimals = async () => {
       try {
         const response = await animalService.getAllAnimals();
-        setAnimals(response.data);
+        console.log("Полный ответ от getAllAnimals:", response);
+
+        // Преобразуем данные, чтобы правильно обработать изображения
+        const processedAnimals = Array.isArray(response)
+          ? response.map((animal) => ({
+              ...animal,
+              images: animal.images?.map((img) => ({
+                ...img,
+                // Используем url изображения, если public_id отсутствует
+                src: img.url,
+                original: img.url,
+                thumbnail: img.url,
+              })),
+            }))
+          : [];
+
+        console.log("Обработанные данные животных:", processedAnimals);
+        setAnimals(processedAnimals);
       } catch (err) {
         console.error("Error fetching animals:", err);
       }

@@ -28,7 +28,6 @@ import {
   Switch,
   FormControlLabel,
   FormGroup,
-  Badge,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -37,15 +36,15 @@ import ImageIcon from "@mui/icons-material/Image";
 import { animalService } from "../../services/animalService";
 import styles from "./AnimalDetails.module.css";
 import QuickLinks from "../../pages/QuickLinksBCS/QuickLinks";
-import SaveIcon from "@mui/icons-material/Save";
 import ImageGallery from "react-image-gallery";
 import Lightbox from "yet-another-react-lightbox";
 import "react-image-gallery/styles/css/image-gallery.css";
 import "yet-another-react-lightbox/styles.css";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import { useDispatch } from "react-redux";
 import { addNotification } from "../../redux/notifications/notificationsSlice";
+import { toast } from "sonner";
+import SaveIcon from "@mui/icons-material/Save";
 
 const getDefaultImage = (species) => {
   return species?.toLowerCase() === "кошка"
@@ -193,6 +192,9 @@ const AnimalDetails = () => {
   const [confirmStatusDialog, setConfirmStatusDialog] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState(null);
   const dispatch = useDispatch();
+  const [isDragging, setIsDragging] = useState(false);
+  const [draggedImage, setDraggedImage] = useState(null);
+  const [showGalleryActions, setShowGalleryActions] = useState(false);
 
   const statusOptions = [
     { value: "active", label: "Активен", color: "success" },
@@ -277,12 +279,54 @@ const AnimalDetails = () => {
     );
   };
 
+  const showInfo = (message) => {
+    setSnackbar({
+      open: true,
+      message: message,
+      severity: "info",
+    });
+  };
+
   useEffect(() => {
     const fetchAnimalDetails = async () => {
       try {
         setLoading(true);
         const response = await animalService.getAnimalById(id);
-        setAnimal(response.data);
+        console.log("Ответ от сервера:", response);
+
+        // Проверяем, есть ли данные в ответе
+        const animalData = response.data?.animal || response.animal || response;
+        console.log("Данные животного:", animalData);
+        console.log("URL изображения:", animalData?.image?.url);
+
+        setAnimal(animalData);
+
+        // Формируем массив изображений для галереи
+        const galleryImages = [];
+
+        // Добавляем аватар как первое изображение, если он есть
+        if (animalData?.image?.url) {
+          galleryImages.push({
+            original: animalData.image.url,
+            thumbnail: animalData.image.url,
+            description: animalData.name,
+            public_id: animalData.image.public_id,
+          });
+        }
+
+        // Добавляем изображения из галереи
+        if (animalData?.gallery && animalData.gallery.length > 0) {
+          const additionalImages = animalData.gallery.map((img) => ({
+            original: img.url,
+            thumbnail: img.url,
+            description: "Изображение галереи",
+            public_id: img.public_id,
+          }));
+          galleryImages.push(...additionalImages);
+        }
+
+        console.log("Инициализация галереи:", galleryImages);
+        setImages(galleryImages);
       } catch (err) {
         setError("Не удалось загрузить информацию о животном");
         console.error("Error fetching animal details:", err);
@@ -509,25 +553,165 @@ const AnimalDetails = () => {
 
   const handleImageUpload = async (event) => {
     const files = Array.from(event.target.files);
-    const formData = new FormData();
+    const isAvatarUpload = event.target.id === "avatar-upload";
 
-    files.forEach((file, index) => {
-      formData.append(`images[${index}]`, file);
-    });
+    // Проверка размера и типа файла
+    for (const file of files) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error("Размер файла не должен превышать 5MB");
+        return;
+      }
+      if (!file.type.startsWith("image/")) {
+        toast.error("Пожалуйста, загрузите только изображения");
+        return;
+      }
+    }
 
     try {
-      const response = await animalService.uploadImages(id, formData);
-      const newImages = response.data.images.map((img) => ({
-        original: img.url,
-        thumbnail: img.thumbnailUrl,
-        description: `Изображение ${img.id}`,
-      }));
+      const toastId = toast.loading(
+        isAvatarUpload ? "Обновление аватара..." : "Загрузка изображений..."
+      );
 
-      setImages((prevImages) => [...prevImages, ...newImages]);
-      showSuccess("Изображения успешно загружены");
+      if (isAvatarUpload) {
+        // Загрузка аватара
+        const formData = new FormData();
+        formData.append("image", files[0]);
+
+        console.log("Загрузка аватара для ID:", id);
+        const avatarResponse = await animalService.updateAnimal(id, formData);
+        console.log("Ответ сервера при загрузке аватара:", avatarResponse);
+
+        // Получаем обновленные данные о животном
+        const animalResponse = await animalService.getAnimalById(id);
+        const updatedAnimal =
+          animalResponse.data?.animal ||
+          animalResponse.animal ||
+          animalResponse;
+
+        // Обновляем состояние животного
+        setAnimal(updatedAnimal);
+
+        // Обновляем галерею с новым аватаром
+        const updatedGalleryImages = [];
+
+        // Добавляем аватар как первое изображение
+        if (updatedAnimal.image?.url) {
+          updatedGalleryImages.push({
+            original: updatedAnimal.image.url,
+            thumbnail: updatedAnimal.image.url,
+            description: "Аватар животного",
+            public_id: updatedAnimal.image.public_id,
+          });
+        }
+
+        // Добавляем остальные изображения из галереи
+        if (updatedAnimal.gallery && updatedAnimal.gallery.length > 0) {
+          const additionalImages = updatedAnimal.gallery.map((img) => ({
+            original: img.url,
+            thumbnail: img.url,
+            description: "Изображение галереи",
+            public_id: img.public_id,
+          }));
+          updatedGalleryImages.push(...additionalImages);
+        }
+
+        // Принудительно обновляем состояние изображений
+        setImages([...updatedGalleryImages]);
+        toast.success("Аватар успешно обновлен", { id: toastId });
+
+        // Создаем уведомление в Redux
+        createNotification(
+          "Обновление аватара",
+          `Аватар животного ${animal.name} успешно обновлен`
+        );
+      } else {
+        // Загрузка в галерею
+        const formData = new FormData();
+
+        // Добавляем каждое изображение с одинаковым именем поля
+        files.forEach((file) => {
+          formData.append("images", file);
+          console.log(
+            "Добавление файла в FormData:",
+            file.name,
+            file.type,
+            file.size
+          );
+        });
+
+        console.log("ID животного:", id);
+        console.log("Отправка запроса на добавление в галерею");
+
+        const galleryResponse = await animalService.addToGallery(id, formData);
+        console.log("Ответ сервера при загрузке в галерею:", galleryResponse);
+
+        if (galleryResponse?.data?.gallery || galleryResponse?.gallery) {
+          // Получаем обновленные данные о животном
+          const animalResponse = await animalService.getAnimalById(id);
+          console.log("Ответ сервера с обновленными данными:", animalResponse);
+
+          const updatedAnimal =
+            animalResponse.data?.animal ||
+            animalResponse.animal ||
+            animalResponse;
+          console.log("Обновленные данные животного:", updatedAnimal);
+
+          if (updatedAnimal?.gallery) {
+            // Формируем массив изображений для галереи
+            const galleryImages = updatedAnimal.gallery.map((img) => ({
+              original: img.url,
+              thumbnail: img.url,
+              description: "Изображение галереи",
+              public_id: img.public_id,
+            }));
+
+            // Обновляем состояние галереи
+            setImages([
+              {
+                original:
+                  updatedAnimal.image?.url ||
+                  getDefaultImage(updatedAnimal.species),
+                thumbnail:
+                  updatedAnimal.image?.url ||
+                  getDefaultImage(updatedAnimal.species),
+                description: "Аватар животного",
+                public_id: updatedAnimal.image?.public_id,
+              },
+              ...galleryImages,
+            ]);
+
+            setAnimal(updatedAnimal);
+            toast.success("Изображения успешно добавлены в галерею", {
+              id: toastId,
+            });
+
+            // Создаем уведомление в Redux
+            createNotification(
+              "Обновление галереи",
+              `В галерею животного ${animal.name} добавлено ${files.length} ${
+                files.length === 1 ? "изображение" : "изображений"
+              }`
+            );
+          }
+        }
+      }
     } catch (err) {
       console.error("Error uploading images:", err);
-      showError("Ошибка при загрузке изображений");
+      console.error("Детали ошибки:", {
+        status: err.response?.status,
+        data: err.response?.data,
+        message: err.message,
+      });
+
+      toast.error(
+        isAvatarUpload
+          ? "Ошибка при обновлении аватара"
+          : "Ошибка при загрузке изображений",
+        {
+          description:
+            err.response?.data?.message || err.message || "Попробуйте еще раз",
+        }
+      );
     }
   };
 
@@ -901,6 +1085,135 @@ const AnimalDetails = () => {
     </Box>
   );
 
+  // Функция удаления изображения из галереи
+  const handleDeleteFromGallery = async (imageId) => {
+    try {
+      const toastId = toast.loading("Удаление изображения...");
+      await animalService.deleteFromGallery(id, imageId);
+
+      // Получаем обновленные данные о животном
+      const response = await animalService.getAnimalById(id);
+      const updatedAnimal =
+        response.data?.animal || response.animal || response;
+
+      setAnimal(updatedAnimal);
+
+      // Обновляем галерею
+      const galleryImages = [];
+      if (updatedAnimal.image?.url) {
+        galleryImages.push({
+          original: updatedAnimal.image.url,
+          thumbnail: updatedAnimal.image.url,
+          description: "Аватар животного",
+          public_id: updatedAnimal.image.public_id,
+        });
+      }
+
+      if (updatedAnimal.gallery && updatedAnimal.gallery.length > 0) {
+        const additionalImages = updatedAnimal.gallery.map((img) => ({
+          original: img.url,
+          thumbnail: img.url,
+          description: "Изображение галереи",
+          public_id: img.public_id,
+        }));
+        galleryImages.push(...additionalImages);
+      }
+
+      setImages(galleryImages);
+      toast.success("Изображение успешно удалено", { id: toastId });
+    } catch (err) {
+      console.error("Error deleting image:", err);
+      toast.error("Ошибка при удалении изображения", {
+        description: err.response?.data?.message || "Попробуйте еще раз",
+      });
+    }
+  };
+
+  // Функция установки изображения как аватара
+  const handleSetAsAvatar = async (imageId) => {
+    try {
+      const toastId = toast.loading("Установка изображения как аватара...");
+      await animalService.setImageAsAvatar(id, imageId);
+
+      // Получаем обновленные данные
+      const response = await animalService.getAnimalById(id);
+      const updatedAnimal =
+        response.data?.animal || response.animal || response;
+
+      setAnimal(updatedAnimal);
+
+      // Обновляем галерею
+      const galleryImages = [];
+      if (updatedAnimal.image?.url) {
+        galleryImages.push({
+          original: updatedAnimal.image.url,
+          thumbnail: updatedAnimal.image.url,
+          description: "Аватар животного",
+          public_id: updatedAnimal.image.public_id,
+        });
+      }
+
+      if (updatedAnimal.gallery && updatedAnimal.gallery.length > 0) {
+        const additionalImages = updatedAnimal.gallery.map((img) => ({
+          original: img.url,
+          thumbnail: img.url,
+          description: "Изображение галереи",
+          public_id: img.public_id,
+        }));
+        galleryImages.push(...additionalImages);
+      }
+
+      setImages(galleryImages);
+      toast.success("Аватар успешно обновлен", { id: toastId });
+    } catch (err) {
+      console.error("Error setting avatar:", err);
+      toast.error("Ошибка при установке аватара", {
+        description: err.response?.data?.message || "Попробуйте еще раз",
+      });
+    }
+  };
+
+  // Функции для drag-and-drop
+  const handleDragStart = (e, index) => {
+    setIsDragging(true);
+    setDraggedImage(index);
+  };
+
+  const handleDragEnd = () => {
+    setIsDragging(false);
+    setDraggedImage(null);
+  };
+
+  const handleDragOver = (e, index) => {
+    e.preventDefault();
+    if (draggedImage === null || draggedImage === index) return;
+
+    // Переупорядочиваем изображения
+    const newImages = [...images];
+    const draggedItem = newImages[draggedImage];
+    newImages.splice(draggedImage, 1);
+    newImages.splice(index, 0, draggedItem);
+
+    setImages(newImages);
+    setDraggedImage(index);
+  };
+
+  // Функция сохранения нового порядка
+  const handleSaveOrder = async () => {
+    try {
+      const toastId = toast.loading("Сохранение порядка изображений...");
+      const imageIds = images.map((img) => img.public_id);
+      await animalService.reorderGallery(id, imageIds);
+
+      toast.success("Порядок изображений сохранен", { id: toastId });
+    } catch (err) {
+      console.error("Error saving gallery order:", err);
+      toast.error("Ошибка при сохранении порядка", {
+        description: err.response?.data?.message || "Попробуйте еще раз",
+      });
+    }
+  };
+
   if (loading) {
     return <CircularProgress className={styles.loader} />;
   }
@@ -935,81 +1248,240 @@ const AnimalDetails = () => {
             {/* Фото и основная информация */}
             <Grid item xs={12} md={4}>
               <Box className={styles.imageSection}>
-                <Avatar
-                  src={animal.photoUrl || getDefaultImage(animal.species)}
-                  alt={animal.name}
-                  className={styles.avatar}
-                />
-                <input
-                  type="file"
-                  multiple
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                  style={{ display: "none" }}
-                  id="animal-images-upload"
-                />
-                <label htmlFor="animal-images-upload">
-                  <Button
-                    variant="outlined"
-                    component="span"
-                    startIcon={<ImageIcon />}
-                    sx={{ mt: 2 }}
+                {/* Блок аватара */}
+                <Box sx={{ textAlign: "center", mb: 3 }}>
+                  <Box
+                    sx={{
+                      position: "relative",
+                      display: "inline-block",
+                      cursor: "pointer",
+                      "&:hover": {
+                        "&::after": {
+                          content: '"Изменить фото"',
+                          position: "absolute",
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          background: "rgba(0, 0, 0, 0.7)",
+                          color: "white",
+                          padding: "8px",
+                          borderRadius: "0 0 50% 50%",
+                          fontSize: "14px",
+                        },
+                      },
+                    }}
                   >
-                    Добавить фото
-                  </Button>
-                </label>
-
-                {images.length > 0 && (
-                  <Box className={styles.galleryContainer}>
-                    <ImageGallery
-                      items={images}
-                      showPlayButton={false}
-                      showFullscreenButton={false}
-                      onClick={(e, index) => handleImageClick(index)}
-                      showBullets={images.length > 1}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      style={{ display: "none" }}
+                      id="avatar-upload"
                     />
-                  </Box>
-                )}
-              </Box>
-              <Box mt={2}>
-                <Chip
-                  label={
-                    statusOptions.find(
-                      (s) => s.value === (animal.status || "active")
-                    )?.label || "Активен"
-                  }
-                  color={
-                    statusOptions.find(
-                      (s) => s.value === (animal.status || "active")
-                    )?.color || "success"
-                  }
-                  className={styles.statusChip}
-                  onClick={handleStatusClick}
-                  style={{
-                    cursor: !["sold", "dead"].includes(animal.status)
-                      ? "pointer"
-                      : "default",
-                  }}
-                />
-                <Menu
-                  anchorEl={statusAnchorEl}
-                  open={Boolean(statusAnchorEl)}
-                  onClose={handleStatusClose}
-                >
-                  {statusOptions.map((status) => (
-                    <MenuItem
-                      key={status.value}
-                      onClick={() => handleStatusSelect(status)}
-                    >
-                      <Chip
-                        label={status.label}
-                        color={status.color}
-                        size="small"
-                        style={{ pointerEvents: "none" }}
+                    <label htmlFor="avatar-upload">
+                      <Avatar
+                        src={
+                          animal.image?.url || getDefaultImage(animal.species)
+                        }
+                        alt={animal.name}
+                        className={styles.avatar}
+                        imgProps={{
+                          onError: (e) => {
+                            console.error("Ошибка загрузки изображения:", e);
+                            e.target.src = getDefaultImage(animal.species);
+                          },
+                        }}
                       />
-                    </MenuItem>
-                  ))}
-                </Menu>
+                    </label>
+                  </Box>
+                </Box>
+
+                {/* Кнопка статуса */}
+                <Box sx={{ textAlign: "center", mb: 3 }}>
+                  <Chip
+                    label={
+                      statusOptions.find(
+                        (s) => s.value === (animal.status || "active")
+                      )?.label || "Активен"
+                    }
+                    color={
+                      statusOptions.find(
+                        (s) => s.value === (animal.status || "active")
+                      )?.color || "success"
+                    }
+                    className={styles.statusChip}
+                    onClick={handleStatusClick}
+                    style={{
+                      cursor: !["sold", "dead"].includes(animal.status)
+                        ? "pointer"
+                        : "default",
+                    }}
+                  />
+                  <Menu
+                    anchorEl={statusAnchorEl}
+                    open={Boolean(statusAnchorEl)}
+                    onClose={handleStatusClose}
+                  >
+                    {statusOptions.map((status) => (
+                      <MenuItem
+                        key={status.value}
+                        onClick={() => handleStatusSelect(status)}
+                      >
+                        <Chip
+                          label={status.label}
+                          color={status.color}
+                          size="small"
+                          style={{ pointerEvents: "none" }}
+                        />
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </Box>
+
+                {/* Блок галереи */}
+                <Box
+                  sx={{
+                    mt: 4,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  <Typography variant="subtitle1" gutterBottom align="center">
+                    Галерея изображений
+                  </Typography>
+                  <input
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    style={{ display: "none" }}
+                    id="gallery-upload"
+                  />
+                  <label htmlFor="gallery-upload">
+                    <Button
+                      variant="outlined"
+                      component="span"
+                      startIcon={<ImageIcon />}
+                      sx={{ mb: 2 }}
+                    >
+                      Добавить фото в галерею
+                    </Button>
+                  </label>
+
+                  {images && images.length > 0 && (
+                    <Box
+                      sx={{
+                        width: "100%",
+                        maxWidth: "800px",
+                        margin: "0 auto",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "flex-end",
+                          mb: 1,
+                        }}
+                      >
+                        <Button
+                          size="small"
+                          onClick={() =>
+                            setShowGalleryActions(!showGalleryActions)
+                          }
+                          startIcon={<EditIcon />}
+                        >
+                          Управление галереей
+                        </Button>
+                      </Box>
+
+                      {showGalleryActions ? (
+                        <Box sx={{ mb: 2 }}>
+                          <Grid container spacing={1} justifyContent="center">
+                            {images.slice(1).map((image, index) => (
+                              <Grid
+                                item
+                                xs={4}
+                                sm={3}
+                                md={2}
+                                key={image.public_id}
+                              >
+                                <Paper
+                                  elevation={3}
+                                  draggable
+                                  onDragStart={(e) => handleDragStart(e, index)}
+                                  onDragEnd={handleDragEnd}
+                                  onDragOver={(e) => handleDragOver(e, index)}
+                                  sx={{
+                                    position: "relative",
+                                    opacity:
+                                      isDragging && draggedImage === index
+                                        ? 0.5
+                                        : 1,
+                                    cursor: "move",
+                                  }}
+                                >
+                                  <img
+                                    src={image.thumbnail}
+                                    alt={image.description}
+                                    style={{ width: "100%", height: "auto" }}
+                                  />
+                                  <Box
+                                    sx={{
+                                      position: "absolute",
+                                      top: 0,
+                                      right: 0,
+                                      p: 0.5,
+                                    }}
+                                  >
+                                    <IconButton
+                                      size="small"
+                                      onClick={() =>
+                                        handleDeleteFromGallery(image.public_id)
+                                      }
+                                      sx={{ bgcolor: "background.paper" }}
+                                    >
+                                      <DeleteIcon fontSize="small" />
+                                    </IconButton>
+                                  </Box>
+                                </Paper>
+                              </Grid>
+                            ))}
+                          </Grid>
+                          <Box
+                            sx={{
+                              mt: 2,
+                              display: "flex",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <Button
+                              variant="contained"
+                              onClick={handleSaveOrder}
+                              startIcon={<SaveIcon />}
+                            >
+                              Сохранить порядок
+                            </Button>
+                          </Box>
+                        </Box>
+                      ) : (
+                        <Box sx={{ width: "100%" }}>
+                          <ImageGallery
+                            items={images.slice(1)}
+                            showPlayButton={false}
+                            showFullscreenButton={true}
+                            onClick={handleImageClick}
+                            showBullets={images.length > 2}
+                            showThumbnails={true}
+                            showNav={true}
+                            additionalClass={styles.customGallery}
+                          />
+                        </Box>
+                      )}
+                    </Box>
+                  )}
+                </Box>
               </Box>
             </Grid>
 

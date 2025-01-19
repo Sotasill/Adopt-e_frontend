@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { Formik, Form } from "formik";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { login } from "../../redux/auth/authActions";
 import { TextField, PasswordField, CheckboxField } from "./FormFields";
 import {

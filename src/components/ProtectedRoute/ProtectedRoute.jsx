@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import toast from "react-hot-toast";
 import { useEffect } from "react";
+import { toast } from "sonner";
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);

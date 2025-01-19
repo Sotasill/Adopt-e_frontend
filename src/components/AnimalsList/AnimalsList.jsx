@@ -62,7 +62,13 @@ const AnimalsList = ({ onClose }) => {
         ...filters,
       });
 
-      setAnimals(response.data.animals);
+      console.log("Полученные данные животных:", response.data.animals);
+      const animalsWithImages = response.data.animals.map((animal) => {
+        console.log("Изображение животного:", animal.image);
+        return animal;
+      });
+
+      setAnimals(animalsWithImages);
       setPagination({
         ...pagination,
         total: response.data.pagination.total,
@@ -133,6 +139,22 @@ const AnimalsList = ({ onClose }) => {
       : "/src/assets/images/default-dog.jpg";
   };
 
+  const getImageUrl = (animal) => {
+    if (!animal.image) return getDefaultImage(animal.species);
+
+    // Если это полный URL (например, Cloudinary)
+    if (animal.image.startsWith("http")) {
+      return animal.image;
+    }
+
+    // Если это локальный путь к дефолтному изображению
+    if (animal.image.includes("default")) {
+      return getDefaultImage(animal.species);
+    }
+
+    return animal.image;
+  };
+
   const handleRowClick = (animalId) => {
     navigate(`/animals/${animalId}`);
   };
@@ -180,32 +202,47 @@ const AnimalsList = ({ onClose }) => {
 
   const renderMobileView = () => (
     <div className={styles.responsiveTable}>
-      {animals.map((animal) => (
-        <div key={animal.id} className={styles.responsiveRow}>
-          <div className={styles.responsiveCell}>
-            <Avatar
-              src={getDefaultImage(animal.species)}
-              alt={animal.name}
-              className={styles.animalAvatar}
-            />
-            <div style={{ marginLeft: "10px" }}>
-              <Typography variant="subtitle1">{animal.name}</Typography>
-              <Typography variant="body2" color="textSecondary">
-                {animal.uniqueIdentifier}
-              </Typography>
+      {animals.map((animal) => {
+        console.log(
+          "Рендеринг аватарки для животного:",
+          animal.name,
+          "URL изображения:",
+          getImageUrl(animal)
+        );
+        return (
+          <div key={animal.id} className={styles.responsiveRow}>
+            <div className={styles.responsiveCell}>
+              <Avatar
+                src={getImageUrl(animal)}
+                alt={animal.name}
+                className={styles.animalAvatar}
+                sx={{ width: 50, height: 50 }}
+                imgProps={{
+                  onError: (e) => {
+                    console.error("Ошибка загрузки изображения:", e);
+                    e.target.src = getDefaultImage(animal.species);
+                  },
+                }}
+              />
+              <div style={{ marginLeft: "10px" }}>
+                <Typography variant="subtitle1">{animal.name}</Typography>
+                <Typography variant="body2" color="textSecondary">
+                  {animal.uniqueIdentifier}
+                </Typography>
+              </div>
+            </div>
+            <div className={styles.responsiveCell} data-label="Порода">
+              {animal.breed}
+            </div>
+            <div className={styles.responsiveCell} data-label="Пол">
+              {animal.sex}
+            </div>
+            <div className={styles.responsiveCell} data-label="Дата рождения">
+              {formatDate(animal.birthDate)}
             </div>
           </div>
-          <div className={styles.responsiveCell} data-label="Порода">
-            {animal.breed}
-          </div>
-          <div className={styles.responsiveCell} data-label="Пол">
-            {animal.sex}
-          </div>
-          <div className={styles.responsiveCell} data-label="Дата рождения">
-            {formatDate(animal.birthDate)}
-          </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 
@@ -214,7 +251,7 @@ const AnimalsList = ({ onClose }) => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Фото</TableCell>
+            <TableCell style={{ width: "60px" }}>Фото</TableCell>
             <TableCell>
               <TableSortLabel
                 active={sorting.sortBy === "name"}
@@ -267,9 +304,16 @@ const AnimalsList = ({ onClose }) => {
               >
                 <TableCell>
                   <Avatar
-                    src={getDefaultImage(animal.species)}
+                    src={getImageUrl(animal)}
                     alt={animal.name}
                     className={styles.animalAvatar}
+                    sx={{ width: 50, height: 50 }}
+                    imgProps={{
+                      onError: (e) => {
+                        console.error("Ошибка загрузки изображения:", e);
+                        e.target.src = getDefaultImage(animal.species);
+                      },
+                    }}
                   />
                 </TableCell>
                 <TableCell>{animal.name}</TableCell>
