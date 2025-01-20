@@ -6,8 +6,11 @@ import { useSelector } from "react-redux";
 import {
   animalRegistrationSchema,
   EYE_COLORS,
-  FUR_COLORS,
-  FUR_TYPES,
+  CAT_FUR_TYPES,
+  DOG_FUR_TYPES,
+  SEX_OPTIONS,
+  CAT_FUR_COLORS,
+  DOG_FUR_COLORS,
 } from "./validationSchemas";
 import { CAT_BREEDS, DOG_BREEDS } from "./breedData";
 import styles from "./AnimalRegistration.module.css";
@@ -214,11 +217,23 @@ const CustomSelect = ({
   placeholder = "Выберите значение",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
-    <div className={styles.customSelect}>
+    <div className={styles.searchableSelect} ref={dropdownRef}>
       <div className={styles.selectHeader} onClick={() => setIsOpen(!isOpen)}>
-        <span className={styles.selectedValue}>
+        <span>
           {value && options[value] ? options[value].label : placeholder}
         </span>
         {value && options[value] && options[value].color && (
@@ -231,27 +246,29 @@ const CustomSelect = ({
       </div>
 
       {isOpen && (
-        <div className={styles.optionsList}>
-          {Object.entries(options).map(([optionValue, { label, color }]) => (
-            <div
-              key={optionValue}
-              className={`${styles.option} ${
-                value === optionValue ? styles.selected : ""
-              }`}
-              onClick={() => {
-                onChange({ target: { value: optionValue } });
-                setIsOpen(false);
-              }}
-            >
-              {color && (
-                <span
-                  className={styles.colorDot}
-                  style={{ background: color }}
-                />
-              )}
-              <span>{label}</span>
-            </div>
-          ))}
+        <div className={styles.dropdown}>
+          <div className={styles.optionsContainer}>
+            {Object.entries(options).map(([optionValue, { label, color }]) => (
+              <div
+                key={optionValue}
+                className={`${styles.option} ${
+                  value === optionValue ? styles.selected : ""
+                }`}
+                onClick={() => {
+                  onChange({ target: { value: optionValue } });
+                  setIsOpen(false);
+                }}
+              >
+                {color && (
+                  <span
+                    className={styles.colorDot}
+                    style={{ background: color }}
+                  />
+                )}
+                <span>{label}</span>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
@@ -308,14 +325,19 @@ MicrochipInput.propTypes = {
 };
 
 // Компонент SearchableSelect для выбора цвета шерсти
-const SearchableSelect = ({ field, form }) => {
+const SearchableSelect = ({ field, form, animalType }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLabel, setSelectedLabel] = useState("");
   const dropdownRef = useRef(null);
 
+  // Выбираем список цветов в зависимости от типа животного
+  const furColors = useMemo(() => {
+    return animalType === "cat" ? CAT_FUR_COLORS : DOG_FUR_COLORS;
+  }, [animalType]);
+
   // Группируем цвета по категориям
-  const groupedColors = Object.entries(FUR_COLORS).reduce(
+  const groupedColors = Object.entries(furColors).reduce(
     (acc, [key, value]) => {
       if (!acc[value.category]) {
         acc[value.category] = [];
@@ -342,9 +364,9 @@ const SearchableSelect = ({ field, form }) => {
 
   useEffect(() => {
     if (field.value) {
-      setSelectedLabel(FUR_COLORS[field.value]?.label || "");
+      setSelectedLabel(furColors[field.value]?.label || "");
     }
-  }, [field.value]);
+  }, [field.value, furColors]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -359,7 +381,7 @@ const SearchableSelect = ({ field, form }) => {
 
   const handleSelect = (key) => {
     form.setFieldValue(field.name, key);
-    setSelectedLabel(FUR_COLORS[key].label);
+    setSelectedLabel(furColors[key].label);
     setIsOpen(false);
     setSearchTerm("");
   };
@@ -409,6 +431,7 @@ const SearchableSelect = ({ field, form }) => {
 SearchableSelect.propTypes = {
   field: PropTypes.object.isRequired,
   form: PropTypes.object.isRequired,
+  animalType: PropTypes.string.isRequired,
 };
 
 // Компонент для выбора пола животного
@@ -1266,7 +1289,11 @@ const AnimalRegistration = ({ onClose }) => {
                     <label htmlFor="furColor">Цвет шерсти*:</label>
                     <Field name="furColor">
                       {({ field, form }) => (
-                        <SearchableSelect field={field} form={form} />
+                        <SearchableSelect
+                          field={field}
+                          form={form}
+                          animalType={values.type}
+                        />
                       )}
                     </Field>
                     <ErrorMessage
@@ -1286,7 +1313,11 @@ const AnimalRegistration = ({ onClose }) => {
                           onChange={(e) =>
                             form.setFieldValue("furLength", e.target.value)
                           }
-                          options={FUR_TYPES}
+                          options={
+                            values.type === "cat"
+                              ? CAT_FUR_TYPES
+                              : DOG_FUR_TYPES
+                          }
                           placeholder="Выберите тип шерсти"
                         />
                       )}

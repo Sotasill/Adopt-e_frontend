@@ -21,21 +21,22 @@ const SEX_OPTIONS = {
 };
 
 const EYE_COLORS = {
-  aqua: { label: "Aqua", color: "#00ffff" },
-  blue: { label: "Blue", color: "#0000ff" },
-  cooper: { label: "Cooper", color: "#b87333" },
-  gold: { label: "Gold", color: "#ffd700" },
-  hazel: { label: "Hazel", color: "#8e7618" },
-  oddEyed: {
-    label: "Odd-eyed",
-    color: "linear-gradient(to right, #0000ff 50%, #8e7618 50%)",
+  AMBER: { label: "Amber (Янтарный)", color: "#FFBF00" },
+  BLUE: { label: "Blue (Голубой)", color: "#89CFF0" },
+  BROWN: { label: "Brown (Коричневый)", color: "#964B00" },
+  COPPER: { label: "Copper (Медный)", color: "#B87333" },
+  GREEN: { label: "Green (Зеленый)", color: "#228B22" },
+  HAZEL: { label: "Hazel (Ореховый)", color: "#8E7618" },
+  ODD: {
+    label: "Odd-eyed (Разноцветные)",
+    color: "linear-gradient(to right, #89CFF0 50%, #228B22 50%)",
   },
-  pink: { label: "Pink", color: "#ffc0cb" },
-  unknown: { label: "Unknown", color: "#808080" },
+  ORANGE: { label: "Orange (Оранжевый)", color: "#FFA500" },
+  YELLOW: { label: "Yellow (Желтый)", color: "#FFD700" },
 };
 
-// Константы для цветов шерсти
-const FUR_COLORS = {
+// Константы для цветов шерсти кошек
+const CAT_FUR_COLORS = {
   // Основные цвета
   black: { label: "Black (чёрный)", category: "Основные цвета" },
   white: { label: "White (белый)", category: "Основные цвета" },
@@ -86,14 +87,111 @@ const FUR_COLORS = {
   caramel: { label: "Caramel (карамельный)", category: "Редкие" },
 };
 
-// Константы для типов шерсти
-const FUR_TYPES = {
+// Константы для типов шерсти кошек
+const CAT_FUR_TYPES = {
   shortHaired: { label: "Short-haired (Короткошёрстный)" },
   mediumHaired: { label: "Medium-haired (Среднешёрстный)" },
   longHaired: { label: "Long-haired (Длинношёрстный)" },
   curly: { label: "Curly (Кудрявый)" },
   hairless: { label: "Hairless (Бесшёрстный)" },
   plush: { label: "Plush (Плюшевый)" },
+};
+
+// Константы для цветов шерсти собак
+const DOG_FUR_COLORS = {
+  // Однотонные окрасы
+  black: { label: "Black (черный)", category: "Однотонные окрасы" },
+  white: { label: "White (белый)", category: "Однотонные окрасы" },
+  brown: {
+    label: "Brown/Chocolate (коричневый/шоколадный)",
+    category: "Однотонные окрасы",
+  },
+  red: { label: "Red (рыжий)", category: "Однотонные окрасы" },
+  fawn: { label: "Fawn (палевый)", category: "Однотонные окрасы" },
+  cream: { label: "Cream (кремовый)", category: "Однотонные окрасы" },
+  blue: { label: "Blue (серо-голубой)", category: "Однотонные окрасы" },
+  gray: { label: "Gray (серый)", category: "Однотонные окрасы" },
+
+  // Двухцветные окрасы
+  blackAndWhite: {
+    label: "Black and White (черно-белый)",
+    category: "Двухцветные окрасы",
+  },
+  brownAndWhite: {
+    label: "Brown and White (коричнево-белый)",
+    category: "Двухцветные окрасы",
+  },
+  redAndWhite: {
+    label: "Red and White (рыже-белый)",
+    category: "Двухцветные окрасы",
+  },
+
+  // Трехцветные окрасы
+  blackWhiteTan: {
+    label: "Black, White and Tan (черный, белый и рыжий)",
+    category: "Трехцветные окрасы",
+  },
+  brownWhiteTan: {
+    label: "Brown, White and Tan (коричневый, белый и рыжий)",
+    category: "Трехцветные окрасы",
+  },
+
+  // Специальные и узорчатые окрасы
+  brindle: {
+    label: "Brindle (тигровый)",
+    category: "Специальные и узорчатые окрасы",
+  },
+  blueMerle: {
+    label: "Blue Merle (голубой мраморный)",
+    category: "Специальные и узорчатые окрасы",
+  },
+  redMerle: {
+    label: "Red Merle (красный мраморный)",
+    category: "Специальные и узорчатые окрасы",
+  },
+  sable: {
+    label: "Sable (зонарный)",
+    category: "Специальные и узорчатые окрасы",
+  },
+  ticked: {
+    label: "Ticked (крапчатый)",
+    category: "Специальные и узорчатые окрасы",
+  },
+  harlequin: {
+    label: "Harlequin (арлекин)",
+    category: "Специальные и узорчатые окрасы",
+  },
+
+  // Редкие окрасы
+  isabella: {
+    label: "Isabella/Lilac (изабелловый)",
+    category: "Редкие окрасы",
+  },
+  roan: { label: "Roan (чалый)", category: "Редкие окрасы" },
+  tanPoints: {
+    label: "Tan Points (рыжие подпалины)",
+    category: "Редкие окрасы",
+  },
+  domino: {
+    label: "Domino/Grizzle (градиент темный-светлый)",
+    category: "Редкие окрасы",
+  },
+};
+
+// Константы для типов шерсти собак
+const DOG_FUR_TYPES = {
+  shortHaired: { label: "Short-haired (Гладкая)" },
+  mediumHaired: { label: "Medium-haired (Средняя)" },
+  longHaired: { label: "Long-haired (Длинная)" },
+  wireHaired: { label: "Wire-haired (Жесткая)" },
+  curlyHaired: { label: "Curly-haired (Кудрявая)" },
+  corded: { label: "Corded (Шнуровидная)" },
+  hairless: { label: "Hairless (Голая)" },
+  doubleCoated: { label: "Double-coated (Двойная шерсть)" },
+  undercoat: { label: "Undercoat (Подшерсток)" },
+  outercoat: { label: "Outercoat (Ость)" },
+  fluffy: { label: "Fluffy (Ватная/пуховая)" },
+  wavy: { label: "Wavy (Волнистая)" },
 };
 
 // Функция для проверки уникальности имени животного
@@ -127,7 +225,7 @@ const checkNameUniqueness = async (name) => {
 };
 
 // Схема валидации для формы регистрации животного
-export const animalRegistrationSchema = Yup.object().shape({
+const animalRegistrationSchema = Yup.object().shape({
   name: Yup.string()
     .required("Кличка обязательна")
     .min(2, "Кличка должна содержать минимум 2 символа")
@@ -235,5 +333,12 @@ export const animalRegistrationSchema = Yup.object().shape({
   }),
 });
 
-// Экспортируем константы для использования в компоненте
-export { EYE_COLORS, FUR_COLORS, FUR_TYPES, SEX_OPTIONS };
+export {
+  SEX_OPTIONS,
+  EYE_COLORS,
+  CAT_FUR_COLORS,
+  DOG_FUR_COLORS,
+  CAT_FUR_TYPES,
+  DOG_FUR_TYPES,
+  animalRegistrationSchema,
+};
