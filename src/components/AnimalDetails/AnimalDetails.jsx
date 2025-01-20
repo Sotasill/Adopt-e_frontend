@@ -36,15 +36,15 @@ import ImageIcon from "@mui/icons-material/Image";
 import { animalService } from "../../services/animalService";
 import styles from "./AnimalDetails.module.css";
 import QuickLinks from "../../pages/QuickLinksBCS/QuickLinks";
-import ImageGallery from "react-image-gallery";
-import Lightbox from "yet-another-react-lightbox";
-import "react-image-gallery/styles/css/image-gallery.css";
-import "yet-another-react-lightbox/styles.css";
+import Gallery from "../Gallery/Gallery";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useDispatch } from "react-redux";
 import { addNotification } from "../../redux/notifications/notificationsSlice";
 import { toast } from "sonner";
-import SaveIcon from "@mui/icons-material/Save";
+import {
+  nameValidationSchema,
+  microchipValidationSchema,
+} from "./validationSchemas";
 
 const getDefaultImage = (species) => {
   return species?.toLowerCase() === "кошка"
@@ -186,15 +186,19 @@ const AnimalDetails = () => {
     owner: false,
   });
   const [images, setImages] = useState([]);
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [statusAnchorEl, setStatusAnchorEl] = useState(null);
   const [confirmStatusDialog, setConfirmStatusDialog] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState(null);
   const dispatch = useDispatch();
-  const [isDragging, setIsDragging] = useState(false);
-  const [draggedImage, setDraggedImage] = useState(null);
-  const [showGalleryActions, setShowGalleryActions] = useState(false);
+  // Добавляем состояние для отслеживания ошибки валидации имени
+  const [nameError, setNameError] = useState(null);
+  // Добавляем новое состояние для модального окна подтверждения
+  const [confirmNameDialog, setConfirmNameDialog] = useState(false);
+  const [pendingNameChange, setPendingNameChange] = useState(null);
+  // Добавляем состояние для информации о бридере
+  const [breederInfo, setBreederInfo] = useState(null);
+  // Добавляем состояние для отслеживания ошибки валидации микрочипа
+  const [microchipError, setMicrochipError] = useState(null);
 
   const statusOptions = [
     { value: "active", label: "Активен", color: "success" },
@@ -300,6 +304,18 @@ const AnimalDetails = () => {
         console.log("URL изображения:", animalData?.image?.url);
 
         setAnimal(animalData);
+
+        // Если есть breeder, получаем информацию о нем
+        if (animalData.breeder) {
+          try {
+            const breederResponse = await animalService.getBreederInfo(
+              animalData.breeder
+            );
+            setBreederInfo(breederResponse.data);
+          } catch (err) {
+            console.error("Error fetching breeder info:", err);
+          }
+        }
 
         // Формируем массив изображений для галереи
         const galleryImages = [];
@@ -959,8 +975,64 @@ const AnimalDetails = () => {
     }
   };
 
+  const formatMicrochip = (value) => {
+    if (!value) return value;
+
+    // Удаляем все нецифровые символы
+    const numbers = value.replace(/[^\d]/g, "");
+
+    // Добавляем пробелы после 3 и 7 цифр
+    if (numbers.length <= 3) return numbers;
+    if (numbers.length <= 7)
+      return `${numbers.slice(0, 3)} ${numbers.slice(3)}`;
+    return `${numbers.slice(0, 3)} ${numbers.slice(3, 7)} ${numbers.slice(
+      7,
+      15
+    )}`;
+  };
+
   const handleSaveField = async (field, value) => {
     try {
+      if (field === "name") {
+        try {
+          await nameValidationSchema(
+            animal.name,
+            breederInfo?.companyName
+          ).validate(value);
+          setNameError(null);
+          // Формируем полное имя с суффиксом компании
+          const fullName = breederInfo?.companyName
+            ? `${value} ${breederInfo.companyName}`
+            : value;
+          setPendingNameChange(fullName);
+          setConfirmNameDialog(true);
+          return;
+        } catch (validationError) {
+          setNameError(validationError.message);
+          toast.error("Ошибка валидации", {
+            description: validationError.message,
+            duration: 5000,
+          });
+          return;
+        }
+      }
+
+      if (field === "microchip") {
+        try {
+          const formattedValue = formatMicrochip(value);
+          await microchipValidationSchema().validate(formattedValue);
+          setMicrochipError(null);
+          value = formattedValue;
+        } catch (validationError) {
+          setMicrochipError(validationError.message);
+          toast.error("Ошибка валидации", {
+            description: validationError.message,
+            duration: 5000,
+          });
+          return;
+        }
+      }
+
       await animalService.updateAnimal(id, {
         [field]: value,
       });
@@ -970,13 +1042,82 @@ const AnimalDetails = () => {
         [field]: value,
       });
       setEditingField({ ...editingField, [field]: false });
-      showSuccess("Информация успешно обновлена");
+      toast.success("Успешно!", {
+        description: "Информация успешно обновлена",
+        duration: 3000,
+      });
+      setNameError(null);
+      setMicrochipError(null);
     } catch (err) {
       console.error(`Error saving ${field}:`, err);
-      showError(
-        err.response?.data?.message || "Ошибка при сохранении информации"
-      );
+      toast.error("Ошибка сохранения", {
+        description:
+          err.response?.data?.message || "Ошибка при сохранении информации",
+        duration: 5000,
+      });
+      setEditableBasicInfo({
+        ...editableBasicInfo,
+        [field]: animal[field],
+      });
     }
+  };
+
+  // Добавляем функцию для подтверждения изменения имени
+  const handleConfirmNameChange = async () => {
+    try {
+      await animalService.updateAnimal(id, {
+        name: pendingNameChange,
+      });
+
+      setAnimal({
+        ...animal,
+        name: pendingNameChange,
+      });
+      setEditingField({ ...editingField, name: false });
+
+      // Показываем toast уведомление
+      toast.success("Успешно!", {
+        description: `Имя животного изменено на "${pendingNameChange}"`,
+        duration: 3000,
+      });
+
+      // Добавляем уведомление в Notifications
+      dispatch(
+        addNotification({
+          id: Date.now(),
+          title: "Изменение имени животного",
+          message: `Имя животного успешно изменено с "${animal.name}" на "${pendingNameChange}"`,
+          timestamp: new Date().toISOString(),
+        })
+      );
+
+      setNameError(null);
+    } catch (err) {
+      console.error("Error saving name:", err);
+      toast.error("Ошибка сохранения", {
+        description:
+          err.response?.data?.message || "Ошибка при сохранении имени",
+        duration: 5000,
+      });
+      setEditableBasicInfo({
+        ...editableBasicInfo,
+        name: animal.name,
+      });
+    } finally {
+      setConfirmNameDialog(false);
+      setPendingNameChange(null);
+    }
+  };
+
+  // Добавляем функцию для отмены изменения имени
+  const handleCancelNameChange = () => {
+    setConfirmNameDialog(false);
+    setPendingNameChange(null);
+    setEditingField({ ...editingField, name: false });
+    setEditableBasicInfo({
+      ...editableBasicInfo,
+      name: animal.name,
+    });
   };
 
   const ReminderBlock = ({ reminder, onChange }) => (
@@ -1088,8 +1229,18 @@ const AnimalDetails = () => {
   // Функция удаления изображения из галереи
   const handleDeleteFromGallery = async (imageId) => {
     try {
+      if (!imageId) {
+        toast.error("Невозможно удалить изображение без идентификатора");
+        return;
+      }
+
+      console.log("Полученный imageId:", imageId);
+      // Извлекаем только последнюю часть public_id (сам идентификатор)
+      const cleanImageId = imageId.split("/").pop();
+      console.log("Очищенный imageId:", cleanImageId);
+
       const toastId = toast.loading("Удаление изображения...");
-      await animalService.deleteFromGallery(id, imageId);
+      await animalService.deleteFromGallery(id, cleanImageId);
 
       // Получаем обновленные данные о животном
       const response = await animalService.getAnimalById(id);
@@ -1124,7 +1275,8 @@ const AnimalDetails = () => {
     } catch (err) {
       console.error("Error deleting image:", err);
       toast.error("Ошибка при удалении изображения", {
-        description: err.response?.data?.message || "Попробуйте еще раз",
+        description:
+          err.response?.data?.message || err.message || "Попробуйте еще раз",
       });
     }
   };
@@ -1199,18 +1351,12 @@ const AnimalDetails = () => {
   };
 
   // Функция сохранения нового порядка
-  const handleSaveOrder = async () => {
+  const handleSaveOrder = async (imageIds) => {
     try {
-      const toastId = toast.loading("Сохранение порядка изображений...");
-      const imageIds = images.map((img) => img.public_id);
       await animalService.reorderGallery(id, imageIds);
-
-      toast.success("Порядок изображений сохранен", { id: toastId });
-    } catch (err) {
-      console.error("Error saving gallery order:", err);
-      toast.error("Ошибка при сохранении порядка", {
-        description: err.response?.data?.message || "Попробуйте еще раз",
-      });
+    } catch (error) {
+      console.error("Ошибка при сохранении порядка:", error);
+      throw error;
     }
   };
 
@@ -1348,139 +1494,13 @@ const AnimalDetails = () => {
                     width: "100%",
                   }}
                 >
-                  <Typography variant="subtitle1" gutterBottom align="center">
-                    Галерея изображений
-                  </Typography>
-                  <input
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    style={{ display: "none" }}
-                    id="gallery-upload"
+                  <Gallery
+                    images={images}
+                    setImages={setImages}
+                    onImageUpload={handleImageUpload}
+                    onDeleteImage={handleDeleteFromGallery}
+                    onSaveOrder={handleSaveOrder}
                   />
-                  <label htmlFor="gallery-upload">
-                    <Button
-                      variant="outlined"
-                      component="span"
-                      startIcon={<ImageIcon />}
-                      sx={{ mb: 2 }}
-                    >
-                      Добавить фото в галерею
-                    </Button>
-                  </label>
-
-                  {images && images.length > 0 && (
-                    <Box
-                      sx={{
-                        width: "100%",
-                        maxWidth: "800px",
-                        margin: "0 auto",
-                      }}
-                    >
-                      <Box
-                        sx={{
-                          display: "flex",
-                          justifyContent: "flex-end",
-                          mb: 1,
-                        }}
-                      >
-                        <Button
-                          size="small"
-                          onClick={() =>
-                            setShowGalleryActions(!showGalleryActions)
-                          }
-                          startIcon={<EditIcon />}
-                        >
-                          Управление галереей
-                        </Button>
-                      </Box>
-
-                      {showGalleryActions ? (
-                        <Box sx={{ mb: 2 }}>
-                          <Grid container spacing={1} justifyContent="center">
-                            {images.slice(1).map((image, index) => (
-                              <Grid
-                                item
-                                xs={4}
-                                sm={3}
-                                md={2}
-                                key={image.public_id}
-                              >
-                                <Paper
-                                  elevation={3}
-                                  draggable
-                                  onDragStart={(e) => handleDragStart(e, index)}
-                                  onDragEnd={handleDragEnd}
-                                  onDragOver={(e) => handleDragOver(e, index)}
-                                  sx={{
-                                    position: "relative",
-                                    opacity:
-                                      isDragging && draggedImage === index
-                                        ? 0.5
-                                        : 1,
-                                    cursor: "move",
-                                  }}
-                                >
-                                  <img
-                                    src={image.thumbnail}
-                                    alt={image.description}
-                                    style={{ width: "100%", height: "auto" }}
-                                  />
-                                  <Box
-                                    sx={{
-                                      position: "absolute",
-                                      top: 0,
-                                      right: 0,
-                                      p: 0.5,
-                                    }}
-                                  >
-                                    <IconButton
-                                      size="small"
-                                      onClick={() =>
-                                        handleDeleteFromGallery(image.public_id)
-                                      }
-                                      sx={{ bgcolor: "background.paper" }}
-                                    >
-                                      <DeleteIcon fontSize="small" />
-                                    </IconButton>
-                                  </Box>
-                                </Paper>
-                              </Grid>
-                            ))}
-                          </Grid>
-                          <Box
-                            sx={{
-                              mt: 2,
-                              display: "flex",
-                              justifyContent: "center",
-                            }}
-                          >
-                            <Button
-                              variant="contained"
-                              onClick={handleSaveOrder}
-                              startIcon={<SaveIcon />}
-                            >
-                              Сохранить порядок
-                            </Button>
-                          </Box>
-                        </Box>
-                      ) : (
-                        <Box sx={{ width: "100%" }}>
-                          <ImageGallery
-                            items={images.slice(1)}
-                            showPlayButton={false}
-                            showFullscreenButton={true}
-                            onClick={handleImageClick}
-                            showBullets={images.length > 2}
-                            showThumbnails={true}
-                            showNav={true}
-                            additionalClass={styles.customGallery}
-                          />
-                        </Box>
-                      )}
-                    </Box>
-                  )}
                 </Box>
               </Box>
             </Grid>
@@ -1508,7 +1528,25 @@ const AnimalDetails = () => {
                         handleSaveField("name", editableBasicInfo.name)
                       }
                       variant="standard"
-                      sx={{ fontSize: "h4.fontSize" }}
+                      sx={{
+                        fontSize: "h4.fontSize",
+                        "& .MuiInput-root": {
+                          borderColor: nameError ? "error.main" : "inherit",
+                        },
+                        "& .MuiInput-root:hover": {
+                          borderColor: nameError ? "error.main" : "inherit",
+                        },
+                        "& .MuiInput-root.Mui-focused": {
+                          borderColor: nameError
+                            ? "error.main"
+                            : "primary.main",
+                        },
+                      }}
+                      error={Boolean(nameError)}
+                      helperText={
+                        nameError ||
+                        "Используйте латинские буквы, первая буква заглавная (например: Barsik)"
+                      }
                       autoFocus
                     />
                   </Box>
@@ -1523,6 +1561,7 @@ const AnimalDetails = () => {
                           name: animal.name,
                         });
                         setEditingField({ ...editingField, name: true });
+                        setNameError(null);
                       }}
                     >
                       <EditIcon fontSize="small" />
@@ -1563,25 +1602,54 @@ const AnimalDetails = () => {
                     <Typography variant="body1">
                       <strong>Микрочип:</strong>{" "}
                       {editingField.microchip ? (
-                        <TextField
-                          size="small"
-                          value={editableBasicInfo.microchip}
-                          onChange={(e) =>
-                            setEditableBasicInfo({
-                              ...editableBasicInfo,
-                              microchip: e.target.value,
-                            })
-                          }
-                          onBlur={() =>
-                            handleSaveField(
-                              "microchip",
-                              editableBasicInfo.microchip
-                            )
-                          }
-                          autoFocus
-                        />
+                        <Box sx={{ flex: 1 }}>
+                          <TextField
+                            fullWidth
+                            value={editableBasicInfo.microchip}
+                            onChange={(e) => {
+                              const formattedValue = formatMicrochip(
+                                e.target.value
+                              );
+                              setEditableBasicInfo({
+                                ...editableBasicInfo,
+                                microchip: formattedValue,
+                              });
+                            }}
+                            onBlur={() =>
+                              handleSaveField(
+                                "microchip",
+                                editableBasicInfo.microchip
+                              )
+                            }
+                            variant="standard"
+                            placeholder="643 0981 00000003"
+                            inputProps={{ maxLength: 17 }}
+                            error={Boolean(microchipError)}
+                            helperText={microchipError}
+                          />
+                        </Box>
                       ) : (
-                        animal.microchip || "Не указан"
+                        <>
+                          <Typography>
+                            {animal.microchip || "Не указан"}
+                          </Typography>
+                          <IconButton
+                            size="small"
+                            onClick={() => {
+                              setEditableBasicInfo({
+                                ...editableBasicInfo,
+                                microchip: animal.microchip || "",
+                              });
+                              setEditingField({
+                                ...editingField,
+                                microchip: true,
+                              });
+                              setMicrochipError(null);
+                            }}
+                          >
+                            <EditIcon fontSize="small" />
+                          </IconButton>
+                        </>
                       )}
                     </Typography>
                     <IconButton
@@ -1633,7 +1701,10 @@ const AnimalDetails = () => {
                     </IconButton>
                   </Box>
                   <Typography variant="body1" gutterBottom>
-                    <strong>Заводчик:</strong> {animal.breeder || "Не указан"}
+                    <strong>Заводчик:</strong>{" "}
+                    {breederInfo
+                      ? `${breederInfo.username} (${breederInfo.companyName})`
+                      : "Не указан"}
                   </Typography>
                 </Grid>
               </Grid>
@@ -2783,13 +2854,6 @@ const AnimalDetails = () => {
         </Alert>
       </Snackbar>
 
-      <Lightbox
-        open={isLightboxOpen}
-        close={() => setIsLightboxOpen(false)}
-        index={currentImageIndex}
-        slides={images.map((img) => ({ src: img.original }))}
-      />
-
       {/* Add confirmation dialog */}
       <Dialog
         open={confirmStatusDialog}
@@ -2839,6 +2903,40 @@ const AnimalDetails = () => {
             autoFocus
           >
             Удалить
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Диалог подтверждения изменения имени */}
+      <Dialog
+        open={confirmNameDialog}
+        onClose={handleCancelNameChange}
+        aria-labelledby="name-change-dialog-title"
+        aria-describedby="name-change-dialog-description"
+      >
+        <DialogTitle id="name-change-dialog-title">
+          Подтверждение изменения имени
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="name-change-dialog-description">
+            Вы действительно хотите изменить имя животного с "{animal?.name}" на
+            "{pendingNameChange}"?
+            {breederInfo?.companyName && (
+              <Typography variant="body2" color="textSecondary" sx={{ mt: 1 }}>
+                * К имени будет добавлен суффикс питомника:{" "}
+                {breederInfo.companyName}
+              </Typography>
+            )}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCancelNameChange}>Отмена</Button>
+          <Button
+            onClick={handleConfirmNameChange}
+            variant="contained"
+            color="primary"
+          >
+            Подтвердить
           </Button>
         </DialogActions>
       </Dialog>

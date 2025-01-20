@@ -15,6 +15,7 @@ const ANIMAL_API_URLS = {
   deleteFromGallery: "/animals/gallery",
   setAsAvatar: "/animals/gallery/set-avatar",
   reorderGallery: "/animals/gallery/reorder",
+  getBreederInfo: "/users/breeder",
 };
 
 export const animalService = {
@@ -234,15 +235,23 @@ export const animalService = {
 
   async reorderGallery(animalId, imageIds) {
     try {
-      const response = await api.put(
-        `${ANIMAL_API_URLS.reorderGallery}/${animalId}`,
-        { imageIds }
-      );
+      const response = await api.put(`/animals/gallery/${animalId}/reorder`, {
+        imageIds,
+      });
       return response.data;
     } catch (error) {
-      console.error("Error reordering gallery:", error);
+      if (error.response?.status === 404) {
+        throw new Error("Не удалось найти галерею для изменения порядка");
+      }
       throw error;
     }
+  },
+
+  async getBreederInfo(breederId) {
+    const response = await api.get(
+      `${ANIMAL_API_URLS.getBreederInfo}/${breederId}`
+    );
+    return response.data;
   },
 };
 

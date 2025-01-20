@@ -24,7 +24,7 @@ export const checkServerAvailability = async () => {
   try {
     await api.get("/health");
     return true;
-  } catch (error) {
+  } catch  {
     return false;
   }
 };
