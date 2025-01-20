@@ -29,21 +29,28 @@ const PublicRoute = ({ children }) => {
     userRole: user?.role,
   });
 
-  if (isAuthenticated && user) {
-    const userRole = user.role?.toLowerCase();
-    const allowedRoutes = ROLE_ROUTES[userRole] || [];
+  // Если пользователь аутентифицирован и у него есть роль
+  if (isAuthenticated && user?.role) {
+    const userRole = user.role.toLowerCase();
+
+    // Определяем маршрут для перенаправления
+    let redirectPath = "/";
+    if (userRole === "breeder") {
+      redirectPath = "/mainbcs";
+    } else if (userRole === "user") {
+      redirectPath = "/mainusersystem";
+    }
 
     console.log("Redirecting authenticated user:", {
       role: userRole,
-      allowedRoutes,
+      redirectPath,
       currentPath: location.pathname,
     });
 
-    // Перенаправляем на первый разрешенный маршрут для роли
-    if (allowedRoutes.length > 0) {
-      return <Navigate to={allowedRoutes[0]} replace />;
+    // Перенаправляем только если текущий путь отличается от целевого
+    if (location.pathname !== redirectPath) {
+      return <Navigate to={redirectPath} replace />;
     }
-    return <Navigate to="/" replace />;
   }
 
   return children;

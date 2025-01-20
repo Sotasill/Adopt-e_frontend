@@ -40,6 +40,7 @@ export const authService = {
       }
 
       if (user) {
+        // Определяем роль пользователя
         if (!user.role) {
           const possibleRole =
             user.userType ||
@@ -49,22 +50,58 @@ export const authService = {
           user.role = possibleRole || "user";
         }
 
-        if (
+        // Проверяем, является ли пользователь заводчиком
+        const isBreeder =
+          user.role === "breeder" ||
           user.email?.includes("breeder") ||
-          user.username?.toLowerCase().includes("breeder")
-        ) {
-          user.role = "breeder";
-        }
-      }
+          user.username?.toLowerCase().includes("breeder");
 
-      // Сохраняем токен и данные пользователя
-      if (token) {
-        localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify(user));
+        if (isBreeder) {
+          user.role = "breeder";
+
+          // Определяем специализацию заводчика
+          let specialization =
+            responseData.specialization ||
+            responseData.user?.specialization ||
+            user.specialization;
+
+          // Если специализация не определена, пытаемся определить её по email или username
+          if (!specialization) {
+            const userIdentifier = (
+              user.email ||
+              user.username ||
+              ""
+            ).toLowerCase();
+            if (userIdentifier.includes("dog")) {
+              specialization = "dog";
+            } else if (userIdentifier.includes("cat")) {
+              specialization = "cat";
+            }
+
+            console.log("Определение специализации по email/username:", {
+              email: user.email,
+              username: user.username,
+              identifier: userIdentifier,
+              determinedSpecialization: specialization,
+            });
+          }
+
+          user.specialization = specialization;
+
+          console.log("Данные заводчика после обработки:", {
+            username: user.username,
+            email: user.email,
+            role: user.role,
+            specialization: user.specialization,
+            fromResponse: responseData.specialization,
+            fromUserInResponse: responseData.user?.specialization,
+          });
+        }
       }
 
       return { token, user };
     } catch (error) {
+      console.error("Ошибка при входе:", error);
       throw error;
     }
   },
@@ -74,17 +111,11 @@ export const authService = {
       await api.post(API_URLS.logout);
     } catch (error) {
       console.error("Ошибка при выходе:", error);
-    } finally {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
     }
   },
 
   async refreshToken() {
     const response = await api.post(API_URLS.refresh);
-    if (response.data.token) {
-      localStorage.setItem("token", response.data.token);
-    }
     return response.data;
   },
 
@@ -96,9 +127,7 @@ export const authService = {
       API_URLS.updateProfileBackground,
       formData,
       {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+        headers: { "Content-Type": "multipart/form-data" },
       }
     );
     return response.data;
@@ -109,26 +138,9 @@ export const authService = {
     formData.append("avatar", avatarFile);
 
     const response = await api.post(API_URLS.updateAvatar, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+      headers: { "Content-Type": "multipart/form-data" },
     });
     return response.data;
-  },
-
-  isAuthenticated() {
-    const token = localStorage.getItem("token");
-    const user = localStorage.getItem("user");
-    return !!(token && user);
-  },
-
-  getCurrentUser() {
-    const userStr = localStorage.getItem("user");
-    return userStr ? JSON.parse(userStr) : null;
-  },
-
-  getToken() {
-    return localStorage.getItem("token");
   },
 };
 

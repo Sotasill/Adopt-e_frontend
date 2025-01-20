@@ -370,69 +370,77 @@
 }
 
 .selectHeader {
-  display: flex;
-  align-items: center;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 4px;
-  background: white;
   cursor: pointer;
+  display: flex;
   justify-content: space-between;
-  min-height: 42px;
-}
-
-.selectHeader:hover {
-  border-color: #4a90e2;
-}
-
-.selectedValue {
-  flex: 1;
-  margin-right: 8px;
+  align-items: center;
+  background: white;
 }
 
 .arrow {
   color: #666;
-  font-size: 12px;
-  margin-left: 8px;
 }
 
-.optionsList {
+.dropdown {
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
   background: white;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 4px;
   margin-top: 4px;
-  max-height: 200px;
-  overflow-y: auto;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.searchInput {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 8px;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-bottom-color: #4a90e2;
+}
+
+.optionsContainer {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.categoryGroup {
+  margin-bottom: 8px;
+}
+
+.categoryHeader {
+  padding: 8px 12px;
+  font-weight: 600;
+  color: #666;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 0.9em;
+  text-transform: uppercase;
+}
+
 .option {
-  display: flex;
-  align-items: center;
-  padding: 10px;
+  padding: 8px 12px;
   cursor: pointer;
 }
 
 .option:hover {
-  background: #f5f5f5;
+  background-color: #f0f0f0;
 }
 
 .option.selected {
-  background: #e3f2fd;
-}
-
-.colorDot {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  margin-right: 8px;
-  border: 1px solid #ddd;
-  flex-shrink: 0;
+  background-color: #e3f2fd;
+  color: #1976d2;
 }
 
 .searchableSelect {
@@ -587,4 +595,89 @@
 .radioText {
   font-size: 16px;
   color: #333;
+}
+
+.staticField {
+  padding: 10px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.staticField strong {
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.specialization {
+  color: #666;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.radioGroup {
+  display: flex;
+  gap: 20px;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.radioLabel.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.radioInput {
+  margin-right: 8px;
+}
+
+.radioInput:disabled + .radioText {
+  color: #999;
+  cursor: not-allowed;
+}
+
+.categoryGroup {
+  margin-bottom: 8px;
+}
+
+.categoryHeader {
+  padding: 8px 12px;
+  font-weight: 600;
+  color: #666;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 0.9em;
+  text-transform: uppercase;
+}
+
+.optionsContainer {
+  max-height: 300px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
+
+.optionsContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.optionsContainer::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.optionsContainer::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.optionsContainer::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

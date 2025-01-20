@@ -26,7 +26,6 @@ export const nameValidationSchema = (currentName, companyName) =>
               },
               body: JSON.stringify({
                 name: value,
-                fullName: companyName ? `${value} ${companyName}` : value,
               }),
             }
           );

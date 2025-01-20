@@ -301,7 +301,6 @@ const AnimalDetails = () => {
         // Проверяем, есть ли данные в ответе
         const animalData = response.data?.animal || response.animal || response;
         console.log("Данные животного:", animalData);
-        console.log("URL изображения:", animalData?.image?.url);
 
         setAnimal(animalData);
 
@@ -328,10 +327,21 @@ const AnimalDetails = () => {
             description: animalData.name,
             public_id: animalData.image.public_id,
           });
+        } else {
+          // Добавляем дефолтное изображение если нет аватара
+          galleryImages.push({
+            original: getDefaultImage(animalData.species),
+            thumbnail: getDefaultImage(animalData.species),
+            description: "Дефолтное изображение",
+            public_id: null,
+          });
         }
 
-        // Добавляем изображения из галереи
-        if (animalData?.gallery && animalData.gallery.length > 0) {
+        // Добавляем изображения из галереи, если они есть
+        if (
+          Array.isArray(animalData?.gallery) &&
+          animalData.gallery.length > 0
+        ) {
           const additionalImages = animalData.gallery.map((img) => ({
             original: img.url,
             thumbnail: img.url,
@@ -344,8 +354,8 @@ const AnimalDetails = () => {
         console.log("Инициализация галереи:", galleryImages);
         setImages(galleryImages);
       } catch (err) {
-        setError("Не удалось загрузить информацию о животном");
         console.error("Error fetching animal details:", err);
+        setError("Не удалось загрузить информацию о животном");
       } finally {
         setLoading(false);
       }
@@ -1000,11 +1010,8 @@ const AnimalDetails = () => {
             breederInfo?.companyName
           ).validate(value);
           setNameError(null);
-          // Формируем полное имя с суффиксом компании
-          const fullName = breederInfo?.companyName
-            ? `${value} ${breederInfo.companyName}`
-            : value;
-          setPendingNameChange(fullName);
+          // Сохраняем только имя животного без суффикса компании
+          setPendingNameChange(value);
           setConfirmNameDialog(true);
           return;
         } catch (validationError) {
@@ -1065,47 +1072,36 @@ const AnimalDetails = () => {
   // Добавляем функцию для подтверждения изменения имени
   const handleConfirmNameChange = async () => {
     try {
-      await animalService.updateAnimal(id, {
+      // Отправляем только поле name
+      const response = await animalService.updateAnimal(id, {
         name: pendingNameChange,
       });
 
+      // Обновляем состояние после успешного ответа
       setAnimal({
         ...animal,
         name: pendingNameChange,
       });
-      setEditingField({ ...editingField, name: false });
 
-      // Показываем toast уведомление
+      setEditingField({ ...editingField, name: false });
+      setConfirmNameDialog(false);
+      setPendingNameChange(null);
+
       toast.success("Успешно!", {
-        description: `Имя животного изменено на "${pendingNameChange}"`,
+        description: "Имя животного успешно обновлено",
         duration: 3000,
       });
-
-      // Добавляем уведомление в Notifications
-      dispatch(
-        addNotification({
-          id: Date.now(),
-          title: "Изменение имени животного",
-          message: `Имя животного успешно изменено с "${animal.name}" на "${pendingNameChange}"`,
-          timestamp: new Date().toISOString(),
-        })
-      );
-
-      setNameError(null);
     } catch (err) {
-      console.error("Error saving name:", err);
+      console.error("Error confirming name change:", err);
       toast.error("Ошибка сохранения", {
         description:
-          err.response?.data?.message || "Ошибка при сохранении имени",
+          err.response?.data?.message || "Ошибка при изменении имени",
         duration: 5000,
       });
       setEditableBasicInfo({
         ...editableBasicInfo,
         name: animal.name,
       });
-    } finally {
-      setConfirmNameDialog(false);
-      setPendingNameChange(null);
     }
   };
 

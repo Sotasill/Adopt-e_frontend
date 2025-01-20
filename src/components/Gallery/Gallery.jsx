@@ -217,9 +217,50 @@ const Gallery = ({
         Галерея изображений
       </Typography>
 
-      {galleryImages.length > 0 && (
-        <Box sx={{ width: "100%", maxWidth: "800px", margin: "0 auto" }}>
-          {showGalleryActions ? (
+      <Box sx={{ width: "100%", maxWidth: "800px", margin: "0 auto" }}>
+        {/* Кнопки управления */}
+        <Box
+          sx={{
+            mt: 3,
+            mb: 2,
+            display: "flex",
+            justifyContent: "center",
+            gap: 2,
+            position: "relative",
+            zIndex: 1,
+          }}
+        >
+          <input
+            type="file"
+            multiple
+            accept="image/*"
+            onChange={onImageUpload}
+            style={{ display: "none" }}
+            id="gallery-upload"
+          />
+          <label htmlFor="gallery-upload">
+            <Tooltip title="Добавить фото в галерею">
+              <IconButton component="span" color="primary">
+                <AddPhotoAlternateIcon />
+              </IconButton>
+            </Tooltip>
+          </label>
+
+          {galleryImages.length > 0 && (
+            <Tooltip title="Управление галереей">
+              <IconButton
+                color={showGalleryActions ? "primary" : "default"}
+                onClick={() => setShowGalleryActions(!showGalleryActions)}
+              >
+                <SettingsIcon />
+              </IconButton>
+            </Tooltip>
+          )}
+        </Box>
+
+        {/* Отображение галереи */}
+        {galleryImages.length > 0 ? (
+          showGalleryActions ? (
             <Box sx={{ mb: 2 }} className="gallery-management">
               <Grid container spacing={2} justifyContent="center">
                 {galleryImages.map((image, index) => (
@@ -307,8 +348,8 @@ const Gallery = ({
                 sx={{
                   position: "relative",
                   width: "100%",
-                  height: "500px", // Фиксированная высота
-                  mb: 5, // Отступ снизу
+                  height: "500px",
+                  mb: 5,
                   "& .image-gallery": {
                     height: "100%",
                   },
@@ -316,7 +357,7 @@ const Gallery = ({
                     height: "100%",
                   },
                   "& .image-gallery-slide-wrapper": {
-                    height: "calc(100% - 100px)", // Оставляем место для миниатюр
+                    height: "calc(100% - 100px)",
                   },
                   "& .image-gallery-swipe": {
                     height: "100%",
@@ -349,47 +390,28 @@ const Gallery = ({
                 />
               </Box>
             </Box>
-          )}
-
-          {/* Кнопки управления под галереей */}
+          )
+        ) : (
           <Box
             sx={{
-              mt: 3, // Увеличиваем отступ сверху
-              mb: 2, // Добавляем отступ снизу
               display: "flex",
-              justifyContent: "center",
+              flexDirection: "column",
+              alignItems: "center",
               gap: 2,
-              position: "relative", // Делаем позиционирование относительным
-              zIndex: 1, // Поднимаем кнопки над галереей
+              py: 4,
+              backgroundColor: "rgba(0, 0, 0, 0.03)",
+              borderRadius: 1,
             }}
           >
-            <input
-              type="file"
-              multiple
-              accept="image/*"
-              onChange={onImageUpload}
-              style={{ display: "none" }}
-              id="gallery-upload"
-            />
-            <label htmlFor="gallery-upload">
-              <Tooltip title="Добавить фото в галерею">
-                <IconButton component="span" color="primary">
-                  <AddPhotoAlternateIcon />
-                </IconButton>
-              </Tooltip>
-            </label>
-
-            <Tooltip title="Управление галереей">
-              <IconButton
-                color={showGalleryActions ? "primary" : "default"}
-                onClick={() => setShowGalleryActions(!showGalleryActions)}
-              >
-                <SettingsIcon />
-              </IconButton>
-            </Tooltip>
+            <Typography color="textSecondary">
+              В галерее пока нет изображений
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              Нажмите на кнопку "+" чтобы добавить фотографии
+            </Typography>
           </Box>
-        </Box>
-      )}
+        )}
+      </Box>
 
       <Lightbox
         open={isLightboxOpen}

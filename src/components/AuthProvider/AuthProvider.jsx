@@ -8,36 +8,61 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const initializeAuth = () => {
-      const token = localStorage.getItem("token");
-      const storedUser = localStorage.getItem("user");
-
-      if (!token) {
-        dispatch(setAuth(false));
-        dispatch(setUser(null));
-        return;
-      }
-
       try {
-        let userData = null;
-        if (storedUser) {
-          userData = JSON.parse(storedUser);
+        const token = localStorage.getItem("token");
+        const storedUser = localStorage.getItem("user");
+
+        if (!token || !storedUser) {
+          console.log("Нет сохраненных данных аутентификации");
+          dispatch(setAuth(false));
+          dispatch(setUser(null));
+          return;
         }
 
-        if (!userData) {
+        // Проверяем токен
+        try {
           const decodedToken = jwtDecode(token);
-          userData = decodedToken.data || decodedToken;
+          const currentTime = Date.now() / 1000;
+
+          if (decodedToken.exp && decodedToken.exp < currentTime) {
+            throw new Error("Токен истек");
+          }
+        } catch (error) {
+          console.error("Ошибка при проверке токена:", error);
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          dispatch(setAuth(false));
+          dispatch(setUser(null));
+          return;
         }
 
-        if (!userData || !userData.role) {
-          throw new Error("Не удалось получить данные пользователя");
+        // Парсим данные пользователя
+        try {
+          const userData = JSON.parse(storedUser);
+
+          if (!userData || !userData.role) {
+            throw new Error("Некорректные данные пользователя");
+          }
+
+          // Нормализуем роль
+          userData.role = userData.role.toLowerCase();
+
+          console.log("Инициализация данных пользователя:", {
+            username: userData.username,
+            role: userData.role,
+            specialization: userData.specialization,
+          });
+
+          dispatch(setUser(userData));
+          dispatch(setAuth(true));
+        } catch (error) {
+          console.error("Ошибка при парсинге данных пользователя:", error);
+          localStorage.removeItem("user");
+          dispatch(setAuth(false));
+          dispatch(setUser(null));
         }
-
-        userData.role = userData.role.toLowerCase();
-        localStorage.setItem("user", JSON.stringify(userData));
-
-        dispatch(setUser(userData));
-        dispatch(setAuth(true));
-      } catch  {
+      } catch (error) {
+        console.error("Общая ошибка инициализации:", error);
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         dispatch(setAuth(false));

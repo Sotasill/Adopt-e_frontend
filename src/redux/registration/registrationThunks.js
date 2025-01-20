@@ -56,10 +56,15 @@ export const registerBreeder = createAsyncThunk(
         role: "breeder",
       };
 
+      console.log("Данные бридера перед отправкой:", breederDataWithRole);
+
       const response = await api.post(
         API_URLS.registerBreeder,
         breederDataWithRole
       );
+
+      console.log("Ответ сервера при регистрации бридера:", response.data);
+
       return response.data;
     } catch (error) {
       console.error("Полная ошибка заводчика:", error);

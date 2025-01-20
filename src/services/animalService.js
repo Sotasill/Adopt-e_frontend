@@ -1,7 +1,7 @@
 import api from "./api";
 
 const ANIMAL_API_URLS = {
-  registerAnimal: "/animals/register",
+  registerAnimal: "/animals",
   checkBreederCode: "/animals/check-breeder-code",
   checkParent: "/animals/check-parent",
   getUserAnimals: "/animals/user",
@@ -20,8 +20,28 @@ const ANIMAL_API_URLS = {
 
 export const animalService = {
   async registerAnimal(animalData) {
-    const response = await api.post(ANIMAL_API_URLS.registerAnimal, animalData);
-    return response.data;
+    try {
+      let config = {};
+
+      // Если данные приходят в виде FormData, устанавливаем правильный Content-Type
+      if (animalData instanceof FormData) {
+        config = {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        };
+      }
+
+      const response = await api.post(
+        ANIMAL_API_URLS.registerAnimal,
+        animalData,
+        config
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error registering animal:", error);
+      throw error;
+    }
   },
 
   async checkBreederCode(code) {

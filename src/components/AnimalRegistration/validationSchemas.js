@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+import { CAT_BREEDS, DOG_BREEDS } from "./breedData";
 
 // Вспомогательные функции для работы с датами
 const getMaxDate = () => {
@@ -129,8 +130,8 @@ const checkNameUniqueness = async (name) => {
 export const animalRegistrationSchema = Yup.object().shape({
   name: Yup.string()
     .required("Кличка обязательна")
-    .min(2, "Минимум 2 символа")
-    .max(50, "Максимум 50 символов")
+    .min(2, "Кличка должна содержать минимум 2 символа")
+    .max(50, "Кличка не должна превышать 50 символов")
     .matches(
       /^[A-Z][a-z]+$/,
       "Кличка должна начинаться с большой буквы и содержать только латинские буквы"
@@ -146,12 +147,15 @@ export const animalRegistrationSchema = Yup.object().shape({
 
   sex: Yup.string()
     .required("Пол животного обязателен")
-    .oneOf(["male", "female"], "Пол животного должен быть male или female"),
+    .oneOf(["male", "female"], "Выберите пол животного"),
 
   breed: Yup.string()
     .required("Порода обязательна")
-    .min(2, "Минимум 2 символа")
-    .max(50, "Максимум 50 символов"),
+    .test("valid-breed", "Выберите породу из списка", function (value) {
+      const { type } = this.parent;
+      const breeds = type === "cat" ? CAT_BREEDS : DOG_BREEDS;
+      return Object.keys(breeds).includes(value);
+    }),
 
   birthDate: Yup.date()
     .required("Дата рождения обязательна")
@@ -161,13 +165,74 @@ export const animalRegistrationSchema = Yup.object().shape({
 
   type: Yup.string()
     .required("Тип животного обязателен")
-    .oneOf(["cat", "dog"], "Выберите кошку или собаку"),
+    .test(
+      "type-validation",
+      "Тип животного не соответствует специализации",
+      function (value) {
+        if (!value) return false;
 
-  microchip: Yup.string(),
+        // Получаем данные пользователя из localStorage
+        const userStr = localStorage.getItem("user");
+        console.log("Данные пользователя из localStorage:", userStr);
+
+        const user = JSON.parse(userStr || "{}");
+        const isBreeder = user.role === "breeder";
+        const breederSpecialization = user.specialization?.toLowerCase();
+
+        console.log("Детальная информация о пользователе:", {
+          userFromStorage: user,
+          isBreeder,
+          breederSpecialization,
+          rawValue: value,
+          normalizedValue: value?.toLowerCase(),
+        });
+
+        if (isBreeder && breederSpecialization) {
+          // Для бридера тип животного должен строго соответствовать его специализации
+          const isValid = value.toLowerCase() === breederSpecialization;
+          console.log("Результат валидации для бридера:", {
+            isValid,
+            valueFromForm: value.toLowerCase(),
+            breederSpecialization,
+            match: value.toLowerCase() === breederSpecialization,
+          });
+          return isValid;
+        }
+
+        // Для обычного пользователя проверяем, что тип это кошка или собака
+        const isValid = ["cat", "dog"].includes(value.toLowerCase());
+        console.log("Результат валидации для обычного пользователя:", {
+          isValid,
+          value: value.toLowerCase(),
+          allowedTypes: ["cat", "dog"],
+        });
+        return isValid;
+      }
+    ),
+
+  microchip: Yup.string()
+    .nullable()
+    .transform((value) => (value === "" ? null : value))
+    .matches(/^[0-9 ]*$/, "Микрочип может содержать только цифры и пробелы"),
 
   furColor: Yup.string().required("Цвет шерсти обязателен"),
 
   furLength: Yup.string().required("Тип шерсти обязателен"),
+
+  litterRegistrationNumber: Yup.string().when("registrationType", {
+    is: "litter",
+    then: () => Yup.string().required("Номер помёта обязателен"),
+  }),
+
+  mother: Yup.string().when("registrationType", {
+    is: "parent",
+    then: () => Yup.string(),
+  }),
+
+  father: Yup.string().when("registrationType", {
+    is: "parent",
+    then: () => Yup.string(),
+  }),
 });
 
 // Экспортируем константы для использования в компоненте

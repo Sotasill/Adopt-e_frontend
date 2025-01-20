@@ -1,14 +1,18 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { toast } from "sonner";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 import {
   animalRegistrationSchema,
   EYE_COLORS,
   FUR_COLORS,
   FUR_TYPES,
 } from "./validationSchemas";
+import { CAT_BREEDS, DOG_BREEDS } from "./breedData";
 import styles from "./AnimalRegistration.module.css";
+import { animalService } from "../../services/animalService";
+import React from "react";
 
 const REGISTRATION_TYPES = {
   LITTER: "litter",
@@ -270,11 +274,7 @@ CustomSelect.propTypes = {
 const MicrochipInput = ({ field, form }) => {
   const formatMicrochip = (value) => {
     if (!value) return value;
-
-    // Удаляем все нецифровые символы
     const numbers = value.replace(/[^\d]/g, "");
-
-    // Добавляем пробелы после 3 и 7 цифр
     if (numbers.length <= 3) return numbers;
     if (numbers.length <= 7)
       return `${numbers.slice(0, 3)} ${numbers.slice(3)}`;
@@ -294,7 +294,7 @@ const MicrochipInput = ({ field, form }) => {
     <input
       {...field}
       type="text"
-      maxLength={17} // 15 цифр + 2 пробела
+      maxLength={17}
       onChange={handleChange}
       className={styles.input}
       placeholder="643 0981 00000003"
@@ -411,57 +411,6 @@ SearchableSelect.propTypes = {
   form: PropTypes.object.isRequired,
 };
 
-// Компонент для выбора типа животного с радиокнопками
-const AnimalTypeSelect = ({ field, form }) => {
-  useEffect(() => {
-    // Если тип не установлен, устанавливаем кошку по умолчанию
-    if (!field.value) {
-      form.setFieldValue("type", "cat");
-    }
-  }, []);
-
-  const handleTypeChange = (newType) => {
-    console.log("Изменение типа животного:", {
-      oldValue: field.value,
-      newValue: newType,
-    });
-
-    form.setFieldValue("type", newType);
-  };
-
-  return (
-    <div className={styles.radioGroup}>
-      <label className={styles.radioLabel}>
-        <input
-          type="radio"
-          name={field.name}
-          value="cat"
-          checked={field.value === "cat"}
-          onChange={() => handleTypeChange("cat")}
-          className={styles.radioInput}
-        />
-        <span className={styles.radioText}>Кошка</span>
-      </label>
-      <label className={styles.radioLabel}>
-        <input
-          type="radio"
-          name={field.name}
-          value="dog"
-          checked={field.value === "dog"}
-          onChange={() => handleTypeChange("dog")}
-          className={styles.radioInput}
-        />
-        <span className={styles.radioText}>Собака</span>
-      </label>
-    </div>
-  );
-};
-
-AnimalTypeSelect.propTypes = {
-  field: PropTypes.object.isRequired,
-  form: PropTypes.object.isRequired,
-};
-
 // Компонент для выбора пола животного
 const SexSelect = ({ field, form }) => {
   return (
@@ -497,7 +446,177 @@ SexSelect.propTypes = {
   form: PropTypes.object.isRequired,
 };
 
+// Компонент для выбора породы
+const BreedSelect = ({ field, form, animalType }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedLabel, setSelectedLabel] = useState("");
+  const dropdownRef = useRef(null);
+
+  const breeds = useMemo(() => {
+    return animalType === "cat" ? CAT_BREEDS : DOG_BREEDS;
+  }, [animalType]);
+
+  // Группируем породы по категориям и фильтруем по поисковому запросу
+  const groupedBreeds = useMemo(() => {
+    // Получаем все уникальные категории из пород
+    const categories = new Set();
+    Object.values(breeds).forEach((breed) => {
+      categories.add(breed.category || "Другие");
+    });
+
+    // Создаем объект с категориями
+    const result = {};
+    categories.forEach((category) => {
+      result[category] = [];
+    });
+
+    // Распределяем породы по категориям
+    Object.entries(breeds).forEach(([key, value]) => {
+      if (
+        !searchTerm ||
+        value.label.toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
+        const category = value.category || "Другие";
+        result[category].push([key, value]);
+      }
+    });
+
+    return result;
+  }, [breeds, searchTerm]);
+
+  // Обновляем метку при изменении значения
+  useEffect(() => {
+    if (field.value && breeds[field.value]) {
+      setSelectedLabel(breeds[field.value].label);
+    } else {
+      setSelectedLabel("");
+    }
+  }, [field.value, breeds]);
+
+  // Закрываем выпадающий список при клике вне компонента
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Сортируем категории в нужном порядке
+  const orderedCategories = [
+    "Беспородные",
+    "Гибриды",
+    "Пастушьи и скотогонные собаки",
+    "Пинчеры и молоссы",
+    "Терьеры",
+    "Таксы",
+    "Шпицы и примитивные породы",
+    "Гончие",
+    "Легавые",
+    "Ретриверы и спаниели",
+    "Декоративные собаки",
+    "Борзые",
+    "Породистые",
+    "Другие",
+  ];
+
+  // Сортируем категории так, чтобы они отображались в нужном порядке
+  const sortedCategories = Object.keys(groupedBreeds).sort((a, b) => {
+    const indexA = orderedCategories.indexOf(a);
+    const indexB = orderedCategories.indexOf(b);
+    return indexA - indexB;
+  });
+
+  return (
+    <div className={styles.searchableSelect} ref={dropdownRef}>
+      <div className={styles.selectHeader} onClick={() => setIsOpen(!isOpen)}>
+        <span>{selectedLabel || "Выберите породу"}</span>
+        <span className={styles.arrow}>▼</span>
+      </div>
+
+      {isOpen && (
+        <div className={styles.dropdown}>
+          <input
+            type="text"
+            className={styles.searchInput}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onClick={(e) => e.stopPropagation()}
+            placeholder="Поиск породы..."
+            autoFocus
+          />
+          <div className={styles.optionsContainer}>
+            {sortedCategories.map((category) => {
+              const breeds = groupedBreeds[category];
+              if (!breeds || breeds.length === 0) return null;
+
+              return (
+                <div key={category} className={styles.categoryGroup}>
+                  <div className={styles.categoryHeader}>{category}</div>
+                  {breeds.map(([key, value]) => (
+                    <div
+                      key={key}
+                      className={`${styles.option} ${
+                        field.value === key ? styles.selected : ""
+                      }`}
+                      onClick={() => {
+                        form.setFieldValue(field.name, key);
+                        setSelectedLabel(value.label);
+                        setIsOpen(false);
+                        setSearchTerm("");
+                      }}
+                    >
+                      {value.label}
+                    </div>
+                  ))}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+BreedSelect.propTypes = {
+  field: PropTypes.object.isRequired,
+  form: PropTypes.object.isRequired,
+  animalType: PropTypes.string.isRequired,
+};
+
 const AnimalRegistration = ({ onClose }) => {
+  // Получаем информацию о пользователе из Redux
+  const user = useSelector((state) => state.auth.user);
+  const isBreeder = user?.role === "breeder";
+  const specialization = user?.specialization;
+
+  // Расширенное логирование при инициализации
+  useEffect(() => {
+    console.log("=== Данные пользователя при монтировании компонента ===");
+    console.log("Redux user:", user);
+    console.log("isBreeder:", isBreeder);
+    console.log("specialization:", specialization);
+
+    if (!user) {
+      console.warn("Пользователь не найден в Redux store");
+    } else if (isBreeder && !specialization) {
+      console.warn("У заводчика отсутствует специализация:", user);
+    }
+  }, [user, isBreeder, specialization]);
+
+  // Проверяем и логируем данные пользователя
+  console.log("Данные пользователя при инициализации:", {
+    user,
+    isBreeder: user?.role === "breeder",
+    specialization: user?.specialization,
+    userId: user?._id,
+  });
+
   // Состояние для типа регистрации
   const [registrationType, setRegistrationType] = useState(null);
 
@@ -640,90 +759,141 @@ const AnimalRegistration = ({ onClose }) => {
     }
   };
 
-  // Функция для получения начальных значений формы в зависимости от типа регистрации
+  // Функция для получения начальных значений формы
   const getInitialValues = (registrationType) => {
+    console.log("Определение начальных значений:", {
+      isBreeder,
+      specialization,
+      user,
+    });
+
+    // Для заводчика используем его специализацию, для остальных - кошка по умолчанию
+    const animalType = isBreeder && specialization ? specialization : "cat";
+
+    console.log("Выбранный тип животного:", animalType);
+
     const baseValues = {
       name: "",
       breed: "",
       birthDate: "",
       eyeColor: "",
-      type: "cat", // Устанавливаем кошку по умолчанию
+      type: animalType,
+      sex: "female",
       microchip: "",
       furColor: "",
       furLength: "",
     };
 
     // Добавляем дополнительные поля в зависимости от типа регистрации
+    let values;
     switch (registrationType) {
       case REGISTRATION_TYPES.LITTER:
-        return {
+        values = {
           ...baseValues,
           litterRegistrationNumber: litterNumber || "",
+          registrationType: REGISTRATION_TYPES.LITTER,
         };
+        break;
       case REGISTRATION_TYPES.PARENT:
-        return {
+        values = {
           ...baseValues,
           [parentType]: parentId || "",
           [`${parentType}Registered`]: false,
+          registrationType: REGISTRATION_TYPES.PARENT,
         };
+        break;
       default:
-        return baseValues;
+        values = {
+          ...baseValues,
+          registrationType: REGISTRATION_TYPES.NONE,
+        };
     }
+
+    console.log("Итоговые начальные значения формы:", values);
+    return values;
   };
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       console.log("=== Начало отправки формы ===");
       console.log("Исходные значения формы:", values);
-      console.log("Тип животного в форме:", values.type);
-
-      // Явно создаем объект с данными
-      const jsonData = {
-        ...values,
-        type: values.type,
-      };
-
-      const token = localStorage.getItem("token");
-
-      const response = await fetch("http://localhost:3000/api/animals", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(jsonData),
+      console.log("Данные пользователя при отправке:", {
+        user,
       });
 
-      const data = await response.json();
+      // Создаем FormData для отправки всех данных вместе с изображением
+      const formData = new FormData();
 
-      if (!response.ok) {
-        throw new Error(data.message || "Ошибка при регистрации животного");
+      // Список полей, которые не нужно отправлять на сервер
+      const excludeFields = ["registrationType"];
+
+      // Добавляем все поля формы
+      Object.keys(values).forEach((key) => {
+        // Пропускаем поля, которые не нужно отправлять
+        if (excludeFields.includes(key)) {
+          return;
+        }
+
+        // Для поля microchip добавляем значение только если оно не пустое
+        if (key === "microchip") {
+          if (values[key] && values[key].trim() !== "") {
+            formData.append(key, values[key]);
+          }
+        }
+        // Специальная обработка для типа животного
+        else if (key === "type") {
+          const isBreeder = user?.role === "breeder";
+          const specialization = user?.specialization;
+
+          const animalType =
+            isBreeder && specialization
+              ? specialization
+              : values[key].toLowerCase();
+
+          console.log("Определение типа животного при отправке:", {
+            isBreeder,
+            specialization,
+            animalType,
+            originalValue: values[key],
+          });
+
+          formData.append(key, animalType);
+        } else if (values[key] !== undefined && values[key] !== null) {
+          formData.append(key, values[key]);
+        }
+      });
+
+      // Если есть изображение, добавляем его в FormData
+      if (image) {
+        formData.append("image", image);
       }
 
-      // Если есть изображение, отправляем его отдельным запросом
-      if (image) {
-        console.log("Начало загрузки изображения");
-        const imageFormData = new FormData();
-        imageFormData.append("image", image);
+      // Для отладки - выводим все данные формы
+      console.log("=== Данные отправляемые на сервер ===");
+      for (let [key, value] of formData.entries()) {
+        console.log(key + ": " + value);
+      }
 
-        const imageResponse = await fetch(
-          `http://localhost:3000/api/animals/${data._id}/image`,
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-            body: imageFormData,
-          }
-        );
+      // Регистрируем животное через сервис
+      const data = await animalService.registerAnimal(formData);
 
-        console.log("Статус загрузки изображения:", imageResponse.status);
-        if (!imageResponse.ok) {
-          console.error(
-            "Ошибка при загрузке изображения:",
-            await imageResponse.json()
-          );
-        }
+      console.log("=== Ответ сервера ===");
+      console.log("Полный ответ:", data);
+      console.log("Тип животного в ответе:", data.type);
+      console.log(
+        "Специализация бридера в ответе:",
+        data.breederSpecialization
+      );
+
+      // Проверяем соответствие типа животного специализации бридера
+      if (
+        user?.role === "breeder" &&
+        data.type !== user.specialization?.toLowerCase()
+      ) {
+        console.error("Несоответствие типа животного специализации бридера:", {
+          responseType: data.type,
+          breederSpecialization: user.specialization,
+        });
       }
 
       console.log("=== Успешное завершение регистрации ===");
@@ -749,10 +919,96 @@ const AnimalRegistration = ({ onClose }) => {
     } catch (err) {
       console.error("=== Ошибка при отправке формы ===");
       console.error("Детали ошибки:", err);
-      setError(err.message);
+      console.error("Ответ сервера при ошибке:", err.response?.data);
+      console.error("Статус ошибки:", err.response?.status);
+
+      let errorMessage = "Произошла ошибка при регистрации животного";
+
+      if (err.response?.data?.error?.message) {
+        errorMessage = err.response.data.error.message;
+      } else if (err.response?.data?.message) {
+        errorMessage = err.response.data.message;
+      } else if (err.message) {
+        errorMessage = err.message;
+      }
+
+      setError(errorMessage);
+
+      toast.error(errorMessage, {
+        duration: 5000,
+        position: "top-right",
+        style: {
+          background: "#f44336",
+          color: "#fff",
+        },
+      });
     } finally {
       setSubmitting(false);
     }
+  };
+
+  // Модифицируем функцию renderAnimalTypeSelect
+  const renderAnimalTypeSelect = (field, form) => {
+    console.log("Рендер селектора типа животного:", {
+      isBreeder,
+      specialization,
+      currentValue: field.value,
+    });
+
+    // Для заводчика показываем только его специализацию
+    if (isBreeder && specialization) {
+      const displayText = specialization === "dog" ? "Собака" : "Кошка";
+
+      // Устанавливаем значение в соответствии со специализацией
+      if (field.value !== specialization) {
+        console.log("Устанавливаем тип животного:", {
+          oldValue: field.value,
+          newValue: specialization,
+        });
+        form.setFieldValue(field.name, specialization);
+      }
+
+      return (
+        <div className={styles.inputGroup}>
+          <div className={styles.staticField}>
+            <strong>{displayText}</strong>
+            <span className={styles.specialization}>
+              (в соответствии с вашей специализацией: {specialization})
+            </span>
+          </div>
+        </div>
+      );
+    }
+
+    // Для обычного пользователя показываем радио-кнопки
+    return (
+      <div className={styles.radioGroup}>
+        <label className={styles.radioLabel}>
+          <input
+            type="radio"
+            name={field.name}
+            value="cat"
+            checked={field.value === "cat"}
+            onChange={() => form.setFieldValue(field.name, "cat")}
+            className={styles.radioInput}
+            disabled={isBreeder}
+          />
+          <span className={styles.radioText}>Кошка</span>
+        </label>
+        <label className={styles.radioLabel}>
+          <input
+            type="radio"
+            name={field.name}
+            value="dog"
+            checked={field.value === "dog"}
+            onChange={() => form.setFieldValue(field.name, "dog")}
+            className={styles.radioInput}
+            disabled={isBreeder}
+          />
+          <span className={styles.radioText}>Собака</span>
+        </label>
+      </div>
+    );
   };
 
   return (
@@ -867,160 +1123,211 @@ const AnimalRegistration = ({ onClose }) => {
           initialValues={getInitialValues(registrationType)}
           validationSchema={animalRegistrationSchema}
           onSubmit={handleSubmit}
+          enableReinitialize={true}
         >
-          {({ isSubmitting, errors, touched }) => (
-            <Form className={`${styles.form} ${styles.registrationForm}`}>
-              <h3>Регистрация животного</h3>
+          {({ isSubmitting, errors, touched, values, setFieldValue }) => {
+            // Эффект для типа животного
+            React.useEffect(() => {
+              const isBreeder = user?.role === "breeder";
+              const specialization = user?.specialization;
 
-              <div className={styles.formGrid}>
-                <FormField
-                  name="name"
-                  label="Кличка*:"
-                  className={`${
-                    errors.name && touched.name ? styles.inputError : ""
-                  }`}
-                />
+              if (
+                isBreeder &&
+                specialization &&
+                values.type !== specialization
+              ) {
+                console.log(
+                  "Обновление типа животного при изменении данных пользователя:",
+                  {
+                    isBreeder,
+                    specialization,
+                    currentValue: values.type,
+                  }
+                );
+                setFieldValue("type", specialization);
+              }
+            }, [user, values.type]);
 
-                <FormField
-                  name="breed"
-                  label="Порода*:"
-                  className={`${
-                    errors.breed && touched.breed ? styles.inputError : ""
-                  }`}
-                />
+            // Новый эффект для сброса породы при изменении типа животного
+            React.useEffect(() => {
+              // Сбрасываем значение породы при изменении типа животного
+              setFieldValue("breed", "");
+            }, [values.type]);
 
-                <FormField
-                  name="birthDate"
-                  label="Дата рождения*:"
-                  type="date"
-                  className={`${
-                    errors.birthDate && touched.birthDate
-                      ? styles.inputError
-                      : ""
-                  }`}
-                />
+            return (
+              <Form className={`${styles.form} ${styles.registrationForm}`}>
+                <h3>Регистрация животного</h3>
 
-                <div className={styles.inputGroup}>
-                  <label htmlFor="eyeColor">Цвет глаз*:</label>
-                  <Field name="eyeColor">
-                    {({ field, form }) => (
-                      <CustomSelect
-                        value={field.value}
-                        onChange={(e) =>
-                          form.setFieldValue("eyeColor", e.target.value)
-                        }
-                        options={EYE_COLORS}
-                        placeholder="Выберите цвет глаз"
-                      />
-                    )}
-                  </Field>
-                  <ErrorMessage
-                    name="eyeColor"
-                    render={(msg) => (
-                      <span className={styles.errorText}>{msg}</span>
-                    )}
+                <div className={styles.formGrid}>
+                  <FormField
+                    name="name"
+                    label="Кличка*:"
+                    className={`${
+                      errors.name && touched.name ? styles.inputError : ""
+                    }`}
                   />
+
+                  <div className={styles.inputGroup}>
+                    <label htmlFor="breed">Порода*:</label>
+                    <Field name="breed">
+                      {({ field, form }) => (
+                        <BreedSelect
+                          field={field}
+                          form={form}
+                          animalType={values.type}
+                        />
+                      )}
+                    </Field>
+                    <ErrorMessage
+                      name="breed"
+                      render={(msg) => (
+                        <span className={styles.errorText}>{msg}</span>
+                      )}
+                    />
+                  </div>
+
+                  <FormField
+                    name="birthDate"
+                    label="Дата рождения*:"
+                    type="date"
+                    className={`${
+                      errors.birthDate && touched.birthDate
+                        ? styles.inputError
+                        : ""
+                    }`}
+                  />
+
+                  <div className={styles.inputGroup}>
+                    <label htmlFor="eyeColor">Цвет глаз*:</label>
+                    <Field name="eyeColor">
+                      {({ field, form }) => (
+                        <CustomSelect
+                          value={field.value}
+                          onChange={(e) =>
+                            form.setFieldValue("eyeColor", e.target.value)
+                          }
+                          options={EYE_COLORS}
+                          placeholder="Выберите цвет глаз"
+                        />
+                      )}
+                    </Field>
+                    <ErrorMessage
+                      name="eyeColor"
+                      render={(msg) => (
+                        <span className={styles.errorText}>{msg}</span>
+                      )}
+                    />
+                  </div>
+
+                  <div className={styles.inputGroup}>
+                    <label>Тип животного*:</label>
+                    <Field name="type">
+                      {({ field, form }) => renderAnimalTypeSelect(field, form)}
+                    </Field>
+                    <ErrorMessage
+                      name="type"
+                      render={(msg) => (
+                        <span className={styles.errorText}>{msg}</span>
+                      )}
+                    />
+                  </div>
+
+                  <div className={styles.inputGroup}>
+                    <label htmlFor="sex">Пол животного*:</label>
+                    <Field name="sex">
+                      {({ field, form }) => (
+                        <SexSelect field={field} form={form} />
+                      )}
+                    </Field>
+                    <ErrorMessage
+                      name="sex"
+                      render={(msg) => (
+                        <span className={styles.errorText}>{msg}</span>
+                      )}
+                    />
+                  </div>
+
+                  <div className={styles.inputGroup}>
+                    <label htmlFor="microchip">Микрочип:</label>
+                    <Field name="microchip">
+                      {({ field, form }) => (
+                        <MicrochipInput field={field} form={form} />
+                      )}
+                    </Field>
+                    <ErrorMessage
+                      name="microchip"
+                      render={(msg) => (
+                        <span className={styles.errorText}>{msg}</span>
+                      )}
+                    />
+                  </div>
+
+                  <div className={styles.inputGroup}>
+                    <label htmlFor="furColor">Цвет шерсти*:</label>
+                    <Field name="furColor">
+                      {({ field, form }) => (
+                        <SearchableSelect field={field} form={form} />
+                      )}
+                    </Field>
+                    <ErrorMessage
+                      name="furColor"
+                      render={(msg) => (
+                        <span className={styles.errorText}>{msg}</span>
+                      )}
+                    />
+                  </div>
+
+                  <div className={styles.inputGroup}>
+                    <label htmlFor="furLength">Тип шерсти*:</label>
+                    <Field name="furLength">
+                      {({ field, form }) => (
+                        <CustomSelect
+                          value={field.value}
+                          onChange={(e) =>
+                            form.setFieldValue("furLength", e.target.value)
+                          }
+                          options={FUR_TYPES}
+                          placeholder="Выберите тип шерсти"
+                        />
+                      )}
+                    </Field>
+                    <ErrorMessage
+                      name="furLength"
+                      render={(msg) => (
+                        <span className={styles.errorText}>{msg}</span>
+                      )}
+                    />
+                  </div>
+
+                  <div className={styles.inputGroup}>
+                    <label htmlFor="image">Фотография:</label>
+                    <input
+                      id="image"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      className={styles.fileInput}
+                    />
+                    {imagePreview && (
+                      <div className={styles.imagePreview}>
+                        <img src={imagePreview} alt="Предпросмотр" />
+                      </div>
+                    )}
+                  </div>
                 </div>
 
-                <div className={styles.inputGroup}>
-                  <label htmlFor="type">Тип животного*:</label>
-                  <Field name="type">
-                    {({ field, form }) => (
-                      <AnimalTypeSelect field={field} form={form} />
-                    )}
-                  </Field>
-                  <ErrorMessage
-                    name="type"
-                    render={(msg) => (
-                      <span className={styles.errorText}>{msg}</span>
-                    )}
-                  />
-                </div>
-
-                <div className={styles.inputGroup}>
-                  <label htmlFor="sex">Пол животного*:</label>
-                  <Field name="sex">
-                    {({ field, form }) => (
-                      <SexSelect field={field} form={form} />
-                    )}
-                  </Field>
-                  <ErrorMessage
-                    name="sex"
-                    render={(msg) => (
-                      <span className={styles.errorText}>{msg}</span>
-                    )}
-                  />
-                </div>
-
-                <FormField name="microchip" label="Микрочип:">
-                  {({ field, form }) => (
-                    <MicrochipInput field={field} form={form} />
-                  )}
-                </FormField>
-
-                <div className={styles.inputGroup}>
-                  <label htmlFor="furColor">Цвет шерсти*:</label>
-                  <Field name="furColor">
-                    {({ field, form }) => (
-                      <SearchableSelect field={field} form={form} />
-                    )}
-                  </Field>
-                  <ErrorMessage
-                    name="furColor"
-                    render={(msg) => (
-                      <span className={styles.errorText}>{msg}</span>
-                    )}
-                  />
-                </div>
-
-                <div className={styles.inputGroup}>
-                  <label htmlFor="furLength">Тип шерсти*:</label>
-                  <Field name="furLength">
-                    {({ field, form }) => (
-                      <CustomSelect
-                        value={field.value}
-                        onChange={(e) =>
-                          form.setFieldValue("furLength", e.target.value)
-                        }
-                        options={FUR_TYPES}
-                        placeholder="Выберите тип шерсти"
-                      />
-                    )}
-                  </Field>
-                  <ErrorMessage
-                    name="furLength"
-                    render={(msg) => (
-                      <span className={styles.errorText}>{msg}</span>
-                    )}
-                  />
-                </div>
-
-                <div className={styles.inputGroup}>
-                  <label htmlFor="image">Фотография:</label>
-                  <input
-                    id="image"
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                    className={styles.fileInput}
-                  />
-                  {imagePreview && (
-                    <div className={styles.imagePreview}>
-                      <img src={imagePreview} alt="Предпросмотр" />
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                className={styles.button}
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? "Регистрация..." : "Зарегистрировать животное"}
-              </button>
-            </Form>
-          )}
+                <button
+                  type="submit"
+                  className={styles.button}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting
+                    ? "Регистрация..."
+                    : "Зарегистрировать животное"}
+                </button>
+              </Form>
+            );
+          }}
         </Formik>
       )}
 

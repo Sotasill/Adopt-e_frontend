@@ -17,6 +17,7 @@ export const API_URLS = {
   logout: "/auth/logout",
   updateAvatar: "/user/avatar",
   updateProfileBackground: "/user/profile/background",
+  registerAnimal: "/animals",
 };
 
 // Проверка доступности сервера
@@ -24,7 +25,7 @@ export const checkServerAvailability = async () => {
   try {
     await api.get("/health");
     return true;
-  } catch  {
+  } catch {
     return false;
   }
 };

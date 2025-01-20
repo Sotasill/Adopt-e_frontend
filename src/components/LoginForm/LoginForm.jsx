@@ -86,23 +86,16 @@ const LoginForm = () => {
         hasPassword: !!values.password,
       });
 
-      const response = await dispatch(
+      await dispatch(
         login({ username: values.username, password: values.password })
       );
 
-      console.log("Login response:", {
-        success: !!response,
-        userData: response?.user,
-        userRole: response?.user?.role,
-      });
-
-      saveCredentials(values);
+      // Сохраняем учетные данные только если вход успешен
+      if (values.rememberMe) {
+        saveCredentials(values);
+      }
     } catch (err) {
-      console.error("Login error details:", {
-        error: err,
-        message: err.message,
-        stack: err.stack,
-      });
+      console.error("Login error details:", err);
 
       const userFriendlyMessage = getErrorMessage(err.message);
       toast.error(userFriendlyMessage);
