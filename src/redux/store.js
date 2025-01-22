@@ -3,6 +3,7 @@ import { authReducer } from "./auth/authReducer";
 import { searchSlice } from "./search/searchSlice";
 import { registrationSlice } from "./registration/registrationSlice";
 import notificationsReducer from "./notifications/notificationsSlice";
+import languageReducer from "./language/languageSlice";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     search: searchSlice.reducer,
     registration: registrationSlice.reducer,
     notifications: notificationsReducer,
+    language: languageReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

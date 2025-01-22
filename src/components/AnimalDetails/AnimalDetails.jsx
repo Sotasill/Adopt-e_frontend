@@ -310,9 +310,16 @@ const AnimalDetails = () => {
             const breederResponse = await animalService.getBreederInfo(
               animalData.breeder
             );
-            setBreederInfo(breederResponse.data);
+            console.log("Полученные данные о заводчике:", breederResponse);
+            if (breederResponse && breederResponse.user) {
+              setBreederInfo(breederResponse.user);
+            } else {
+              console.warn("Нет данных о заводчике");
+              setBreederInfo(null);
+            }
           } catch (err) {
-            console.error("Error fetching breeder info:", err);
+            console.error("Ошибка при получении информации о заводчике:", err);
+            setBreederInfo(null);
           }
         }
 
@@ -363,6 +370,10 @@ const AnimalDetails = () => {
 
     fetchAnimalDetails();
   }, [id]);
+
+  useEffect(() => {
+    console.log("Текущий breederInfo:", breederInfo);
+  }, [breederInfo]);
 
   const handleEdit = () => {
     // Добавить логику редактирования
@@ -1005,16 +1016,18 @@ const AnimalDetails = () => {
     try {
       if (field === "name") {
         try {
+          console.log("Валидация имени. breederInfo:", breederInfo);
           await nameValidationSchema(
             animal.name,
             breederInfo?.companyName
           ).validate(value);
           setNameError(null);
-          // Сохраняем только имя животного без суффикса компании
+          console.log("Имя прошло валидацию:", value);
           setPendingNameChange(value);
           setConfirmNameDialog(true);
           return;
         } catch (validationError) {
+          console.error("Ошибка валидации имени:", validationError);
           setNameError(validationError.message);
           toast.error("Ошибка валидации", {
             description: validationError.message,
@@ -1072,20 +1085,33 @@ const AnimalDetails = () => {
   // Добавляем функцию для подтверждения изменения имени
   const handleConfirmNameChange = async () => {
     try {
-      // Отправляем только поле name
+      // Добавляем суффикс к имени, если есть название компании
+      const nameWithSuffix = breederInfo?.companyName
+        ? `${pendingNameChange} of ${breederInfo.companyName}`
+        : pendingNameChange;
+
+      console.log("Сохраняем имя с суффиксом:", nameWithSuffix);
+
+      // Отправляем запрос с полным именем, включая суффикс
       const response = await animalService.updateAnimal(id, {
-        name: pendingNameChange,
+        name: nameWithSuffix,
       });
 
       // Обновляем состояние после успешного ответа
       setAnimal({
         ...animal,
-        name: pendingNameChange,
+        name: nameWithSuffix,
       });
 
       setEditingField({ ...editingField, name: false });
       setConfirmNameDialog(false);
       setPendingNameChange(null);
+
+      // Добавляем уведомление в Redux
+      createNotification(
+        "Изменение имени",
+        `Имя животного успешно изменено на "${nameWithSuffix}"`
+      );
 
       toast.success("Успешно!", {
         description: "Имя животного успешно обновлено",
@@ -1699,7 +1725,13 @@ const AnimalDetails = () => {
                   <Typography variant="body1" gutterBottom>
                     <strong>Заводчик:</strong>{" "}
                     {breederInfo
-                      ? `${breederInfo.username} (${breederInfo.companyName})`
+                      ? `${breederInfo.username}${
+                          breederInfo.companyName
+                            ? ` (${breederInfo.companyName})`
+                            : ""
+                        }`
+                      : animal.breeder
+                      ? "Информация недоступна"
                       : "Не указан"}
                   </Typography>
                 </Grid>
@@ -2916,13 +2948,11 @@ const AnimalDetails = () => {
         <DialogContent>
           <DialogContentText id="name-change-dialog-description">
             Вы действительно хотите изменить имя животного с "{animal?.name}" на
-            "{pendingNameChange}"?
-            {breederInfo?.companyName && (
-              <Typography variant="body2" color="textSecondary" sx={{ mt: 1 }}>
-                * К имени будет добавлен суффикс питомника:{" "}
-                {breederInfo.companyName}
-              </Typography>
-            )}
+            "
+            {breederInfo?.companyName
+              ? `${pendingNameChange} of ${breederInfo.companyName}`
+              : pendingNameChange}
+            "?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

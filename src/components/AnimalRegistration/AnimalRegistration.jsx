@@ -31,21 +31,55 @@ const FormField = ({
   as,
   children,
   className,
+  form,
+  value,
+  onChange,
   ...props
 }) => {
+  const user = useSelector((state) => state.auth.user);
+  const isBreeder = user?.role === "breeder";
+  const companyName = user?.companyName;
+
+  // Обработчик изменений для всех полей
+  const handleChange = (e) => {
+    let newValue = e.target.value;
+
+    // Специальная обработка для поля имени у заводчиков
+    if (name === "name" && isBreeder && companyName) {
+      // Удаляем старый суффикс, если он есть
+      newValue = newValue.replace(new RegExp(` of ${companyName}$`), "");
+
+      // Добавляем суффикс, если имя не пустое
+      if (newValue.trim()) {
+        newValue = `${newValue} of ${companyName}`;
+      }
+    }
+
+    // Вызываем setFieldValue из form
+    form.setFieldValue(name, newValue);
+
+    // Если передан дополнительный обработчик onChange, вызываем его
+    if (onChange) {
+      onChange(e);
+    }
+  };
+
   return (
     <div className={styles.inputGroup}>
       <label htmlFor={name}>{label}</label>
-      <Field
+      <input
         id={name}
-        name={name}
         type={type}
-        as={as}
         className={`${styles.input} ${className || ""}`}
+        value={value}
+        onChange={handleChange}
         {...props}
-      >
-        {children}
-      </Field>
+      />
+      {name === "name" && isBreeder && companyName && (
+        <div className={styles.helperText}>
+          Кличка будет автоматически дополнена суффиксом "of {companyName}"
+        </div>
+      )}
       <ErrorMessage
         name={name}
         render={(msg) => <span className={styles.errorText}>{msg}</span>}
@@ -61,6 +95,9 @@ FormField.propTypes = {
   as: PropTypes.string,
   children: PropTypes.node,
   className: PropTypes.string,
+  form: PropTypes.object.isRequired,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
 };
 
 const SuccessResult = ({ animal }) => {
@@ -1182,13 +1219,22 @@ const AnimalRegistration = ({ onClose }) => {
                 <h3>Регистрация животного</h3>
 
                 <div className={styles.formGrid}>
-                  <FormField
-                    name="name"
-                    label="Кличка*:"
-                    className={`${
-                      errors.name && touched.name ? styles.inputError : ""
-                    }`}
-                  />
+                  <div className={styles.inputGroup}>
+                    <label htmlFor="name">Кличка*:</label>
+                    <Field name="name">
+                      {({ field, form }) => (
+                        <FormField
+                          {...field}
+                          form={form}
+                          name="name"
+                          label="Кличка*:"
+                          className={`${
+                            errors.name && touched.name ? styles.inputError : ""
+                          }`}
+                        />
+                      )}
+                    </Field>
+                  </div>
 
                   <div className={styles.inputGroup}>
                     <label htmlFor="breed">Порода*:</label>
@@ -1209,16 +1255,25 @@ const AnimalRegistration = ({ onClose }) => {
                     />
                   </div>
 
-                  <FormField
-                    name="birthDate"
-                    label="Дата рождения*:"
-                    type="date"
-                    className={`${
-                      errors.birthDate && touched.birthDate
-                        ? styles.inputError
-                        : ""
-                    }`}
-                  />
+                  <div className={styles.inputGroup}>
+                    <label htmlFor="birthDate">Дата рождения*:</label>
+                    <Field name="birthDate">
+                      {({ field, form }) => (
+                        <FormField
+                          {...field}
+                          form={form}
+                          name="birthDate"
+                          label="Дата рождения*:"
+                          type="date"
+                          className={`${
+                            errors.birthDate && touched.birthDate
+                              ? styles.inputError
+                              : ""
+                          }`}
+                        />
+                      )}
+                    </Field>
+                  </div>
 
                   <div className={styles.inputGroup}>
                     <label htmlFor="eyeColor">Цвет глаз*:</label>

@@ -1,13 +1,78 @@
 import api, { API_URLS } from "./api";
 
+// Утилитная функция для обработки данных пользователя
+const processUserData = (userData) => {
+  const user = { ...userData };
+
+  // Определяем роль пользователя
+  if (!user.role) {
+    // Проверяем все возможные поля, где может быть роль
+    user.role = user.userType || user.type || "user";
+  }
+
+  // Приводим роль к нижнему регистру
+  user.role = user.role.toLowerCase();
+
+  // Проверяем, является ли пользователь заводчиком
+  const isBreederRole = user.role === "breeder";
+  const hasBreederEmail = user.email?.toLowerCase().includes("breeder");
+  const hasBreederUsername = user.username?.toLowerCase().includes("breeder");
+
+  // Если есть явные признаки того, что это заводчик - устанавливаем роль breeder
+  if (isBreederRole || hasBreederEmail || hasBreederUsername) {
+    user.role = "breeder";
+
+    // Определяем специализацию заводчика
+    if (!user.specialization) {
+      const identifiers = [
+        user.email?.toLowerCase(),
+        user.username?.toLowerCase(),
+        user.specialization?.toLowerCase(),
+      ].filter(Boolean);
+
+      // Проверяем все идентификаторы на наличие специализации
+      for (const identifier of identifiers) {
+        if (identifier.includes("dog")) {
+          user.specialization = "dog";
+          break;
+        } else if (identifier.includes("cat")) {
+          user.specialization = "cat";
+          break;
+        }
+      }
+
+      // Если специализация не определена, логируем это
+      if (!user.specialization) {
+        console.warn("Не удалось определить специализацию заводчика:", {
+          email: user.email,
+          username: user.username,
+          role: user.role,
+        });
+      }
+    }
+  }
+
+  return user;
+};
+
 export const authService = {
   async registerBreeder(userData) {
-    const response = await api.post(API_URLS.registerBreeder, userData);
+    // Убеждаемся, что регистрируем именно заводчика
+    const breederData = {
+      ...userData,
+      role: "breeder",
+    };
+    const response = await api.post(API_URLS.registerBreeder, breederData);
     return response.data;
   },
 
   async registerUser(userData) {
-    const response = await api.post(API_URLS.registerUser, userData);
+    // Убеждаемся, что регистрируем обычного пользователя
+    const userWithRole = {
+      ...userData,
+      role: "user",
+    };
+    const response = await api.post(API_URLS.registerUser, userWithRole);
     return response.data;
   },
 
@@ -20,83 +85,24 @@ export const authService = {
       }
 
       const responseData = response.data;
-      let token, user;
+      const token = responseData.accessToken || responseData.token;
 
-      if (responseData.accessToken && responseData.user) {
-        token = responseData.accessToken;
-        user = responseData.user;
-      } else if (responseData.token && responseData.user) {
-        token = responseData.token;
-        user = responseData.user;
-      } else if (responseData.token || responseData.accessToken) {
-        token = responseData.token || responseData.accessToken;
-        user = {
-          id: responseData.id || responseData._id,
-          username: responseData.username,
-          email: responseData.email,
-          role: responseData.role || responseData.userType,
-          userId: responseData.userId,
-        };
-      }
+      // Собираем все данные пользователя
+      const rawUser = responseData.user || {
+        id: responseData.id || responseData._id,
+        username: responseData.username,
+        email: responseData.email,
+        role: responseData.role || responseData.userType,
+        userId: responseData.userId,
+        specialization: responseData.specialization,
+      };
 
-      if (user) {
-        // Определяем роль пользователя
-        if (!user.role) {
-          const possibleRole =
-            user.userType ||
-            user.type ||
-            responseData.role ||
-            responseData.userType;
-          user.role = possibleRole || "user";
-        }
+      // Обрабатываем данные пользователя
+      const user = processUserData(rawUser);
 
-        // Проверяем, является ли пользователь заводчиком
-        const isBreeder =
-          user.role === "breeder" ||
-          user.email?.includes("breeder") ||
-          user.username?.toLowerCase().includes("breeder");
-
-        if (isBreeder) {
-          user.role = "breeder";
-
-          // Определяем специализацию заводчика
-          let specialization =
-            responseData.specialization ||
-            responseData.user?.specialization ||
-            user.specialization;
-
-          // Если специализация не определена, пытаемся определить её по email или username
-          if (!specialization) {
-            const userIdentifier = (
-              user.email ||
-              user.username ||
-              ""
-            ).toLowerCase();
-            if (userIdentifier.includes("dog")) {
-              specialization = "dog";
-            } else if (userIdentifier.includes("cat")) {
-              specialization = "cat";
-            }
-
-            console.log("Определение специализации по email/username:", {
-              email: user.email,
-              username: user.username,
-              identifier: userIdentifier,
-              determinedSpecialization: specialization,
-            });
-          }
-
-          user.specialization = specialization;
-
-          console.log("Данные заводчика после обработки:", {
-            username: user.username,
-            email: user.email,
-            role: user.role,
-            specialization: user.specialization,
-            fromResponse: responseData.specialization,
-            fromUserInResponse: responseData.user?.specialization,
-          });
-        }
+      // Проверяем корректность роли
+      if (user.role === "breeder" && !user.specialization) {
+        console.error("Заводчик без специализации:", user);
       }
 
       return { token, user };
@@ -109,14 +115,27 @@ export const authService = {
   async logout() {
     try {
       await api.post(API_URLS.logout);
+      // Очищаем локальное хранилище
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
     } catch (error) {
       console.error("Ошибка при выходе:", error);
+      // В любом случае очищаем хранилище
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
     }
   },
 
   async refreshToken() {
     const response = await api.post(API_URLS.refresh);
-    return response.data;
+    const data = response.data;
+
+    if (data.user) {
+      // Обрабатываем данные пользователя при обновлении токена
+      data.user = processUserData(data.user);
+    }
+
+    return data;
   },
 
   async updateProfileBackground(imageFile) {
@@ -144,4 +163,5 @@ export const authService = {
   },
 };
 
+export { processUserData };
 export default authService;

@@ -5,6 +5,7 @@ import { Formik, Form, Field } from "formik";
 import Select from "react-select";
 import * as Yup from "yup";
 import { toast } from "sonner";
+import { useTranslatedContent } from "../../redux/hooks/useTranslatedContent";
 import {
   registerUser,
   registerBreeder,
@@ -202,6 +203,7 @@ const CustomSelect = ({ field, form, isDisabled, ...props }) => {
 const RegistrationForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslatedContent();
 
   const loading = useSelector(selectRegistrationLoading);
   const error = useSelector(selectRegistrationError);
@@ -432,8 +434,8 @@ const RegistrationForm = () => {
               disabled={loading || isSubmitting}
             >
               {loading || isSubmitting
-                ? "Регистрация..."
-                : "Зарегистрироваться"}
+                ? t("registration.loading")
+                : t("registration.submit")}
             </button>
           </Form>
         )}

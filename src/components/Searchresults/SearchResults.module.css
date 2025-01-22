@@ -1,0 +1,27 @@
+.resultsList {
+  max-height: 300px;
+  overflow-y: auto;
+  width: 100%;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 8px;
+}
+
+.resultsList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.resultsList::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.resultsList::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.resultsList::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

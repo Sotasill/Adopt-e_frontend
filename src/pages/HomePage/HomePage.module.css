@@ -1,66 +1,366 @@
+/* Основные стили */
 .container {
+  width: 100%;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: #ffffff;
+  padding: 0;
+  margin: 0;
+}
+
+/* Приветственный блок */
+.welcomeSection {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
   padding: 20px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.content {
-  max-width: 1200px;
-  width: 100%;
+  background: #ffffff;
   text-align: center;
-  padding: 40px;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-  backdrop-filter: blur(4px);
-  box-sizing: border-box;
 }
 
-.title {
-  font-size: 3.5rem;
+.mainTitle {
+  font-size: clamp(1.2rem, 3vw, 2rem);
   color: #2c3e50;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   font-weight: 700;
+  line-height: 1.2;
 }
 
-.subtitle {
-  font-size: 1.5rem;
+.welcomeText {
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
   color: #34495e;
-  margin-bottom: 40px;
-  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.4;
 }
 
-.accordion {
+/* Секция баннеров */
+.bannersSection {
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
+  padding: 15px;
+}
+
+.bannersContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  width: 100%;
+}
+
+.banner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+  background: #ffffff;
+}
+
+.banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Секция питомников */
+.kennelsSection {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  position: relative;
+}
+
+.kennelsSectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.sectionTitle {
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.petTypeSwitch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.switchContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  background: #f8f9fa;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.petTypeOption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.petIcon {
+  font-size: 24px;
+  color: #bdc3c7;
+  transition: all 0.3s ease;
+}
+
+.petIcon.active {
+  color: #3498db;
+  transform: scale(1.1);
+}
+
+.petLabel {
+  font-size: 12px;
+  color: #bdc3c7;
+  transition: all 0.3s ease;
+  text-align: center;
+  font-weight: 500;
+}
+
+.petLabel.active {
+  color: #3498db;
+}
+
+/* Добавляем стили для Material-UI Switch */
+.petTypeSwitch :global(.MuiFormControlLabel-root) {
+  margin: 0;
+}
+
+.petTypeSwitch :global(.MuiSwitch-root) {
+  margin: 0 4px;
+}
+
+.petTypeSwitch :global(.MuiSwitch-track) {
+  background-color: #bdc3c7 !important;
+  opacity: 1 !important;
+}
+
+.petTypeSwitch :global(.MuiSwitch-thumb) {
+  background-color: #3498db;
+}
+
+.petTypeSwitch :global(.Mui-checked + .MuiSwitch-track) {
+  background-color: #3498db !important;
+  opacity: 0.5 !important;
+}
+
+.kennelsSlider {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.sliderButton {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: #3498db;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  position: absolute;
+  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0;
+}
+
+.sliderButton svg {
+  width: 24px;
+  height: 24px;
+}
+
+.sliderButton:first-child {
+  left: -20px;
+}
+
+.sliderButton:last-child {
+  right: -20px;
+}
+
+.sliderButton:hover {
+  background: #2980b9;
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.kennelsContainer {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc(16.666% - 17px); /* 100% / 6 слайдов */
+  gap: 20px;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  padding: 10px 40px;
+  width: 100%;
+}
+
+@media (max-width: 1400px) {
+  .kennelsContainer {
+    grid-auto-columns: calc(20% - 16px); /* 5 слайдов */
+  }
+}
+
+@media (max-width: 1200px) {
+  .kennelsContainer {
+    grid-auto-columns: calc(25% - 15px); /* 4 слайда */
+  }
+}
+
+@media (max-width: 900px) {
+  .kennelsContainer {
+    grid-auto-columns: calc(33.333% - 14px); /* 3 слайда */
+  }
+}
+
+@media (max-width: 600px) {
+  .kennelsContainer {
+    grid-auto-columns: calc(50% - 10px); /* 2 слайда */
+  }
+}
+
+@media (max-width: 480px) {
+  .kennelsContainer {
+    grid-auto-columns: 100%; /* 1 слайд */
+  }
+}
+
+.kennelCard {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 150px;
+  max-width: 250px;
+  margin: 0 auto;
+  border: 1px solid #eaeaea;
+}
+
+.kennelCard.active {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+}
+
+.kennelLogo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin: 0 auto;
+  object-fit: cover;
+  border: 2px solid #3498db;
+}
+
+.kennelName {
+  font-size: 1rem;
+  color: #2c3e50;
+  font-weight: 600;
+  text-align: center;
+}
+
+.kennelBreed,
+.kennelCountry {
+  font-size: 0.875rem;
+  color: #7f8c8d;
+  text-align: center;
+}
+
+.socialIcons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.socialIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #2c3e50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  border: 1px solid #eaeaea;
+  cursor: pointer;
+}
+
+.socialIcon:hover {
+  background: #3498db;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Специфичные стили для разных соц. сетей при наведении */
+.socialIcon:hover svg[class*="Facebook"] {
+  color: #1877f2;
+}
+
+.socialIcon:hover svg[class*="Instagram"] {
+  color: #e4405f;
+}
+
+.socialIcon:hover svg[class*="Youtube"] {
+  color: #ff0000;
+}
+
+.socialIcon:hover svg[class*="Twitter"] {
+  color: #1da1f2;
+}
+
+/* Преимущества */
+.accordion {
+  width: 100%;
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 20px;
 }
 
 .accordionItem {
   margin-bottom: 15px;
-  border-radius: 10px;
+  border-radius: 8px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .accordionHeader {
-  padding: 20px;
+  padding: 15px 20px;
   background: #3498db;
   color: white;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 1.2rem;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: background 0.3s ease;
 }
 
 .accordionHeader:hover {
@@ -71,105 +371,69 @@
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease-out;
-  background: white;
 }
 
 .accordionContent.active {
-  max-height: 300px;
+  max-height: 500px;
   padding: 20px;
-}
-
-.accordionIcon {
-  width: 20px;
-  height: 20px;
-  position: relative;
-  transition: transform 0.3s ease;
-}
-
-.accordionIcon.active {
-  transform: rotate(180deg);
 }
 
 .accordionText {
   color: #34495e;
   line-height: 1.6;
-  font-size: 1.1rem;
-  text-align: left;
+  font-size: 1rem;
 }
 
-/* Mobile - 320px */
-@media (max-width: 320px) {
-  .content {
-    padding: 20px;
+/* Анимации */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
   }
-
-  .title {
-    font-size: 2rem;
-  }
-
-  .subtitle {
-    font-size: 1rem;
-    margin-bottom: 20px;
-  }
-
-  .accordionHeader {
-    font-size: 1rem;
-    padding: 15px;
-  }
-
-  .accordionContent.active {
-    padding: 15px;
-  }
-
-  .accordionText {
-    font-size: 0.9rem;
+  to {
+    transform: translateX(0);
+    opacity: 1;
   }
 }
 
-/* Tablet - 760px */
-@media (min-width: 321px) and (max-width: 760px) {
-  .content {
-    padding: 30px;
-  }
-
-  .title {
-    font-size: 2.5rem;
-  }
-
-  .subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-  }
-
-  .accordionHeader {
-    font-size: 1.1rem;
-  }
+.kennelCard {
+  animation: slideIn 0.3s ease-out;
 }
 
-/* Desktop - 1200px */
-@media (min-width: 761px) and (max-width: 1200px) {
-  .content {
-    max-width: 90%;
-  }
-
-  .title {
-    font-size: 3rem;
-  }
-
-  .subtitle {
-    font-size: 1.3rem;
-  }
+/* Стили для рейтинга */
+.ratingContainer {
+  margin: 8px 0;
+  padding: 0 4px;
 }
 
-/* Large Desktop - 1400px */
-@media (min-width: 1201px) and (max-width: 1400px) {
-  .content {
-    max-width: 1100px;
-  }
+.ratingBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-@media (min-width: 1401px) {
-  .content {
-    max-width: 1200px;
-  }
+.ratingProgress {
+  flex-grow: 1;
+}
+
+.ratingProgress :global(.MuiLinearProgress-root) {
+  height: 8px;
+  border-radius: 4px;
+  background-color: #e0e0e0;
+}
+
+.ratingProgress :global(.MuiLinearProgress-bar) {
+  background-color: #f1c40f;
+}
+
+.ratingValue {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2c3e50;
+  min-width: 32px;
+  text-align: center;
 }

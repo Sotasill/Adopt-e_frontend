@@ -70,55 +70,23 @@ export const updateAvatarFailure = (error) => ({
 // Асинхронные действия
 export const login = (credentials) => async (dispatch) => {
   try {
-    const response = await authService.login(credentials);
+    const { user, token } = await authService.login(credentials);
 
-    if (!response || !response.user) {
+    if (!user) {
       throw new Error("Не удалось получить данные пользователя");
     }
 
-    // Сохраняем токен в localStorage
-    if (response.token) {
-      localStorage.setItem("token", response.token);
+    if (token) {
+      localStorage.setItem("token", token);
     }
 
-    // Нормализуем роль пользователя
-    const user = {
-      ...response.user,
-      role: response.user.role?.toLowerCase(),
-    };
-
-    // Проверяем данные заводчика
-    if (user.role === "breeder") {
-      if (!user.specialization) {
-        const emailOrUsername = (
-          user.email ||
-          user.username ||
-          ""
-        ).toLowerCase();
-        if (emailOrUsername.includes("dog")) {
-          user.specialization = "dog";
-        } else if (emailOrUsername.includes("cat")) {
-          user.specialization = "cat";
-        }
-      }
-
-      console.log("Данные заводчика:", {
-        username: user.username,
-        email: user.email,
-        role: user.role,
-        specialization: user.specialization,
-      });
-    }
-
-    // Сохраняем данные пользователя
     localStorage.setItem("user", JSON.stringify(user));
 
-    // Диспатчим действия для обновления состояния
     dispatch(setUser(user));
     dispatch(setAuth(true));
-    dispatch(loginSuccess({ user, token: response.token }));
+    dispatch(loginSuccess({ user, token }));
 
-    return { user, token: response.token };
+    return { user, token };
   } catch (error) {
     console.error("Ошибка при входе:", error);
     dispatch(loginFailure(error.message));
@@ -129,6 +97,8 @@ export const login = (credentials) => async (dispatch) => {
 export const logoutUser = () => async (dispatch) => {
   try {
     await authService.logout();
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     dispatch(logout());
   } catch (error) {
     console.error("Ошибка при выходе:", error);
@@ -142,6 +112,7 @@ export const refreshToken = () => async (dispatch) => {
     const { token, user } = response;
 
     if (token) {
+      localStorage.setItem("token", token);
       if (user) {
         dispatch(setUser(user));
       }

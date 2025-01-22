@@ -1,14 +1,51 @@
 .navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  height: 60px;
+}
+
+.navContainer {
+  max-width: 1400px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.3rem 100px;
-  width: auto;
-  max-width: 100%;
-  box-sizing: border-box;
-  height: 40px;
-  
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  padding: 0 20px;
+}
+
+.navList {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navItem {
+  font-size: 1rem;
+  color: #2c3e50;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navItem:hover {
+  color: #3498db;
+}
+
+.navItem.active {
+  color: #3498db;
+  font-weight: 500;
+}
+
+/* Добавляем отступ для контента под фиксированной навигацией */
+:global(body) {
+  padding-top: 60px;
 }
 
 .leftSide {
@@ -19,39 +56,44 @@
 
 .leftSide h2 {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.2rem;
+  color: #2c3e50;
 }
 
 .rightSide {
   display: flex;
-  gap: 0.5rem;
+  gap: 1rem;
   align-items: center;
   height: 100%;
 }
 
 .homeLink {
   text-decoration: none;
-  color: #333;
-  font-weight: 500;
+  color: #2c3e50;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.homeLink:hover {
+  color: #3498db;
 }
 
 .navButton {
-  padding: 0.2rem 0.8rem;
-  background-color: #007bff;
+  padding: 8px 16px;
+  background-color: #3498db;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s;
-  height: 26px;
-  display: flex;
-  align-items: center;
+  transition: all 0.3s ease;
   text-decoration: none;
   color: white;
   font-weight: 500;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
 }
 
 .navButton:hover {
-  background-color: #0056b3;
-  color: white;
+  background-color: #2980b9;
+  transform: translateY(-1px);
 }

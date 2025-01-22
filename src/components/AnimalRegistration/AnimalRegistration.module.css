@@ -725,3 +725,10 @@
 .selectHeader .colorDot {
   margin-left: 8px;
 }
+
+.helperText {
+  font-size: 0.85em;
+  color: #666;
+  margin-top: 4px;
+  font-style: italic;
+}

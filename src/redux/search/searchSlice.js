@@ -9,6 +9,15 @@ const initialState = {
     age: "",
     location: "",
   },
+  pagination: {
+    page: 1,
+    limit: 10,
+    totalResults: 0,
+  },
+  sorting: {
+    field: "createdAt",
+    direction: "desc",
+  },
   loading: false,
   error: null,
 };
@@ -25,13 +34,13 @@ export const searchSlice = createSlice({
       state.loading = false;
       state.error = null;
     },
-    setFilters: (state, action) => {
+    setSearchFilters: (state, action) => {
       state.filters = { ...state.filters, ...action.payload };
     },
-    setLoading: (state, action) => {
+    setSearchLoading: (state, action) => {
       state.loading = action.payload;
     },
-    setError: (state, action) => {
+    setSearchError: (state, action) => {
       state.error = action.payload;
       state.loading = false;
     },
@@ -40,8 +49,24 @@ export const searchSlice = createSlice({
       state.searchResults = [];
       state.error = null;
     },
-    clearFilters: (state) => {
+    clearSearchFilters: (state) => {
       state.filters = initialState.filters;
+    },
+    setSearchPage: (state, action) => {
+      state.pagination.page = action.payload;
+    },
+    setSearchLimit: (state, action) => {
+      state.pagination.limit = action.payload;
+    },
+    setTotalResults: (state, action) => {
+      state.pagination.totalResults = action.payload;
+    },
+    setSearchSort: (state, action) => {
+      state.sorting.field = action.payload;
+    },
+    toggleSortDirection: (state) => {
+      state.sorting.direction =
+        state.sorting.direction === "asc" ? "desc" : "asc";
     },
   },
 });
@@ -49,16 +74,25 @@ export const searchSlice = createSlice({
 export const {
   setSearchQuery,
   setSearchResults,
-  setFilters,
-  setLoading,
-  setError,
+  setSearchFilters,
+  setSearchLoading,
+  setSearchError,
   clearSearch,
-  clearFilters,
+  clearSearchFilters,
+  setSearchPage,
+  setSearchLimit,
+  setTotalResults,
+  setSearchSort,
+  toggleSortDirection,
 } = searchSlice.actions;
 
 // Селекторы
 export const selectSearchQuery = (state) => state.search.searchQuery;
 export const selectSearchResults = (state) => state.search.searchResults;
-export const selectFilters = (state) => state.search.filters;
+export const selectSearchFilters = (state) => state.search.filters;
 export const selectSearchLoading = (state) => state.search.loading;
 export const selectSearchError = (state) => state.search.error;
+export const selectSearchPagination = (state) => state.search.pagination;
+export const selectSearchSorting = (state) => state.search.sorting;
+
+export default searchSlice.reducer;

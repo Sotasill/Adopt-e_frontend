@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 import PropTypes from "prop-types";
 import { Toaster } from "sonner";
 import Layout from "../Layout/Layout";
@@ -11,6 +12,7 @@ import MainUserSystem from "../../pages/MainUserSysytem/MainUserSysytem";
 import AuthProvider from "../AuthProvider/AuthProvider";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import AnimalDetails from "../AnimalDetails/AnimalDetails";
+import { setLanguage } from "../../redux/language/languageSlice";
 
 // Определяем разрешенные маршруты для каждой роли
 const ROLE_ROUTES = {
@@ -61,6 +63,15 @@ PublicRoute.propTypes = {
 };
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem("language");
+    if (savedLanguage) {
+      dispatch(setLanguage(savedLanguage));
+    }
+  }, [dispatch]);
+
   return (
     <AuthProvider>
       <Layout>

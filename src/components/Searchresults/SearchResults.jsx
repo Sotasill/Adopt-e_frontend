@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { List, ListItem, ListItemText, Typography } from "@mui/material";
-import styles from "./SerachResults.module.css";
+import styles from "./SearchResults.module.css";
 
 const SearchResults = () => {
   const { results, loading, error } = useSelector((state) => state.search);

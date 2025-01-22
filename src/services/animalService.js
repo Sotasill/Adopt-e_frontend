@@ -15,7 +15,7 @@ const ANIMAL_API_URLS = {
   deleteFromGallery: "/animals/gallery",
   setAsAvatar: "/animals/gallery/set-avatar",
   reorderGallery: "/animals/gallery/reorder",
-  getBreederInfo: "/users/breeder",
+  getBreederInfo: "/users/profile",
 };
 
 export const animalService = {
@@ -255,9 +255,12 @@ export const animalService = {
 
   async reorderGallery(animalId, imageIds) {
     try {
-      const response = await api.put(`/animals/gallery/${animalId}/reorder`, {
-        imageIds,
-      });
+      const response = await api.put(
+        `${ANIMAL_API_URLS.reorderGallery}/${animalId}`,
+        {
+          imageIds,
+        }
+      );
       return response.data;
     } catch (error) {
       if (error.response?.status === 404) {
@@ -268,10 +271,34 @@ export const animalService = {
   },
 
   async getBreederInfo(breederId) {
-    const response = await api.get(
-      `${ANIMAL_API_URLS.getBreederInfo}/${breederId}`
-    );
-    return response.data;
+    try {
+      console.log(
+        "Запрос информации о заводчике. URL:",
+        `${ANIMAL_API_URLS.getBreederInfo}/${breederId}`
+      );
+      const response = await api.get(
+        `${ANIMAL_API_URLS.getBreederInfo}/${breederId}`
+      );
+      console.log("Ответ от сервера (getBreederInfo):", response);
+      if (response.data?.user) {
+        return response.data;
+      } else if (response.data) {
+        return { user: response.data };
+      } else {
+        console.warn("Нет данных о пользователе в ответе");
+        return null;
+      }
+    } catch (error) {
+      console.error(
+        "Ошибка при получении информации о заводчике:",
+        error.response || error
+      );
+      if (error.response?.status === 404) {
+        console.warn("Заводчик не найден. ID:", breederId);
+        return null;
+      }
+      throw error;
+    }
   },
 };
 

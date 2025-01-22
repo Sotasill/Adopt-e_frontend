@@ -4,7 +4,8 @@ import { useDispatch } from "react-redux";
 import { InputBase, IconButton, Paper, Collapse } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
-import { searchUser, clearSearch } from "../../redux/serach/searchActions";
+import { clearSearch } from "../../redux/search/searchActions";
+import { searchUsers } from "../../redux/search/searchThunks";
 import styles from "./SearchbarUser.module.css";
 
 const SearchbarUser = ({ isExpanded, onToggle }) => {
@@ -14,7 +15,7 @@ const SearchbarUser = ({ isExpanded, onToggle }) => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      dispatch(searchUser(searchQuery));
+      dispatch(searchUsers(searchQuery));
     }
   };
 

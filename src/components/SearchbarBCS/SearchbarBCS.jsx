@@ -1,11 +1,12 @@
 // Start of Selection
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { useDispatch, } from "react-redux";
+import { useDispatch } from "react-redux";
 import { InputBase, IconButton, Paper, Collapse } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
-import { searchBCS, clearSearch } from "../../redux/serach/searchActions";
+import { clearSearch } from "../../redux/search/searchActions";
+import { searchBCSData } from "../../redux/search/searchThunks";
 import styles from "./SearchbarBCS.module.css";
 
 const SearchbarBCS = ({ isExpanded, onToggle }) => {
@@ -15,7 +16,7 @@ const SearchbarBCS = ({ isExpanded, onToggle }) => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      dispatch(searchBCS(searchQuery));
+      dispatch(searchBCSData(searchQuery));
     }
   };
 
@@ -26,7 +27,11 @@ const SearchbarBCS = ({ isExpanded, onToggle }) => {
 
   return (
     <div className={styles.searchContainer}>
-      <Collapse in={isExpanded} orientation="horizontal" className={styles.collapseContainer}>
+      <Collapse
+        in={isExpanded}
+        orientation="horizontal"
+        className={styles.collapseContainer}
+      >
         <Paper
           component="form"
           onSubmit={handleSearch}
@@ -40,17 +45,11 @@ const SearchbarBCS = ({ isExpanded, onToggle }) => {
             autoFocus
           />
           {searchQuery && (
-            <IconButton
-              onClick={handleClear}
-              className={styles.clearButton}
-            >
+            <IconButton onClick={handleClear} className={styles.clearButton}>
               <ClearIcon />
             </IconButton>
           )}
-          <IconButton
-            onClick={onToggle}
-            className={styles.closeButton}
-          >
+          <IconButton onClick={onToggle} className={styles.closeButton}>
             <ClearIcon />
           </IconButton>
         </Paper>

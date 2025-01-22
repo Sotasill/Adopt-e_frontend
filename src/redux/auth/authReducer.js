@@ -1,4 +1,5 @@
 import { AUTH_TYPES } from "./authTypes";
+import { processUserData } from "../../services/authService";
 
 const initialState = {
   isAuthenticated: false,
@@ -7,39 +8,39 @@ const initialState = {
   error: null,
 };
 
+const validateUserRole = (user) => {
+  if (!user) return null;
+
+  // Проверяем корректность роли
+  if (user.role === "breeder" && !user.specialization) {
+    console.error("Заводчик без специализации:", user);
+    return null;
+  }
+
+  return user;
+};
+
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case AUTH_TYPES.LOGIN_SUCCESS: {
-      const user = action.payload.user;
+      const processedUser = processUserData(action.payload.user);
+      const validatedUser = validateUserRole(processedUser);
 
-      // Проверяем и обрабатываем данные заводчика
-      if (user && user.role === "breeder") {
-        // Если специализация не установлена, пытаемся определить её
-        if (!user.specialization) {
-          const emailOrUsername = (
-            user.email ||
-            user.username ||
-            ""
-          ).toLowerCase();
-          if (emailOrUsername.includes("dog")) {
-            user.specialization = "dog";
-          } else if (emailOrUsername.includes("cat")) {
-            user.specialization = "cat";
-          }
-        }
-
-        console.log("Данные заводчика в редьюсере:", {
-          email: user.email,
-          username: user.username,
-          role: user.role,
-          specialization: user.specialization,
-        });
+      // Если пользователь не прошел валидацию, возвращаем ошибку
+      if (!validatedUser) {
+        return {
+          ...state,
+          isAuthenticated: false,
+          user: null,
+          loading: false,
+          error: "Недостаточно данных для аутентификации",
+        };
       }
 
       return {
         ...state,
         isAuthenticated: true,
-        user: user,
+        user: validatedUser,
         loading: false,
         error: null,
       };
@@ -55,6 +56,9 @@ export const authReducer = (state = initialState, action) => {
       };
 
     case AUTH_TYPES.LOGOUT:
+      // Очищаем данные пользователя при выходе
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
       return {
         ...state,
         isAuthenticated: false,
@@ -70,26 +74,19 @@ export const authReducer = (state = initialState, action) => {
       };
 
     case AUTH_TYPES.SET_USER: {
-      const user = action.payload;
-
-      // Также обрабатываем специализацию при установке пользователя
-      if (user && user.role === "breeder" && !user.specialization) {
-        const emailOrUsername = (
-          user.email ||
-          user.username ||
-          ""
-        ).toLowerCase();
-        if (emailOrUsername.includes("dog")) {
-          user.specialization = "dog";
-        } else if (emailOrUsername.includes("cat")) {
-          user.specialization = "cat";
-        }
-      }
+      const processedUser = action.payload
+        ? processUserData(action.payload)
+        : null;
+      const validatedUser = validateUserRole(processedUser);
 
       return {
         ...state,
-        user: user,
-        isAuthenticated: !!user,
+        user: validatedUser,
+        isAuthenticated: !!validatedUser,
+        error:
+          !validatedUser && processedUser
+            ? "Недостаточно данных для аутентификации"
+            : null,
       };
     }
 

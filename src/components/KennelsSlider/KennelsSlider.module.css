@@ -1,0 +1,416 @@
+/* Секция питомников */
+.kennelsSection {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.kennelsSectionHeader {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.sectionTitle {
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+/* Переключатель типа животных */
+.petTypeSwitch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.switchContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  background: #f8f9fa;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.petTypeOption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.petIcon {
+  font-size: 24px;
+  color: #bdc3c7;
+  transition: all 0.3s ease;
+}
+
+.petIcon.active {
+  color: #3498db;
+  transform: scale(1.1);
+}
+
+.petLabel {
+  font-size: 12px;
+  color: #bdc3c7;
+  transition: all 0.3s ease;
+  text-align: center;
+  font-weight: 500;
+}
+
+.petLabel.active {
+  color: #3498db;
+}
+
+/* Стили для Material-UI Switch */
+.petTypeSwitch :global(.MuiFormControlLabel-root) {
+  margin: 0;
+}
+
+.petTypeSwitch :global(.MuiSwitch-root) {
+  margin: 0 4px;
+}
+
+.petTypeSwitch :global(.MuiSwitch-track) {
+  background-color: #bdc3c7 !important;
+  opacity: 1 !important;
+}
+
+.petTypeSwitch :global(.MuiSwitch-thumb) {
+  background-color: #3498db;
+}
+
+.petTypeSwitch :global(.Mui-checked + .MuiSwitch-track) {
+  background-color: #3498db !important;
+  opacity: 0.5 !important;
+}
+
+/* Слайдер */
+.kennelsSlider {
+  position: relative;
+  overflow: hidden;
+  width: 90%;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* Контейнер карточек */
+.kennelsContainer {
+  display: flex;
+  gap: 24px;
+  transition: transform 0.6s ease-in-out;
+  width: max-content;
+  min-width: 100%;
+}
+
+/* Карточка питомника */
+.kennelCard {
+  flex: 0 0 auto;
+  width: 220px;
+  min-height: 320px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.kennelCard:hover,
+.kennelCard:focus {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.kennelCard:focus {
+  outline: 2px solid #3498db;
+  outline-offset: 2px;
+}
+
+.kennelCard:active {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.kennelLogo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto;
+  object-fit: cover;
+  border: 2px solid #3498db;
+}
+
+.kennelName {
+  font-size: 1rem;
+  color: #2c3e50;
+  font-weight: 600;
+  text-align: center;
+}
+
+.kennelBreed,
+.kennelCountry {
+  font-size: 0.875rem;
+  color: #7f8c8d;
+  text-align: center;
+}
+
+/* Рейтинг */
+.ratingContainer {
+  margin: 8px 0;
+  padding: 0 4px;
+}
+
+.ratingBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.ratingProgress {
+  flex-grow: 1;
+}
+
+.ratingProgress :global(.MuiLinearProgress-root) {
+  height: 8px;
+  border-radius: 4px;
+  background-color: #e0e0e0;
+}
+
+.ratingProgress :global(.MuiLinearProgress-bar) {
+  background-color: #f1c40f;
+}
+
+.ratingValue {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2c3e50;
+  min-width: 32px;
+  text-align: center;
+}
+
+/* Социальные иконки */
+.socialIcons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: auto;
+  pointer-events: none; /* Предотвращаем клики по иконкам */
+}
+
+.socialIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #2c3e50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  border: 1px solid #eaeaea;
+}
+
+.socialIcon:hover {
+  background: #3498db;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Состояния загрузки и ошибки */
+.loading,
+.error {
+  text-align: center;
+  padding: 20px;
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+.error {
+  color: #e74c3c;
+}
+
+/* Адаптивность */
+@media (max-width: 1439px) {
+  .kennelCard {
+    width: 200px;
+  }
+  .kennelsSlider {
+    width: 95%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .kennelCard {
+    width: 190px;
+  }
+}
+
+@media (max-width: 900px) {
+  .kennelCard {
+    width: 180px;
+  }
+  .kennelsSlider {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .kennelCard {
+    width: 170px;
+  }
+  .kennelsSlider {
+    padding: 0 35px;
+  }
+}
+
+@media (max-width: 480px) {
+  .kennelCard {
+    width: calc(100vw - 100px);
+  }
+  .kennelsSlider {
+    padding: 0 30px;
+  }
+}
+
+/* Анимации */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Кнопки навигации */
+.sliderButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #2c3e50;
+  padding: 0;
+  opacity: 0.8;
+}
+
+.sliderButton:first-of-type {
+  left: 0;
+}
+
+.sliderButton:last-of-type {
+  right: 0;
+}
+
+.sliderButton svg {
+  width: 24px;
+  height: 24px;
+}
+
+.sliderButton:hover {
+  background: #f5f5f5;
+  transform: translateY(-50%) scale(1.1);
+  opacity: 1;
+  color: #3498db;
+}
+
+.sliderButton:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  background: #e0e0e0;
+  transform: translateY(-50%);
+  color: #95a5a6;
+}
+
+.moreKennelsCard {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+.moreKennelsCard:hover,
+.moreKennelsCard:focus {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.moreKennelsCard:focus {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.moreKennelsCard:active {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.moreKennelsContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px;
+}
+
+.moreKennelsIcon {
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.moreKennelsIcon svg {
+  color: white;
+  transition: transform 0.3s ease;
+}
+
+.moreKennelsCard:hover .moreKennelsIcon svg {
+  transform: translateX(5px);
+}
+
+.moreKennelsTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.moreKennelsText {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin: 0;
+}
