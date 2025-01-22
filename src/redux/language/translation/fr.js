@@ -13,6 +13,9 @@ const frTranslation = {
   animals: "Animaux",
   gallery: "Galerie",
   about: "À propos",
+  ourMission: "Notre Mission",
+  breeders: "Éleveurs",
+  findYourPet: "Trouver un Animal",
 
   // Formulaire animal
   addAnimal: "Ajouter un animal",

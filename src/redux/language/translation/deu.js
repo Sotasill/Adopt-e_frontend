@@ -68,6 +68,9 @@ const deuTranslation = {
   animals: "Tiere",
   gallery: "Galerie",
   about: "Über uns",
+  ourMission: "Unsere Mission",
+  breeders: "Züchter",
+  findYourPet: "Haustier finden",
 
   // Tierformular
   addAnimal: "Tier hinzufügen",

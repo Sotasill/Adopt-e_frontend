@@ -20,7 +20,7 @@ const validateUserRole = (user) => {
   return user;
 };
 
-export const authReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case AUTH_TYPES.LOGIN_SUCCESS: {
       const processedUser = processUserData(action.payload.user);

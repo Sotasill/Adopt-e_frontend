@@ -12,40 +12,147 @@
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 40px 20px;
   background: #ffffff;
   text-align: center;
 }
 
 .mainTitle {
-  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
   color: #2c3e50;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   font-weight: 700;
   line-height: 1.2;
 }
 
 .welcomeText {
-  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  font-size: clamp(1rem, 2vw, 1.2rem);
   color: #34495e;
   max-width: 800px;
   margin: 0 auto;
-  line-height: 1.4;
+  line-height: 1.6;
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 1400px) {
+  .welcomeSection,
+  .bannersSection,
+  .kennelsSection {
+    max-width: 1200px;
+  }
+
+  .kennelsContainer {
+    grid-auto-columns: calc(20% - 16px); /* 5 слайдов */
+  }
+}
+
+@media (max-width: 1200px) {
+  .welcomeSection,
+  .bannersSection,
+  .kennelsSection {
+    max-width: 1000px;
+    padding: 30px 20px;
+  }
+
+  .kennelsContainer {
+    grid-auto-columns: calc(25% - 15px); /* 4 слайда */
+  }
+
+  .mainTitle {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+  }
+}
+
+@media (max-width: 760px) {
+  .welcomeSection,
+  .bannersSection,
+  .kennelsSection {
+    padding: 25px 15px;
+  }
+
+  .kennelsContainer {
+    grid-auto-columns: calc(33.333% - 14px); /* 3 слайда */
+    padding: 10px 30px;
+  }
+
+  .bannersContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .mainTitle {
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    margin-bottom: 15px;
+  }
+
+  .welcomeText {
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  }
+}
+
+@media (max-width: 320px) {
+  .welcomeSection,
+  .bannersSection,
+  .kennelsSection {
+    padding: 20px 10px;
+  }
+
+  .kennelsContainer {
+    grid-auto-columns: 100%; /* 1 слайд */
+    padding: 10px 20px;
+  }
+
+  .bannersContainer {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .mainTitle {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+
+  .welcomeText {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
 }
 
 /* Секция баннеров */
 .bannersSection {
   width: 100%;
-  max-width: 800px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 15px;
+  padding: 20px;
 }
 
 .bannersContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
   width: 100%;
+}
+
+@media (max-width: 768px) {
+  .bannersSection {
+    padding: 15px;
+  }
+
+  .bannersContainer {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bannersSection {
+    padding: 10px;
+  }
+
+  .bannersContainer {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
 }
 
 .banner {

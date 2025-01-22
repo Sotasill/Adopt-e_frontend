@@ -14,6 +14,9 @@ const ukrTranslation = {
   animals: "Тварини",
   gallery: "Галерея",
   about: "Про нас",
+  ourMission: "Наша місія",
+  breeders: "Заводчики",
+  findYourPet: "Знайти улюбленця",
 
   // Форма тварини
   addAnimal: "Додати тварину",

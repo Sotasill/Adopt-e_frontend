@@ -14,6 +14,9 @@ const ruTranslation = {
   animals: "Животные",
   gallery: "Галерея",
   about: "О нас",
+  ourMission: "Наша миссия",
+  breeders: "Заводчики",
+  findYourPet: "Найти питомца",
 
   // Форма животного
   addAnimal: "Добавить животное",
