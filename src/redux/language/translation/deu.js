@@ -8,6 +8,8 @@ const deuTranslation = {
   // Züchter-Bereich
   kennels: {
     title: "Finden Sie Ihren Züchter",
+    rating: "Bewertung",
+    outOf: "von",
     petTypes: {
       dogs: "Hunde",
       cats: "Katzen",

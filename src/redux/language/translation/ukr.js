@@ -72,6 +72,8 @@ const ukrTranslation = {
   // Секція розплідників
   kennels: {
     title: "Знайдіть свого заводчика",
+    rating: "Рейтинг",
+    outOf: "з",
     petTypes: {
       dogs: "Собаки",
       cats: "Коти",

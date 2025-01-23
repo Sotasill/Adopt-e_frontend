@@ -1,85 +1,329 @@
 .breedersPage {
-  padding: 40px 20px;
-  max-width: 1440px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 40px 20px;
   min-height: calc(100vh - 80px);
   background: #f8f9fa;
 }
 
+@media (max-width: 1200px) {
+  .breedersPage {
+    max-width: 960px;
+  }
+}
+
+@media (max-width: 960px) {
+  .breedersPage {
+    max-width: 760px;
+  }
+}
+
+@media (max-width: 760px) {
+  .breedersPage {
+    max-width: 540px;
+  }
+}
+
+@media (max-width: 540px) {
+  .breedersPage {
+    max-width: 100%;
+    padding: 20px 10px;
+  }
+}
+
 .header {
-  margin-bottom: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 20px;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
 .title {
-  font-size: clamp(2rem, 4vw, 3rem);
-  color: #2c3e50;
   margin: 0;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
   background: linear-gradient(90deg, #2c3e50, #3498db);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  display: inline-block;
+  padding: 0.5rem 2rem;
 }
 
-.filters {
+.title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, #3498db, #2c3e50);
+  border-radius: 1.5px;
+  transition: width 0.3s ease;
+}
+
+.title:hover::after {
+  width: 150px;
+}
+
+.content {
+  width: 100%;
+}
+
+.sidebar {
+  width: 250px;
+  flex-shrink: 0;
+  background: white;
+  padding: 1.25rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  align-self: flex-start;
+  position: sticky;
+  top: 2rem;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+}
+
+.filterControls {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.filterControl {
+  width: 100%;
+}
+
+.filterControl :global(.MuiOutlinedInput-root) {
+  border-radius: 12px;
+}
+
+.filterControl :global(.MuiOutlinedInput-notchedOutline) {
+  border-color: rgba(52, 152, 219, 0.2);
+}
+
+.filterControl:hover :global(.MuiOutlinedInput-notchedOutline) {
+  border-color: rgba(52, 152, 219, 0.4);
+}
+
+/* Стили для множественного выбора */
+.filterControl :global(.MuiSelect-multiple) {
+  min-height: 42px;
+}
+
+.filterControl :global(.MuiChip-root) {
+  margin: 2px;
+}
+
+.filterControl :global(.MuiMenuItem-root) {
+  padding: 8px 16px;
+}
+
+.filterControl :global(.MuiMenuItem-root.Mui-selected) {
+  background-color: rgba(52, 152, 219, 0.08);
+}
+
+.filterControl :global(.MuiMenuItem-root.Mui-selected:hover) {
+  background-color: rgba(52, 152, 219, 0.12);
+}
+
+.viewControls {
   display: flex;
-  gap: 20px;
+  justify-content: space-between;
   align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  background: white;
+  padding: 0.75rem;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* Переключатель типа животных */
-.petTypeSwitch {
+.controlsRight {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.filterButton {
+  position: relative;
+  background-color: #3498db !important;
+  text-transform: none !important;
+  padding: 6px 16px !important;
+  border-radius: 12px !important;
+  font-weight: 500 !important;
+}
+
+.filterButton:hover {
+  background-color: #2980b9 !important;
+}
+
+.filterBadge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #e74c3c;
+  color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.filtersModal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  outline: none;
+  position: relative;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.modalHeader h2 {
   margin: 0;
+  font-size: 1.5rem;
+  color: #2c3e50;
+}
+
+.modalActions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.resetButton {
+  color: #e74c3c !important;
+  border-color: #e74c3c !important;
+}
+
+.resetButton:hover {
+  background-color: rgba(231, 76, 60, 0.1) !important;
+}
+
+.filterControl :global(.MuiMenuItem-root) {
+  padding: 0 16px;
+  min-height: 42px;
+}
+
+.filterControl :global(.MuiCheckbox-root) {
+  padding: 4px 8px;
+  margin-right: 8px;
+}
+
+.filterControl :global(.MuiCheckbox-root.Mui-checked) {
+  color: #3498db;
+}
+
+.filterControl :global(.MuiMenuItem-root:hover) {
+  background-color: rgba(52, 152, 219, 0.08);
+}
+
+.filterControl :global(.MuiMenuItem-root.Mui-selected) {
+  background-color: rgba(52, 152, 219, 0.12);
+}
+
+.filterControl :global(.MuiMenuItem-root.Mui-selected:hover) {
+  background-color: rgba(52, 152, 219, 0.16);
+}
+
+.viewToggle {
+  display: flex;
+  gap: 8px;
+  padding: 4px;
+  border-radius: 12px;
+  background: #f8f9fa;
+}
+
+.viewButton {
+  color: #95a5a6 !important;
+  padding: 8px !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+}
+
+.viewButton:hover {
+  color: #3498db !important;
+  background-color: rgba(52, 152, 219, 0.1) !important;
+}
+
+.viewButton.active {
+  color: #3498db !important;
+  background-color: white !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.petTypeSwitch {
+  display: flex;
+  align-items: center;
 }
 
 .switchContainer {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  background: #ffffff;
-  border-radius: 30px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  gap: 12px;
+  padding: 4px 12px;
+  border-radius: 12px;
+  background: #f8f9fa;
 }
 
 .petTypeOption {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 4px;
-  padding: 4px 8px;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 8px;
   transition: all 0.3s ease;
 }
 
+.petTypeOption:has(.active) {
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 .petIcon {
-  font-size: 24px;
-  color: #bdc3c7;
-  transition: all 0.3s ease;
+  font-size: 20px;
+  color: #95a5a6;
+  transition: color 0.3s ease;
 }
 
 .petIcon.active {
   color: #3498db;
-  transform: scale(1.1);
 }
 
 .petLabel {
-  font-size: 12px;
-  color: #bdc3c7;
-  transition: all 0.3s ease;
-  text-align: center;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #95a5a6;
+  transition: color 0.3s ease;
 }
 
 .petLabel.active {
@@ -89,9 +333,9 @@
 /* Список заводчиков */
 .breedersList {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 30px;
-  padding: 20px 0;
+  justify-items: center;
 }
 
 /* Карточка заводчика */
@@ -283,52 +527,252 @@
   color: white;
 }
 
-/* Адаптивность */
-@media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
+/* Режим сетки */
+.breedersList.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  justify-items: center;
+}
+
+.breedersList.grid :global(.kennelCard) {
+  width: 100%;
+  max-width: 260px;
+  min-height: 320px;
+}
+
+.breedersList.grid :global(.kennelLogo) {
+  width: 80px;
+  height: 80px;
+}
+
+@media (max-width: 1200px) {
+  .content {
+    gap: 1.5rem;
   }
 
-  .breedersList {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  }
-
-  .breederHeader {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .breederInfo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .countryContainer {
-    margin: 12px auto 0;
+  .sidebar {
+    width: 220px;
   }
 }
 
-@media (max-width: 480px) {
-  .breedersPage {
-    padding: 20px 10px;
+@media (max-width: 960px) {
+  .content {
+    flex-direction: column;
   }
 
-  .breederCard {
-    padding: 16px;
+  .sidebar {
+    width: 100%;
+    position: static;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
   }
 
-  .breederLogo {
-    width: 100px;
-    height: 100px;
+  .filterControls {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.75rem;
   }
 
-  .breederName {
-    font-size: 1.2rem;
+  .filterControl {
+    width: calc(50% - 0.375rem);
+    min-width: 200px;
   }
 
-  .breederBreed {
-    font-size: 1rem;
+  .switchContainer {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 540px) {
+  .filterControl {
+    width: 100%;
+  }
+
+  .switchContainer {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 640px) {
+  .viewControls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .controlsRight {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .filterButton {
+    width: 100%;
+  }
+
+  .modalContent {
+    width: 95%;
+    padding: 1.5rem;
+  }
+
+  .filterControls {
+    grid-template-columns: 1fr;
+  }
+
+  .petTypeSwitch {
+    order: -1;
+  }
+
+  .switchContainer {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .viewToggle {
+    align-self: center;
+  }
+
+  .modalActions {
+    flex-direction: column-reverse;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .modalActions button {
+    width: 100%;
+  }
+
+  .modalHeader {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+}
+
+/* Режим списка */
+.breedersList.list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.breedersList.list :global(.kennelCard) {
+  width: 100%;
+  max-width: 100%;
+  min-height: unset;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px 20px;
+  gap: 24px;
+  margin: 0;
+  border-radius: 8px;
+  box-shadow: none;
+  border: 1px solid #e0e0e0;
+  transform: none !important;
+  background: #fff;
+}
+
+.breedersList.list :global(.kennelCard:hover) {
+  background-color: #f8f9fa;
+}
+
+.breedersList.list :global(.kennelLogo) {
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  margin: 0;
+  border: 2px solid #3498db;
+}
+
+.breedersList.list :global(.kennelInfo) {
+  display: grid;
+  grid-template-columns: 250px 150px 180px 1fr;
+  align-items: center;
+  gap: 20px;
+  flex: 1;
+}
+
+.breedersList.list :global(.kennelNameBreed) {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.breedersList.list :global(.kennelName) {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.breedersList.list :global(.kennelBreed) {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0;
+}
+
+.breedersList.list :global(.countryContainer) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+
+.breedersList.list :global(.ratingContainer) {
+  margin: 0;
+}
+
+.breedersList.list :global(.ratingBar) {
+  padding: 4px 8px;
+  background: none;
+  box-shadow: none;
+}
+
+.breedersList.list :global(.socialIcons) {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+.breedersList.list :global(.socialIcon) {
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+}
+
+@media (max-width: 960px) {
+  .breedersList.list :global(.kennelInfo) {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .breedersList.list :global(.kennelCard) {
+    padding: 12px;
+    gap: 16px;
+  }
+
+  .breedersList.list :global(.socialIcons) {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 540px) {
+  .breedersList.list :global(.kennelCard) {
+    flex-wrap: wrap;
+    padding: 12px;
+  }
+
+  .breedersList.list :global(.kennelLogo) {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+  }
+
+  .breedersList.list :global(.kennelInfo) {
+    width: calc(100% - 60px);
   }
 }

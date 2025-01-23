@@ -40,8 +40,10 @@ const KennelCard = ({ kennel }) => {
     <div className={styles.kennelCard}>
       <img src={kennel.logo} alt={kennel.name} className={styles.kennelLogo} />
       <div className={styles.kennelInfo}>
-        <h3 className={styles.kennelName}>{kennel.name}</h3>
-        <p className={styles.kennelBreed}>{t(kennel.breedKey)}</p>
+        <div className={styles.kennelNameBreed}>
+          <h3 className={styles.kennelName}>{kennel.name}</h3>
+          <p className={styles.kennelBreed}>{t(kennel.breedKey)}</p>
+        </div>
         <div className={styles.countryContainer}>
           <img
             src={`https://flagcdn.com/w20/${countryCode}.png`}
@@ -50,45 +52,45 @@ const KennelCard = ({ kennel }) => {
           />
           <p className={styles.kennelCountry}>{t(kennel.countryKey)}</p>
         </div>
-      </div>
-      <div className={styles.ratingContainer}>
-        <Tooltip
-          title={`${t("kennels.rating")} ${kennel.rating} ${t(
-            "kennels.outOf"
-          )} 5`}
-          placement="top"
-        >
-          <div className={styles.ratingBar}>
-            <LinearProgress
-              variant="determinate"
-              value={(kennel.rating / 5) * 100}
-              className={styles.ratingProgress}
-            />
-            <span className={styles.ratingValue}>{kennel.rating}</span>
-          </div>
-        </Tooltip>
-      </div>
-      <div className={styles.socialIcons}>
-        {kennel.socials.facebook && (
-          <span className={`${styles.socialIcon} ${styles.facebook}`}>
-            <FaFacebookF />
-          </span>
-        )}
-        {kennel.socials.instagram && (
-          <span className={`${styles.socialIcon} ${styles.instagram}`}>
-            <FaInstagram />
-          </span>
-        )}
-        {kennel.socials.youtube && (
-          <span className={`${styles.socialIcon} ${styles.youtube}`}>
-            <FaYoutube />
-          </span>
-        )}
-        {kennel.socials.twitter && (
-          <span className={`${styles.socialIcon} ${styles.twitter}`}>
-            <FaTwitter />
-          </span>
-        )}
+        <div className={styles.ratingContainer}>
+          <Tooltip
+            title={`${t("kennels.rating")} ${kennel.rating} ${t(
+              "kennels.outOf"
+            )} 5`}
+            placement="top"
+          >
+            <div className={styles.ratingBar}>
+              <LinearProgress
+                variant="determinate"
+                value={(kennel.rating / 5) * 100}
+                className={styles.ratingProgress}
+              />
+              <span className={styles.ratingValue}>{kennel.rating}</span>
+            </div>
+          </Tooltip>
+        </div>
+        <div className={styles.socialIcons}>
+          {kennel.socials.facebook && (
+            <span className={`${styles.socialIcon} ${styles.facebook}`}>
+              <FaFacebookF />
+            </span>
+          )}
+          {kennel.socials.instagram && (
+            <span className={`${styles.socialIcon} ${styles.instagram}`}>
+              <FaInstagram />
+            </span>
+          )}
+          {kennel.socials.youtube && (
+            <span className={`${styles.socialIcon} ${styles.youtube}`}>
+              <FaYoutube />
+            </span>
+          )}
+          {kennel.socials.twitter && (
+            <span className={`${styles.socialIcon} ${styles.twitter}`}>
+              <FaTwitter />
+            </span>
+          )}
+        </div>
       </div>
     </div>
   );

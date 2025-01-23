@@ -71,9 +71,36 @@ const enTranslation = {
   // Kennels section
   kennels: {
     title: "Find Your Breeder",
+    rating: "Rating",
+    outOf: "out of",
     petTypes: {
       dogs: "Dogs",
       cats: "Cats",
+    },
+    filters: {
+      title: "Filters",
+      button: "Filters",
+      apply: "Apply Filters",
+      reset: "Reset Filters",
+      sort: {
+        label: "Sort by",
+        nameAsc: "Name (A-Z)",
+        nameDesc: "Name (Z-A)",
+        ratingDesc: "Rating (High to Low)",
+        ratingAsc: "Rating (Low to High)",
+      },
+      country: {
+        label: "Country",
+        all: "All Countries",
+      },
+      breed: {
+        label: "Breed",
+        all: "All Breeds",
+      },
+      rating: {
+        label: "Minimum Rating",
+        all: "Any Rating",
+      },
     },
     list: {
       goldenParadise: {

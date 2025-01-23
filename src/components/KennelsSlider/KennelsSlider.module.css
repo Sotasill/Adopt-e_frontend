@@ -229,6 +229,12 @@
   margin-top: 16px;
 }
 
+.kennelNameBreed {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .kennelName {
   font-size: 1.1rem;
   color: #2c3e50;
@@ -647,4 +653,129 @@
   display: flex;
   justify-content: center;
   padding: 10px 0;
+}
+/* Режим списка */
+:global(.list) .kennelCard {
+  width: 100%;
+  max-width: 100%;
+  min-height: unset;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px 20px;
+  margin: 0;
+  gap: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+:global(.list) .kennelCard:hover {
+  transform: none;
+  background-color: #f8f9fa;
+}
+
+:global(.list) .kennelLogo {
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  margin: 0;
+  border-width: 2px;
+}
+
+:global(.list) .kennelInfo {
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+  margin: 0;
+  gap: 32px;
+}
+
+:global(.list) .kennelNameBreed {
+  width: 250px;
+  min-width: 250px;
+}
+
+:global(.list) .kennelName {
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+:global(.list) .kennelBreed {
+  font-size: 0.9rem;
+}
+
+:global(.list) .countryContainer {
+  margin: 0;
+  min-width: 120px;
+  background: none;
+  padding: 0;
+}
+
+:global(.list) .ratingContainer {
+  width: 180px;
+  min-width: 180px;
+  margin: 0;
+}
+
+:global(.list) .socialIcons {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  gap: 12px;
+  min-width: 140px;
+}
+
+:global(.list) .socialIcon {
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+}
+
+@media (max-width: 960px) {
+  :global(.list) .kennelCard {
+    padding: 12px;
+    gap: 16px;
+  }
+
+  :global(.list) .kennelInfo {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  :global(.list) .kennelNameBreed {
+    width: calc(100% - 76px);
+    min-width: unset;
+  }
+
+  :global(.list) .countryContainer,
+  :global(.list) .ratingContainer {
+    min-width: unset;
+    width: auto;
+  }
+}
+
+@media (max-width: 540px) {
+  :global(.list) .kennelCard {
+    flex-wrap: wrap;
+    padding: 12px;
+    gap: 12px;
+  }
+
+  :global(.list) .kennelLogo {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+  }
+
+  :global(.list) .kennelInfo {
+    width: calc(100% - 60px);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  :global(.list) .socialIcons {
+    width: 100%;
+    justify-content: flex-start;
+  }
 }

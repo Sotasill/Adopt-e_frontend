@@ -71,6 +71,8 @@ const frTranslation = {
   // Section éleveurs
   kennels: {
     title: "Trouvez votre éleveur",
+    rating: "Note",
+    outOf: "sur",
     petTypes: {
       dogs: "Chiens",
       cats: "Chats",
