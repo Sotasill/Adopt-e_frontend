@@ -80,22 +80,41 @@ const ukrTranslation = {
       goldenParadise: {
         name: "Золотий Рай",
         breed: "Золотистий ретривер",
-        country: "Німеччина",
       },
       royalPaws: {
         name: "Королівські Лапки",
         breed: "Британська короткошерста",
-        country: "Франція",
       },
       eliteGermanShepherds: {
         name: "Елітні Німецькі Вівчарки",
         breed: "Німецька вівчарка",
-        country: "Австрія",
       },
       siberianStars: {
         name: "Сибірські Зірки",
         breed: "Сибірський хаскі",
-        country: "Україна",
+      },
+      // Кошки
+      persianPalace: {
+        breed: "Перська кішка",
+      },
+      britishCharm: {
+        breed: "Британська короткошерста",
+      },
+      maineCoonMagic: {
+        breed: "Мейн-кун",
+      },
+      siameseSecrets: {
+        breed: "Сіамська кішка",
+      },
+      countries: {
+        us: "США",
+        gb: "Велика Британія",
+        de: "Німеччина",
+        ru: "Росія",
+        ir: "Іран",
+        th: "Таїланд",
+        ua: "Україна",
+        fr: "Франція",
       },
     },
   },
@@ -121,6 +140,12 @@ const ukrTranslation = {
     special: "Спеціальна пропозиція",
     newPets: "Нові вихованці",
     monthlyDeals: "Акції місяця",
+  },
+
+  hero: {
+    title: "Знайдіть свого ідеального улюбленця",
+    subtitle:
+      "Ми допоможемо вам знайти вірного друга серед тисяч тварин, які чекають на свій новий дім",
   },
 };
 

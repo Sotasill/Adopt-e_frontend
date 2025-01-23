@@ -13,6 +13,7 @@ import AuthProvider from "../AuthProvider/AuthProvider";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import AnimalDetails from "../AnimalDetails/AnimalDetails";
 import { setLanguage } from "../../redux/language/languageSlice";
+import BreedersPage from "../../pages/BreedersPage/BreedersPage";
 
 // Определяем разрешенные маршруты для каждой роли
 const ROLE_ROUTES = {
@@ -117,6 +118,14 @@ const App = () => {
             }
           />
           <Route path="/animals/:id" element={<AnimalDetails />} />
+          <Route
+            path="/kennels"
+            element={
+              <PublicRoute>
+                <BreedersPage />
+              </PublicRoute>
+            }
+          />
           {/* Перенаправляем все неизвестные маршруты на домашнюю страницу */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

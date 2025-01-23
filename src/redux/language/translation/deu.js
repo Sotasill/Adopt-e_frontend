@@ -16,22 +16,41 @@ const deuTranslation = {
       goldenParadise: {
         name: "Goldenes Paradies",
         breed: "Golden Retriever",
-        country: "Deutschland",
       },
       royalPaws: {
         name: "Königliche Pfoten",
-        breed: "Britisch Kurzhaar",
-        country: "Frankreich",
+        breed: "British Shorthair",
       },
       eliteGermanShepherds: {
         name: "Elite Deutsche Schäferhunde",
         breed: "Deutscher Schäferhund",
-        country: "Österreich",
       },
       siberianStars: {
         name: "Sibirische Sterne",
         breed: "Sibirischer Husky",
-        country: "Russland",
+      },
+      // Katzen
+      persianPalace: {
+        breed: "Perserkatze",
+      },
+      britishCharm: {
+        breed: "Britisch Kurzhaar",
+      },
+      maineCoonMagic: {
+        breed: "Maine Coon",
+      },
+      siameseSecrets: {
+        breed: "Siamkatze",
+      },
+      countries: {
+        us: "Vereinigte Staaten",
+        gb: "Großbritannien",
+        de: "Deutschland",
+        ru: "Russland",
+        ir: "Iran",
+        th: "Thailand",
+        ua: "Ukraine",
+        fr: "Frankreich",
       },
     },
   },
@@ -121,6 +140,12 @@ const deuTranslation = {
   registration: {
     loading: "Registrierung läuft...",
     submit: "Registrieren",
+  },
+
+  hero: {
+    title: "Finden Sie Ihr perfektes Haustier",
+    subtitle:
+      "Wir helfen Ihnen, einen treuen Freund unter Tausenden von Tieren zu finden, die auf ihr neues Zuhause warten",
   },
 };
 

@@ -41,6 +41,7 @@
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
     "sonner": "^1.7.2",
+    "swiper": "^11.2.1",
     "yet-another-react-lightbox": "^3.21.7",
     "yup": "^1.6.1"
   },

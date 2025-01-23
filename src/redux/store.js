@@ -4,6 +4,7 @@ import { searchSlice } from "./search/searchSlice";
 import { registrationSlice } from "./registration/registrationSlice";
 import notificationsReducer from "./notifications/notificationsSlice";
 import languageReducer from "./language/languageSlice";
+import petTypeReducer from "./petType/petTypeSlice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     registration: registrationSlice.reducer,
     notifications: notificationsReducer,
     language: languageReducer,
+    petType: petTypeReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

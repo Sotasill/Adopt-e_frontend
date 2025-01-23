@@ -79,22 +79,41 @@ const frTranslation = {
       goldenParadise: {
         name: "Paradis Doré",
         breed: "Golden Retriever",
-        country: "Allemagne",
       },
       royalPaws: {
         name: "Pattes Royales",
         breed: "British Shorthair",
-        country: "France",
       },
       eliteGermanShepherds: {
         name: "Bergers Allemands d'Élite",
         breed: "Berger Allemand",
-        country: "Autriche",
       },
       siberianStars: {
         name: "Étoiles Sibériennes",
         breed: "Husky Sibérien",
-        country: "Russie",
+      },
+      // Chats
+      persianPalace: {
+        breed: "Chat Persan",
+      },
+      britishCharm: {
+        breed: "British Shorthair",
+      },
+      maineCoonMagic: {
+        breed: "Maine Coon",
+      },
+      siameseSecrets: {
+        breed: "Chat Siamois",
+      },
+      countries: {
+        us: "États-Unis",
+        gb: "Royaume-Uni",
+        de: "Allemagne",
+        ru: "Russie",
+        ir: "Iran",
+        th: "Thaïlande",
+        ua: "Ukraine",
+        fr: "France",
       },
     },
   },
@@ -120,6 +139,12 @@ const frTranslation = {
     special: "Offre spéciale",
     newPets: "Nouveaux animaux",
     monthlyDeals: "Offres du mois",
+  },
+
+  hero: {
+    title: "Trouvez Votre Animal Parfait",
+    subtitle:
+      "Nous vous aiderons à trouver un ami fidèle parmi des milliers d'animaux qui attendent leur nouveau foyer",
   },
 };
 

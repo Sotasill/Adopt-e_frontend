@@ -1,16 +1,11 @@
-import { useState, useEffect } from "react";
+import { memo } from "react";
 import { useTranslatedContent } from "../../redux/hooks/useTranslatedContent";
-import { useNavigate } from "react-router-dom";
-import { FaFacebookF, FaInstagram, FaYoutube, FaTwitter } from "react-icons/fa";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { FaDog, FaCat } from "react-icons/fa6";
-import {
-  Switch,
-  FormControlLabel,
-  Box,
-  LinearProgress,
-  Tooltip,
-} from "@mui/material";
+import { Switch, FormControlLabel } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { togglePetType, selectPetType } from "../../redux/petType/petTypeSlice";
+import KennelsContent from "./KennelsContent";
 import styles from "./KennelsSlider.module.css";
 
 // Моковые данные для питомников
@@ -18,10 +13,10 @@ const MOCK_KENNELS = {
   dogs: [
     {
       id: 1,
-      nameKey: "kennels.list.goldenParadise.name",
-      logo: "https://placeholder.com/150",
+      name: "Golden Paradise",
+      logo: "/images/dogbreeder/1737585129219.jpg",
       breedKey: "kennels.list.goldenParadise.breed",
-      countryKey: "kennels.list.goldenParadise.country",
+      countryKey: "kennels.list.countries.us",
       rating: 4.8,
       socials: {
         facebook: true,
@@ -32,10 +27,10 @@ const MOCK_KENNELS = {
     },
     {
       id: 2,
-      nameKey: "kennels.list.royalPaws.name",
-      logo: "https://placeholder.com/150",
+      name: "Royal Paws",
+      logo: "/images/dogbreeder/1737585125838.jpg",
       breedKey: "kennels.list.royalPaws.breed",
-      countryKey: "kennels.list.royalPaws.country",
+      countryKey: "kennels.list.countries.gb",
       rating: 4.5,
       socials: {
         facebook: true,
@@ -46,10 +41,10 @@ const MOCK_KENNELS = {
     },
     {
       id: 3,
-      nameKey: "kennels.list.eliteGermanShepherds.name",
-      logo: "https://placeholder.com/150",
+      name: "Elite German Shepherds",
+      logo: "/images/dogbreeder/1737585098223.jpg",
       breedKey: "kennels.list.eliteGermanShepherds.breed",
-      countryKey: "kennels.list.eliteGermanShepherds.country",
+      countryKey: "kennels.list.countries.de",
       rating: 4.9,
       socials: {
         facebook: true,
@@ -60,10 +55,10 @@ const MOCK_KENNELS = {
     },
     {
       id: 4,
-      nameKey: "kennels.list.siberianStars.name",
-      logo: "https://placeholder.com/150",
+      name: "Siberian Stars",
+      logo: "/images/dogbreeder/1737585094922.jpg",
       breedKey: "kennels.list.siberianStars.breed",
-      countryKey: "kennels.list.siberianStars.country",
+      countryKey: "kennels.list.countries.ru",
       rating: 4.7,
       socials: {
         facebook: true,
@@ -74,10 +69,10 @@ const MOCK_KENNELS = {
     },
     {
       id: 5,
-      nameKey: "kennels.list.goldenParadise.name",
-      logo: "https://placeholder.com/150",
+      name: "Majestic Paws",
+      logo: "/images/dogbreeder/1737585055764.jpg",
       breedKey: "kennels.list.goldenParadise.breed",
-      countryKey: "kennels.list.goldenParadise.country",
+      countryKey: "kennels.list.countries.us",
       rating: 4.6,
       socials: {
         facebook: true,
@@ -88,10 +83,10 @@ const MOCK_KENNELS = {
     },
     {
       id: 6,
-      nameKey: "kennels.list.royalPaws.name",
-      logo: "https://placeholder.com/150",
+      name: "Noble Canines",
+      logo: "/images/dogbreeder/1737585046034.jpg",
       breedKey: "kennels.list.royalPaws.breed",
-      countryKey: "kennels.list.royalPaws.country",
+      countryKey: "kennels.list.countries.gb",
       rating: 4.8,
       socials: {
         facebook: true,
@@ -102,10 +97,10 @@ const MOCK_KENNELS = {
     },
     {
       id: 7,
-      nameKey: "kennels.list.eliteGermanShepherds.name",
-      logo: "https://placeholder.com/150",
+      name: "Crown K9",
+      logo: "/images/dogbreeder/1737585129219.jpg",
       breedKey: "kennels.list.eliteGermanShepherds.breed",
-      countryKey: "kennels.list.eliteGermanShepherds.country",
+      countryKey: "kennels.list.countries.de",
       rating: 4.7,
       socials: {
         facebook: true,
@@ -116,10 +111,10 @@ const MOCK_KENNELS = {
     },
     {
       id: 8,
-      nameKey: "kennels.list.siberianStars.name",
-      logo: "https://placeholder.com/150",
+      name: "Arctic Tails",
+      logo: "/images/dogbreeder/1737585125838.jpg",
       breedKey: "kennels.list.siberianStars.breed",
-      countryKey: "kennels.list.siberianStars.country",
+      countryKey: "kennels.list.countries.ru",
       rating: 4.9,
       socials: {
         facebook: true,
@@ -130,10 +125,10 @@ const MOCK_KENNELS = {
     },
     {
       id: 9,
-      nameKey: "kennels.list.goldenParadise.name",
-      logo: "https://placeholder.com/150",
+      name: "Royal Breeds",
+      logo: "/images/dogbreeder/1737585098223.jpg",
       breedKey: "kennels.list.goldenParadise.breed",
-      countryKey: "kennels.list.goldenParadise.country",
+      countryKey: "kennels.list.countries.us",
       rating: 4.5,
       socials: {
         facebook: true,
@@ -144,10 +139,10 @@ const MOCK_KENNELS = {
     },
     {
       id: 10,
-      nameKey: "kennels.list.royalPaws.name",
-      logo: "https://placeholder.com/150",
+      name: "Elite Pups",
+      logo: "/images/dogbreeder/1737585094922.jpg",
       breedKey: "kennels.list.royalPaws.breed",
-      countryKey: "kennels.list.royalPaws.country",
+      countryKey: "kennels.list.countries.gb",
       rating: 4.8,
       socials: {
         facebook: true,
@@ -160,10 +155,10 @@ const MOCK_KENNELS = {
   cats: [
     {
       id: 1,
-      nameKey: "kennels.list.persianPalace.name",
-      logo: "https://placeholder.com/150",
+      name: "Persian Palace",
+      logo: "/images/catbreeder/1737585215040.jpg",
       breedKey: "kennels.list.persianPalace.breed",
-      countryKey: "kennels.list.persianPalace.country",
+      countryKey: "kennels.list.countries.ir",
       rating: 4.6,
       socials: {
         facebook: true,
@@ -174,10 +169,10 @@ const MOCK_KENNELS = {
     },
     {
       id: 2,
-      nameKey: "kennels.list.britishCharm.name",
-      logo: "https://placeholder.com/150",
+      name: "British Charm",
+      logo: "/images/catbreeder/1737585211710.jpg",
       breedKey: "kennels.list.britishCharm.breed",
-      countryKey: "kennels.list.britishCharm.country",
+      countryKey: "kennels.list.countries.gb",
       rating: 4.9,
       socials: {
         facebook: true,
@@ -188,10 +183,10 @@ const MOCK_KENNELS = {
     },
     {
       id: 3,
-      nameKey: "kennels.list.maineCoonMagic.name",
-      logo: "https://placeholder.com/150",
+      name: "Maine Coon Magic",
+      logo: "/images/catbreeder/1737585186942.jpg",
       breedKey: "kennels.list.maineCoonMagic.breed",
-      countryKey: "kennels.list.maineCoonMagic.country",
+      countryKey: "kennels.list.countries.us",
       rating: 4.7,
       socials: {
         facebook: true,
@@ -202,10 +197,10 @@ const MOCK_KENNELS = {
     },
     {
       id: 4,
-      nameKey: "kennels.list.siameseSecrets.name",
-      logo: "https://placeholder.com/150",
+      name: "Siamese Secrets",
+      logo: "/images/catbreeder/1737585183526.jpg",
       breedKey: "kennels.list.siameseSecrets.breed",
-      countryKey: "kennels.list.siameseSecrets.country",
+      countryKey: "kennels.list.countries.th",
       rating: 4.8,
       socials: {
         facebook: true,
@@ -216,10 +211,10 @@ const MOCK_KENNELS = {
     },
     {
       id: 5,
-      nameKey: "kennels.list.persianPalace.name",
-      logo: "https://placeholder.com/150",
+      name: "Royal Felines",
+      logo: "/images/catbreeder/1737585157355.jpg",
       breedKey: "kennels.list.persianPalace.breed",
-      countryKey: "kennels.list.persianPalace.country",
+      countryKey: "kennels.list.countries.ir",
       rating: 4.5,
       socials: {
         facebook: true,
@@ -230,10 +225,10 @@ const MOCK_KENNELS = {
     },
     {
       id: 6,
-      nameKey: "kennels.list.britishCharm.name",
-      logo: "https://placeholder.com/150",
+      name: "Elite Cats",
+      logo: "/images/catbreeder/1737585154227.jpg",
       breedKey: "kennels.list.britishCharm.breed",
-      countryKey: "kennels.list.britishCharm.country",
+      countryKey: "kennels.list.countries.gb",
       rating: 4.7,
       socials: {
         facebook: true,
@@ -244,10 +239,10 @@ const MOCK_KENNELS = {
     },
     {
       id: 7,
-      nameKey: "kennels.list.maineCoonMagic.name",
-      logo: "https://placeholder.com/150",
+      name: "Purrfect Palace",
+      logo: "/images/catbreeder/1737585215040.jpg",
       breedKey: "kennels.list.maineCoonMagic.breed",
-      countryKey: "kennels.list.maineCoonMagic.country",
+      countryKey: "kennels.list.countries.us",
       rating: 4.9,
       socials: {
         facebook: true,
@@ -258,10 +253,10 @@ const MOCK_KENNELS = {
     },
     {
       id: 8,
-      nameKey: "kennels.list.siameseSecrets.name",
-      logo: "https://placeholder.com/150",
+      name: "Noble Cats",
+      logo: "/images/catbreeder/1737585211710.jpg",
       breedKey: "kennels.list.siameseSecrets.breed",
-      countryKey: "kennels.list.siameseSecrets.country",
+      countryKey: "kennels.list.countries.th",
       rating: 4.6,
       socials: {
         facebook: true,
@@ -276,109 +271,39 @@ const MOCK_KENNELS = {
 const KennelsSlider = () => {
   const { t } = useTranslatedContent();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const petType = useSelector(selectPetType);
 
-  const getVisibleSlides = () => {
-    const width = window.innerWidth;
-    if (width >= 1440) return 6;
-    if (width >= 1200) return 5;
-    if (width >= 900) return 4;
-    if (width >= 600) return 3;
-    if (width >= 480) return 2;
-    return 1;
-  };
-
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [petType, setPetType] = useState("dogs");
-  const [kennelsData, setKennelsData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [visibleSlides, setVisibleSlides] = useState(getVisibleSlides());
-
-  const handlePetTypeChange = (e) => {
-    const newType = e.target.checked ? "cats" : "dogs";
-    setPetType(newType);
-    setCurrentSlide(0);
-  };
-
-  useEffect(() => {
-    fetchKennelsData();
-
-    const handleResize = () => {
-      setVisibleSlides(getVisibleSlides());
+  // Подготавливаем данные с карточкой "Показать больше"
+  const prepareKennelsData = (type) => {
+    const kennelsData = MOCK_KENNELS[type] || [];
+    const moreKennelsCard = {
+      id: "more-kennels",
+      isMoreKennels: true,
+      title: t("kennels.viewMore"),
+      text: t("kennels.viewMoreText"),
     };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [petType]);
-
-  const fetchKennelsData = async () => {
-    try {
-      setLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
-      const kennels = MOCK_KENNELS[petType].slice(0, 10);
-      const moreKennelsSlide = {
-        id: "more-kennels",
-        isMoreKennels: true,
-        title: t("kennels.viewMore"),
-        text: t("kennels.viewMoreText"),
-      };
-
-      setKennelsData([...kennels, moreKennelsSlide]);
-      setCurrentSlide(0);
-      setError(null);
-    } catch (err) {
-      setError("Ошибка при загрузке данных питомников");
-      console.error("Error fetching kennels data:", err);
-    } finally {
-      setLoading(false);
-    }
+    return [...kennelsData, moreKennelsCard];
   };
 
-  const nextSlide = () => {
-    const maxSlide = kennelsData.length - visibleSlides;
-    if (currentSlide < maxSlide) {
-      setCurrentSlide(currentSlide + 1);
-    }
+  // Получаем текущие данные на основе типа
+  const currentKennels = prepareKennelsData(petType);
+
+  const handlePetTypeChange = () => {
+    dispatch(togglePetType());
   };
-
-  const prevSlide = () => {
-    if (currentSlide > 0) {
-      setCurrentSlide(currentSlide - 1);
-    }
-  };
-
-  const calculateTranslateX = () => {
-    const cardWidth = 100 / visibleSlides;
-    return -(currentSlide * cardWidth);
-  };
-
-  const isLastSlideReached = () => {
-    return currentSlide >= 8 - visibleSlides;
-  };
-
-  const handleKennelClick = (kennel) => {
-    if (kennel.isMoreKennels) {
-      navigate(`/kennels/${petType}`); // Переход на страницу со всеми питомниками
-    } else {
-      navigate(`/kennels/${petType}/${kennel.id}`); // Переход на страницу конкретного питомника
-    }
-  };
-
-  if (loading) {
-    return <div className={styles.loading}>{t("loading")}</div>;
-  }
-
-  if (error) {
-    return <div className={styles.error}>{t("error")}</div>;
-  }
 
   return (
-    <section className={styles.kennelsSection}>
+    <section id="kennels" className={styles.kennelsSection}>
       <div className={styles.kennelsSectionHeader}>
-        <h2 className={styles.sectionTitle}>{t("kennels.title")}</h2>
+        <h2
+          className={styles.sectionTitle}
+          onClick={() => navigate(`/kennels?type=${petType}`)}
+        >
+          {t("kennels.title")}
+        </h2>
         <div className={styles.petTypeSwitch}>
-          <Box className={styles.switchContainer}>
+          <div className={styles.switchContainer}>
             <div className={styles.petTypeOption}>
               <FaDog
                 className={`${styles.petIcon} ${
@@ -398,7 +323,7 @@ const KennelsSlider = () => {
                 <Switch
                   checked={petType === "cats"}
                   onChange={handlePetTypeChange}
-                  color="primary"
+                  name="petType"
                 />
               }
               label=""
@@ -417,117 +342,15 @@ const KennelsSlider = () => {
                 {t("kennels.petTypes.cats")}
               </span>
             </div>
-          </Box>
+          </div>
         </div>
       </div>
 
-      <div className={styles.kennelsSlider}>
-        <button
-          className={styles.sliderButton}
-          onClick={prevSlide}
-          disabled={currentSlide === 0}
-          aria-label="Previous slide"
-        >
-          <IoIosArrowBack size={24} />
-        </button>
-
-        <div
-          className={styles.kennelsContainer}
-          style={{
-            transform: `translateX(${calculateTranslateX()}%)`,
-          }}
-        >
-          {kennelsData.map((kennel) => (
-            <div
-              key={kennel.id}
-              className={`${styles.kennelCard} ${
-                kennel.isMoreKennels ? styles.moreKennelsCard : ""
-              }`}
-              onClick={() => handleKennelClick(kennel)}
-              role="button"
-              tabIndex={0}
-              onKeyPress={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  handleKennelClick(kennel);
-                }
-              }}
-            >
-              {kennel.isMoreKennels ? (
-                <div className={styles.moreKennelsContent}>
-                  <div className={styles.moreKennelsIcon}>
-                    <IoIosArrowForward size={40} />
-                  </div>
-                  <h3 className={styles.moreKennelsTitle}>{kennel.title}</h3>
-                  <p className={styles.moreKennelsText}>{kennel.text}</p>
-                </div>
-              ) : (
-                <>
-                  <img
-                    src={kennel.logo}
-                    alt={t(kennel.nameKey)}
-                    className={styles.kennelLogo}
-                  />
-                  <h3 className={styles.kennelName}>{t(kennel.nameKey)}</h3>
-                  <p className={styles.kennelBreed}>{t(kennel.breedKey)}</p>
-                  <p className={styles.kennelCountry}>{t(kennel.countryKey)}</p>
-                  <div className={styles.ratingContainer}>
-                    <Tooltip
-                      title={`${t("kennels.rating")}: ${kennel.rating} ${t(
-                        "kennels.outOf"
-                      )} 5`}
-                      placement="top"
-                    >
-                      <div className={styles.ratingBar}>
-                        <LinearProgress
-                          variant="determinate"
-                          value={(kennel.rating / 5) * 100}
-                          className={styles.ratingProgress}
-                        />
-                        <span className={styles.ratingValue}>
-                          {kennel.rating}
-                        </span>
-                      </div>
-                    </Tooltip>
-                  </div>
-                  <div className={styles.socialIcons}>
-                    {kennel.socials.facebook && (
-                      <span className={styles.socialIcon}>
-                        <FaFacebookF />
-                      </span>
-                    )}
-                    {kennel.socials.instagram && (
-                      <span className={styles.socialIcon}>
-                        <FaInstagram />
-                      </span>
-                    )}
-                    {kennel.socials.youtube && (
-                      <span className={styles.socialIcon}>
-                        <FaYoutube />
-                      </span>
-                    )}
-                    {kennel.socials.twitter && (
-                      <span className={styles.socialIcon}>
-                        <FaTwitter />
-                      </span>
-                    )}
-                  </div>
-                </>
-              )}
-            </div>
-          ))}
-        </div>
-
-        <button
-          className={styles.sliderButton}
-          onClick={nextSlide}
-          disabled={isLastSlideReached()}
-          aria-label="Next slide"
-        >
-          <IoIosArrowForward size={24} />
-        </button>
-      </div>
+      <MemoizedKennelsContent kennels={currentKennels} petType={petType} />
     </section>
   );
 };
+
+const MemoizedKennelsContent = memo(KennelsContent);
 
 export default KennelsSlider;

@@ -79,22 +79,41 @@ const enTranslation = {
       goldenParadise: {
         name: "Golden Paradise",
         breed: "Golden Retriever",
-        country: "Germany",
       },
       royalPaws: {
         name: "Royal Paws",
         breed: "British Shorthair",
-        country: "France",
       },
       eliteGermanShepherds: {
         name: "Elite German Shepherds",
         breed: "German Shepherd",
-        country: "Austria",
       },
       siberianStars: {
         name: "Siberian Stars",
         breed: "Siberian Husky",
-        country: "Russia",
+      },
+      // Cats
+      persianPalace: {
+        breed: "Persian Cat",
+      },
+      britishCharm: {
+        breed: "British Shorthair",
+      },
+      maineCoonMagic: {
+        breed: "Maine Coon",
+      },
+      siameseSecrets: {
+        breed: "Siamese Cat",
+      },
+      countries: {
+        us: "United States",
+        gb: "United Kingdom",
+        de: "Germany",
+        ru: "Russia",
+        ir: "Iran",
+        th: "Thailand",
+        ua: "Ukraine",
+        fr: "France",
       },
     },
   },
@@ -120,6 +139,12 @@ const enTranslation = {
     special: "Special Offer",
     newPets: "New Pets",
     monthlyDeals: "Monthly Deals",
+  },
+
+  hero: {
+    title: "Find Your Perfect Pet",
+    subtitle:
+      "We'll help you find a loyal friend among thousands of animals waiting for their new home",
   },
 };
 
