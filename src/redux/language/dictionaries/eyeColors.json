@@ -1,0 +1,74 @@
+{
+  "amber": {
+    "en": "Amber",
+    "ru": "Янтарный",
+    "uk": "Бурштиновий",
+    "fr": "Ambre",
+    "de": "Bernstein",
+    "color": "#FFBF00"
+  },
+  "blue": {
+    "en": "Blue",
+    "ru": "Голубой",
+    "uk": "Блакитний",
+    "fr": "Bleu",
+    "de": "Blau",
+    "color": "#89CFF0"
+  },
+  "brown": {
+    "en": "Brown",
+    "ru": "Коричневый",
+    "uk": "Коричневий",
+    "fr": "Marron",
+    "de": "Braun",
+    "color": "#964B00"
+  },
+  "copper": {
+    "en": "Copper",
+    "ru": "Медный",
+    "uk": "Мідний",
+    "fr": "Cuivre",
+    "de": "Kupfer",
+    "color": "#B87333"
+  },
+  "green": {
+    "en": "Green",
+    "ru": "Зеленый",
+    "uk": "Зелений",
+    "fr": "Vert",
+    "de": "Grün",
+    "color": "#228B22"
+  },
+  "hazel": {
+    "en": "Hazel",
+    "ru": "Ореховый",
+    "uk": "Горіховий",
+    "fr": "Noisette",
+    "de": "Haselnussbraun",
+    "color": "#8E7618"
+  },
+  "odd": {
+    "en": "Odd-eyed",
+    "ru": "Разноцветные",
+    "uk": "Різнокольорові",
+    "fr": "Yeux Vairons",
+    "de": "Verschiedenfarbig",
+    "color": "linear-gradient(to right, #89CFF0 50%, #228B22 50%)"
+  },
+  "orange": {
+    "en": "Orange",
+    "ru": "Оранжевый",
+    "uk": "Помаранчевий",
+    "fr": "Orange",
+    "de": "Orange",
+    "color": "#FFA500"
+  },
+  "yellow": {
+    "en": "Yellow",
+    "ru": "Желтый",
+    "uk": "Жовтий",
+    "fr": "Jaune",
+    "de": "Gelb",
+    "color": "#FFD700"
+  }
+}

@@ -66,7 +66,10 @@ const Navigation = () => {
           <div className={styles.mobileVisible}>
             <LanguageSwitcher />
             {!isAuthenticated && (
-              <Link to="/login" className={styles.navButton}>
+              <Link
+                to="/login"
+                className={`${styles.navButton} ${styles.loginButton}`}
+              >
                 {t("login")}
               </Link>
             )}
@@ -87,10 +90,16 @@ const Navigation = () => {
             <LanguageSwitcher />
             {!isAuthenticated && (
               <>
-                <Link to="/login" className={styles.navButton}>
+                <Link
+                  to="/login"
+                  className={`${styles.navButton} ${styles.loginButton}`}
+                >
                   {t("login")}
                 </Link>
-                <Link to="/register" className={styles.navButton}>
+                <Link
+                  to="/register"
+                  className={`${styles.navButton} ${styles.registerButton}`}
+                >
                   {t("register")}
                 </Link>
               </>

@@ -1,0 +1,857 @@
+{
+  "afghanistan": {
+    "en": "Afghanistan",
+    "ru": "Афганистан",
+    "uk": "Афганістан",
+    "fr": "Afghanistan",
+    "de": "Afghanistan",
+    "iso": "AF",
+    "flag": "🇦🇫"
+  },
+  "albania": {
+    "en": "Albania",
+    "ru": "Албания",
+    "uk": "Албанія",
+    "fr": "Albanie",
+    "de": "Albanien",
+    "iso": "AL",
+    "flag": "🇦🇱"
+  },
+  "algeria": {
+    "en": "Algeria",
+    "ru": "Алжир",
+    "uk": "Алжир",
+    "fr": "Algérie",
+    "de": "Algerien",
+    "iso": "DZ",
+    "flag": "🇩🇿"
+  },
+  "argentina": {
+    "en": "Argentina",
+    "ru": "Аргентина",
+    "uk": "Аргентина",
+    "fr": "Argentine",
+    "de": "Argentinien",
+    "iso": "AR",
+    "flag": "🇦🇷"
+  },
+  "australia": {
+    "en": "Australia",
+    "ru": "Австралия",
+    "uk": "Австралія",
+    "fr": "Australie",
+    "de": "Australien",
+    "iso": "AU",
+    "flag": "🇦🇺"
+  },
+  "austria": {
+    "en": "Austria",
+    "ru": "Австрия",
+    "uk": "Австрія",
+    "fr": "Autriche",
+    "de": "Österreich",
+    "iso": "AT",
+    "flag": "🇦🇹"
+  },
+  "belgium": {
+    "en": "Belgium",
+    "ru": "Бельгия",
+    "uk": "Бельгія",
+    "fr": "Belgique",
+    "de": "Belgien",
+    "iso": "BE",
+    "flag": "🇧🇪"
+  },
+  "brazil": {
+    "en": "Brazil",
+    "ru": "Бразилия",
+    "uk": "Бразилія",
+    "fr": "Brésil",
+    "de": "Brasilien",
+    "iso": "BR",
+    "flag": "🇧🇷"
+  },
+  "canada": {
+    "en": "Canada",
+    "ru": "Канада",
+    "uk": "Канада",
+    "fr": "Canada",
+    "de": "Kanada",
+    "iso": "CA",
+    "flag": "🇨🇦"
+  },
+  "china": {
+    "en": "China",
+    "ru": "Китай",
+    "uk": "Китай",
+    "fr": "Chine",
+    "de": "China",
+    "iso": "CN",
+    "flag": "🇨🇳"
+  },
+  "denmark": {
+    "en": "Denmark",
+    "ru": "Дания",
+    "uk": "Данія",
+    "fr": "Danemark",
+    "de": "Dänemark",
+    "iso": "DK",
+    "flag": "🇩🇰"
+  },
+  "egypt": {
+    "en": "Egypt",
+    "ru": "Египет",
+    "uk": "Єгипет",
+    "fr": "Égypte",
+    "de": "Ägypten",
+    "iso": "EG",
+    "flag": "🇪🇬"
+  },
+  "finland": {
+    "en": "Finland",
+    "ru": "Финляндия",
+    "uk": "Фінляндія",
+    "fr": "Finlande",
+    "de": "Finnland",
+    "iso": "FI",
+    "flag": "🇫🇮"
+  },
+  "france": {
+    "en": "France",
+    "ru": "Франция",
+    "uk": "Франція",
+    "fr": "France",
+    "de": "Frankreich",
+    "iso": "FR",
+    "flag": "🇫🇷"
+  },
+  "germany": {
+    "en": "Germany",
+    "ru": "Германия",
+    "uk": "Німеччина",
+    "fr": "Allemagne",
+    "de": "Deutschland",
+    "iso": "DE",
+    "flag": "🇩🇪"
+  },
+  "greece": {
+    "en": "Greece",
+    "ru": "Греция",
+    "uk": "Греція",
+    "fr": "Grèce",
+    "de": "Griechenland",
+    "iso": "GR",
+    "flag": "🇬🇷"
+  },
+  "india": {
+    "en": "India",
+    "ru": "Индия",
+    "uk": "Індія",
+    "fr": "Inde",
+    "de": "Indien",
+    "iso": "IN",
+    "flag": "🇮🇳"
+  },
+  "ireland": {
+    "en": "Ireland",
+    "ru": "Ирландия",
+    "uk": "Ірландія",
+    "fr": "Irlande",
+    "de": "Irland",
+    "iso": "IE",
+    "flag": "🇮🇪"
+  },
+  "italy": {
+    "en": "Italy",
+    "ru": "Италия",
+    "uk": "Італія",
+    "fr": "Italie",
+    "de": "Italien",
+    "iso": "IT",
+    "flag": "🇮🇹"
+  },
+  "japan": {
+    "en": "Japan",
+    "ru": "Япония",
+    "uk": "Японія",
+    "fr": "Japon",
+    "de": "Japan",
+    "iso": "JP",
+    "flag": "🇯🇵"
+  },
+  "mexico": {
+    "en": "Mexico",
+    "ru": "Мексика",
+    "uk": "Мексика",
+    "fr": "Mexique",
+    "de": "Mexiko",
+    "iso": "MX",
+    "flag": "🇲🇽"
+  },
+  "netherlands": {
+    "en": "Netherlands",
+    "ru": "Нидерланды",
+    "uk": "Нідерланди",
+    "fr": "Pays-Bas",
+    "de": "Niederlande",
+    "iso": "NL",
+    "flag": "🇳🇱"
+  },
+  "newZealand": {
+    "en": "New Zealand",
+    "ru": "Новая Зеландия",
+    "uk": "Нова Зеландія",
+    "fr": "Nouvelle-Zélande",
+    "de": "Neuseeland",
+    "iso": "NZ",
+    "flag": "🇳🇿"
+  },
+  "norway": {
+    "en": "Norway",
+    "ru": "Норвегия",
+    "uk": "Норвегія",
+    "fr": "Norvège",
+    "de": "Norwegen",
+    "iso": "NO",
+    "flag": "🇳🇴"
+  },
+  "poland": {
+    "en": "Poland",
+    "ru": "Польша",
+    "uk": "Польща",
+    "fr": "Pologne",
+    "de": "Polen",
+    "iso": "PL",
+    "flag": "🇵🇱"
+  },
+  "portugal": {
+    "en": "Portugal",
+    "ru": "Португалия",
+    "uk": "Португалія",
+    "fr": "Portugal",
+    "de": "Portugal",
+    "iso": "PT",
+    "flag": "🇵🇹"
+  },
+  "russia": {
+    "en": "Russia",
+    "ru": "Россия",
+    "uk": "Росія",
+    "fr": "Russie",
+    "de": "Russland",
+    "iso": "RU",
+    "flag": "🇷🇺"
+  },
+  "spain": {
+    "en": "Spain",
+    "ru": "Испания",
+    "uk": "Іспанія",
+    "fr": "Espagne",
+    "de": "Spanien",
+    "iso": "ES",
+    "flag": "🇪🇸"
+  },
+  "sweden": {
+    "en": "Sweden",
+    "ru": "Швеция",
+    "uk": "Швеція",
+    "fr": "Suède",
+    "de": "Schweden",
+    "iso": "SE",
+    "flag": "🇸🇪"
+  },
+  "switzerland": {
+    "en": "Switzerland",
+    "ru": "Швейцария",
+    "uk": "Швейцарія",
+    "fr": "Suisse",
+    "de": "Schweiz",
+    "iso": "CH",
+    "flag": "🇨🇭"
+  },
+  "ukraine": {
+    "en": "Ukraine",
+    "ru": "Украина",
+    "uk": "Україна",
+    "fr": "Ukraine",
+    "de": "Ukraine",
+    "iso": "UA",
+    "flag": "🇺🇦"
+  },
+  "unitedKingdom": {
+    "en": "United Kingdom",
+    "ru": "Великобритания",
+    "uk": "Велика Британія",
+    "fr": "Royaume-Uni",
+    "de": "Vereinigtes Königreich",
+    "iso": "GB",
+    "flag": "🇬🇧"
+  },
+  "unitedStates": {
+    "en": "United States",
+    "ru": "США",
+    "uk": "США",
+    "fr": "États-Unis",
+    "de": "Vereinigte Staaten",
+    "iso": "US",
+    "flag": "🇺🇸"
+  },
+  "bulgaria": {
+    "en": "Bulgaria",
+    "ru": "Болгария",
+    "uk": "Болгарія",
+    "fr": "Bulgarie",
+    "de": "Bulgarien",
+    "iso": "BG",
+    "flag": "🇧🇬"
+  },
+  "croatia": {
+    "en": "Croatia",
+    "ru": "Хорватия",
+    "uk": "Хорватія",
+    "fr": "Croatie",
+    "de": "Kroatien",
+    "iso": "HR",
+    "flag": "🇭🇷"
+  },
+  "czechRepublic": {
+    "en": "Czech Republic",
+    "ru": "Чехия",
+    "uk": "Чехія",
+    "fr": "République Tchèque",
+    "de": "Tschechische Republik",
+    "iso": "CZ",
+    "flag": "🇨🇿"
+  },
+  "estonia": {
+    "en": "Estonia",
+    "ru": "Эстония",
+    "uk": "Естонія",
+    "fr": "Estonie",
+    "de": "Estland",
+    "iso": "EE",
+    "flag": "🇪🇪"
+  },
+  "hungary": {
+    "en": "Hungary",
+    "ru": "Венгрия",
+    "uk": "Угорщина",
+    "fr": "Hongrie",
+    "de": "Ungarn",
+    "iso": "HU",
+    "flag": "🇭🇺"
+  },
+  "iceland": {
+    "en": "Iceland",
+    "ru": "Исландия",
+    "uk": "Ісландія",
+    "fr": "Islande",
+    "de": "Island",
+    "iso": "IS",
+    "flag": "🇮🇸"
+  },
+  "latvia": {
+    "en": "Latvia",
+    "ru": "Латвия",
+    "uk": "Латвія",
+    "fr": "Lettonie",
+    "de": "Lettland",
+    "iso": "LV",
+    "flag": "🇱🇻"
+  },
+  "lithuania": {
+    "en": "Lithuania",
+    "ru": "Литва",
+    "uk": "Литва",
+    "fr": "Lituanie",
+    "de": "Litauen",
+    "iso": "LT",
+    "flag": "🇱🇹"
+  },
+  "moldova": {
+    "en": "Moldova",
+    "ru": "Молдова",
+    "uk": "Молдова",
+    "fr": "Moldavie",
+    "de": "Moldawien",
+    "iso": "MD",
+    "flag": "🇲🇩"
+  },
+  "romania": {
+    "en": "Romania",
+    "ru": "Румыния",
+    "uk": "Румунія",
+    "fr": "Roumanie",
+    "de": "Rumänien",
+    "iso": "RO",
+    "flag": "🇷🇴"
+  },
+  "serbia": {
+    "en": "Serbia",
+    "ru": "Сербия",
+    "uk": "Сербія",
+    "fr": "Serbie",
+    "de": "Serbien",
+    "iso": "RS",
+    "flag": "🇷🇸"
+  },
+  "slovakia": {
+    "en": "Slovakia",
+    "ru": "Словакия",
+    "uk": "Словаччина",
+    "fr": "Slovaquie",
+    "de": "Slowakei",
+    "iso": "SK",
+    "flag": "🇸🇰"
+  },
+  "slovenia": {
+    "en": "Slovenia",
+    "ru": "Словения",
+    "uk": "Словенія",
+    "fr": "Slovénie",
+    "de": "Slowenien",
+    "iso": "SI",
+    "flag": "🇸🇮"
+  },
+  "southKorea": {
+    "en": "South Korea",
+    "ru": "Южная Корея",
+    "uk": "Південна Корея",
+    "fr": "Corée du Sud",
+    "de": "Südkorea",
+    "iso": "KR",
+    "flag": "🇰🇷"
+  },
+  "turkey": {
+    "en": "Turkey",
+    "ru": "Турция",
+    "uk": "Туреччина",
+    "fr": "Turquie",
+    "de": "Türkei",
+    "iso": "TR",
+    "flag": "🇹🇷"
+  },
+  "azerbaijan": {
+    "en": "Azerbaijan",
+    "ru": "Азербайджан",
+    "uk": "Азербайджан",
+    "fr": "Azerbaïdjan",
+    "de": "Aserbaidschan",
+    "iso": "AZ",
+    "flag": "🇦🇿"
+  },
+  "angola": {
+    "en": "Angola",
+    "ru": "Ангола",
+    "uk": "Ангола",
+    "fr": "Angola",
+    "de": "Angola",
+    "iso": "AO",
+    "flag": "🇦🇴"
+  },
+  "armenia": {
+    "en": "Armenia",
+    "ru": "Армения",
+    "uk": "Вірменія",
+    "fr": "Arménie",
+    "de": "Armenien",
+    "iso": "AM",
+    "flag": "🇦🇲"
+  },
+  "bangladesh": {
+    "en": "Bangladesh",
+    "ru": "Бангладеш",
+    "uk": "Бангладеш",
+    "fr": "Bangladesh",
+    "de": "Bangladesch",
+    "iso": "BD",
+    "flag": "🇧🇩"
+  },
+  "bahrain": {
+    "en": "Bahrain",
+    "ru": "Бахрейн",
+    "uk": "Бахрейн",
+    "fr": "Bahreïn",
+    "de": "Bahrain",
+    "iso": "BH",
+    "flag": "🇧🇭"
+  },
+  "belarus": {
+    "en": "Belarus",
+    "ru": "Беларусь",
+    "uk": "Білорусь",
+    "fr": "Biélorussie",
+    "de": "Weißrussland",
+    "iso": "BY",
+    "flag": "🇧🇾"
+  },
+  "bolivia": {
+    "en": "Bolivia",
+    "ru": "Боливия",
+    "uk": "Болівія",
+    "fr": "Bolivie",
+    "de": "Bolivien",
+    "iso": "BO",
+    "flag": "🇧🇴"
+  },
+  "bosniaAndHerzegovina": {
+    "en": "Bosnia and Herzegovina",
+    "ru": "Босния и Герцеговина",
+    "uk": "Боснія і Герцеговина",
+    "fr": "Bosnie-Herzégovine",
+    "de": "Bosnien und Herzegowina",
+    "iso": "BA",
+    "flag": "🇧🇦"
+  },
+  "venezuela": {
+    "en": "Venezuela",
+    "ru": "Венесуэла",
+    "uk": "Венесуела",
+    "fr": "Venezuela",
+    "de": "Venezuela",
+    "iso": "VE",
+    "flag": "🇻🇪"
+  },
+  "vietnam": {
+    "en": "Vietnam",
+    "ru": "Вьетнам",
+    "uk": "В'єтнам",
+    "fr": "Viêt Nam",
+    "de": "Vietnam",
+    "iso": "VN",
+    "flag": "🇻🇳"
+  },
+  "hongKong": {
+    "en": "Hong Kong",
+    "ru": "Гонконг",
+    "uk": "Гонконг",
+    "fr": "Hong Kong",
+    "de": "Hongkong",
+    "iso": "HK",
+    "flag": "🇭🇰"
+  },
+  "georgia": {
+    "en": "Georgia",
+    "ru": "Грузия",
+    "uk": "Грузія",
+    "fr": "Géorgie",
+    "de": "Georgien",
+    "iso": "GE",
+    "flag": "🇬🇪"
+  },
+  "israel": {
+    "en": "Israel",
+    "ru": "Израиль",
+    "uk": "Ізраїль",
+    "fr": "Israël",
+    "de": "Israel",
+    "iso": "IL",
+    "flag": "🇮🇱"
+  },
+  "indonesia": {
+    "en": "Indonesia",
+    "ru": "Индонезия",
+    "uk": "Індонезія",
+    "fr": "Indonésie",
+    "de": "Indonesien",
+    "iso": "ID",
+    "flag": "🇮🇩"
+  },
+  "jordan": {
+    "en": "Jordan",
+    "ru": "Иордания",
+    "uk": "Йорданія",
+    "fr": "Jordanie",
+    "de": "Jordanien",
+    "iso": "JO",
+    "flag": "🇯🇴"
+  },
+  "iraq": {
+    "en": "Iraq",
+    "ru": "Ирак",
+    "uk": "Ірак",
+    "fr": "Irak",
+    "de": "Irak",
+    "iso": "IQ",
+    "flag": "🇮🇶"
+  },
+  "iran": {
+    "en": "Iran",
+    "ru": "Иран",
+    "uk": "Іран",
+    "fr": "Iran",
+    "de": "Iran",
+    "iso": "IR",
+    "flag": "🇮🇷"
+  },
+  "kazakhstan": {
+    "en": "Kazakhstan",
+    "ru": "Казахстан",
+    "uk": "Казахстан",
+    "fr": "Kazakhstan",
+    "de": "Kasachstan",
+    "iso": "KZ",
+    "flag": "🇰🇿"
+  },
+  "cambodia": {
+    "en": "Cambodia",
+    "ru": "Камбоджа",
+    "uk": "Камбоджа",
+    "fr": "Cambodge",
+    "de": "Kambodscha",
+    "iso": "KH",
+    "flag": "🇰🇭"
+  },
+  "qatar": {
+    "en": "Qatar",
+    "ru": "Катар",
+    "uk": "Катар",
+    "fr": "Qatar",
+    "de": "Katar",
+    "iso": "QA",
+    "flag": "🇶🇦"
+  },
+  "kenya": {
+    "en": "Kenya",
+    "ru": "Кения",
+    "uk": "Кенія",
+    "fr": "Kenya",
+    "de": "Kenia",
+    "iso": "KE",
+    "flag": "🇰🇪"
+  },
+  "cyprus": {
+    "en": "Cyprus",
+    "ru": "Кипр",
+    "uk": "Кіпр",
+    "fr": "Chypre",
+    "de": "Zypern",
+    "iso": "CY",
+    "flag": "🇨🇾"
+  },
+  "colombia": {
+    "en": "Colombia",
+    "ru": "Колумбия",
+    "uk": "Колумбія",
+    "fr": "Colombie",
+    "de": "Kolumbien",
+    "iso": "CO",
+    "flag": "🇨🇴"
+  },
+  "cuba": {
+    "en": "Cuba",
+    "ru": "Куба",
+    "uk": "Куба",
+    "fr": "Cuba",
+    "de": "Kuba",
+    "iso": "CU",
+    "flag": "🇨🇺"
+  },
+  "kyrgyzstan": {
+    "en": "Kyrgyzstan",
+    "ru": "Кыргызстан",
+    "uk": "Киргизстан",
+    "fr": "Kirghizistan",
+    "de": "Kirgisistan",
+    "iso": "KG",
+    "flag": "🇰🇬"
+  },
+  "lebanon": {
+    "en": "Lebanon",
+    "ru": "Ливан",
+    "uk": "Ліван",
+    "fr": "Liban",
+    "de": "Libanon",
+    "iso": "LB",
+    "flag": "🇱🇧"
+  },
+  "luxembourg": {
+    "en": "Luxembourg",
+    "ru": "Люксембург",
+    "uk": "Люксембург",
+    "fr": "Luxembourg",
+    "de": "Luxemburg",
+    "iso": "LU",
+    "flag": "🇱🇺"
+  },
+  "malaysia": {
+    "en": "Malaysia",
+    "ru": "Малайзия",
+    "uk": "Малайзія",
+    "fr": "Malaisie",
+    "de": "Malaysia",
+    "iso": "MY",
+    "flag": "🇲🇾"
+  },
+  "malta": {
+    "en": "Malta",
+    "ru": "Мальта",
+    "uk": "Мальта",
+    "fr": "Malte",
+    "de": "Malta",
+    "iso": "MT",
+    "flag": "🇲🇹"
+  },
+  "morocco": {
+    "en": "Morocco",
+    "ru": "Марокко",
+    "uk": "Марокко",
+    "fr": "Maroc",
+    "de": "Marokko",
+    "iso": "MA",
+    "flag": "🇲🇦"
+  },
+  "mongolia": {
+    "en": "Mongolia",
+    "ru": "Монголия",
+    "uk": "Монголія",
+    "fr": "Mongolie",
+    "de": "Mongolei",
+    "iso": "MN",
+    "flag": "🇲🇳"
+  },
+  "nigeria": {
+    "en": "Nigeria",
+    "ru": "Нигерия",
+    "uk": "Нігерія",
+    "fr": "Nigeria",
+    "de": "Nigeria",
+    "iso": "NG",
+    "flag": "🇳🇬"
+  },
+  "uae": {
+    "en": "United Arab Emirates",
+    "ru": "ОАЭ",
+    "uk": "ОАЕ",
+    "fr": "Émirats Arabes Unis",
+    "de": "Vereinigte Arabische Emirate",
+    "iso": "AE",
+    "flag": "🇦🇪"
+  },
+  "pakistan": {
+    "en": "Pakistan",
+    "ru": "Пакистан",
+    "uk": "Пакистан",
+    "fr": "Pakistan",
+    "de": "Pakistan",
+    "iso": "PK",
+    "flag": "🇵🇰"
+  },
+  "peru": {
+    "en": "Peru",
+    "ru": "Перу",
+    "uk": "Перу",
+    "fr": "Pérou",
+    "de": "Peru",
+    "iso": "PE",
+    "flag": "🇵🇪"
+  },
+  "saudiArabia": {
+    "en": "Saudi Arabia",
+    "ru": "Саудовская Аравия",
+    "uk": "Саудівська Аравія",
+    "fr": "Arabie Saoudite",
+    "de": "Saudi-Arabien",
+    "iso": "SA",
+    "flag": "🇸🇦"
+  },
+  "singapore": {
+    "en": "Singapore",
+    "ru": "Сингапур",
+    "uk": "Сінгапур",
+    "fr": "Singapour",
+    "de": "Singapur",
+    "iso": "SG",
+    "flag": "🇸🇬"
+  },
+  "tajikistan": {
+    "en": "Tajikistan",
+    "ru": "Таджикистан",
+    "uk": "Таджикистан",
+    "fr": "Tadjikistan",
+    "de": "Tadschikistan",
+    "iso": "TJ",
+    "flag": "🇹🇯"
+  },
+  "thailand": {
+    "en": "Thailand",
+    "ru": "Таиланд",
+    "uk": "Таїланд",
+    "fr": "Thaïlande",
+    "de": "Thailand",
+    "iso": "TH",
+    "flag": "🇹🇭"
+  },
+  "taiwan": {
+    "en": "Taiwan",
+    "ru": "Тайвань",
+    "uk": "Тайвань",
+    "fr": "Taïwan",
+    "de": "Taiwan",
+    "iso": "TW",
+    "flag": "🇹🇼"
+  },
+  "tunisia": {
+    "en": "Tunisia",
+    "ru": "Тунис",
+    "uk": "Туніс",
+    "fr": "Tunisie",
+    "de": "Tunesien",
+    "iso": "TN",
+    "flag": "🇹🇳"
+  },
+  "turkmenistan": {
+    "en": "Turkmenistan",
+    "ru": "Туркменистан",
+    "uk": "Туркменістан",
+    "fr": "Turkménistan",
+    "de": "Turkmenistan",
+    "iso": "TM",
+    "flag": "🇹🇲"
+  },
+  "uzbekistan": {
+    "en": "Uzbekistan",
+    "ru": "Узбекистан",
+    "uk": "Узбекистан",
+    "fr": "Ouzbékistan",
+    "de": "Usbekistan",
+    "iso": "UZ",
+    "flag": "🇺🇿"
+  },
+  "philippines": {
+    "en": "Philippines",
+    "ru": "Филиппины",
+    "uk": "Філіппіни",
+    "fr": "Philippines",
+    "de": "Philippinen",
+    "iso": "PH",
+    "flag": "🇵🇭"
+  },
+  "montenegro": {
+    "en": "Montenegro",
+    "ru": "Черногория",
+    "uk": "Чорногорія",
+    "fr": "Monténégro",
+    "de": "Montenegro",
+    "iso": "ME",
+    "flag": "🇲🇪"
+  },
+  "chile": {
+    "en": "Chile",
+    "ru": "Чили",
+    "uk": "Чилі",
+    "fr": "Chili",
+    "de": "Chile",
+    "iso": "CL",
+    "flag": "🇨🇱"
+  },
+  "southAfrica": {
+    "en": "South Africa",
+    "ru": "Южная Африка",
+    "uk": "Південна Африка",
+    "fr": "Afrique du Sud",
+    "de": "Südafrika",
+    "iso": "ZA",
+    "flag": "🇿🇦"
+  }
+}

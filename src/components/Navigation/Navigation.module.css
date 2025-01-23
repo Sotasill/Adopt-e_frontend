@@ -4,9 +4,16 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  background: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   height: 60px;
+  transition: background-color 0.3s ease;
+}
+
+.navigation:hover {
+  background: rgba(255, 255, 255, 0.95);
 }
 
 .navContainer {
@@ -82,24 +89,67 @@
   color: #3498db;
 }
 
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .navButton {
   padding: 8px 16px;
-  background-color: #3498db;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-decoration: none;
   color: white;
   font-weight: 500;
   font-size: 0.9rem;
   display: flex;
   align-items: center;
+  background-size: 200% auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-position: right center;
+}
+
+.loginButton {
+  background-image: linear-gradient(
+    to right,
+    #e74c3c 0%,
+    #c0392b 51%,
+    #e74c3c 100%
+  );
+}
+
+.registerButton {
+  background-image: linear-gradient(
+    to right,
+    #2c3e50 0%,
+    #3498db 51%,
+    #2c3e50 100%
+  );
 }
 
 .navButton:hover {
-  background-color: #2980b9;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+  text-decoration: none;
+  background-position: left center;
+  transition: 0.5s;
+}
+
+.navButton:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: white;
+  text-decoration: none;
 }
 
 /* Основные брейкпоинты */
@@ -297,8 +347,10 @@
   }
 
   .navButton {
-    padding: 5px 10px;
-    font-size: 0.75rem;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    background: linear-gradient(90deg, #2c3e50, #3498db, #2c3e50);
+    background-size: 200% 100%;
   }
 
   /* Стили для кнопки смены языка */

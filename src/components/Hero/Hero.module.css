@@ -50,6 +50,45 @@
   margin: 0 auto;
 }
 
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.findBreederButton {
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  color: #ffffff;
+  background: linear-gradient(90deg, #2c3e50, #3498db, #2c3e50);
+  background-size: 200% 100%;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  font-weight: 600;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.findBreederButton:hover {
+  animation: gradientMove 3s ease infinite;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.findBreederButton:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 /* Адаптивность */
 @media (max-width: 1024px) {
   .hero {
@@ -91,5 +130,11 @@
 
   .subtitle {
     font-size: 1rem;
+  }
+
+  .findBreederButton {
+    padding: 0.8rem 1.6rem;
+    font-size: 1rem;
+    margin-top: 1.5rem;
   }
 }

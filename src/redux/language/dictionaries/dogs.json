@@ -1,0 +1,1231 @@
+{
+  "australianCattleDog": {
+    "en": "Australian Cattle Dog",
+    "ru": "Австралийская пастушья собака",
+    "uk": "Австралійська пастуша собака",
+    "fr": "Bouvier Australien",
+    "de": "Australian Cattle Dog"
+  },
+  "australianKelpie": {
+    "en": "Australian Kelpie",
+    "ru": "Австралийский келпи",
+    "uk": "Австралійський келпі",
+    "fr": "Kelpie Australien",
+    "de": "Australian Kelpie"
+  },
+  "australianShepherd": {
+    "en": "Australian Shepherd",
+    "ru": "Австралийская овчарка",
+    "uk": "Австралійська вівчарка",
+    "fr": "Berger Australien",
+    "de": "Australian Shepherd"
+  },
+  "beardedCollie": {
+    "en": "Bearded Collie",
+    "ru": "Бородатый колли",
+    "uk": "Бородатий коллі",
+    "fr": "Colley Barbu",
+    "de": "Bearded Collie"
+  },
+  "belgianMalinois": {
+    "en": "Belgian Malinois",
+    "ru": "Бельгийская овчарка малинуа",
+    "uk": "Бельгійська вівчарка малінуа",
+    "fr": "Berger Belge Malinois",
+    "de": "Belgischer Schäferhund Malinois"
+  },
+  "berneseMountainDog": {
+    "en": "Bernese Mountain Dog",
+    "ru": "Бернский зенненхунд",
+    "uk": "Бернський зенненхунд",
+    "fr": "Bouvier Bernois",
+    "de": "Berner Sennenhund"
+  },
+  "borderCollie": {
+    "en": "Border Collie",
+    "ru": "Бордер-колли",
+    "uk": "Бордер-коллі",
+    "fr": "Border Collie",
+    "de": "Border Collie"
+  },
+  "boxer": {
+    "en": "Boxer",
+    "ru": "Боксёр",
+    "uk": "Боксер",
+    "fr": "Boxer",
+    "de": "Boxer"
+  },
+  "bullmastiff": {
+    "en": "Bullmastiff",
+    "ru": "Бульмастиф",
+    "uk": "Бульмастиф",
+    "fr": "Bullmastiff",
+    "de": "Bullmastiff"
+  },
+  "caneCorsо": {
+    "en": "Cane Corso",
+    "ru": "Кане-корсо",
+    "uk": "Кане-корсо",
+    "fr": "Cane Corso",
+    "de": "Cane Corso"
+  },
+  "chihuahua": {
+    "en": "Chihuahua",
+    "ru": "Чихуахуа",
+    "uk": "Чіхуахуа",
+    "fr": "Chihuahua",
+    "de": "Chihuahua"
+  },
+  "chowChow": {
+    "en": "Chow Chow",
+    "ru": "Чау-чау",
+    "uk": "Чау-чау",
+    "fr": "Chow-Chow",
+    "de": "Chow-Chow"
+  },
+  "dachshundSmooth": {
+    "en": "Dachshund Smooth",
+    "ru": "Такса гладкошерстная",
+    "uk": "Такса гладкошерста",
+    "fr": "Teckel à Poil Ras",
+    "de": "Kurzhaar Dackel"
+  },
+  "dachshundLonghaired": {
+    "en": "Dachshund Longhaired",
+    "ru": "Такса длинношерстная",
+    "uk": "Такса довгошерста",
+    "fr": "Teckel à Poil Long",
+    "de": "Langhaar Dackel"
+  },
+  "dobermanPinscher": {
+    "en": "Doberman Pinscher",
+    "ru": "Доберман",
+    "uk": "Доберман",
+    "fr": "Dobermann",
+    "de": "Dobermann"
+  },
+  "germanShepherd": {
+    "en": "German Shepherd",
+    "ru": "Немецкая овчарка",
+    "uk": "Німецька вівчарка",
+    "fr": "Berger Allemand",
+    "de": "Deutscher Schäferhund"
+  },
+  "germanShorthairedPointer": {
+    "en": "German Shorthaired Pointer",
+    "ru": "Курцхаар",
+    "uk": "Курцхаар",
+    "fr": "Braque Allemand",
+    "de": "Deutsch Kurzhaar"
+  },
+  "goldenRetriever": {
+    "en": "Golden Retriever",
+    "ru": "Золотистый ретривер",
+    "uk": "Золотистий ретривер",
+    "fr": "Golden Retriever",
+    "de": "Golden Retriever"
+  },
+  "greatDane": {
+    "en": "Great Dane",
+    "ru": "Немецкий дог",
+    "uk": "Німецький дог",
+    "fr": "Dogue Allemand",
+    "de": "Deutsche Dogge"
+  },
+  "husky": {
+    "en": "Siberian Husky",
+    "ru": "Сибирский хаски",
+    "uk": "Сибірський хаскі",
+    "fr": "Husky Sibérien",
+    "de": "Siberian Husky"
+  },
+  "jackRussellTerrier": {
+    "en": "Jack Russell Terrier",
+    "ru": "Джек-рассел-терьер",
+    "uk": "Джек-рассел-тер'єр",
+    "fr": "Jack Russell Terrier",
+    "de": "Jack Russell Terrier"
+  },
+  "labradorRetriever": {
+    "en": "Labrador Retriever",
+    "ru": "Лабрадор-ретривер",
+    "uk": "Лабрадор-ретривер",
+    "fr": "Labrador Retriever",
+    "de": "Labrador Retriever"
+  },
+  "pomeranian": {
+    "en": "Pomeranian",
+    "ru": "Померанский шпиц",
+    "uk": "Померанський шпіц",
+    "fr": "Spitz Nain",
+    "de": "Zwergspitz"
+  },
+  "poodle": {
+    "en": "Poodle",
+    "ru": "Пудель",
+    "uk": "Пудель",
+    "fr": "Caniche",
+    "de": "Pudel"
+  },
+  "pug": {
+    "en": "Pug",
+    "ru": "Мопс",
+    "uk": "Мопс",
+    "fr": "Carlin",
+    "de": "Mops"
+  },
+  "rottweiler": {
+    "en": "Rottweiler",
+    "ru": "Ротвейлер",
+    "uk": "Ротвейлер",
+    "fr": "Rottweiler",
+    "de": "Rottweiler"
+  },
+  "saintBernard": {
+    "en": "Saint Bernard",
+    "ru": "Сенбернар",
+    "uk": "Сенбернар",
+    "fr": "Saint-Bernard",
+    "de": "Sankt Bernhardshund"
+  },
+  "shibaInu": {
+    "en": "Shiba Inu",
+    "ru": "Сиба-ину",
+    "uk": "Сіба-іну",
+    "fr": "Shiba Inu",
+    "de": "Shiba Inu"
+  },
+  "shihTzu": {
+    "en": "Shih Tzu",
+    "ru": "Ши-тцу",
+    "uk": "Ши-тцу",
+    "fr": "Shih Tzu",
+    "de": "Shih Tzu"
+  },
+  "welshCorgiCardigan": {
+    "en": "Welsh Corgi Cardigan",
+    "ru": "Вельш-корги кардиган",
+    "uk": "Вельш-коргі кардіган",
+    "fr": "Welsh Corgi Cardigan",
+    "de": "Welsh Corgi Cardigan"
+  },
+  "welshCorgiPembroke": {
+    "en": "Welsh Corgi Pembroke",
+    "ru": "Вельш-корги пемброк",
+    "uk": "Вельш-коргі пемброк",
+    "fr": "Welsh Corgi Pembroke",
+    "de": "Welsh Corgi Pembroke"
+  },
+  "yorkshireTerrier": {
+    "en": "Yorkshire Terrier",
+    "ru": "Йоркширский терьер",
+    "uk": "Йоркширський тер'єр",
+    "fr": "Yorkshire Terrier",
+    "de": "Yorkshire Terrier"
+  },
+  "affenpinscher": {
+    "en": "Affenpinscher",
+    "ru": "Аффенпинчер",
+    "uk": "Аффенпінчер",
+    "fr": "Affenpinscher",
+    "de": "Affenpinscher"
+  },
+  "afghanHound": {
+    "en": "Afghan Hound",
+    "ru": "Афганская борзая",
+    "uk": "Афганський хорт",
+    "fr": "Lévrier Afghan",
+    "de": "Afghanischer Windhund"
+  },
+  "airdaleTerrier": {
+    "en": "Airedale Terrier",
+    "ru": "Эрдельтерьер",
+    "uk": "Ердельтер'єр",
+    "fr": "Airedale Terrier",
+    "de": "Airedale Terrier"
+  },
+  "akita": {
+    "en": "Akita",
+    "ru": "Акита-ину",
+    "uk": "Акіта-іну",
+    "fr": "Akita Inu",
+    "de": "Akita Inu"
+  },
+  "alaskanMalamute": {
+    "en": "Alaskan Malamute",
+    "ru": "Аляскинский маламут",
+    "uk": "Аляскинський маламут",
+    "fr": "Malamute de l'Alaska",
+    "de": "Alaskan Malamute"
+  },
+  "americanEskimoDog": {
+    "en": "American Eskimo Dog",
+    "ru": "Американская эскимосская собака",
+    "uk": "Американський ескімоський собака",
+    "fr": "Chien Esquimau Américain",
+    "de": "American Eskimo Dog"
+  },
+  "americanFoxhound": {
+    "en": "American Foxhound",
+    "ru": "Американский фоксхаунд",
+    "uk": "Американський фоксхаунд",
+    "fr": "Foxhound Américain",
+    "de": "American Foxhound"
+  },
+  "americanPitBullTerrier": {
+    "en": "American Pit Bull Terrier",
+    "ru": "Американский питбультерьер",
+    "uk": "Американський пітбультер'єр",
+    "fr": "American Pit Bull Terrier",
+    "de": "American Pit Bull Terrier"
+  },
+  "americanStaffordshireTerrier": {
+    "en": "American Staffordshire Terrier",
+    "ru": "Американский стаффордширский терьер",
+    "uk": "Американський стаффордширський тер'єр",
+    "fr": "American Staffordshire Terrier",
+    "de": "American Staffordshire Terrier"
+  },
+  "americanWaterSpaniel": {
+    "en": "American Water Spaniel",
+    "ru": "Американский водяной спаниель",
+    "uk": "Американський водяний спанієль",
+    "fr": "Chien d'eau Américain",
+    "de": "American Water Spaniel"
+  },
+  "anatolianShepherdDog": {
+    "en": "Anatolian Shepherd Dog",
+    "ru": "Анатолийская овчарка",
+    "uk": "Анатолійська вівчарка",
+    "fr": "Berger d'Anatolie",
+    "de": "Anatolischer Hirtenhund"
+  },
+  "appenzeller": {
+    "en": "Appenzeller Sennenhund",
+    "ru": "Аппенцеллер зенненхунд",
+    "uk": "Аппенцеллер зенненхунд",
+    "fr": "Bouvier d'Appenzell",
+    "de": "Appenzeller Sennenhund"
+  },
+  "australianStumpyTailCattleDog": {
+    "en": "Australian Stumpy Tail Cattle Dog",
+    "ru": "Австралийская короткохвостая пастушья собака",
+    "uk": "Австралійська короткохвоста пастуша собака",
+    "fr": "Bouvier Australien Courte Queue",
+    "de": "Australian Stumpy Tail Cattle Dog"
+  },
+  "basenji": {
+    "en": "Basenji",
+    "ru": "Басенджи",
+    "uk": "Басенджі",
+    "fr": "Basenji",
+    "de": "Basenji"
+  },
+  "bassetHound": {
+    "en": "Basset Hound",
+    "ru": "Бассет-хаунд",
+    "uk": "Бассет-хаунд",
+    "fr": "Basset Hound",
+    "de": "Basset Hound"
+  },
+  "beagle": {
+    "en": "Beagle",
+    "ru": "Бигль",
+    "uk": "Бігль",
+    "fr": "Beagle",
+    "de": "Beagle"
+  },
+  "bergamasco": {
+    "en": "Bergamasco Sheepdog",
+    "ru": "Бергамская овчарка",
+    "uk": "Бергамська вівчарка",
+    "fr": "Berger de Bergame",
+    "de": "Bergamasker Hirtenhund"
+  },
+  "bergerPicard": {
+    "en": "Berger Picard",
+    "ru": "Пикардийская овчарка",
+    "uk": "Пікардійська вівчарка",
+    "fr": "Berger Picard",
+    "de": "Berger Picard"
+  },
+  "blackRussianTerrier": {
+    "en": "Black Russian Terrier",
+    "ru": "Черный русский терьер",
+    "uk": "Чорний російський тер'єр",
+    "fr": "Terrier Noir Russe",
+    "de": "Schwarzer Russischer Terrier"
+  },
+  "bloodhound": {
+    "en": "Bloodhound",
+    "ru": "Бладхаунд",
+    "uk": "Бладхаунд",
+    "fr": "Chien de Saint-Hubert",
+    "de": "Bloodhound"
+  },
+  "bouvierDesFlandres": {
+    "en": "Bouvier des Flandres",
+    "ru": "Фландрский бувье",
+    "uk": "Фландрський бувьє",
+    "fr": "Bouvier des Flandres",
+    "de": "Bouvier des Flandres"
+  },
+  "briard": {
+    "en": "Briard",
+    "ru": "Бриар",
+    "uk": "Бріар",
+    "fr": "Berger de Brie",
+    "de": "Briard"
+  },
+  "brittany": {
+    "en": "Brittany",
+    "ru": "Бретонский эпаньоль",
+    "uk": "Бретонський епаньоль",
+    "fr": "Épagneul Breton",
+    "de": "Bretonischer Spaniel"
+  },
+  "bullTerrier": {
+    "en": "Bull Terrier",
+    "ru": "Бультерьер",
+    "uk": "Бультер'єр",
+    "fr": "Bull Terrier",
+    "de": "Bull Terrier"
+  },
+  "cairnTerrier": {
+    "en": "Cairn Terrier",
+    "ru": "Керн-терьер",
+    "uk": "Керн-тер'єр",
+    "fr": "Cairn Terrier",
+    "de": "Cairn Terrier"
+  },
+  "caucasianShepherdDog": {
+    "en": "Caucasian Shepherd Dog",
+    "ru": "Кавказская овчарка",
+    "uk": "Кавказька вівчарка",
+    "fr": "Berger du Caucase",
+    "de": "Kaukasischer Schäferhund"
+  },
+  "chesapeakeBayRetriever": {
+    "en": "Chesapeake Bay Retriever",
+    "ru": "Чесапик-бей-ретривер",
+    "uk": "Чесапік-бей-ретривер",
+    "fr": "Retriever de la Baie de Chesapeake",
+    "de": "Chesapeake Bay Retriever"
+  },
+  "clumberSpaniel": {
+    "en": "Clumber Spaniel",
+    "ru": "Кламбер-спаниель",
+    "uk": "Кламбер-спанієль",
+    "fr": "Clumber Spaniel",
+    "de": "Clumber Spaniel"
+  },
+  "curlyCoatedRetriever": {
+    "en": "Curly-Coated Retriever",
+    "ru": "Курчавошёрстный ретривер",
+    "uk": "Курчавошерстий ретривер",
+    "fr": "Retriever à Poil Bouclé",
+    "de": "Curly Coated Retriever"
+  },
+  "dandieDinmontTerrier": {
+    "en": "Dandie Dinmont Terrier",
+    "ru": "Денди-динмонт-терьер",
+    "uk": "Денді-дінмонт-тер'єр",
+    "fr": "Dandie Dinmont Terrier",
+    "de": "Dandie Dinmont Terrier"
+  },
+  "dutchShepherd": {
+    "en": "Dutch Shepherd",
+    "ru": "Голландская овчарка",
+    "uk": "Голландська вівчарка",
+    "fr": "Berger Hollandais",
+    "de": "Holländischer Schäferhund"
+  },
+  "englishFoxhound": {
+    "en": "English Foxhound",
+    "ru": "Английский фоксхаунд",
+    "uk": "Англійський фоксхаунд",
+    "fr": "Foxhound Anglais",
+    "de": "English Foxhound"
+  },
+  "englishSetter": {
+    "en": "English Setter",
+    "ru": "Английский сеттер",
+    "uk": "Англійський сетер",
+    "fr": "Setter Anglais",
+    "de": "English Setter"
+  },
+  "englishSpringerSpaniel": {
+    "en": "English Springer Spaniel",
+    "ru": "Английский спрингер-спаниель",
+    "uk": "Англійський спрінгер-спанієль",
+    "fr": "Springer Spaniel Anglais",
+    "de": "English Springer Spaniel"
+  },
+  "finnishLapphund": {
+    "en": "Finnish Lapphund",
+    "ru": "Финский лаппхунд",
+    "uk": "Фінський лаппхунд",
+    "fr": "Chien Finnois de Laponie",
+    "de": "Finnischer Lapphund"
+  },
+  "finnishSpitz": {
+    "en": "Finnish Spitz",
+    "ru": "Финский шпиц",
+    "uk": "Фінський шпіц",
+    "fr": "Spitz Finlandais",
+    "de": "Finnischer Spitz"
+  },
+  "flatCoatedRetriever": {
+    "en": "Flat-Coated Retriever",
+    "ru": "Флэт-ретривер",
+    "uk": "Флет-ретривер",
+    "fr": "Retriever à Poil Plat",
+    "de": "Flat Coated Retriever"
+  },
+  "germanSpitzKlein": {
+    "en": "German Spitz Klein",
+    "ru": "Немецкий малый шпиц",
+    "uk": "Німецький малий шпіц",
+    "fr": "Spitz Allemand Petit",
+    "de": "Deutscher Spitz Klein"
+  },
+  "germanWirehairedPointer": {
+    "en": "German Wirehaired Pointer",
+    "ru": "Дратхаар",
+    "uk": "Дратхаар",
+    "fr": "Braque Allemand à Poil Dur",
+    "de": "Deutsch Drahthaar"
+  },
+  "giantSchnauzer": {
+    "en": "Giant Schnauzer",
+    "ru": "Ризеншнауцер",
+    "uk": "Різеншнауцер",
+    "fr": "Schnauzer Géant",
+    "de": "Riesenschnauzer"
+  },
+  "gordonSetter": {
+    "en": "Gordon Setter",
+    "ru": "Шотландский сеттер",
+    "uk": "Шотландський сетер",
+    "fr": "Setter Gordon",
+    "de": "Gordon Setter"
+  },
+  "greaterSwissMountainDog": {
+    "en": "Greater Swiss Mountain Dog",
+    "ru": "Большой швейцарский зенненхунд",
+    "uk": "Великий швейцарський зенненхунд",
+    "fr": "Grand Bouvier Suisse",
+    "de": "Grosser Schweizer Sennenhund"
+  },
+  "greenlandDog": {
+    "en": "Greenland Dog",
+    "ru": "Гренландская собака",
+    "uk": "Гренландський собака",
+    "fr": "Chien du Groenland",
+    "de": "Grönlandhund"
+  },
+  "harrier": {
+    "en": "Harrier",
+    "ru": "Харьер",
+    "uk": "Хар'єр",
+    "fr": "Harrier",
+    "de": "Harrier"
+  },
+  "hovawart": {
+    "en": "Hovawart",
+    "ru": "Ховаварт",
+    "uk": "Ховаварт",
+    "fr": "Hovawart",
+    "de": "Hovawart"
+  },
+  "ibizanHound": {
+    "en": "Ibizan Hound",
+    "ru": "Поденко ибиценко",
+    "uk": "Поденко ібіценко",
+    "fr": "Podenco d'Ibiza",
+    "de": "Ibiza-Podenco"
+  },
+  "icelandicSheepdog": {
+    "en": "Icelandic Sheepdog",
+    "ru": "Исландская собака",
+    "uk": "Ісландський собака",
+    "fr": "Chien de Berger Islandais",
+    "de": "Isländischer Schäferhund"
+  },
+  "irishRedAndWhiteSetter": {
+    "en": "Irish Red and White Setter",
+    "ru": "Ирландский красно-белый сеттер",
+    "uk": "Ірландський червоно-білий сетер",
+    "fr": "Setter Irlandais Rouge et Blanc",
+    "de": "Irisch Rot-Weißer Setter"
+  },
+  "irishSetter": {
+    "en": "Irish Setter",
+    "ru": "Ирландский сеттер",
+    "uk": "Ірландський сетер",
+    "fr": "Setter Irlandais",
+    "de": "Irischer Setter"
+  },
+  "irishWolfhound": {
+    "en": "Irish Wolfhound",
+    "ru": "Ирландский волкодав",
+    "uk": "Ірландський вовкодав",
+    "fr": "Lévrier Irlandais",
+    "de": "Irischer Wolfshund"
+  },
+  "italianSpinone": {
+    "en": "Italian Spinone",
+    "ru": "Спиноне итальяно",
+    "uk": "Спіноне італьяно",
+    "fr": "Spinone Italien",
+    "de": "Spinone Italiano"
+  },
+  "japaneseSpitz": {
+    "en": "Japanese Spitz",
+    "ru": "Японский шпиц",
+    "uk": "Японський шпіц",
+    "fr": "Spitz Japonais",
+    "de": "Japanischer Spitz"
+  },
+  "karelianBearDog": {
+    "en": "Karelian Bear Dog",
+    "ru": "Карельская медвежья собака",
+    "uk": "Карельська ведмежа собака",
+    "fr": "Chien d'Ours de Carélie",
+    "de": "Karelischer Bärenhund"
+  },
+  "keeshond": {
+    "en": "Keeshond",
+    "ru": "Кеесхонд",
+    "uk": "Кеесхонд",
+    "fr": "Spitz Loup",
+    "de": "Wolfsspitz"
+  },
+  "komondor": {
+    "en": "Komondor",
+    "ru": "Комондор",
+    "uk": "Комондор",
+    "fr": "Komondor",
+    "de": "Komondor"
+  },
+  "kuvasz": {
+    "en": "Kuvasz",
+    "ru": "Кувас",
+    "uk": "Кувас",
+    "fr": "Kuvasz",
+    "de": "Kuvasz"
+  },
+  "lakelandTerrier": {
+    "en": "Lakeland Terrier",
+    "ru": "Лейкленд-терьер",
+    "uk": "Лейкленд-тер'єр",
+    "fr": "Lakeland Terrier",
+    "de": "Lakeland Terrier"
+  },
+  "leonberger": {
+    "en": "Leonberger",
+    "ru": "Леонбергер",
+    "uk": "Леонбергер",
+    "fr": "Léonberg",
+    "de": "Leonberger"
+  },
+  "lowchen": {
+    "en": "Löwchen",
+    "ru": "Левхен",
+    "uk": "Левхен",
+    "fr": "Petit Chien Lion",
+    "de": "Löwchen"
+  },
+  "manchesterTerrier": {
+    "en": "Manchester Terrier",
+    "ru": "Манчестерский терьер",
+    "uk": "Манчестерський тер'єр",
+    "fr": "Manchester Terrier",
+    "de": "Manchester Terrier"
+  },
+  "miniatureAmericanShepherd": {
+    "en": "Miniature American Shepherd",
+    "ru": "Миниатюрная американская овчарка",
+    "uk": "Мініатюрна американська вівчарка",
+    "fr": "Berger Américain Miniature",
+    "de": "Miniature American Shepherd"
+  },
+  "miniaturePinscher": {
+    "en": "Miniature Pinscher",
+    "ru": "Цвергпинчер",
+    "uk": "Цвергпінчер",
+    "fr": "Pinscher Nain",
+    "de": "Zwergpinscher"
+  },
+  "miniatureSchnauzer": {
+    "en": "Miniature Schnauzer",
+    "ru": "Цвергшнауцер",
+    "uk": "Цвергшнауцер",
+    "fr": "Schnauzer Nain",
+    "de": "Zwergschnauzer"
+  },
+  "mudi": {
+    "en": "Mudi",
+    "ru": "Муди",
+    "uk": "Муді",
+    "fr": "Mudi",
+    "de": "Mudi"
+  },
+  "neapolitanMastiff": {
+    "en": "Neapolitan Mastiff",
+    "ru": "Неаполитанский мастиф",
+    "uk": "Неаполітанський мастиф",
+    "fr": "Mâtin Napolitain",
+    "de": "Mastino Napoletano"
+  },
+  "newfoundland": {
+    "en": "Newfoundland",
+    "ru": "Ньюфаундленд",
+    "uk": "Ньюфаундленд",
+    "fr": "Terre-Neuve",
+    "de": "Neufundländer"
+  },
+  "norfolkTerrier": {
+    "en": "Norfolk Terrier",
+    "ru": "Норфолк-терьер",
+    "uk": "Норфолк-тер'єр",
+    "fr": "Norfolk Terrier",
+    "de": "Norfolk Terrier"
+  },
+  "norwegianBuhund": {
+    "en": "Norwegian Buhund",
+    "ru": "Норвежский бухунд",
+    "uk": "Норвезький бухунд",
+    "fr": "Buhund Norvégien",
+    "de": "Norwegischer Buhund"
+  },
+  "norwegianElkhound": {
+    "en": "Norwegian Elkhound",
+    "ru": "Норвежский элкхаунд",
+    "uk": "Норвезький елкхаунд",
+    "fr": "Chien d'Élan Norvégien Gris",
+    "de": "Norwegischer Elchhund"
+  },
+  "norwegianLundehund": {
+    "en": "Norwegian Lundehund",
+    "ru": "Норвежский лундехунд",
+    "uk": "Норвезький лундехунд",
+    "fr": "Chien Norvégien de Macareux",
+    "de": "Norwegischer Lundehund"
+  },
+  "norwichTerrier": {
+    "en": "Norwich Terrier",
+    "ru": "Норвич-терьер",
+    "uk": "Норвіч-тер'єр",
+    "fr": "Norwich Terrier",
+    "de": "Norwich Terrier"
+  },
+  "novaScotiaDuckTollingRetriever": {
+    "en": "Nova Scotia Duck Tolling Retriever",
+    "ru": "Новошотландский ретривер",
+    "uk": "Новошотландський ретривер",
+    "fr": "Retriever de la Nouvelle-Écosse",
+    "de": "Nova Scotia Duck Tolling Retriever"
+  },
+  "otterhound": {
+    "en": "Otterhound",
+    "ru": "Оттерхаунд",
+    "uk": "Оттерхаунд",
+    "fr": "Otterhound",
+    "de": "Otterhund"
+  },
+  "parsonRussellTerrier": {
+    "en": "Parson Russell Terrier",
+    "ru": "Парсон-рассел-терьер",
+    "uk": "Парсон-рассел-тер'єр",
+    "fr": "Parson Russell Terrier",
+    "de": "Parson Russell Terrier"
+  },
+  "patterdaleTerrier": {
+    "en": "Patterdale Terrier",
+    "ru": "Паттердейл-терьер",
+    "uk": "Паттердейл-тер'єр",
+    "fr": "Patterdale Terrier",
+    "de": "Patterdale Terrier"
+  },
+  "petitBassetGriffonVendeen": {
+    "en": "Petit Basset Griffon Vendéen",
+    "ru": "Малый вандейский бассет-гриффон",
+    "uk": "Малий вандейський бассет-гріффон",
+    "fr": "Petit Basset Griffon Vendéen",
+    "de": "Petit Basset Griffon Vendéen"
+  },
+  "pharaohHound": {
+    "en": "Pharaoh Hound",
+    "ru": "Фараонова собака",
+    "uk": "Фараонова собака",
+    "fr": "Chien du Pharaon",
+    "de": "Pharaoh Hound"
+  },
+  "plottHound": {
+    "en": "Plott Hound",
+    "ru": "Плотт-хаунд",
+    "uk": "Плотт-хаунд",
+    "fr": "Plott Hound",
+    "de": "Plott Hound"
+  },
+  "pointer": {
+    "en": "Pointer",
+    "ru": "Английский пойнтер",
+    "uk": "Англійський пойнтер",
+    "fr": "Pointer Anglais",
+    "de": "Pointer"
+  },
+  "polishLowlandSheepdog": {
+    "en": "Polish Lowland Sheepdog",
+    "ru": "Польская низинная овчарка",
+    "uk": "Польська низинна вівчарка",
+    "fr": "Berger Polonais de Plaine",
+    "de": "Polski Owczarek Nizinny"
+  },
+  "portugueseSheepdog": {
+    "en": "Portuguese Sheepdog",
+    "ru": "Португальская овчарка",
+    "uk": "Португальська вівчарка",
+    "fr": "Chien de Berger Portugais",
+    "de": "Cão da Serra de Aires"
+  },
+  "portugueseWaterDog": {
+    "en": "Portuguese Water Dog",
+    "ru": "Португальская водяная собака",
+    "uk": "Португальський водяний собака",
+    "fr": "Chien d'Eau Portugais",
+    "de": "Cão de Água Português"
+  },
+  "pyreneanMastiff": {
+    "en": "Pyrenean Mastiff",
+    "ru": "Пиренейский мастиф",
+    "uk": "Піренейський мастиф",
+    "fr": "Mâtin des Pyrénées",
+    "de": "Mastín del Pirineo"
+  },
+  "pyreneanShepherd": {
+    "en": "Pyrenean Shepherd",
+    "ru": "Пиренейская овчарка",
+    "uk": "Піренейська вівчарка",
+    "fr": "Berger des Pyrénées",
+    "de": "Pyrenäenschäferhund"
+  },
+  "ratTerrier": {
+    "en": "Rat Terrier",
+    "ru": "Рэт-терьер",
+    "uk": "Рет-тер'єр",
+    "fr": "Rat Terrier",
+    "de": "Rat Terrier"
+  },
+  "redboneCoonhound": {
+    "en": "Redbone Coonhound",
+    "ru": "Редбон-кунхаунд",
+    "uk": "Редбон-кунхаунд",
+    "fr": "Redbone Coonhound",
+    "de": "Redbone Coonhound"
+  },
+  "rhodesianRidgeback": {
+    "en": "Rhodesian Ridgeback",
+    "ru": "Родезийский риджбек",
+    "uk": "Родезійський ріджбек",
+    "fr": "Rhodesian Ridgeback",
+    "de": "Rhodesian Ridgeback"
+  },
+  "saluki": {
+    "en": "Saluki",
+    "ru": "Салюки",
+    "uk": "Салюкі",
+    "fr": "Saluki",
+    "de": "Saluki"
+  },
+  "samoyed": {
+    "en": "Samoyed",
+    "ru": "Самоед",
+    "uk": "Самоїд",
+    "fr": "Samoyède",
+    "de": "Samojede"
+  },
+  "schapendoes": {
+    "en": "Schapendoes",
+    "ru": "Схапендос",
+    "uk": "Схапендос",
+    "fr": "Schapendoes Néerlandais",
+    "de": "Schapendoes"
+  },
+  "scottishDeerhound": {
+    "en": "Scottish Deerhound",
+    "ru": "Шотландский дирхаунд",
+    "uk": "Шотландський дірхаунд",
+    "fr": "Lévrier Écossais",
+    "de": "Deerhound"
+  },
+  "sealyhamTerrier": {
+    "en": "Sealyham Terrier",
+    "ru": "Силихем-терьер",
+    "uk": "Сілігем-тер'єр",
+    "fr": "Sealyham Terrier",
+    "de": "Sealyham Terrier"
+  },
+  "skyeTerrier": {
+    "en": "Skye Terrier",
+    "ru": "Скай-терьер",
+    "uk": "Скай-тер'єр",
+    "fr": "Skye Terrier",
+    "de": "Skye Terrier"
+  },
+  "sloughi": {
+    "en": "Sloughi",
+    "ru": "Слюги",
+    "uk": "Слюгі",
+    "fr": "Sloughi",
+    "de": "Sloughi"
+  },
+  "softCoatedWheatenTerrier": {
+    "en": "Soft Coated Wheaten Terrier",
+    "ru": "Ирландский мягкошерстный пшеничный терьер",
+    "uk": "Ірландський м'якошерстний пшеничний тер'єр",
+    "fr": "Terrier à Poil Doux du Kerry",
+    "de": "Soft Coated Wheaten Terrier"
+  },
+  "spanishMastiff": {
+    "en": "Spanish Mastiff",
+    "ru": "Испанский мастиф",
+    "uk": "Іспанський мастиф",
+    "fr": "Mâtin Espagnol",
+    "de": "Mastín Español"
+  },
+  "staffordshire": {
+    "en": "Staffordshire Bull Terrier",
+    "ru": "Стаффордширский бультерьер",
+    "uk": "Стаффордширський бультер'єр",
+    "fr": "Staffordshire Bull Terrier",
+    "de": "Staffordshire Bull Terrier"
+  },
+  "sussexSpaniel": {
+    "en": "Sussex Spaniel",
+    "ru": "Суссекс-спаниель",
+    "uk": "Суссекс-спанієль",
+    "fr": "Sussex Spaniel",
+    "de": "Sussex Spaniel"
+  },
+  "swedishVallhund": {
+    "en": "Swedish Vallhund",
+    "ru": "Вестготашпиц",
+    "uk": "Вестготашпіц",
+    "fr": "Vallhund Suédois",
+    "de": "Schwedischer Vallhund"
+  },
+  "tibetanMastiff": {
+    "en": "Tibetan Mastiff",
+    "ru": "Тибетский мастиф",
+    "uk": "Тибетський мастиф",
+    "fr": "Dogue du Tibet",
+    "de": "Tibetdogge"
+  },
+  "tosaInu": {
+    "en": "Tosa Inu",
+    "ru": "Тоса-ину",
+    "uk": "Тоса-іну",
+    "fr": "Tosa Inu",
+    "de": "Tosa Inu"
+  },
+  "vizsla": {
+    "en": "Vizsla",
+    "ru": "Венгерская выжла",
+    "uk": "Угорська вижла",
+    "fr": "Braque Hongrois",
+    "de": "Vizsla"
+  },
+  "weimaraner": {
+    "en": "Weimaraner",
+    "ru": "Веймаранер",
+    "uk": "Веймаранер",
+    "fr": "Braque de Weimar",
+    "de": "Weimaraner"
+  },
+  "welshSpringerSpaniel": {
+    "en": "Welsh Springer Spaniel",
+    "ru": "Вельш-спрингер-спаниель",
+    "uk": "Вельш-спрінгер-спанієль",
+    "fr": "Welsh Springer Spaniel",
+    "de": "Welsh Springer Spaniel"
+  },
+  "welshTerrier": {
+    "en": "Welsh Terrier",
+    "ru": "Вельш-терьер",
+    "uk": "Вельш-тер'єр",
+    "fr": "Welsh Terrier",
+    "de": "Welsh Terrier"
+  },
+  "whippet": {
+    "en": "Whippet",
+    "ru": "Уиппет",
+    "uk": "Уіппет",
+    "fr": "Whippet",
+    "de": "Whippet"
+  },
+  "stray": {
+    "en": "Mixed Breed",
+    "ru": "Дворняжка",
+    "uk": "Дворняжка",
+    "fr": "Chien Croisé",
+    "de": "Mischling"
+  },
+  "hybrid": {
+    "en": "Hybrid",
+    "ru": "Гибрид",
+    "uk": "Гібрид",
+    "fr": "Hybride",
+    "de": "Hybrid"
+  },
+  "furColors": {
+    "black": {
+      "en": "Black",
+      "ru": "Черный",
+      "uk": "Чорний",
+      "fr": "Noir",
+      "de": "Schwarz"
+    },
+    "white": {
+      "en": "White",
+      "ru": "Белый",
+      "uk": "Білий",
+      "fr": "Blanc",
+      "de": "Weiß"
+    },
+    "brown": {
+      "en": "Brown/Chocolate",
+      "ru": "Коричневый/Шоколадный",
+      "uk": "Коричневий/Шоколадний",
+      "fr": "Marron/Chocolat",
+      "de": "Braun/Schokolade"
+    },
+    "red": {
+      "en": "Red",
+      "ru": "Рыжий",
+      "uk": "Рудий",
+      "fr": "Roux",
+      "de": "Rot"
+    },
+    "fawn": {
+      "en": "Fawn",
+      "ru": "Палевый",
+      "uk": "Палевий",
+      "fr": "Fauve",
+      "de": "Rehfarben"
+    },
+    "cream": {
+      "en": "Cream",
+      "ru": "Кремовый",
+      "uk": "Кремовий",
+      "fr": "Crème",
+      "de": "Creme"
+    },
+    "blue": {
+      "en": "Blue",
+      "ru": "Серо-голубой",
+      "uk": "Сіро-блакитний",
+      "fr": "Bleu",
+      "de": "Blau"
+    },
+    "gray": {
+      "en": "Gray",
+      "ru": "Серый",
+      "uk": "Сірий",
+      "fr": "Gris",
+      "de": "Grau"
+    },
+    "blackAndWhite": {
+      "en": "Black and White",
+      "ru": "Черно-белый",
+      "uk": "Чорно-білий",
+      "fr": "Noir et Blanc",
+      "de": "Schwarz-Weiß"
+    },
+    "brownAndWhite": {
+      "en": "Brown and White",
+      "ru": "Коричнево-белый",
+      "uk": "Коричнево-білий",
+      "fr": "Marron et Blanc",
+      "de": "Braun-Weiß"
+    },
+    "redAndWhite": {
+      "en": "Red and White",
+      "ru": "Рыже-белый",
+      "uk": "Рудо-білий",
+      "fr": "Roux et Blanc",
+      "de": "Rot-Weiß"
+    },
+    "blackWhiteTan": {
+      "en": "Black, White and Tan",
+      "ru": "Черный, белый и рыжий",
+      "uk": "Чорний, білий та рудий",
+      "fr": "Noir, Blanc et Feu",
+      "de": "Schwarz-Weiß-Loh"
+    },
+    "brownWhiteTan": {
+      "en": "Brown, White and Tan",
+      "ru": "Коричневый, белый и рыжий",
+      "uk": "Коричневий, білий та рудий",
+      "fr": "Marron, Blanc et Feu",
+      "de": "Braun-Weiß-Loh"
+    },
+    "brindle": {
+      "en": "Brindle",
+      "ru": "Тигровый",
+      "uk": "Тигровий",
+      "fr": "Bringé",
+      "de": "Gestromt"
+    },
+    "blueMerle": {
+      "en": "Blue Merle",
+      "ru": "Голубой мраморный",
+      "uk": "Блакитний мармуровий",
+      "fr": "Merle Bleu",
+      "de": "Blue Merle"
+    },
+    "redMerle": {
+      "en": "Red Merle",
+      "ru": "Красный мраморный",
+      "uk": "Червоний мармуровий",
+      "fr": "Merle Rouge",
+      "de": "Red Merle"
+    },
+    "sable": {
+      "en": "Sable",
+      "ru": "Зонарный",
+      "uk": "Зонарний",
+      "fr": "Sable",
+      "de": "Zobel"
+    },
+    "ticked": {
+      "en": "Ticked",
+      "ru": "Крапчатый",
+      "uk": "Крапчастий",
+      "fr": "Moucheté",
+      "de": "Gestichelt"
+    },
+    "harlequin": {
+      "en": "Harlequin",
+      "ru": "Арлекин",
+      "uk": "Арлекін",
+      "fr": "Arlequin",
+      "de": "Harlekin"
+    },
+    "isabella": {
+      "en": "Isabella/Lilac",
+      "ru": "Изабелловый/Лиловый",
+      "uk": "Ізабеловий/Ліловий",
+      "fr": "Isabelle/Lilas",
+      "de": "Isabella/Lilac"
+    },
+    "roan": {
+      "en": "Roan",
+      "ru": "Чалый",
+      "uk": "Чалий",
+      "fr": "Rouan",
+      "de": "Roan"
+    },
+    "tanPoints": {
+      "en": "Tan Points",
+      "ru": "Рыжие подпалины",
+      "uk": "Руді підпалини",
+      "fr": "Points Feu",
+      "de": "Lohfarben"
+    },
+    "domino": {
+      "en": "Domino/Grizzle",
+      "ru": "Домино/Гризли",
+      "uk": "Доміно/Грізлі",
+      "fr": "Domino/Grizzle",
+      "de": "Domino/Grizzle"
+    }
+  },
+  "furTypes": {
+    "shortHaired": {
+      "en": "Short-haired",
+      "ru": "Гладкошерстная",
+      "uk": "Гладкошерста",
+      "fr": "Poil Court",
+      "de": "Kurzhaar"
+    },
+    "mediumHaired": {
+      "en": "Medium-haired",
+      "ru": "Среднешерстная",
+      "uk": "Середньошерста",
+      "fr": "Poil Moyen",
+      "de": "Mittelhaar"
+    },
+    "longHaired": {
+      "en": "Long-haired",
+      "ru": "Длинношерстная",
+      "uk": "Довгошерста",
+      "fr": "Poil Long",
+      "de": "Langhaar"
+    },
+    "wireHaired": {
+      "en": "Wire-haired",
+      "ru": "Жесткошерстная",
+      "uk": "Жорсткошерста",
+      "fr": "Poil Dur",
+      "de": "Drahthaar"
+    },
+    "curlyHaired": {
+      "en": "Curly-haired",
+      "ru": "Кудрявая",
+      "uk": "Кучерява",
+      "fr": "Poil Bouclé",
+      "de": "Kraushaar"
+    },
+    "corded": {
+      "en": "Corded",
+      "ru": "Шнуровая",
+      "uk": "Шнурова",
+      "fr": "Poil Cordé",
+      "de": "Schnurhaar"
+    },
+    "hairless": {
+      "en": "Hairless",
+      "ru": "Голая",
+      "uk": "Гола",
+      "fr": "Sans Poil",
+      "de": "Haarlos"
+    },
+    "doubleCoated": {
+      "en": "Double-coated",
+      "ru": "Двойная шерсть",
+      "uk": "Подвійна шерсть",
+      "fr": "Double Pelage",
+      "de": "Doppelmantel"
+    },
+    "undercoat": {
+      "en": "Undercoat",
+      "ru": "Подшерсток",
+      "uk": "Підшерстя",
+      "fr": "Sous-poil",
+      "de": "Unterwolle"
+    },
+    "outercoat": {
+      "en": "Outercoat",
+      "ru": "Остевой волос",
+      "uk": "Остьовий волос",
+      "fr": "Poil de Couverture",
+      "de": "Deckhaar"
+    },
+    "fluffy": {
+      "en": "Fluffy",
+      "ru": "Пуховая",
+      "uk": "Пухова",
+      "fr": "Pelucheux",
+      "de": "Flauschig"
+    },
+    "wavy": {
+      "en": "Wavy",
+      "ru": "Волнистая",
+      "uk": "Хвиляста",
+      "fr": "Ondulé",
+      "de": "Wellig"
+    }
+  }
+}

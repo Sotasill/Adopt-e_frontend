@@ -172,6 +172,7 @@ const enTranslation = {
     title: "Find Your Perfect Pet",
     subtitle:
       "We'll help you find a loyal friend among thousands of animals waiting for their new home",
+    findBreeder: "Find a Breeder",
   },
 };
 

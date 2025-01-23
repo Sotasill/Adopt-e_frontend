@@ -147,6 +147,7 @@ const frTranslation = {
     title: "Trouvez Votre Animal Parfait",
     subtitle:
       "Nous vous aiderons à trouver un ami fidèle parmi des milliers d'animaux qui attendent leur nouveau foyer",
+    findBreeder: "Trouver un Éleveur",
   },
 };
 

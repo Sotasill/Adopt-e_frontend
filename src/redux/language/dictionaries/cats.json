@@ -1,0 +1,867 @@
+{
+  "abyssinian": {
+    "en": "Abyssinian",
+    "ru": "Абиссинская",
+    "uk": "Абіссінська",
+    "fr": "Abyssin",
+    "de": "Abessinier"
+  },
+  "aegean": {
+    "en": "Aegean",
+    "ru": "Эгейская",
+    "uk": "Егейська",
+    "fr": "Chat de la Mer Égée",
+    "de": "Ägäische Katze"
+  },
+  "americanBobtail": {
+    "en": "American Bobtail",
+    "ru": "Американский бобтейл",
+    "uk": "Американський бобтейл",
+    "fr": "Bobtail Américain",
+    "de": "American Bobtail"
+  },
+  "americanCurl": {
+    "en": "American Curl",
+    "ru": "Американский керл",
+    "uk": "Американський керл",
+    "fr": "American Curl",
+    "de": "American Curl"
+  },
+  "americanShorthair": {
+    "en": "American Shorthair",
+    "ru": "Американская короткошёрстная",
+    "uk": "Американська короткошерста",
+    "fr": "American Shorthair",
+    "de": "Amerikanisch Kurzhaar"
+  },
+  "americanWirehair": {
+    "en": "American Wirehair",
+    "ru": "Американская жесткошёрстная",
+    "uk": "Американська жорсткошерста",
+    "fr": "American Wirehair",
+    "de": "American Wirehair"
+  },
+  "arabianMau": {
+    "en": "Arabian Mau",
+    "ru": "Арабская мау",
+    "uk": "Арабська мау",
+    "fr": "Mau Arabe",
+    "de": "Arabische Mau"
+  },
+  "australianMist": {
+    "en": "Australian Mist",
+    "ru": "Австралийский мист",
+    "uk": "Австралійський міст",
+    "fr": "Australian Mist",
+    "de": "Australian Mist"
+  },
+  "balinese": {
+    "en": "Balinese",
+    "ru": "Балинезийская",
+    "uk": "Балінезійська",
+    "fr": "Balinais",
+    "de": "Balinese"
+  },
+  "bambino": {
+    "en": "Bambino",
+    "ru": "Бамбино",
+    "uk": "Бамбіно",
+    "fr": "Bambino",
+    "de": "Bambino"
+  },
+  "bengal": {
+    "en": "Bengal",
+    "ru": "Бенгальская",
+    "uk": "Бенгальська",
+    "fr": "Bengal",
+    "de": "Bengalkatze"
+  },
+  "birman": {
+    "en": "Birman",
+    "ru": "Бирманская",
+    "uk": "Бірманська",
+    "fr": "Sacré de Birmanie",
+    "de": "Heilige Birma"
+  },
+  "bombay": {
+    "en": "Bombay",
+    "ru": "Бомбейская",
+    "uk": "Бомбейська",
+    "fr": "Bombay",
+    "de": "Bombay"
+  },
+  "britishLonghair": {
+    "en": "British Longhair",
+    "ru": "Британская длинношёрстная",
+    "uk": "Британська довгошерста",
+    "fr": "British Longhair",
+    "de": "Britisch Langhaar"
+  },
+  "britishShorthair": {
+    "en": "British Shorthair",
+    "ru": "Британская короткошёрстная",
+    "uk": "Британська короткошерста",
+    "fr": "British Shorthair",
+    "de": "Britisch Kurzhaar"
+  },
+  "burmese": {
+    "en": "Burmese",
+    "ru": "Бурманская",
+    "uk": "Бурманська",
+    "fr": "Burmese",
+    "de": "Burma"
+  },
+  "burmilla": {
+    "en": "Burmilla",
+    "ru": "Бурмилла",
+    "uk": "Бурмілла",
+    "fr": "Burmilla",
+    "de": "Burmilla"
+  },
+  "californiaSpangled": {
+    "en": "California Spangled",
+    "ru": "Калифорнийская сияющая",
+    "uk": "Каліфорнійська сяюча",
+    "fr": "California Spangled",
+    "de": "California Spangled"
+  },
+  "chantillyTiffany": {
+    "en": "Chantilly-Tiffany",
+    "ru": "Шантильи-тиффани",
+    "uk": "Шантільї-тіффані",
+    "fr": "Chantilly-Tiffany",
+    "de": "Chantilly-Tiffany"
+  },
+  "chartreux": {
+    "en": "Chartreux",
+    "ru": "Картезианская",
+    "uk": "Картезіанська",
+    "fr": "Chartreux",
+    "de": "Kartäuser"
+  },
+  "chausie": {
+    "en": "Chausie",
+    "ru": "Чаузи",
+    "uk": "Чаузі",
+    "fr": "Chausie",
+    "de": "Chausie"
+  },
+  "cheetoh": {
+    "en": "Cheetoh",
+    "ru": "Чито",
+    "uk": "Чіто",
+    "fr": "Cheetoh",
+    "de": "Cheetoh"
+  },
+  "colorpointShorthair": {
+    "en": "Colorpoint Shorthair",
+    "ru": "Колорпойнт короткошёрстный",
+    "uk": "Колорпойнт короткошерстий",
+    "fr": "Colorpoint Shorthair",
+    "de": "Colorpoint Kurzhaar"
+  },
+  "cornishRex": {
+    "en": "Cornish Rex",
+    "ru": "Корниш-рекс",
+    "uk": "Корніш-рекс",
+    "fr": "Cornish Rex",
+    "de": "Cornish Rex"
+  },
+  "cymric": {
+    "en": "Cymric",
+    "ru": "Кимрик",
+    "uk": "Кімрік",
+    "fr": "Cymric",
+    "de": "Cymric"
+  },
+  "devonRex": {
+    "en": "Devon Rex",
+    "ru": "Девон-рекс",
+    "uk": "Девон-рекс",
+    "fr": "Devon Rex",
+    "de": "Devon Rex"
+  },
+  "donskoy": {
+    "en": "Donskoy",
+    "ru": "Донской сфинкс",
+    "uk": "Донський сфінкс",
+    "fr": "Donskoy",
+    "de": "Don Sphynx"
+  },
+  "dragonLi": {
+    "en": "Dragon Li",
+    "ru": "Драгон Ли",
+    "uk": "Драгон Лі",
+    "fr": "Li Hua",
+    "de": "Dragon Li"
+  },
+  "egyptianMau": {
+    "en": "Egyptian Mau",
+    "ru": "Египетская мау",
+    "uk": "Єгипетська мау",
+    "fr": "Mau Égyptien",
+    "de": "Ägyptische Mau"
+  },
+  "europeanShorthair": {
+    "en": "European Shorthair",
+    "ru": "Европейская короткошёрстная",
+    "uk": "Європейська короткошерста",
+    "fr": "Européen",
+    "de": "Europäisch Kurzhaar"
+  },
+  "exoticShorthair": {
+    "en": "Exotic Shorthair",
+    "ru": "Экзотическая короткошёрстная",
+    "uk": "Екзотична короткошерста",
+    "fr": "Exotic Shorthair",
+    "de": "Exotic Shorthair"
+  },
+  "foldex": {
+    "en": "Foldex",
+    "ru": "Фолдекс",
+    "uk": "Фолдекс",
+    "fr": "Foldex",
+    "de": "Foldex"
+  },
+  "germanRex": {
+    "en": "German Rex",
+    "ru": "Германский рекс",
+    "uk": "Німецький рекс",
+    "fr": "German Rex",
+    "de": "German Rex"
+  },
+  "havanaBrown": {
+    "en": "Havana Brown",
+    "ru": "Гавана браун",
+    "uk": "Гавана браун",
+    "fr": "Havana Brown",
+    "de": "Havana Brown"
+  },
+  "highlander": {
+    "en": "Highlander",
+    "ru": "Хайлендер",
+    "uk": "Хайлендер",
+    "fr": "Highlander",
+    "de": "Highlander"
+  },
+  "himalayan": {
+    "en": "Himalayan",
+    "ru": "Гималайская",
+    "uk": "Гімалайська",
+    "fr": "Himalayen",
+    "de": "Himalayan"
+  },
+  "japaneseBobtail": {
+    "en": "Japanese Bobtail",
+    "ru": "Японский бобтейл",
+    "uk": "Японський бобтейл",
+    "fr": "Bobtail Japonais",
+    "de": "Japanischer Bobtail"
+  },
+  "javanese": {
+    "en": "Javanese",
+    "ru": "Яванская",
+    "uk": "Яванська",
+    "fr": "Javanais",
+    "de": "Javanese"
+  },
+  "khaoManee": {
+    "en": "Khao Manee",
+    "ru": "Као-мани",
+    "uk": "Као-мані",
+    "fr": "Khao Manee",
+    "de": "Khao Manee"
+  },
+  "korat": {
+    "en": "Korat",
+    "ru": "Корат",
+    "uk": "Корат",
+    "fr": "Korat",
+    "de": "Korat"
+  },
+  "kurilianBobtail": {
+    "en": "Kurilian Bobtail",
+    "ru": "Курильский бобтейл",
+    "uk": "Курильський бобтейл",
+    "fr": "Bobtail des Kouriles",
+    "de": "Kurilen Bobtail"
+  },
+  "laPerm": {
+    "en": "LaPerm",
+    "ru": "Лаперм",
+    "uk": "Лаперм",
+    "fr": "LaPerm",
+    "de": "LaPerm"
+  },
+  "lykoi": {
+    "en": "Lykoi",
+    "ru": "Ликой",
+    "uk": "Лікой",
+    "fr": "Lykoi",
+    "de": "Lykoi"
+  },
+  "maineCoon": {
+    "en": "Maine Coon",
+    "ru": "Мейн-кун",
+    "uk": "Мейн-кун",
+    "fr": "Maine Coon",
+    "de": "Maine Coon"
+  },
+  "manx": {
+    "en": "Manx",
+    "ru": "Мэнкс",
+    "uk": "Менкс",
+    "fr": "Manx",
+    "de": "Manx"
+  },
+  "minskin": {
+    "en": "Minskin",
+    "ru": "Минскин",
+    "uk": "Мінскін",
+    "fr": "Minskin",
+    "de": "Minskin"
+  },
+  "minuet": {
+    "en": "Minuet (Napoleon)",
+    "ru": "Менуэт (Наполеон)",
+    "uk": "Менует (Наполеон)",
+    "fr": "Minuet (Napoléon)",
+    "de": "Minuet (Napoleon)"
+  },
+  "munchkin": {
+    "en": "Munchkin",
+    "ru": "Манчкин",
+    "uk": "Манчкін",
+    "fr": "Munchkin",
+    "de": "Munchkin"
+  },
+  "nebelung": {
+    "en": "Nebelung",
+    "ru": "Нибелунг",
+    "uk": "Нібелунг",
+    "fr": "Nebelung",
+    "de": "Nebelung"
+  },
+  "norwegianForestCat": {
+    "en": "Norwegian Forest Cat",
+    "ru": "Норвежская лесная",
+    "uk": "Норвезька лісова",
+    "fr": "Chat des Forêts Norvégiennes",
+    "de": "Norwegische Waldkatze"
+  },
+  "ocicat": {
+    "en": "Ocicat",
+    "ru": "Оцикет",
+    "uk": "Оцикет",
+    "fr": "Ocicat",
+    "de": "Ocicat"
+  },
+  "ojosAzules": {
+    "en": "Ojos Azules",
+    "ru": "Охос азулес",
+    "uk": "Охос азулес",
+    "fr": "Ojos Azules",
+    "de": "Ojos Azules"
+  },
+  "orientalLonghair": {
+    "en": "Oriental Longhair",
+    "ru": "Ориентальная длинношёрстная",
+    "uk": "Орієнтальна довгошерста",
+    "fr": "Oriental Longhair",
+    "de": "Oriental Langhaar"
+  },
+  "orientalShorthair": {
+    "en": "Oriental Shorthair",
+    "ru": "Ориентальная короткошёрстная",
+    "uk": "Орієнтальна короткошерста",
+    "fr": "Oriental Shorthair",
+    "de": "Oriental Kurzhaar"
+  },
+  "persian": {
+    "en": "Persian",
+    "ru": "Персидская",
+    "uk": "Перська",
+    "fr": "Persan",
+    "de": "Perser"
+  },
+  "peterbald": {
+    "en": "Peterbald",
+    "ru": "Петерболд",
+    "uk": "Петерболд",
+    "fr": "Peterbald",
+    "de": "Peterbald"
+  },
+  "pixiebob": {
+    "en": "Pixiebob",
+    "ru": "Пикси-боб",
+    "uk": "Піксі-боб",
+    "fr": "Pixie-bob",
+    "de": "Pixiebob"
+  },
+  "ragamuffin": {
+    "en": "Ragamuffin",
+    "ru": "Рагамаффин",
+    "uk": "Рагамаффін",
+    "fr": "Ragamuffin",
+    "de": "Ragamuffin"
+  },
+  "ragdoll": {
+    "en": "Ragdoll",
+    "ru": "Рэгдолл",
+    "uk": "Регдол",
+    "fr": "Ragdoll",
+    "de": "Ragdoll"
+  },
+  "russianBlue": {
+    "en": "Russian Blue",
+    "ru": "Русская голубая",
+    "uk": "Російська блакитна",
+    "fr": "Bleu Russe",
+    "de": "Russisch Blau"
+  },
+  "safari": {
+    "en": "Safari",
+    "ru": "Сафари",
+    "uk": "Сафарі",
+    "fr": "Safari",
+    "de": "Safari"
+  },
+  "savannah": {
+    "en": "Savannah",
+    "ru": "Саванна",
+    "uk": "Саванна",
+    "fr": "Savannah",
+    "de": "Savannah"
+  },
+  "scottishFold": {
+    "en": "Scottish Fold",
+    "ru": "Шотландская вислоухая",
+    "uk": "Шотландська висловуха",
+    "fr": "Scottish Fold",
+    "de": "Scottish Fold"
+  },
+  "selkirkRex": {
+    "en": "Selkirk Rex",
+    "ru": "Селкирк-рекс",
+    "uk": "Селкірк-рекс",
+    "fr": "Selkirk Rex",
+    "de": "Selkirk Rex"
+  },
+  "serengeti": {
+    "en": "Serengeti",
+    "ru": "Серенгети",
+    "uk": "Серенгеті",
+    "fr": "Serengeti",
+    "de": "Serengeti"
+  },
+  "siamese": {
+    "en": "Siamese",
+    "ru": "Сиамская",
+    "uk": "Сіамська",
+    "fr": "Siamois",
+    "de": "Siam"
+  },
+  "siberian": {
+    "en": "Siberian",
+    "ru": "Сибирская",
+    "uk": "Сибірська",
+    "fr": "Sibérien",
+    "de": "Sibirische Katze"
+  },
+  "singapura": {
+    "en": "Singapura",
+    "ru": "Сингапурская",
+    "uk": "Сінгапурська",
+    "fr": "Singapura",
+    "de": "Singapura"
+  },
+  "snowshoe": {
+    "en": "Snowshoe",
+    "ru": "Сноу-шу",
+    "uk": "Сноу-шу",
+    "fr": "Snowshoe",
+    "de": "Snowshoe"
+  },
+  "sokoke": {
+    "en": "Sokoke",
+    "ru": "Сококе",
+    "uk": "Сококе",
+    "fr": "Sokoke",
+    "de": "Sokoke"
+  },
+  "somali": {
+    "en": "Somali",
+    "ru": "Сомалийская",
+    "uk": "Сомалійська",
+    "fr": "Somali",
+    "de": "Somali"
+  },
+  "sphynx": {
+    "en": "Sphynx",
+    "ru": "Сфинкс",
+    "uk": "Сфінкс",
+    "fr": "Sphynx",
+    "de": "Sphynx"
+  },
+  "thai": {
+    "en": "Thai",
+    "ru": "Тайская",
+    "uk": "Тайська",
+    "fr": "Thaï",
+    "de": "Thai"
+  },
+  "tonkinese": {
+    "en": "Tonkinese",
+    "ru": "Тонкинская",
+    "uk": "Тонкінська",
+    "fr": "Tonkinois",
+    "de": "Tonkanese"
+  },
+  "toyger": {
+    "en": "Toyger",
+    "ru": "Тойгер",
+    "uk": "Тойгер",
+    "fr": "Toyger",
+    "de": "Toyger"
+  },
+  "turkishAngora": {
+    "en": "Turkish Angora",
+    "ru": "Турецкая ангора",
+    "uk": "Турецька ангора",
+    "fr": "Angora Turc",
+    "de": "Türkisch Angora"
+  },
+  "turkishVan": {
+    "en": "Turkish Van",
+    "ru": "Турецкий ван",
+    "uk": "Турецький ван",
+    "fr": "Turc de Van",
+    "de": "Türkisch Van"
+  },
+  "uralRex": {
+    "en": "Ural Rex",
+    "ru": "Уральский рекс",
+    "uk": "Уральський рекс",
+    "fr": "Ural Rex",
+    "de": "Ural Rex"
+  },
+  "yorkChocolate": {
+    "en": "York Chocolate",
+    "ru": "Йоркская шоколадная",
+    "uk": "Йоркська шоколадна",
+    "fr": "York Chocolate",
+    "de": "York Chocolate"
+  },
+  "stray": {
+    "en": "Mixed Breed",
+    "ru": "Дворовая",
+    "uk": "Дворова",
+    "fr": "Chat de Gouttière",
+    "de": "Hauskatze"
+  },
+  "hybrid": {
+    "en": "Hybrid",
+    "ru": "Гибрид",
+    "uk": "Гібрид",
+    "fr": "Hybride",
+    "de": "Hybrid"
+  },
+  "furColors": {
+    "black": {
+      "en": "Black",
+      "ru": "Чёрный",
+      "uk": "Чорний",
+      "fr": "Noir",
+      "de": "Schwarz"
+    },
+    "white": {
+      "en": "White",
+      "ru": "Белый",
+      "uk": "Білий",
+      "fr": "Blanc",
+      "de": "Weiß"
+    },
+    "grayBlue": {
+      "en": "Gray/Blue",
+      "ru": "Серый/Голубой",
+      "uk": "Сірий/Блакитний",
+      "fr": "Gris/Bleu",
+      "de": "Grau/Blau"
+    },
+    "red": {
+      "en": "Red",
+      "ru": "Рыжий",
+      "uk": "Рудий",
+      "fr": "Roux",
+      "de": "Rot"
+    },
+    "cream": {
+      "en": "Cream",
+      "ru": "Кремовый",
+      "uk": "Кремовий",
+      "fr": "Crème",
+      "de": "Creme"
+    },
+    "brown": {
+      "en": "Brown",
+      "ru": "Коричневый",
+      "uk": "Коричневий",
+      "fr": "Marron",
+      "de": "Braun"
+    },
+    "cinnamon": {
+      "en": "Cinnamon",
+      "ru": "Корица",
+      "uk": "Кориця",
+      "fr": "Cannelle",
+      "de": "Zimt"
+    },
+    "fawn": {
+      "en": "Fawn",
+      "ru": "Серовато-бежевый",
+      "uk": "Сіро-бежевий",
+      "fr": "Fauve",
+      "de": "Rehfarben"
+    },
+    "tabby": {
+      "en": "Tabby",
+      "ru": "Полосатый/Тигровый",
+      "uk": "Смугастий/Тигровий",
+      "fr": "Tabby",
+      "de": "Getigert"
+    },
+    "classicTabby": {
+      "en": "Classic Tabby",
+      "ru": "Мраморный",
+      "uk": "Мармуровий",
+      "fr": "Tabby Classique",
+      "de": "Klassisch Getigert"
+    },
+    "mackerelTabby": {
+      "en": "Mackerel Tabby",
+      "ru": "Тигровый",
+      "uk": "Тигровий",
+      "fr": "Tabby Maquereaux",
+      "de": "Makrelen Getigert"
+    },
+    "spottedTabby": {
+      "en": "Spotted Tabby",
+      "ru": "Пятнистый",
+      "uk": "Плямистий",
+      "fr": "Tabby Moucheté",
+      "de": "Getupft"
+    },
+    "tickedTabby": {
+      "en": "Ticked Tabby",
+      "ru": "Абиссинский",
+      "uk": "Абіссінський",
+      "fr": "Tabby Ticked",
+      "de": "Abessinier-Ticking"
+    },
+    "solid": {
+      "en": "Solid",
+      "ru": "Однотонный",
+      "uk": "Однотонний",
+      "fr": "Uni",
+      "de": "Einfarbig"
+    },
+    "tortoiseshell": {
+      "en": "Tortoiseshell",
+      "ru": "Черепаховый",
+      "uk": "Черепаховий",
+      "fr": "Écaille de Tortue",
+      "de": "Schildpatt"
+    },
+    "calico": {
+      "en": "Calico",
+      "ru": "Трёхцветный",
+      "uk": "Триколор",
+      "fr": "Calico",
+      "de": "Kaliko"
+    },
+    "bicolor": {
+      "en": "Bicolor",
+      "ru": "Двухцветный",
+      "uk": "Двоколірний",
+      "fr": "Bicolore",
+      "de": "Zweifarbig"
+    },
+    "tricolor": {
+      "en": "Tricolor",
+      "ru": "Трёхцветный",
+      "uk": "Триколірний",
+      "fr": "Tricolore",
+      "de": "Dreifarbig"
+    },
+    "pointed": {
+      "en": "Pointed",
+      "ru": "Акромеланический",
+      "uk": "Акромеланічний",
+      "fr": "Pointed",
+      "de": "Point"
+    },
+    "sealPoint": {
+      "en": "Seal Point",
+      "ru": "Тёмно-коричневые поинты",
+      "uk": "Темно-коричневі поінти",
+      "fr": "Seal Point",
+      "de": "Seal Point"
+    },
+    "bluePoint": {
+      "en": "Blue Point",
+      "ru": "Голубые поинты",
+      "uk": "Блакитні поінти",
+      "fr": "Blue Point",
+      "de": "Blue Point"
+    },
+    "chocolatePoint": {
+      "en": "Chocolate Point",
+      "ru": "Шоколадные поинты",
+      "uk": "Шоколадні поінти",
+      "fr": "Chocolat Point",
+      "de": "Chocolate Point"
+    },
+    "lilacPoint": {
+      "en": "Lilac Point",
+      "ru": "Сиреневые поинты",
+      "uk": "Бузкові поінти",
+      "fr": "Lilas Point",
+      "de": "Lilac Point"
+    },
+    "redPoint": {
+      "en": "Red Point",
+      "ru": "Рыжие поинты",
+      "uk": "Руді поінти",
+      "fr": "Rouge Point",
+      "de": "Red Point"
+    },
+    "creamPoint": {
+      "en": "Cream Point",
+      "ru": "Кремовые поинты",
+      "uk": "Кремові поінти",
+      "fr": "Crème Point",
+      "de": "Cream Point"
+    },
+    "colorpointWhite": {
+      "en": "Colorpoint and White",
+      "ru": "Колорпойнт с белым",
+      "uk": "Колорпоінт з білим",
+      "fr": "Colorpoint et Blanc",
+      "de": "Colorpoint und Weiß"
+    },
+    "smoke": {
+      "en": "Smoke",
+      "ru": "Дымчатый",
+      "uk": "Димчастий",
+      "fr": "Fumé",
+      "de": "Smoke"
+    },
+    "shaded": {
+      "en": "Shaded",
+      "ru": "Затушёванный",
+      "uk": "Затушований",
+      "fr": "Ombré",
+      "de": "Shaded"
+    },
+    "chinchilla": {
+      "en": "Chinchilla",
+      "ru": "Шиншилловый",
+      "uk": "Шиншиловий",
+      "fr": "Chinchilla",
+      "de": "Chinchilla"
+    },
+    "silver": {
+      "en": "Silver",
+      "ru": "Серебристый",
+      "uk": "Сріблястий",
+      "fr": "Argenté",
+      "de": "Silber"
+    },
+    "golden": {
+      "en": "Golden",
+      "ru": "Золотистый",
+      "uk": "Золотистий",
+      "fr": "Doré",
+      "de": "Golden"
+    },
+    "tipped": {
+      "en": "Tipped",
+      "ru": "С окрашенными кончиками",
+      "uk": "З забарвленими кінчиками",
+      "fr": "Tipped",
+      "de": "Tipped"
+    },
+    "mink": {
+      "en": "Mink",
+      "ru": "Тонкинезский",
+      "uk": "Тонкінезький",
+      "fr": "Mink",
+      "de": "Mink"
+    },
+    "sepia": {
+      "en": "Sepia",
+      "ru": "Бирманский",
+      "uk": "Бірманський",
+      "fr": "Sépia",
+      "de": "Sepia"
+    },
+    "lavender": {
+      "en": "Lavender",
+      "ru": "Сиреневый",
+      "uk": "Бузковий",
+      "fr": "Lavande",
+      "de": "Lavendel"
+    },
+    "caramel": {
+      "en": "Caramel",
+      "ru": "Карамельный",
+      "uk": "Карамельний",
+      "fr": "Caramel",
+      "de": "Karamell"
+    }
+  },
+  "furTypes": {
+    "shortHaired": {
+      "en": "Short-haired",
+      "ru": "Короткошёрстный",
+      "uk": "Короткошерстий",
+      "fr": "Poil Court",
+      "de": "Kurzhaar"
+    },
+    "mediumHaired": {
+      "en": "Medium-haired",
+      "ru": "Среднешёрстный",
+      "uk": "Середньошерстий",
+      "fr": "Poil Mi-long",
+      "de": "Mittellang"
+    },
+    "longHaired": {
+      "en": "Long-haired",
+      "ru": "Длинношёрстный",
+      "uk": "Довгошерстий",
+      "fr": "Poil Long",
+      "de": "Langhaar"
+    },
+    "curly": {
+      "en": "Curly",
+      "ru": "Кудрявый",
+      "uk": "Кучерявий",
+      "fr": "Frisé",
+      "de": "Lockig"
+    },
+    "hairless": {
+      "en": "Hairless",
+      "ru": "Бесшёрстный",
+      "uk": "Безшерстий",
+      "fr": "Nu",
+      "de": "Haarlos"
+    },
+    "plush": {
+      "en": "Plush",
+      "ru": "Плюшевый",
+      "uk": "Плюшевий",
+      "fr": "Peluche",
+      "de": "Plüsch"
+    }
+  }
+}

@@ -148,6 +148,7 @@ const deuTranslation = {
     title: "Finden Sie Ihr perfektes Haustier",
     subtitle:
       "Wir helfen Ihnen, einen treuen Freund unter Tausenden von Tieren zu finden, die auf ihr neues Zuhause warten",
+    findBreeder: "Züchter finden",
   },
 };
 
