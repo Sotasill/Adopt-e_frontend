@@ -7,7 +7,8 @@ const Hero = () => {
   const navigate = useNavigate();
 
   const handleBreedersClick = () => {
-    navigate("/breeders");
+    console.log("Button clicked, navigating to /kennels");
+    navigate("/kennels");
   };
 
   return (
@@ -18,6 +19,7 @@ const Hero = () => {
         <button
           className={styles.findBreederButton}
           onClick={handleBreedersClick}
+          type="button"
         >
           {t("hero.findBreeder")}
         </button>

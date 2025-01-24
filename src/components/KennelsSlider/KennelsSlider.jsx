@@ -294,7 +294,7 @@ const KennelsSlider = () => {
   };
 
   return (
-    <section id="kennels" className={styles.kennelsSection}>
+    <section id="kennels-slider" className={styles.kennelsSection}>
       <div className={styles.kennelsSectionHeader}>
         <h2
           className={styles.sectionTitle}

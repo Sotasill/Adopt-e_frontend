@@ -120,7 +120,7 @@
 
 @media (max-width: 480px) {
   .hero {
-    height: 250px;
+    height: 300px;
   }
 
   .title {
@@ -130,11 +130,46 @@
 
   .subtitle {
     font-size: 1rem;
+    margin-bottom: 1rem;
   }
 
   .findBreederButton {
     padding: 0.8rem 1.6rem;
     font-size: 1rem;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .hero {
+    height: 400px;
+  }
+
+  .heroContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+
+  .findBreederButton {
+    padding: 0.7rem 1.4rem;
+    font-size: 0.9rem;
+    margin-top: 0.8rem;
+    width: auto;
+    max-width: 80%;
   }
 }

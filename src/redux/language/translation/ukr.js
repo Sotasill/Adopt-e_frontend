@@ -16,6 +16,7 @@ const ukrTranslation = {
   about: "Про нас",
   ourMission: "Наша місія",
   breeders: "Заводчики",
+  findBreeder: "Знайти заводчика",
   findYourPet: "Знайти улюбленця",
 
   // Форма тварини
@@ -77,6 +78,31 @@ const ukrTranslation = {
     petTypes: {
       dogs: "Собаки",
       cats: "Коти",
+    },
+    filters: {
+      title: "Фільтри",
+      button: "Фільтри",
+      apply: "Застосувати",
+      reset: "Скинути",
+      sort: {
+        label: "Сортувати за",
+        nameAsc: "Ім'ям (А-Я)",
+        nameDesc: "Ім'ям (Я-А)",
+        ratingDesc: "Рейтингом (високий)",
+        ratingAsc: "Рейтингом (низький)",
+      },
+      country: {
+        label: "Країна",
+        all: "Всі країни",
+      },
+      breed: {
+        label: "Порода",
+        all: "Всі породи",
+      },
+      rating: {
+        label: "Мінімальний рейтинг",
+        all: "Будь-який рейтинг",
+      },
     },
     list: {
       goldenParadise: {

@@ -13,7 +13,6 @@ const AuthProvider = ({ children }) => {
         const storedUser = localStorage.getItem("user");
 
         if (!token || !storedUser) {
-          console.log("Нет сохраненных данных аутентификации");
           dispatch(setAuth(false));
           dispatch(setUser(null));
           return;
@@ -28,7 +27,6 @@ const AuthProvider = ({ children }) => {
             throw new Error("Токен истек");
           }
         } catch (error) {
-          console.error("Ошибка при проверке токена:", error);
           localStorage.removeItem("token");
           localStorage.removeItem("user");
           dispatch(setAuth(false));
@@ -47,22 +45,14 @@ const AuthProvider = ({ children }) => {
           // Нормализуем роль
           userData.role = userData.role.toLowerCase();
 
-          console.log("Инициализация данных пользователя:", {
-            username: userData.username,
-            role: userData.role,
-            specialization: userData.specialization,
-          });
-
           dispatch(setUser(userData));
           dispatch(setAuth(true));
         } catch (error) {
-          console.error("Ошибка при парсинге данных пользователя:", error);
           localStorage.removeItem("user");
           dispatch(setAuth(false));
           dispatch(setUser(null));
         }
       } catch (error) {
-        console.error("Общая ошибка инициализации:", error);
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         dispatch(setAuth(false));

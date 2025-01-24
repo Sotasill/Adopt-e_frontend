@@ -14,6 +14,31 @@ const deuTranslation = {
       dogs: "Hunde",
       cats: "Katzen",
     },
+    filters: {
+      title: "Filter",
+      button: "Filter",
+      apply: "Anwenden",
+      reset: "Zurücksetzen",
+      sort: {
+        label: "Sortieren nach",
+        nameAsc: "Name (A-Z)",
+        nameDesc: "Name (Z-A)",
+        ratingDesc: "Bewertung (Höchste)",
+        ratingAsc: "Bewertung (Niedrigste)",
+      },
+      country: {
+        label: "Land",
+        all: "Alle Länder",
+      },
+      breed: {
+        label: "Rasse",
+        all: "Alle Rassen",
+      },
+      rating: {
+        label: "Mindestbewertung",
+        all: "Alle Bewertungen",
+      },
+    },
     list: {
       goldenParadise: {
         name: "Goldenes Paradies",
@@ -91,6 +116,7 @@ const deuTranslation = {
   about: "Über uns",
   ourMission: "Unsere Mission",
   breeders: "Züchter",
+  findBreeder: "Züchter finden",
   findYourPet: "Haustier finden",
 
   // Tierformular

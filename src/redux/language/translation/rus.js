@@ -16,6 +16,7 @@ const ruTranslation = {
   about: "О нас",
   ourMission: "Наша миссия",
   breeders: "Заводчики",
+  findBreeder: "Найти заводчика",
   findYourPet: "Найти питомца",
 
   // Форма животного
@@ -79,6 +80,31 @@ const ruTranslation = {
     petTypes: {
       dogs: "Собаки",
       cats: "Кошки",
+    },
+    filters: {
+      title: "Фильтры",
+      button: "Фильтры",
+      apply: "Применить",
+      reset: "Сбросить",
+      sort: {
+        label: "Сортировать по",
+        nameAsc: "Имени (А-Я)",
+        nameDesc: "Имени (Я-А)",
+        ratingDesc: "Рейтингу (высокий)",
+        ratingAsc: "Рейтингу (низкий)",
+      },
+      country: {
+        label: "Страна",
+        all: "Все страны",
+      },
+      breed: {
+        label: "Порода",
+        all: "Все породы",
+      },
+      rating: {
+        label: "Минимальный рейтинг",
+        all: "Любой рейтинг",
+      },
     },
     list: {
       // Собаки

@@ -65,21 +65,21 @@
 
 @media (max-width: 320px) {
   .languageSwitcher {
-    height: 30px;
+    height: 24px;
   }
 
   .currentLanguage {
     padding: 0;
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     overflow: hidden;
     border: none;
   }
 
   .flag {
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
   }
 

@@ -15,6 +15,7 @@ const frTranslation = {
   about: "À propos",
   ourMission: "Notre Mission",
   breeders: "Éleveurs",
+  findBreeder: "Trouver un Éleveur",
   findYourPet: "Trouver un Animal",
 
   // Formulaire animal
@@ -76,6 +77,31 @@ const frTranslation = {
     petTypes: {
       dogs: "Chiens",
       cats: "Chats",
+    },
+    filters: {
+      title: "Filtres",
+      button: "Filtres",
+      apply: "Appliquer",
+      reset: "Réinitialiser",
+      sort: {
+        label: "Trier par",
+        nameAsc: "Nom (A-Z)",
+        nameDesc: "Nom (Z-A)",
+        ratingDesc: "Note (Plus haute)",
+        ratingAsc: "Note (Plus basse)",
+      },
+      country: {
+        label: "Pays",
+        all: "Tous les pays",
+      },
+      breed: {
+        label: "Race",
+        all: "Toutes les races",
+      },
+      rating: {
+        label: "Note minimum",
+        all: "Toutes les notes",
+      },
     },
     list: {
       goldenParadise: {

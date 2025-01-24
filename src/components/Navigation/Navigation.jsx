@@ -32,9 +32,9 @@ const Navigation = () => {
       <Link to="/our-mission" className={styles.mobileMenuItem}>
         {t("ourMission")}
       </Link>
-      <Link to="/breeders" className={styles.mobileMenuItem}>
-        {t("breeders")}
-      </Link>
+      <a href="/#kennels-slider" className={styles.mobileMenuItem}>
+        {t("findBreeder")}
+      </a>
       <Link to="/find-pet" className={styles.mobileMenuItem}>
         {t("findYourPet")}
       </Link>

@@ -15,6 +15,7 @@ const enTranslation = {
   about: "About",
   ourMission: "Our Mission",
   breeders: "Breeders",
+  findBreeder: "Find a Breeder",
   findYourPet: "Find Your Pet",
 
   // Animal Form

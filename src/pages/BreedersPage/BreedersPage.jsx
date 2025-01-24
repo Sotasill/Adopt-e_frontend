@@ -4,7 +4,6 @@ import { FaDog, FaCat } from "react-icons/fa6";
 import { BsFillGridFill, BsListUl } from "react-icons/bs";
 import { FiFilter } from "react-icons/fi";
 import {
-  Switch,
   FormControlLabel,
   IconButton,
   Tooltip,
@@ -22,6 +21,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setPetType, selectPetType } from "../../redux/petType/petTypeSlice";
 import KennelCard from "../../components/KennelsSlider/KennelCard";
 import styles from "./BreedersPage.module.css";
+import CustomSwitch from "../../components/CustomSwitch/CustomSwitch";
 
 // Используем те же моковые данные, что и в слайдере
 const MOCK_KENNELS = {
@@ -202,6 +202,7 @@ const MOCK_KENNELS = {
 const BreedersPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [viewMode, setViewMode] = useState("grid");
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 320);
   const [sortBy, setSortBy] = useState("nameAsc");
   const [selectedCountries, setSelectedCountries] = useState([]);
   const [selectedBreeds, setSelectedBreeds] = useState([]);
@@ -267,6 +268,15 @@ const BreedersPage = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 320);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const handlePetTypeChange = () => {
     const newType = petType === "dogs" ? "cats" : "dogs";
     dispatch(setPetType(newType));
@@ -324,7 +334,7 @@ const BreedersPage = () => {
                   </div>
                   <FormControlLabel
                     control={
-                      <Switch
+                      <CustomSwitch
                         checked={petType === "cats"}
                         onChange={handlePetTypeChange}
                         name="petType"
@@ -349,32 +359,38 @@ const BreedersPage = () => {
                 </div>
               </div>
 
-              <div className={styles.viewToggle}>
-                <Tooltip title="Сетка">
-                  <IconButton
-                    onClick={() => setViewMode("grid")}
-                    className={`${styles.viewButton} ${
-                      viewMode === "grid" ? styles.active : ""
-                    }`}
-                  >
-                    <BsFillGridFill />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="Список">
-                  <IconButton
-                    onClick={() => setViewMode("list")}
-                    className={`${styles.viewButton} ${
-                      viewMode === "list" ? styles.active : ""
-                    }`}
-                  >
-                    <BsListUl />
-                  </IconButton>
-                </Tooltip>
-              </div>
+              {!isMobile && (
+                <div className={styles.viewToggle}>
+                  <Tooltip title="Сетка">
+                    <IconButton
+                      onClick={() => setViewMode("grid")}
+                      className={`${styles.viewButton} ${
+                        viewMode === "grid" ? styles.active : ""
+                      }`}
+                    >
+                      <BsFillGridFill />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Список">
+                    <IconButton
+                      onClick={() => setViewMode("list")}
+                      className={`${styles.viewButton} ${
+                        viewMode === "list" ? styles.active : ""
+                      }`}
+                    >
+                      <BsListUl />
+                    </IconButton>
+                  </Tooltip>
+                </div>
+              )}
             </div>
           </div>
 
-          <div className={`${styles.breedersList} ${styles[viewMode]}`}>
+          <div
+            className={`${styles.breedersList} ${
+              !isMobile ? styles[viewMode] : ""
+            }`}
+          >
             {filteredAndSortedKennels.map((kennel) => (
               <KennelCard key={kennel.id} kennel={kennel} />
             ))}

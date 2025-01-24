@@ -25,13 +25,6 @@ const PublicRoute = ({ children }) => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
   const location = useLocation();
 
-  console.log("PublicRoute check:", {
-    isAuthenticated,
-    user,
-    currentPath: location.pathname,
-    userRole: user?.role,
-  });
-
   // Если пользователь аутентифицирован и у него есть роль
   if (isAuthenticated && user?.role) {
     const userRole = user.role.toLowerCase();
@@ -43,12 +36,6 @@ const PublicRoute = ({ children }) => {
     } else if (userRole === "user") {
       redirectPath = "/mainusersystem";
     }
-
-    console.log("Redirecting authenticated user:", {
-      role: userRole,
-      redirectPath,
-      currentPath: location.pathname,
-    });
 
     // Перенаправляем только если текущий путь отличается от целевого
     if (location.pathname !== redirectPath) {

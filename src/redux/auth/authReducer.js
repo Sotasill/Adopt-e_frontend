@@ -1,5 +1,5 @@
 import { AUTH_TYPES } from "./authTypes";
-import { processUserData } from "../../services/authService";
+import { processUserData } from "../../utils/userUtils";
 
 const initialState = {
   isAuthenticated: false,
