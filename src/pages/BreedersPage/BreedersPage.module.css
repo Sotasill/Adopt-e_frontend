@@ -381,8 +381,13 @@
 .viewButton {
   color: #95a5a6 !important;
   padding: 8px !important;
-  border-radius: 8px !important;
+  border-radius: 50% !important;
   transition: all 0.3s ease !important;
+  width: 36px !important;
+  height: 36px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .viewButton:hover {
@@ -392,8 +397,8 @@
 
 .viewButton.active {
   color: #3498db !important;
-  background-color: white !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: rgba(52, 152, 219, 0.15) !important;
+  box-shadow: none !important;
 }
 
 .petTypeSwitch {
@@ -443,9 +448,71 @@
 /* Список заводчиков */
 .breedersList {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  padding: 16px 0;
+}
+
+/* Стили для режима сетки */
+.breedersList:global(.grid) {
+  grid-template-columns: repeat(4, 1fr);
   gap: 30px;
-  justify-items: center;
+}
+
+/* Стили для режима списка */
+.breedersList:global(.list) {
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 760px) {
+  .breedersList {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (min-width: 960px) and (max-width: 1199px) {
+  .breedersList:global(.grid) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 959px) {
+  .breedersList:global(.grid) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 639px) {
+  .breedersList:global(.grid) {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 320px) {
+  .breedersList {
+    display: flex !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    gap: 16px;
+    padding: 8px 4px;
+  }
+
+  .breedersList::-webkit-scrollbar {
+    display: none;
+  }
+
+  .breedersList > * {
+    scroll-snap-align: start;
+    flex: 0 0 calc(100% - 32px);
+    max-width: calc(100% - 32px);
+  }
 }
 
 /* Карточка заводчика */

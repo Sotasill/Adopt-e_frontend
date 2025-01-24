@@ -20,6 +20,7 @@ import { useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setPetType, selectPetType } from "../../redux/petType/petTypeSlice";
 import KennelCard from "../../components/KennelsSlider/KennelCard";
+import KennelStringCard from "../../components/KennelsSlider/KennelStringCard";
 import styles from "./BreedersPage.module.css";
 import CustomSwitch from "../../components/CustomSwitch/CustomSwitch";
 
@@ -203,11 +204,13 @@ const BreedersPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [viewMode, setViewMode] = useState("grid");
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 320);
+  const [isTablet, setIsTablet] = useState(window.innerWidth <= 760);
   const [sortBy, setSortBy] = useState("nameAsc");
   const [selectedCountries, setSelectedCountries] = useState([]);
   const [selectedBreeds, setSelectedBreeds] = useState([]);
   const [minRating, setMinRating] = useState(0);
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+  const [expandedCardId, setExpandedCardId] = useState(null);
 
   const dispatch = useDispatch();
   const petType = useSelector(selectPetType);
@@ -271,11 +274,28 @@ const BreedersPage = () => {
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 320);
+      setIsTablet(window.innerWidth <= 760);
     };
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        expandedCardId !== null &&
+        !event.target.closest(`.${styles.kennelString}`)
+      ) {
+        setExpandedCardId(null);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [expandedCardId]);
 
   const handlePetTypeChange = () => {
     const newType = petType === "dogs" ? "cats" : "dogs";
@@ -293,6 +313,10 @@ const BreedersPage = () => {
     if (minRating > 0) count++;
     return count;
   }, [selectedCountries, selectedBreeds, minRating]);
+
+  const handleCardExpand = (cardId) => {
+    setExpandedCardId(expandedCardId === cardId ? null : cardId);
+  };
 
   return (
     <div className={styles.breedersPage}>
@@ -359,7 +383,7 @@ const BreedersPage = () => {
                 </div>
               </div>
 
-              {!isMobile && (
+              {!isTablet && (
                 <div className={styles.viewToggle}>
                   <Tooltip title="Сетка">
                     <IconButton
@@ -387,13 +411,24 @@ const BreedersPage = () => {
           </div>
 
           <div
-            className={`${styles.breedersList} ${
-              !isMobile ? styles[viewMode] : ""
-            }`}
+            className={`${styles.breedersList} ${!isMobile ? viewMode : ""}`}
           >
-            {filteredAndSortedKennels.map((kennel) => (
-              <KennelCard key={kennel.id} kennel={kennel} />
-            ))}
+            {filteredAndSortedKennels.map((kennel) =>
+              !isMobile ? (
+                viewMode === "grid" ? (
+                  <KennelCard key={kennel.id} kennel={kennel} />
+                ) : (
+                  <KennelStringCard
+                    key={kennel.id}
+                    kennel={kennel}
+                    isExpanded={expandedCardId === kennel.id}
+                    onExpand={() => handleCardExpand(kennel.id)}
+                  />
+                )
+              ) : (
+                <KennelCard key={kennel.id} kennel={kennel} />
+              )
+            )}
           </div>
         </main>
       </div>
