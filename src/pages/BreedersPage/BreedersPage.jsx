@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { useTranslatedContent } from "../../redux/hooks/useTranslatedContent";
+import { useCountries } from "../../redux/hooks/useCountries";
 import { FaDog, FaCat } from "react-icons/fa6";
 import { BsFillGridFill, BsListUl } from "react-icons/bs";
 import { FiFilter } from "react-icons/fi";
@@ -216,13 +217,10 @@ const BreedersPage = () => {
   const petType = useSelector(selectPetType);
   const { t } = useTranslatedContent();
 
-  // Получаем уникальные страны и породы для текущего типа животных
-  const uniqueCountries = useMemo(() => {
-    return [
-      ...new Set(MOCK_KENNELS[petType].map((kennel) => kennel.countryKey)),
-    ];
-  }, [petType]);
+  // Получаем список стран из хука
+  const countries = useCountries(MOCK_KENNELS[petType]);
 
+  // Получаем уникальные породы для текущего типа животных
   const uniqueBreeds = useMemo(() => {
     return [...new Set(MOCK_KENNELS[petType].map((kennel) => kennel.breedKey))];
   }, [petType]);
@@ -300,7 +298,7 @@ const BreedersPage = () => {
   const handlePetTypeChange = () => {
     const newType = petType === "dogs" ? "cats" : "dogs";
     dispatch(setPetType(newType));
-    setSearchParams({ type: newType });
+    setSearchParams({ type: newType }, { replace: true });
   };
 
   const handleOpenFilters = () => setIsFiltersOpen(true);
@@ -501,10 +499,17 @@ const BreedersPage = () => {
                   },
                 }}
               >
-                {uniqueCountries.map((country) => (
-                  <MenuItem key={country} value={country}>
-                    <Checkbox checked={selectedCountries.includes(country)} />
-                    {t(country)}
+                {countries.map((country) => (
+                  <MenuItem key={country.key} value={country.key}>
+                    <Checkbox
+                      checked={selectedCountries.includes(country.key)}
+                    />
+                    <img
+                      src={country.flag}
+                      alt={country.name}
+                      style={{ width: 20, marginRight: 8 }}
+                    />
+                    {country.name}
                   </MenuItem>
                 ))}
               </Select>
