@@ -24,6 +24,7 @@ import KennelCard from "../../components/KennelsSlider/KennelCard";
 import KennelStringCard from "../../components/KennelsSlider/KennelStringCard";
 import styles from "./BreedersPage.module.css";
 import CustomSwitch from "../../components/CustomSwitch/CustomSwitch";
+import commonStyles from "../../styles/common.module.css";
 
 // Используем те же моковые данные, что и в слайдере
 const MOCK_KENNELS = {
@@ -318,8 +319,8 @@ const BreedersPage = () => {
 
   return (
     <div className={styles.breedersPage}>
-      <div className={styles.header}>
-        <h1 className={styles.title}>{t("kennels.title")}</h1>
+      <div className={commonStyles.pageHeader}>
+        <h1 className={commonStyles.pageTitle}>{t("kennels.title")}</h1>
       </div>
 
       <div className={styles.content}>

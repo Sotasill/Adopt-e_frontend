@@ -118,6 +118,12 @@ const deuTranslation = {
   breeders: "Züchter",
   findBreeder: "Züchter finden",
   findYourPet: "Haustier finden",
+  breeds: {
+    title: "Haustierrassen",
+    dogs: "Hunde",
+    cats: "Katzen",
+    searchPlaceholder: "Rassen suchen...",
+  },
 
   // Tierformular
   addAnimal: "Tier hinzufügen",
@@ -143,6 +149,7 @@ const deuTranslation = {
       title: "Unsere Mission",
       description:
         "Wir helfen Tieren, ein liebevolles Zuhause und fürsorgliche Besitzer zu finden. Jedes Tier verdient ein glückliches Leben.",
+      readMore: "Mehr über unsere Mission",
     },
     quickLinks: {
       title: "Schnellzugriff",

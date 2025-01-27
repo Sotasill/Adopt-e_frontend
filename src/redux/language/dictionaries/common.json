@@ -1,0 +1,76 @@
+{
+  "breeds": {
+    "ukr": {
+      "title": "Породи тварин",
+      "allBreedsList": "Список усіх порід",
+      "dogs": "Собаки",
+      "cats": "Коти",
+      "searchPlaceholder": "Пошук порід..."
+    },
+    "rus": {
+      "title": "Породы животных",
+      "allBreedsList": "Список всех пород",
+      "dogs": "Собаки",
+      "cats": "Кошки",
+      "searchPlaceholder": "Поиск пород..."
+    },
+    "en": {
+      "title": "Pet Breeds",
+      "allBreedsList": "All breeds list",
+      "dogs": "Dogs",
+      "cats": "Cats",
+      "searchPlaceholder": "Search breeds..."
+    },
+    "deu": {
+      "title": "Haustierrassen",
+      "allBreedsList": "Liste aller Rassen",
+      "dogs": "Hunde",
+      "cats": "Katzen",
+      "searchPlaceholder": "Rassen suchen..."
+    },
+    "fr": {
+      "title": "Races d'animaux",
+      "allBreedsList": "Liste de toutes les races",
+      "dogs": "Chiens",
+      "cats": "Chats",
+      "searchPlaceholder": "Rechercher des races..."
+    }
+  },
+  "navigation": {
+    "ukr": {
+      "about": "Про нас",
+      "findBreeder": "Знайти заводчика",
+      "findYourPet": "Знайти улюбленця",
+      "register": "Зареєструватися",
+      "login": "Увійти"
+    },
+    "rus": {
+      "about": "О нас",
+      "findBreeder": "Найти заводчика",
+      "findYourPet": "Найти питомца",
+      "register": "Регистрация",
+      "login": "Войти"
+    },
+    "en": {
+      "about": "About",
+      "findBreeder": "Find a Breeder",
+      "findYourPet": "Find Your Pet",
+      "register": "Sign up",
+      "login": "Sign in"
+    },
+    "deu": {
+      "about": "Über uns",
+      "findBreeder": "Züchter finden",
+      "findYourPet": "Haustier finden",
+      "register": "Registrieren",
+      "login": "Anmelden"
+    },
+    "fr": {
+      "about": "À propos",
+      "findBreeder": "Trouver un éleveur",
+      "findYourPet": "Trouver votre animal",
+      "register": "S'inscrire",
+      "login": "Se connecter"
+    }
+  }
+}

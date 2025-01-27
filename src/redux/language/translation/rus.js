@@ -18,6 +18,12 @@ const ruTranslation = {
   breeders: "Заводчики",
   findBreeder: "Найти заводчика",
   findYourPet: "Найти питомца",
+  breeds: {
+    title: "Породы питомцев",
+    dogs: "Собаки",
+    cats: "Кошки",
+    searchPlaceholder: "Поиск пород...",
+  },
 
   // Форма животного
   addAnimal: "Добавить животное",
@@ -46,9 +52,10 @@ const ruTranslation = {
   // Футер
   footer: {
     mission: {
-      title: "Наша миссия",
+      title: "Наша Миссия",
       description:
         "Мы помогаем животным найти любящий дом и заботливых хозяев. Каждое животное заслуживает счастливой жизни.",
+      readMore: "Узнать больше о нашей миссии",
     },
     quickLinks: {
       title: "Быстрые ссылки",

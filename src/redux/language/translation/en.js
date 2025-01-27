@@ -17,6 +17,12 @@ const enTranslation = {
   breeders: "Breeders",
   findBreeder: "Find a Breeder",
   findYourPet: "Find Your Pet",
+  breeds: {
+    title: "Pet Breeds",
+    dogs: "Dogs",
+    cats: "Cats",
+    searchPlaceholder: "Search breeds...",
+  },
 
   // Animal Form
   addAnimal: "Add Animal",
@@ -48,6 +54,7 @@ const enTranslation = {
       title: "Our Mission",
       description:
         "We help animals find loving homes and caring owners. Every animal deserves a happy life.",
+      readMore: "Read More About Our Mission",
     },
     quickLinks: {
       title: "Quick Links",
@@ -74,6 +81,8 @@ const enTranslation = {
     title: "Find Your Breeder",
     rating: "Rating",
     outOf: "out of",
+    viewMore: "View More",
+    viewMoreText: "View All Breeders",
     petTypes: {
       dogs: "Dogs",
       cats: "Cats",

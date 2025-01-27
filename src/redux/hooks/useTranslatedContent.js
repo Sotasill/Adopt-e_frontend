@@ -15,14 +15,12 @@ export const useTranslatedContent = () => {
         if (result && result[k]) {
           result = result[k];
         } else {
-          console.warn(`Translation key not found: ${key}`);
           return key;
         }
       }
 
       return result;
     } catch (error) {
-      console.warn(`Error getting translation for key: ${key}`, error);
       return key;
     }
   };

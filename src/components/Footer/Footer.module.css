@@ -91,6 +91,20 @@
   color: rgba(255, 255, 255, 0.7);
 }
 
+.missionLink {
+  display: inline-block;
+  color: var(--primary-color);
+  text-decoration: none;
+  margin: 1rem 0;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.missionLink:hover {
+  color: var(--primary-color-dark);
+  text-decoration: underline;
+}
+
 /* Брейкпоинты */
 @media (max-width: 1400px) {
   .container {

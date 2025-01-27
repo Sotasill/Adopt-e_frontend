@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useTranslatedContent } from "../../redux/hooks/useTranslatedContent";
+import { useTranslations } from "../../redux/hooks/useTranslations";
 import styles from "./Navigation.module.css";
 import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 import { useState, useEffect } from "react";
 
 const Navigation = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
-  const { t } = useTranslatedContent();
+  const { translate } = useTranslations();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -29,18 +29,21 @@ const Navigation = () => {
   // Компонент для мобильных ссылок
   const MobileLinks = () => (
     <>
-      <Link to="/our-mission" className={styles.mobileMenuItem}>
-        {t("ourMission")}
+      <Link to="/about" className={styles.mobileMenuItem}>
+        {translate("common", "navigation.about")}
+      </Link>
+      <Link to="/breeds" className={styles.mobileMenuItem}>
+        {translate("common", "breeds.title")}
       </Link>
       <a href="/#kennels-slider" className={styles.mobileMenuItem}>
-        {t("findBreeder")}
+        {translate("common", "navigation.findBreeder")}
       </a>
       <Link to="/find-pet" className={styles.mobileMenuItem}>
-        {t("findYourPet")}
+        {translate("common", "navigation.findYourPet")}
       </Link>
       {!isAuthenticated && (
         <Link to="/register" className={styles.mobileMenuItem}>
-          {t("register")}
+          {translate("common", "navigation.register")}
         </Link>
       )}
     </>
@@ -70,7 +73,7 @@ const Navigation = () => {
                 to="/login"
                 className={`${styles.navButton} ${styles.loginButton}`}
               >
-                {t("login")}
+                {translate("common", "navigation.login")}
               </Link>
             )}
             <div
@@ -94,13 +97,13 @@ const Navigation = () => {
                   to="/login"
                   className={`${styles.navButton} ${styles.loginButton}`}
                 >
-                  {t("login")}
+                  {translate("common", "navigation.login")}
                 </Link>
                 <Link
                   to="/register"
                   className={`${styles.navButton} ${styles.registerButton}`}
                 >
-                  {t("register")}
+                  {translate("common", "navigation.register")}
                 </Link>
               </>
             )}

@@ -1,0 +1,139 @@
+.container {
+  padding: 2rem 0;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .controls {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.searchField {
+  flex: 1;
+  max-width: 400px;
+}
+
+.toggleGroup {
+  min-width: 200px;
+}
+
+.breedsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+.breedsList.listView {
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.breedCard {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.breedCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.listView .breedCard {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+}
+
+.breedImage {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.listView .breedImage {
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
+  margin-right: 1.5rem;
+}
+
+.breedCard:hover .breedImage {
+  transform: scale(1.05);
+}
+
+.listView .breedCard:hover .breedImage {
+  transform: none;
+}
+
+.breedCard h3 {
+  margin: 1rem;
+  color: #333;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.listView .breedCard h3 {
+  margin: 0;
+  text-align: left;
+  font-size: 1.2rem;
+}
+
+.breedName {
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 0;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .breedsList {
+    gap: 1.5rem;
+  }
+
+  .listView .breedCard {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .listView .breedImage {
+    width: 100%;
+    height: 200px;
+    margin-right: 0;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .listView .breedCard h3 {
+    margin: 1rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .breedsList {
+    gap: 1rem;
+  }
+
+  .breedImage {
+    height: 180px;
+  }
+
+  .breedCard h3 {
+    font-size: 1rem;
+  }
+}

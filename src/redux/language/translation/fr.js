@@ -5,7 +5,7 @@ const frTranslation = {
     subtitle: "Trouvez votre animal parfait avec des éleveurs vérifiés",
   },
   login: "Connexion",
-  register: "Inscription",
+  register: "S'inscrire",
   logout: "Déconnexion",
 
   // Navigation
@@ -15,8 +15,14 @@ const frTranslation = {
   about: "À propos",
   ourMission: "Notre Mission",
   breeders: "Éleveurs",
-  findBreeder: "Trouver un Éleveur",
-  findYourPet: "Trouver un Animal",
+  findBreeder: "Trouver un éleveur",
+  findYourPet: "Trouver votre animal",
+  breeds: {
+    title: "Races d'animaux",
+    dogs: "Chiens",
+    cats: "Chats",
+    searchPlaceholder: "Rechercher des races...",
+  },
 
   // Formulaire animal
   addAnimal: "Ajouter un animal",
@@ -45,25 +51,26 @@ const frTranslation = {
   // Footer
   footer: {
     mission: {
-      title: "Notre mission",
+      title: "Notre Mission",
       description:
-        "Nous aidons les animaux à trouver un foyer aimant et des propriétaires attentionnés. Chaque animal mérite une vie heureuse.",
+        "Nous aidons les animaux à trouver des foyers aimants et des propriétaires attentionnés. Chaque animal mérite une vie heureuse.",
+      readMore: "En savoir plus sur notre mission",
     },
     quickLinks: {
-      title: "Liens rapides",
-      animals: "Nos animaux",
-      howToAdopt: "Comment adopter",
-      successStories: "Histoires de réussite",
-      volunteer: "Devenir bénévole",
+      title: "Liens Rapides",
+      animals: "Nos Animaux",
+      howToAdopt: "Comment Adopter",
+      successStories: "Histoires de Réussite",
+      volunteer: "Devenir Bénévole",
     },
     contact: {
       title: "Contact",
       shelter: "Refuge",
-      address: "123 rue Exemple, Paris",
+      address: "123 Rue Exemple, Paris",
       email: "info@adopt-e.fr",
-      phone: "+33 (1) 23-45-67-89",
+      phone: "+33 1 23 45 67 89",
       phoneLabel: "Téléphone",
-      workingHours: "Heures d'ouverture",
+      workingHours: "Heures d'Ouverture",
       hours: "Lun-Dim: 10h00 - 18h00",
     },
     rights: "Tous droits réservés",
@@ -71,9 +78,11 @@ const frTranslation = {
 
   // Section éleveurs
   kennels: {
-    title: "Trouvez votre éleveur",
+    title: "Trouvez Votre Éleveur",
     rating: "Note",
     outOf: "sur",
+    viewMore: "Voir Plus",
+    viewMoreText: "Voir Tous les Éleveurs",
     petTypes: {
       dogs: "Chiens",
       cats: "Chats",
@@ -87,38 +96,38 @@ const frTranslation = {
         label: "Trier par",
         nameAsc: "Nom (A-Z)",
         nameDesc: "Nom (Z-A)",
-        ratingDesc: "Note (Plus haute)",
-        ratingAsc: "Note (Plus basse)",
+        ratingDesc: "Note (Élevée)",
+        ratingAsc: "Note (Basse)",
       },
       country: {
         label: "Pays",
-        all: "Tous les pays",
+        all: "Tous les Pays",
       },
       breed: {
         label: "Race",
-        all: "Toutes les races",
+        all: "Toutes les Races",
       },
       rating: {
-        label: "Note minimum",
-        all: "Toutes les notes",
+        label: "Note Minimale",
+        all: "Toutes les Notes",
       },
     },
     list: {
       goldenParadise: {
-        name: "Paradis Doré",
         breed: "Golden Retriever",
+        country: "États-Unis",
       },
       royalPaws: {
-        name: "Pattes Royales",
-        breed: "British Shorthair",
+        breed: "Labrador",
+        country: "Royaume-Uni",
       },
       eliteGermanShepherds: {
-        name: "Bergers Allemands d'Élite",
         breed: "Berger Allemand",
+        country: "Allemagne",
       },
       siberianStars: {
-        name: "Étoiles Sibériennes",
         breed: "Husky Sibérien",
+        country: "Russie",
       },
       // Chats
       persianPalace: {

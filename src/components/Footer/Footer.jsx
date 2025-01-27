@@ -1,6 +1,7 @@
 import { useTranslatedContent } from "../../redux/hooks/useTranslatedContent";
 import styles from "./Footer.module.css";
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const { t } = useTranslatedContent();
@@ -13,6 +14,9 @@ const Footer = () => {
           <div className={styles.section}>
             <h3>{t("footer.mission.title")}</h3>
             <p>{t("footer.mission.description")}</p>
+            <Link to="/about" className={styles.missionLink}>
+              {t("footer.mission.readMore")}
+            </Link>
             <div className={styles.socialLinks}>
               <a
                 href="https://facebook.com"
@@ -42,18 +46,20 @@ const Footer = () => {
             <h3>{t("footer.quickLinks.title")}</h3>
             <ul>
               <li>
-                <a href="/animals">{t("footer.quickLinks.animals")}</a>
+                <Link to="/animals">{t("footer.quickLinks.animals")}</Link>
               </li>
               <li>
-                <a href="/how-to-adopt">{t("footer.quickLinks.howToAdopt")}</a>
+                <Link to="/how-to-adopt">
+                  {t("footer.quickLinks.howToAdopt")}
+                </Link>
               </li>
               <li>
-                <a href="/success-stories">
+                <Link to="/success-stories">
                   {t("footer.quickLinks.successStories")}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/volunteer">{t("footer.quickLinks.volunteer")}</a>
+                <Link to="/volunteer">{t("footer.quickLinks.volunteer")}</Link>
               </li>
             </ul>
           </div>

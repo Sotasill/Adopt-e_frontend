@@ -1,23 +1,33 @@
 const ukrTranslation = {
   // Загальні
   welcome: {
-    title: "Ласкаво просимо до світу домашніх улюбленців!",
-    subtitle:
-      "Знайдіть свого ідеального вихованця за допомогою перевірених заводчиків",
+    title: "Ласкаво просимо до світу домашніх тварин!",
+    subtitle: "Знайдіть свого ідеального улюбленця у перевірених заводчиків",
   },
   login: "Увійти",
   register: "Зареєструватися",
   logout: "Вийти",
 
   // Навігація
-  home: "Головна",
-  animals: "Тварини",
-  gallery: "Галерея",
-  about: "Про нас",
-  ourMission: "Наша місія",
-  breeders: "Заводчики",
-  findBreeder: "Знайти заводчика",
-  findYourPet: "Знайти улюбленця",
+  navigation: {
+    home: "Головна",
+    animals: "Тварини",
+    gallery: "Галерея",
+    about: "Про нас",
+    ourMission: "Наша місія",
+    breeders: "Заводчики",
+    findBreeder: "Знайти заводчика",
+    findYourPet: "Знайти улюбленця",
+    breeds: "Породи тварин",
+  },
+
+  // Породи
+  breeds: {
+    title: "Породи тварин",
+    dogs: "Собаки",
+    cats: "Коти",
+    searchPlaceholder: "Пошук порід...",
+  },
 
   // Форма тварини
   addAnimal: "Додати тварину",
@@ -25,7 +35,7 @@ const ukrTranslation = {
   age: "Вік",
   breed: "Порода",
   description: "Опис",
-  submit: "Надіслати",
+  submit: "Відправити",
 
   // Статуси
   success: "Успішно",
@@ -46,9 +56,10 @@ const ukrTranslation = {
   // Футер
   footer: {
     mission: {
-      title: "Наша місія",
+      title: "Наша Місія",
       description:
         "Ми допомагаємо тваринам знайти люблячий дім та дбайливих господарів. Кожна тварина заслуговує на щасливе життя.",
+      readMore: "Дізнатися більше про нашу місію",
     },
     quickLinks: {
       title: "Швидкі посилання",
@@ -60,7 +71,7 @@ const ukrTranslation = {
     contact: {
       title: "Контакти",
       shelter: "Притулок",
-      address: "вул. Приклaдна, 123, Київ",
+      address: "вул. Приклад, 123, Київ",
       email: "info@adopt-e.ua",
       phone: "+380 (99) 123-45-67",
       phoneLabel: "Телефон",
@@ -75,6 +86,8 @@ const ukrTranslation = {
     title: "Знайдіть свого заводчика",
     rating: "Рейтинг",
     outOf: "з",
+    viewMore: "Показати більше",
+    viewMoreText: "Дивитись усіх заводчиків",
     petTypes: {
       dogs: "Собаки",
       cats: "Коти",
@@ -105,23 +118,24 @@ const ukrTranslation = {
       },
     },
     list: {
+      // Собаки
       goldenParadise: {
-        name: "Золотий Рай",
         breed: "Золотистий ретривер",
+        country: "США",
       },
       royalPaws: {
-        name: "Королівські Лапки",
-        breed: "Британська короткошерста",
+        breed: "Лабрадор",
+        country: "Велика Британія",
       },
       eliteGermanShepherds: {
-        name: "Елітні Німецькі Вівчарки",
         breed: "Німецька вівчарка",
+        country: "Німеччина",
       },
       siberianStars: {
-        name: "Сибірські Зірки",
         breed: "Сибірський хаскі",
+        country: "Росія",
       },
-      // Кошки
+      // Коти
       persianPalace: {
         breed: "Перська кішка",
       },
@@ -177,5 +191,10 @@ const ukrTranslation = {
     findBreeder: "Знайти заводчика",
   },
 };
+
+console.log("Ukrainian translations loaded:", {
+  navigationBreeds: ukrTranslation.navigation?.breeds,
+  breedsTitle: ukrTranslation.breeds?.title,
+});
 
 export default ukrTranslation;
