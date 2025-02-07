@@ -17,12 +17,7 @@ import BreedersPage from "../../pages/BreedersPage/BreedersPage";
 import AboutPage from "../../pages/AboutPage/AboutPage";
 import BreedsListPage from "../../pages/BreedsListPage/BreedsListPage";
 import BreedPage from "../../pages/BreedPage/BreedPage";
-
-// Определяем разрешенные маршруты для каждой роли
-const ROLE_ROUTES = {
-  user: ["/mainusersystem"],
-  breeder: ["/mainbcs"],
-};
+import styles from "./App.module.css";
 
 const PublicRoute = ({ children }) => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
@@ -65,85 +60,89 @@ const App = () => {
 
   return (
     <AuthProvider>
-      <Layout>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <PublicRoute>
-                <HomePage />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              <PublicRoute>
-                <RegistrationPage />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <PublicRoute>
-                <LoginPage />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/mainbcs/*"
-            element={
-              <ProtectedRoute allowedRoles={["breeder", "Breeder", "BREEDER"]}>
-                <MainBCS />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/mainusersystem/*"
-            element={
-              <ProtectedRoute allowedRoles={["user", "User", "USER"]}>
-                <MainUserSystem />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/animals/:id" element={<AnimalDetails />} />
-          <Route
-            path="/kennels"
-            element={
-              <PublicRoute>
-                <BreedersPage />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/breeds"
-            element={
-              <PublicRoute>
-                <BreedsListPage />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/breeds/:type/:breedId"
-            element={
-              <PublicRoute>
-                <BreedPage />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/about"
-            element={
-              <PublicRoute>
-                <AboutPage />
-              </PublicRoute>
-            }
-          />
-          {/* Перенаправляем все неизвестные маршруты на домашнюю страницу */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-        <Toaster position="top-right" richColors />
+      <Layout className={styles.root}>
+        <main className={styles.main}>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <PublicRoute>
+                  <HomePage />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                <PublicRoute>
+                  <RegistrationPage />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <PublicRoute>
+                  <LoginPage />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/mainbcs/*"
+              element={
+                <ProtectedRoute
+                  allowedRoles={["breeder", "Breeder", "BREEDER"]}
+                >
+                  <MainBCS />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/mainusersystem/*"
+              element={
+                <ProtectedRoute allowedRoles={["user", "User", "USER"]}>
+                  <MainUserSystem />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/animals/:id" element={<AnimalDetails />} />
+            <Route
+              path="/kennels"
+              element={
+                <PublicRoute>
+                  <BreedersPage />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/breeds"
+              element={
+                <PublicRoute>
+                  <BreedsListPage />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/breeds/:type/:breedId"
+              element={
+                <PublicRoute>
+                  <BreedPage />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/about"
+              element={
+                <PublicRoute>
+                  <AboutPage />
+                </PublicRoute>
+              }
+            />
+            {/* Перенаправляем все неизвестные маршруты на домашнюю страницу */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+          <Toaster position="top-right" richColors />
+        </main>
       </Layout>
     </AuthProvider>
   );

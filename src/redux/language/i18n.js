@@ -1,10 +1,10 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import enTranslation from "./redux/language/translation/en";
-import rusTranslation from "./redux/language/translation/rus";
-import ukrTranslation from "./redux/language/translation/ukr";
-import deuTranslation from "./redux/language/translation/deu";
-import frTranslation from "./redux/language/translation/fr";
+import enTranslation from "./translation/en";
+import rusTranslation from "./translation/rus";
+import ukrTranslation from "./translation/ukr";
+import deuTranslation from "./translation/deu";
+import frTranslation from "./translation/fr";
 
 const resources = {
   rus: {

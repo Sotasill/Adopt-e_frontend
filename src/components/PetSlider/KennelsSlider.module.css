@@ -1,0 +1,781 @@
+/* Секция питомников */
+.kennelsSection {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  background: #f8f9fa;
+  scroll-margin-top: 80px; /* Отступ для якоря */
+}
+
+.kennelsSectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 0 10px;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  background: linear-gradient(90deg, #2c3e50, #3498db);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sectionTitle:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(90deg, #3498db, #2c3e50);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sectionTitle::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #3498db, #2c3e50);
+  transition: width 0.3s ease;
+}
+
+.sectionTitle:hover::after {
+  width: 100%;
+}
+
+/* Переключатель типа животных */
+.petTypeSwitch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.switchContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  background: #ffffff;
+  border-radius: 25px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.petTypeOption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  transition: all 0.3s ease;
+}
+
+.petIcon {
+  font-size: 22px;
+  color: #bdc3c7;
+  transition: all 0.3s ease;
+}
+
+.petIcon.active {
+  color: #3498db;
+  transform: scale(1.1);
+}
+
+.petLabel {
+  font-size: 12px;
+  color: #bdc3c7;
+  transition: all 0.3s ease;
+  text-align: center;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.petLabel.active {
+  color: #3498db;
+}
+
+/* Стили для Material-UI Switch */
+.petTypeSwitch :global(.MuiSwitch-root) {
+  width: 42px;
+  height: 26px;
+  padding: 0;
+  margin: 0 4px;
+}
+
+.petTypeSwitch :global(.MuiSwitch-switchBase) {
+  padding: 0;
+  margin: 2px;
+}
+
+.petTypeSwitch :global(.MuiSwitch-thumb) {
+  width: 22px;
+  height: 22px;
+  background-color: #3498db;
+}
+
+.petTypeSwitch :global(.MuiSwitch-track) {
+  background-color: #bdc3c7 !important;
+  opacity: 1 !important;
+  border-radius: 20px;
+}
+
+/* Слайдер */
+.kennelsSlider {
+  position: relative;
+  width: 95%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 10px 0;
+  min-height: 460px; /* Добавляем минимальную высоту */
+}
+
+.swiper {
+  padding: 20px 10px !important;
+}
+
+/* Стили для навигации Swiper */
+.kennelsSlider :global(.swiper-button-next),
+.kennelsSlider :global(.swiper-button-prev) {
+  color: #3498db;
+  background: #ffffff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s ease;
+  margin-top: -30px;
+}
+
+.kennelsSlider :global(.swiper-button-next:hover),
+.kennelsSlider :global(.swiper-button-prev:hover) {
+  background: #3498db;
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(52, 152, 219, 0.3);
+}
+
+.kennelsSlider :global(.swiper-button-next::after),
+.kennelsSlider :global(.swiper-button-prev::after) {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.kennelsSlider :global(.swiper-button-disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #ecf0f1;
+  color: #95a5a6;
+}
+
+/* Карточка питомника */
+.kennelCard {
+  flex: 0 0 auto;
+  width: 200px;
+  min-height: 340px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  padding: 14px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  margin: 10px 5px;
+}
+
+.kennelCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(52, 152, 219, 0.2);
+}
+
+.kennelLogo {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  margin: 0 auto;
+  object-fit: cover;
+  border: 3px solid #3498db;
+  transition: all 0.4s ease;
+  box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+}
+
+.kennelCard:hover .kennelLogo {
+  transform: scale(1.08);
+  border-color: #2980b9;
+}
+
+.kennelInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+  margin-top: 16px;
+}
+
+.kennelNameBreed {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.kennelName {
+  font-size: 1.1rem;
+  color: #2c3e50;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.kennelBreed {
+  font-size: 1rem;
+  color: #7f8c8d;
+  margin: 0;
+  font-weight: 500;
+}
+
+.countryContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 8px 0;
+  padding: 4px 12px;
+  background: #f8f9fa;
+  border-radius: 20px;
+  width: fit-content;
+  margin: 4px auto;
+}
+
+.kennelCountry {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  margin: 0;
+  font-weight: 500;
+}
+
+.countryFlag {
+  width: 24px;
+  height: 16px;
+  object-fit: cover;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Рейтинг */
+.ratingContainer {
+  margin: 12px 0;
+  padding: 0 8px;
+}
+
+.ratingBar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: #f8f9fa;
+  border-radius: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.ratingProgress {
+  flex-grow: 1;
+  height: 10px !important;
+}
+
+.ratingProgress :global(.MuiLinearProgress-root) {
+  height: 10px;
+  border-radius: 5px;
+  background-color: #ecf0f1;
+}
+
+.ratingProgress :global(.MuiLinearProgress-bar) {
+  background: linear-gradient(45deg, #f1c40f, #f39c12);
+}
+
+.ratingValue {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2c3e50;
+  min-width: 36px;
+  text-align: center;
+  background: #ffffff;
+  padding: 4px 8px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Социальные иконки */
+.socialIcons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: auto;
+  padding: 12px 0;
+}
+
+.socialIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #2c3e50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: all 0.4s ease;
+  border: 2px solid #eaeaea;
+  cursor: pointer;
+}
+
+.socialIcon:hover {
+  transform: translateY(-4px) scale(1.15);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.socialIcon.facebook:hover {
+  background: #1877f2;
+  border-color: #1877f2;
+  color: white;
+}
+
+.socialIcon.instagram:hover {
+  background: linear-gradient(
+    45deg,
+    #405de6,
+    #5851db,
+    #833ab4,
+    #c13584,
+    #e1306c,
+    #fd1d1d
+  );
+  border-color: #c13584;
+  color: white;
+}
+
+.socialIcon.youtube:hover {
+  background: #ff0000;
+  border-color: #ff0000;
+  color: white;
+}
+
+.socialIcon.twitter:hover {
+  background: #1da1f2;
+  border-color: #1da1f2;
+  color: white;
+}
+
+/* Состояния загрузки и ошибки */
+.loading,
+.error {
+  text-align: center;
+  padding: 20px;
+  font-size: 1.1rem;
+  color: #2c3e50;
+  min-height: 400px; /* Минимальная высота для состояния загрузки */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  border-radius: 20px;
+  margin: 10px 0;
+}
+
+.loading {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+.error {
+  color: #e74c3c;
+}
+
+/* Адаптивность */
+@media (min-width: 1200px) {
+  .kennelCard {
+    width: 200px;
+    padding: 14px;
+    gap: 8px;
+  }
+
+  .kennelLogo {
+    width: 90px;
+    height: 90px;
+  }
+
+  .kennelName {
+    font-size: 1.1rem;
+  }
+}
+
+@media (min-width: 760px) and (max-width: 1199px) {
+  .kennelCard {
+    width: 190px;
+    padding: 14px;
+  }
+
+  .kennelLogo {
+    width: 85px;
+    height: 85px;
+  }
+
+  .kennelName {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 759px) {
+  .kennelCard {
+    width: 260px;
+    max-width: 260px;
+    min-height: 380px;
+    padding: 16px;
+  }
+
+  .kennelLogo {
+    width: 110px;
+    height: 110px;
+  }
+
+  .kennelName {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .kennelCard {
+    width: calc(100vw - 120px);
+  }
+  .kennelsSection {
+    padding: 40px 10px;
+  }
+  .sliderButton {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .kennelsSectionHeader {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+
+  .sectionTitle {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .sectionTitle::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* Анимации */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Кнопки навигации */
+.sliderButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+  color: #2c3e50;
+}
+
+.sliderButton:first-of-type {
+  left: 0;
+}
+
+.sliderButton:last-of-type {
+  right: 0;
+}
+
+.sliderButton:hover:not(:disabled) {
+  background: #3498db;
+  color: white;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 16px rgba(52, 152, 219, 0.3);
+}
+
+.sliderButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #ecf0f1;
+}
+
+/* Карточка "Показать больше" */
+.moreKennelsCard {
+  background: linear-gradient(rgba(52, 152, 219, 0.9), rgba(41, 128, 185, 0.9)),
+    url("/images/dogbreeder/1737587764298.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  min-height: 380px;
+  cursor: default;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.moreKennelsContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 30px;
+  position: relative;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  backdrop-filter: blur(2px);
+}
+
+.moreKennelsIcon {
+  width: 70px;
+  height: 70px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  transition: all 0.4s ease;
+}
+
+.moreKennelsCard:hover .moreKennelsIcon {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.moreKennelsTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.moreKennelsText {
+  font-size: 1.1rem;
+  opacity: 0.95;
+  margin: 0;
+  line-height: 1.6;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.moreKennelsButton {
+  margin-top: 30px;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+  color: #2c3e50;
+}
+
+.moreKennelsButton:hover {
+  background: #ffffff;
+  color: #3498db;
+  transform: scale(1.15);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.moreKennelsButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+}
+
+/* Swiper специфичные стили */
+.kennelsSlider :global(.swiper-slide) {
+  height: auto;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}
+/* Режим списка */
+:global(.list) .kennelCard {
+  width: 100%;
+  max-width: 100%;
+  min-height: unset;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px 20px;
+  margin: 0;
+  gap: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+:global(.list) .kennelCard:hover {
+  transform: none;
+  background-color: #f8f9fa;
+}
+
+:global(.list) .kennelLogo {
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  margin: 0;
+  border-width: 2px;
+}
+
+:global(.list) .kennelInfo {
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+  margin: 0;
+  gap: 32px;
+}
+
+:global(.list) .kennelNameBreed {
+  width: 250px;
+  min-width: 250px;
+}
+
+:global(.list) .kennelName {
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+:global(.list) .kennelBreed {
+  font-size: 0.9rem;
+}
+
+:global(.list) .countryContainer {
+  margin: 0;
+  min-width: 120px;
+  background: none;
+  padding: 0;
+}
+
+:global(.list) .ratingContainer {
+  width: 180px;
+  min-width: 180px;
+  margin: 0;
+}
+
+:global(.list) .socialIcons {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  gap: 12px;
+  min-width: 140px;
+}
+
+:global(.list) .socialIcon {
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+}
+
+@media (max-width: 960px) {
+  :global(.list) .kennelCard {
+    padding: 12px;
+    gap: 16px;
+  }
+
+  :global(.list) .kennelInfo {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  :global(.list) .kennelNameBreed {
+    width: calc(100% - 76px);
+    min-width: unset;
+  }
+
+  :global(.list) .countryContainer,
+  :global(.list) .ratingContainer {
+    min-width: unset;
+    width: auto;
+  }
+}
+
+@media (max-width: 540px) {
+  :global(.list) .kennelCard {
+    flex-wrap: wrap;
+    padding: 12px;
+    gap: 12px;
+  }
+
+  :global(.list) .kennelLogo {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+  }
+
+  :global(.list) .kennelInfo {
+    width: calc(100% - 60px);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  :global(.list) .socialIcons {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
