@@ -183,6 +183,17 @@ const deuTranslation = {
       "Wir helfen Ihnen, einen treuen Freund unter Tausenden von Tieren zu finden, die auf ihr neues Zuhause warten",
     findBreeder: "Züchter finden",
   },
+
+  // Haustiere Sektion
+  pets: {
+    findYourPet: "Finde dein Haustier",
+    viewMore: "Mehr anzeigen",
+    viewMoreText: "Alle verfügbaren Haustiere ansehen",
+    age: "{{age}} Jahre",
+    price: "{{price}} €",
+    rating: "Bewertung",
+    outOf: "von",
+  },
 };
 
 export default deuTranslation;

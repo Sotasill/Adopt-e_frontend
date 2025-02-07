@@ -184,6 +184,17 @@ const enTranslation = {
       "We'll help you find a loyal friend among thousands of animals waiting for their new home",
     findBreeder: "Find a Breeder",
   },
+
+  // Pets section
+  pets: {
+    findYourPet: "Find Your Pet",
+    viewMore: "View More",
+    viewMoreText: "See all available pets",
+    age: "{{age}} years",
+    price: "{{price}} €",
+    rating: "Rating",
+    outOf: "out of",
+  },
 };
 
 export default enTranslation;

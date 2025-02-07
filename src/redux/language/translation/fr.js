@@ -184,6 +184,17 @@ const frTranslation = {
       "Nous vous aiderons à trouver un ami fidèle parmi des milliers d'animaux qui attendent leur nouveau foyer",
     findBreeder: "Trouver un Éleveur",
   },
+
+  // Section animaux
+  pets: {
+    findYourPet: "Trouvez votre animal",
+    viewMore: "Voir plus",
+    viewMoreText: "Voir tous les animaux disponibles",
+    age: "{{age}} ans",
+    price: "{{price}} €",
+    rating: "Note",
+    outOf: "sur",
+  },
 };
 
 export default frTranslation;

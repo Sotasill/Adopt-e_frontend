@@ -1,5 +1,6 @@
 import { useTranslatedContent } from "../../redux/hooks/useTranslatedContent";
 import KennelsSlider from "../../components/KennelsSlider/KennelsSlider";
+import PetSlider from "../../components/PetSlider/PetSlider";
 
 import Hero from "../../components/Hero/Hero";
 import PromoBanners from "../../components/PromoBanners/PromoBanners";
@@ -36,10 +37,11 @@ const HomePage = () => {
       <div className={styles.mainContainer}>
         <PromoBanners />
         <KennelsSlider />
-        <KennelsSlider />
+        <PetSlider />
         <KennelsSlider />
       </div>
     </div>
+
   );
 };
 

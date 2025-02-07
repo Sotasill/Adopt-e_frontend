@@ -18,27 +18,30 @@ const ViewControls = ({
   onSortChange,
   showPetSwitch = true,
   showSort = true,
+  hideSearch = false,
 }) => {
   const { translate } = useTranslations();
 
   return (
     <div className={styles.viewControls}>
-      <div className={styles.controlsLeft}>
-        <TextField
-          fullWidth
-          placeholder={translate("search.placeholder")}
-          value={searchValue}
-          onChange={(e) => onSearchChange?.(e.target.value)}
-          className={styles.searchField}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-      </div>
+      {!hideSearch && (
+        <div className={styles.controlsLeft}>
+          <TextField
+            fullWidth
+            placeholder={translate("search.placeholder")}
+            value={searchValue}
+            onChange={(e) => onSearchChange?.(e.target.value)}
+            className={styles.searchField}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </div>
+      )}
 
       <div className={styles.controlsRight}>
         {showPetSwitch && (

@@ -192,6 +192,17 @@ const ukrTranslation = {
       "Ми допоможемо вам знайти вірного друга серед тисяч тварин, які чекають на свій новий дім",
     findBreeder: "Знайти заводчика",
   },
+
+  // Секція улюбленців
+  pets: {
+    findYourPet: "Знайди свого улюбленця",
+    viewMore: "Показати більше",
+    viewMoreText: "Переглянути всіх доступних улюбленців",
+    age: "{{age}} років",
+    price: "{{price}} ₴",
+    rating: "Рейтинг",
+    outOf: "з",
+  },
 };
 
 console.log("Ukrainian translations loaded:", {

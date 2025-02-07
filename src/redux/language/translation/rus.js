@@ -187,6 +187,17 @@ const ruTranslation = {
       "Мы поможем вам найти верного друга среди тысяч животных, ждущих своего нового дома",
     findBreeder: "Найти заводчика",
   },
+
+  // Секция питомцев
+  pets: {
+    findYourPet: "Найди своего питомца",
+    viewMore: "Показать больше",
+    viewMoreText: "Посмотреть всех доступных питомцев",
+    age: "{{age}} лет",
+    price: "{{price}} ₽",
+    rating: "Рейтинг",
+    outOf: "из",
+  },
 };
 
 export default ruTranslation;
