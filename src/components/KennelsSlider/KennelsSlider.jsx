@@ -1,11 +1,16 @@
-import { memo } from "react";
+import { memo, useState, useMemo, useEffect } from "react";
 import { useTranslatedContent } from "../../redux/hooks/useTranslatedContent";
 import { FaDog, FaCat } from "react-icons/fa6";
 import { Switch, FormControlLabel } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { togglePetType, selectPetType } from "../../redux/petType/petTypeSlice";
+import {
+  togglePetType,
+  selectPetType,
+  setPetType,
+} from "../../redux/petType/petTypeSlice";
 import KennelsContent from "./KennelsContent";
+import ViewControls from "../ViewControls/ViewControls";
 import styles from "./KennelsSlider.module.css";
 
 // Моковые данные для питомников
@@ -274,7 +279,24 @@ const KennelsSlider = () => {
   const dispatch = useDispatch();
   const petType = useSelector(selectPetType);
 
-  // Подготавливаем данные с карточкой "Показать больше"
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc");
+
+  // Восстанавливаем тип животного из localStorage при монтировании
+  useEffect(() => {
+    const savedPetType = localStorage.getItem("petType");
+    if (savedPetType && savedPetType !== petType) {
+      dispatch(setPetType(savedPetType));
+    }
+  }, []);
+
+  const handlePetTypeChange = (type) => {
+    if (type !== petType) {
+      dispatch(togglePetType());
+      localStorage.setItem("petType", type); // Сохраняем выбор в localStorage
+    }
+  };
+
   const prepareKennelsData = (type) => {
     const kennelsData = MOCK_KENNELS[type] || [];
     const moreKennelsCard = {
@@ -286,12 +308,31 @@ const KennelsSlider = () => {
     return [...kennelsData, moreKennelsCard];
   };
 
-  // Получаем текущие данные на основе типа
-  const currentKennels = prepareKennelsData(petType);
+  const filteredAndSortedKennels = useMemo(() => {
+    let kennels = MOCK_KENNELS[petType] || [];
 
-  const handlePetTypeChange = () => {
-    dispatch(togglePetType());
-  };
+    // Применяем поиск
+    if (searchQuery) {
+      kennels = kennels.filter((kennel) =>
+        kennel.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    // Применяем сортировку
+    kennels = [...kennels].sort((a, b) => {
+      const modifier = sortOrder === "asc" ? 1 : -1;
+      return modifier * a.name.localeCompare(b.name);
+    });
+
+    // Добавляем карточку "Показать больше" в конец
+    const moreKennelsCard = {
+      id: "more-kennels",
+      isMoreKennels: true,
+      title: t("kennels.viewMore"),
+      text: t("kennels.viewMoreText"),
+    };
+    return [...kennels, moreKennelsCard];
+  }, [petType, searchQuery, sortOrder, t]);
 
   return (
     <section id="kennels-slider" className={styles.kennelsSection}>
@@ -302,55 +343,23 @@ const KennelsSlider = () => {
         >
           {t("kennels.title")}
         </h2>
-        <div className={styles.petTypeSwitch}>
-          <div className={styles.switchContainer}>
-            <div className={styles.petTypeOption}>
-              <FaDog
-                className={`${styles.petIcon} ${
-                  petType === "dogs" ? styles.active : ""
-                }`}
-              />
-              <span
-                className={`${styles.petLabel} ${
-                  petType === "dogs" ? styles.active : ""
-                }`}
-              >
-                {t("kennels.petTypes.dogs")}
-              </span>
-            </div>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={petType === "cats"}
-                  onChange={handlePetTypeChange}
-                  name="petType"
-                />
-              }
-              label=""
-            />
-            <div className={styles.petTypeOption}>
-              <FaCat
-                className={`${styles.petIcon} ${
-                  petType === "cats" ? styles.active : ""
-                }`}
-              />
-              <span
-                className={`${styles.petLabel} ${
-                  petType === "cats" ? styles.active : ""
-                }`}
-              >
-                {t("kennels.petTypes.cats")}
-              </span>
-            </div>
-          </div>
-        </div>
+
+        <ViewControls
+          searchValue={searchQuery}
+          onSearchChange={setSearchQuery}
+          petType={petType}
+          onPetTypeChange={handlePetTypeChange}
+          sortOrder={sortOrder}
+          onSortChange={setSortOrder}
+          showViewToggle={false}
+        />
       </div>
 
-      <MemoizedKennelsContent kennels={currentKennels} petType={petType} />
+      <KennelsContent kennels={filteredAndSortedKennels} />
     </section>
   );
 };
 
 const MemoizedKennelsContent = memo(KennelsContent);
 
-export default KennelsSlider;
+export default memo(KennelsSlider);
