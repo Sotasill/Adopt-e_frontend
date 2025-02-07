@@ -1,0 +1,59 @@
+.petTypeSwitch {
+  display: flex;
+  align-items: center;
+}
+
+.switchContainer {
+  display: flex;
+  align-items: center;
+  background: #f5f6f7;
+  border-radius: 15px;
+  padding: 0.35rem;
+  gap: 0.35rem;
+}
+
+.petTypeOption {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.petTypeOption.active {
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.petIcon {
+  font-size: 1.2rem;
+  color: #666;
+  transition: color 0.3s ease;
+}
+
+.petIcon.active {
+  color: #3498db;
+}
+
+.petLabel {
+  font-size: 0.9rem;
+  color: #666;
+  transition: color 0.3s ease;
+}
+
+.petLabel.active {
+  color: #3498db;
+  font-weight: 500;
+}
+
+@media (max-width: 480px) {
+  .petLabel {
+    display: none;
+  }
+
+  .petTypeOption {
+    padding: 0.25rem 0.5rem;
+  }
+}

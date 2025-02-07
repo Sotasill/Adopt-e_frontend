@@ -7,6 +7,8 @@ const ukrTranslation = {
   login: "Увійти",
   register: "Зареєструватися",
   logout: "Вийти",
+  findBreeder: "Знайти заводчика",
+  findYourPet: "Знайти улюбленця",
 
   // Навігація
   navigation: {

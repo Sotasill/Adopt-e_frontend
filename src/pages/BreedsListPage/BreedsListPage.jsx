@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
 import { TextField, IconButton, InputAdornment } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import GridViewIcon from "@mui/icons-material/GridView";
@@ -24,11 +25,18 @@ const languageMapping = {
 };
 
 const BreedsListPage = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const { translate } = useTranslations();
   const currentLanguage = useSelector(
     (state) => state.language.currentLanguage
   );
-  const [animalType, setAnimalType] = useState("dogs");
+
+  // Получаем тип животного из URL параметров
+  const searchParams = new URLSearchParams(location.search);
+  const typeFromUrl = searchParams.get("type");
+
+  const [animalType, setAnimalType] = useState(typeFromUrl || "dogs");
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState("grid");
   const [sortDirection, setSortDirection] = useState("asc");
@@ -92,6 +100,14 @@ const BreedsListPage = () => {
     setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"));
   };
 
+  // Обновляем URL при изменении типа животного
+  const handleAnimalTypeChange = (type) => {
+    setAnimalType(type);
+    const newSearchParams = new URLSearchParams(location.search);
+    newSearchParams.set("type", type);
+    navigate(`/breeds?${newSearchParams.toString()}`);
+  };
+
   return (
     <div className={commonStyles.pageContainer}>
       <div className={commonStyles.pageHeader}>
@@ -126,7 +142,7 @@ const BreedsListPage = () => {
                 className={`${commonStyles.petTypeOption} ${
                   animalType === "dogs" ? commonStyles.active : ""
                 }`}
-                onClick={() => setAnimalType("dogs")}
+                onClick={() => handleAnimalTypeChange("dogs")}
               >
                 <FaDog
                   className={`${commonStyles.petIcon} ${
@@ -145,7 +161,7 @@ const BreedsListPage = () => {
                 className={`${commonStyles.petTypeOption} ${
                   animalType === "cats" ? commonStyles.active : ""
                 }`}
-                onClick={() => setAnimalType("cats")}
+                onClick={() => handleAnimalTypeChange("cats")}
               >
                 <FaCat
                   className={`${commonStyles.petIcon} ${
@@ -203,7 +219,12 @@ const BreedsListPage = () => {
         }`}
       >
         {breeds.map((breed) => (
-          <div key={breed.id} className={styles.breedCard}>
+          <div
+            key={breed.id}
+            className={styles.breedCard}
+            onClick={() => navigate(`/breeds/${animalType}/${breed.id}`)}
+            style={{ cursor: "pointer" }}
+          >
             <img
               src={breed.image}
               alt={breed.name}

@@ -297,3 +297,89 @@
     padding: 0.5rem;
   }
 }
+
+/* 
+  Общая кнопка "Найти заводчика"
+  Используется в:
+  - Hero компонент (главная страница)
+  - BreedPage (страница породы)
+  Имеет градиентный фон с анимацией при наведении
+*/
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.findBreederButton {
+  margin-top: 2rem;
+  padding: 1rem 2rem !important;
+  font-size: 1.2rem !important;
+  color: #ffffff !important;
+  background: linear-gradient(90deg, #2c3e50, #3498db, #2c3e50) !important;
+  background-size: 200% auto !important;
+  border: none !important;
+  border-radius: 30px !important;
+  cursor: pointer;
+  transition: all 0.3s ease !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  background-position: 0% center !important;
+}
+
+/* Модификатор для кнопки на странице породы */
+.findBreederButton.large {
+  padding: 1.2rem 3rem !important;
+  font-size: 1.4rem !important;
+  min-width: 300px !important;
+}
+
+.findBreederButton:hover {
+  background-position: 100% center !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+.findBreederButton:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Адаптивные стили для кнопки */
+@media (max-width: 480px) {
+  .findBreederButton {
+    padding: 0.8rem 1.6rem !important;
+    font-size: 1rem !important;
+    margin-top: 1rem;
+  }
+
+  .findBreederButton.large {
+    padding: 1rem 2rem !important;
+    font-size: 1.2rem !important;
+    min-width: 250px !important;
+  }
+}
+
+@media (max-width: 320px) {
+  .findBreederButton {
+    padding: 0.7rem 1.4rem !important;
+    font-size: 0.9rem !important;
+    margin-top: 0.8rem;
+    width: auto;
+    max-width: 80%;
+  }
+
+  .findBreederButton.large {
+    padding: 0.8rem 1.6rem !important;
+    font-size: 1.1rem !important;
+    min-width: 200px !important;
+  }
+}

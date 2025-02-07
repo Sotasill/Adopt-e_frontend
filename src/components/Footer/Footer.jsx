@@ -46,20 +46,13 @@ const Footer = () => {
             <h3>{t("footer.quickLinks.title")}</h3>
             <ul>
               <li>
-                <Link to="/animals">{t("footer.quickLinks.animals")}</Link>
+                <Link to="/breeds">{t("breeds.title")}</Link>
               </li>
               <li>
-                <Link to="/how-to-adopt">
-                  {t("footer.quickLinks.howToAdopt")}
-                </Link>
+                <Link to="/kennels">{t("findBreeder")}</Link>
               </li>
               <li>
-                <Link to="/success-stories">
-                  {t("footer.quickLinks.successStories")}
-                </Link>
-              </li>
-              <li>
-                <Link to="/volunteer">{t("footer.quickLinks.volunteer")}</Link>
+                <Link to="/find-pet">{t("findYourPet")}</Link>
               </li>
             </ul>
           </div>

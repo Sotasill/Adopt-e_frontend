@@ -16,6 +16,7 @@ import { setLanguage } from "../../redux/language/languageSlice";
 import BreedersPage from "../../pages/BreedersPage/BreedersPage";
 import AboutPage from "../../pages/AboutPage/AboutPage";
 import BreedsListPage from "../../pages/BreedsListPage/BreedsListPage";
+import BreedPage from "../../pages/BreedPage/BreedPage";
 
 // Определяем разрешенные маршруты для каждой роли
 const ROLE_ROUTES = {
@@ -120,6 +121,14 @@ const App = () => {
             element={
               <PublicRoute>
                 <BreedsListPage />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/breeds/:type/:breedId"
+            element={
+              <PublicRoute>
+                <BreedPage />
               </PublicRoute>
             }
           />
