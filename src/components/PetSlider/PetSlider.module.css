@@ -3,7 +3,8 @@
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 0 20px;
+  margin-bottom: 40px;
   position: relative;
   overflow: hidden;
   background: #f8f9fa;
@@ -14,7 +15,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding: 0 10px;
 }
 
@@ -132,25 +133,36 @@
 /* Слайдер питомцев */
 .petsSlider {
   position: relative;
+  width: 95%;
+  max-width: 1400px;
+  margin: 0 auto;
   padding: 10px 0;
+  min-height: 460px;
 }
 
+.swiper {
+  padding: 10px 10px !important;
+}
+
+/* Стили для навигации Swiper */
 .petsSlider :global(.swiper-button-next),
 .petsSlider :global(.swiper-button-prev) {
+  color: #3498db;
+  background: #ffffff;
   width: 40px;
   height: 40px;
-  background: #ffffff;
   border-radius: 50%;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  color: #2c3e50;
-  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s ease;
+  margin-top: -30px;
 }
 
 .petsSlider :global(.swiper-button-next:hover),
 .petsSlider :global(.swiper-button-prev:hover) {
   background: #3498db;
-  color: #ffffff;
+  color: white;
   transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(52, 152, 219, 0.3);
 }
 
 .petsSlider :global(.swiper-button-next::after),
@@ -164,6 +176,13 @@
   cursor: not-allowed;
   background: #ecf0f1;
   color: #95a5a6;
+}
+
+.petsSlider :global(.swiper-slide) {
+  height: auto;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
 }
 
 /* Карточка питомца */
@@ -190,20 +209,23 @@
   box-shadow: 0 15px 30px rgba(52, 152, 219, 0.2);
 }
 
+.imageContainer {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
 .petImage {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  margin: 0 auto;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border: 3px solid #3498db;
   transition: all 0.4s ease;
-  box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
 }
 
 .petCard:hover .petImage {
   transform: scale(1.08);
-  border-color: #2980b9;
 }
 
 .petInfo {
@@ -211,7 +233,6 @@
   flex-direction: column;
   gap: 8px;
   text-align: center;
-  margin-top: 16px;
 }
 
 .petNameBreed {
@@ -429,9 +450,14 @@
     gap: 8px;
   }
 
+  .imageContainer {
+    width: 100%;
+    height: 180px;
+  }
+
   .petImage {
-    width: 90px;
-    height: 90px;
+    width: 100%;
+    height: 100%;
   }
 
   .petName {
@@ -445,9 +471,14 @@
     padding: 14px;
   }
 
+  .imageContainer {
+    width: 100%;
+    height: 180px;
+  }
+
   .petImage {
-    width: 85px;
-    height: 85px;
+    width: 100%;
+    height: 100%;
   }
 
   .petName {
@@ -463,9 +494,14 @@
     padding: 16px;
   }
 
+  .imageContainer {
+    width: 100%;
+    height: 180px;
+  }
+
   .petImage {
-    width: 110px;
-    height: 110px;
+    width: 100%;
+    height: 100%;
   }
 
   .petName {
@@ -650,14 +686,6 @@
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
 }
 
-/* Swiper специфичные стили */
-.petsSlider :global(.swiper-slide) {
-  height: auto;
-  display: flex;
-  justify-content: center;
-  padding: 10px 0;
-}
-
 /* Режим списка */
 :global(.list) .petCard {
   width: 100%;
@@ -669,20 +697,13 @@
   margin: 0;
   gap: 24px;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-:global(.list) .petCard:hover {
-  transform: none;
-  background-color: #f8f9fa;
-}
-
-:global(.list) .petImage {
-  width: 60px;
-  height: 60px;
-  min-width: 60px;
+:global(.list) .imageContainer {
+  width: 120px;
+  height: 120px;
+  min-width: 120px;
   margin: 0;
-  border-width: 2px;
 }
 
 :global(.list) .petInfo {
@@ -782,4 +803,30 @@
     width: 100%;
     justify-content: flex-start;
   }
+}
+
+.contactButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 8px;
+}
+
+.contactButton:hover {
+  background: #2980b9;
+  transform: scale(1.05);
+}
+
+.phoneIcon {
+  font-size: 1rem;
 }

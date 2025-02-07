@@ -1,25 +1,65 @@
 import { useTranslatedContent } from "../../redux/hooks/useTranslatedContent";
-import { Tooltip, LinearProgress } from "@mui/material";
-import { FaMars, FaVenus } from "react-icons/fa6";
+import { FaMars, FaVenus, FaUser } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import styles from "./PetSlider.module.css";
+import catBreeds from "../../redux/language/dictionaries/cats.json";
+import dogBreeds from "../../redux/language/dictionaries/dogs.json";
 
 const PetCard = ({ pet }) => {
   const { t } = useTranslatedContent();
+  const navigate = useNavigate();
+
+  const getBreedName = (breedKey, petType) => {
+    try {
+      const breedsData = petType === "cats" ? catBreeds : dogBreeds;
+      const breedData = breedsData[breedKey];
+
+      if (!breedData) {
+        console.warn(`No breed data found for key: ${breedKey}`);
+        return breedKey;
+      }
+
+      // Пробуем получить перевод на русском, если нет - на английском
+      return breedData.ru || breedData.en || breedKey;
+    } catch (error) {
+      console.error("Error getting breed name:", error);
+      return breedKey;
+    }
+  };
+
+  const getAgeText = (months) => {
+    const years = Math.floor(months / 12);
+    const remainingMonths = months % 12;
+
+    if (years > 0 && remainingMonths > 0) {
+      return t("pets.ageYearsAndMonths", { years, months: remainingMonths });
+    } else if (years > 0) {
+      return t("pets.ageYears", { years });
+    } else {
+      return t("pets.ageMonths", { months: remainingMonths });
+    }
+  };
+
+  const handleBreederClick = () => {
+    navigate(`/breeder/${pet.breederId}`);
+  };
 
   return (
     <div className={styles.petCard}>
-      <img src={pet.image} alt={pet.name} className={styles.petImage} />
+      <div className={styles.imageContainer}>
+        <img src={pet.image} alt={pet.name} className={styles.petImage} />
+      </div>
       <div className={styles.petInfo}>
         <div className={styles.petNameBreed}>
           <h3 className={styles.petName}>{pet.name}</h3>
-          <p className={styles.petBreed}>{t(pet.breedKey)}</p>
+          <p className={styles.petBreed}>
+            {getBreedName(pet.breedKey, pet.type)}
+          </p>
         </div>
         <div className={styles.petDetails}>
           <div className={styles.ageGender}>
-            <span className={styles.age}>
-              {t("pets.age", { age: pet.age })}
-            </span>
+            <span className={styles.age}>{getAgeText(pet.ageInMonths)}</span>
             <span className={styles.gender}>
               {pet.gender === "male" ? (
                 <FaMars className={styles.maleIcon} />
@@ -32,21 +72,10 @@ const PetCard = ({ pet }) => {
             {t("pets.price", { price: pet.price })}
           </div>
         </div>
-        <div className={styles.ratingContainer}>
-          <Tooltip
-            title={`${t("pets.rating")} ${pet.rating} ${t("pets.outOf")} 5`}
-            placement="top"
-          >
-            <div className={styles.ratingBar}>
-              <LinearProgress
-                variant="determinate"
-                value={(pet.rating / 5) * 100}
-                className={styles.ratingProgress}
-              />
-              <span className={styles.ratingValue}>{pet.rating}</span>
-            </div>
-          </Tooltip>
-        </div>
+        <button className={styles.contactButton} onClick={handleBreederClick}>
+          <FaUser className={styles.breederIcon} />
+          {t("pets.viewBreeder")}
+        </button>
       </div>
     </div>
   );
@@ -58,10 +87,11 @@ PetCard.propTypes = {
     name: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
     breedKey: PropTypes.string.isRequired,
-    age: PropTypes.number.isRequired,
+    type: PropTypes.oneOf(["cats", "dogs"]).isRequired,
+    ageInMonths: PropTypes.number.isRequired,
     gender: PropTypes.oneOf(["male", "female"]).isRequired,
     price: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
+    breederId: PropTypes.string.isRequired,
   }).isRequired,
 };
 

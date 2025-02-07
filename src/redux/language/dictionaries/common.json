@@ -72,5 +72,42 @@
       "register": "S'inscrire",
       "login": "Se connecter"
     }
+  },
+  "pets": {
+    "contactBreeder": {
+      "en": "Contact Breeder",
+      "ru": "Связаться с заводчиком",
+      "uk": "Зв'язатися з заводчиком",
+      "fr": "Contacter l'éleveur",
+      "de": "Züchter kontaktieren"
+    },
+    "viewBreeder": {
+      "en": "View Breeder",
+      "ru": "Посмотреть заводчика",
+      "uk": "Переглянути заводчика",
+      "fr": "Voir l'éleveur",
+      "de": "Züchter ansehen"
+    },
+    "ageMonths": {
+      "en": "{{months}} months",
+      "ru": "{{months}} мес.",
+      "uk": "{{months}} міс.",
+      "fr": "{{months}} mois",
+      "de": "{{months}} Monate"
+    },
+    "ageYears": {
+      "en": "{{years}} years",
+      "ru": "{{years}} г.",
+      "uk": "{{years}} р.",
+      "fr": "{{years}} ans",
+      "de": "{{years}} Jahre"
+    },
+    "ageYearsAndMonths": {
+      "en": "{{years}}y {{months}}m",
+      "ru": "{{years}} г. {{months}} мес.",
+      "uk": "{{years}} р. {{months}} міс.",
+      "fr": "{{years}} ans {{months}} mois",
+      "de": "{{years}}J {{months}}M"
+    }
   }
 }
