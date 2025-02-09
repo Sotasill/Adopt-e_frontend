@@ -14,9 +14,11 @@ const ProductCard = ({
   image,
   category,
   price,
+  oldPrice,
   description,
   city,
   country,
+  badges = [],
 }) => {
   const { t } = useTranslatedContent();
   const navigate = useNavigate();
@@ -24,6 +26,27 @@ const ProductCard = ({
     (state) => state.language.currentLanguage
   );
   const productType = useSelector((state) => state.productType.productType);
+
+  // Вычисляем процент скидки если есть старая цена
+  const discount = oldPrice
+    ? Math.round(((oldPrice - price) / oldPrice) * 100)
+    : 0;
+
+  // Добавляем бейдж скидки автоматически, если есть старая цена
+  const allBadges = [
+    ...(oldPrice
+      ? [
+          {
+            type: "discount",
+            text: t("badges.discount", { percent: discount }),
+          },
+        ]
+      : []),
+    ...badges.map((badge) => ({
+      type: badge.type.toLowerCase(),
+      text: t(`badges.${badge.type.toLowerCase()}`),
+    })),
+  ];
 
   const getCountryInfo = (countryName) => {
     const countryKey = Object.keys(countries).find(
@@ -67,6 +90,22 @@ const ProductCard = ({
     <div className={styles.productCard}>
       <div className={styles.imageContainer}>
         <img src={image} alt={name} className={styles.productImage} />
+        <div className={styles.badges}>
+          {allBadges.map((badge, index) => (
+            <span
+              key={index}
+              className={`${styles.badge} ${
+                styles[
+                  `badge${badge.type.charAt(0).toUpperCase()}${badge.type.slice(
+                    1
+                  )}`
+                ]
+              }`}
+            >
+              {badge.text}
+            </span>
+          ))}
+        </div>
       </div>
       <div className={styles.productInfo}>
         <div className={styles.productNameBreed}>
@@ -90,7 +129,17 @@ const ProductCard = ({
             </div>
           </div>
           <div className={styles.price}>
-            {t(`${productType}.price`, { price })}
+            {oldPrice && (
+              <span className={styles.priceOld}>
+                {t(`${productType}.price`, { price: oldPrice })}
+              </span>
+            )}
+            <span className={oldPrice ? styles.priceNew : ""}>
+              {t(`${productType}.price`, { price })}
+            </span>
+            {oldPrice && (
+              <span className={styles.priceDiscount}>Экономия {discount}%</span>
+            )}
           </div>
         </div>
         <button
@@ -111,9 +160,16 @@ ProductCard.propTypes = {
   image: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
+  oldPrice: PropTypes.number,
   description: PropTypes.string,
   city: PropTypes.string.isRequired,
   country: PropTypes.string.isRequired,
+  badges: PropTypes.arrayOf(
+    PropTypes.shape({
+      type: PropTypes.oneOf(["Top", "Discount", "New"]).isRequired,
+      text: PropTypes.string.isRequired,
+    })
+  ),
 };
 
 export default ProductCard;

@@ -56,7 +56,11 @@ const ProductContent = ({ products }) => {
                 image={product.image}
                 category={product.category}
                 price={product.price}
+                oldPrice={product.oldPrice}
                 description={product.description}
+                city={product.city}
+                country={product.country}
+                badges={product.badges}
               />
             )}
           </SwiperSlide>

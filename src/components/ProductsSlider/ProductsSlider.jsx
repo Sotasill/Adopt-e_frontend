@@ -19,8 +19,11 @@ const MOCK_ITEMS = {
       image: "/images/default/petfood1.webp",
       category: "food",
       price: 2500,
-      city: "Москва",
-      country: "Россия",
+      oldPrice: 3300,
+      city: "New York",
+      country: "USA",
+      badges: [{ type: "Top", text: "Хит продаж" }],
+
     },
     {
       id: 2,
@@ -28,8 +31,10 @@ const MOCK_ITEMS = {
       image: "/images/default/petproduct3.webp",
       category: "toys",
       price: 350,
-      city: "Санкт-Петербург",
-      country: "Россия",
+      city: "Kiev",
+      country: "Ukraine",
+      badges: [{ type: "New", text: "New" }],
+
     },
     {
       id: 3,
@@ -37,8 +42,10 @@ const MOCK_ITEMS = {
       image: "/images/default/petproduct1.webp",
       category: "equipment",
       price: 1200,
-      city: "Казань",
-      country: "Россия",
+      oldPrice: 1500,
+      city: "Kazan",
+      country: "Russia",
+
     },
     {
       id: 4,
@@ -46,8 +53,9 @@ const MOCK_ITEMS = {
       image: "/images/default/petproduct5.webp",
       category: "beds",
       price: 3500,
-      city: "Новосибирск",
-      country: "Россия",
+      city: "Paris",
+      country: "France",
+
     },
     {
       id: 5,
@@ -55,8 +63,10 @@ const MOCK_ITEMS = {
       image: "/images/default/petproduct2.webp",
       category: "hygiene",
       price: 450,
-      city: "Екатеринбург",
-      country: "Россия",
+      oldPrice: 650,
+      city: "Berlin",
+      country: "Germany",
+
     },
     {
       id: 6,
@@ -75,8 +85,10 @@ const MOCK_ITEMS = {
       image: "/images/default/petstore1.webp",
       category: "grooming",
       price: 2000,
+      oldPrice: 2500,
       city: "Москва",
       country: "Россия",
+      badges: [{ type: "Top", text: "Популярная услуга" }],
     },
     {
       id: 2,
@@ -93,6 +105,7 @@ const MOCK_ITEMS = {
       image: "/images/default/petstore3.webp",
       category: "boarding",
       price: 1000,
+      oldPrice: 1200,
       city: "Казань",
       country: "Россия",
     },
@@ -113,6 +126,7 @@ const MOCK_ITEMS = {
       price: 3000,
       city: "Екатеринбург",
       country: "Россия",
+      badges: [{ type: "New", text: "Новая услуга" }],
     },
     {
       id: 6,
@@ -133,6 +147,7 @@ const MOCK_ITEMS = {
       price: 1000,
       city: "Москва",
       country: "Россия",
+      badges: [{ type: "New", text: "Новый врач" }],
     },
     {
       id: 2,
@@ -140,6 +155,7 @@ const MOCK_ITEMS = {
       image: "/images/default/zoo2.webp",
       category: "vaccination",
       price: 1500,
+      oldPrice: 2000,
       city: "Санкт-Петербург",
       country: "Россия",
     },
@@ -151,6 +167,7 @@ const MOCK_ITEMS = {
       price: 2000,
       city: "Казань",
       country: "Россия",
+      badges: [{ type: "Top", text: "Лучший специалист" }],
     },
     {
       id: 4,
@@ -158,6 +175,7 @@ const MOCK_ITEMS = {
       image: "/images/default/zoo4.webp",
       category: "dental",
       price: 3000,
+      oldPrice: 3500,
       city: "Новосибирск",
       country: "Россия",
     },
@@ -167,6 +185,7 @@ const MOCK_ITEMS = {
       image: "/images/default/zoo5.webp",
       category: "surgery",
       price: 5000,
+      oldPrice: 6000,
       city: "Екатеринбург",
       country: "Россия",
     },

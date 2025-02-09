@@ -106,7 +106,7 @@
 }
 
 .productsSlider :global(.swiper-slide) {
-  height: 380px;
+  height: 420px;
   display: flex;
   justify-content: center;
   padding: 0;
@@ -148,7 +148,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 380px;
+  height: 420px;
   padding-bottom: 8px;
 }
 
@@ -164,6 +164,60 @@
   height: 180px;
   overflow: hidden;
   flex-shrink: 0;
+  border-radius: 12px 12px 0 0;
+}
+
+.badges {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 10;
+}
+
+.badge {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.badgeTop {
+  background: linear-gradient(135deg, #f1c40f, #f39c12);
+}
+
+.badgeDiscount {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+.badgeNew {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+.badgeTopService {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+.badgeNewService {
+  background: linear-gradient(135deg, #9b59b6, #8e44ad);
+}
+
+.badgeTopDoctor {
+  background: linear-gradient(135deg, #1abc9c, #16a085);
+}
+
+.badgeNewDoctor {
+  background: linear-gradient(135deg, #e67e22, #d35400);
+}
+
+.badgeSale {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
 }
 
 .productImage {
@@ -171,6 +225,7 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
+  z-index: 1;
 }
 
 .productCard:hover .productImage {
@@ -273,6 +328,33 @@
   color: #2c3e50;
   padding: 2px 0;
   margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+  height: 24px;
+}
+
+.priceNew {
+  color: #e74c3c;
+  order: 1;
+  margin-right: 8px;
+}
+
+.priceOld {
+  font-size: 14px;
+  color: #95a5a6;
+  text-decoration: line-through;
+  font-weight: normal;
+  order: 2;
+}
+
+.priceDiscount {
+  font-size: 12px;
+  color: #e74c3c;
+  font-weight: 500;
+  margin-left: auto;
+  order: 3;
 }
 
 .contactButton {
@@ -313,7 +395,7 @@
   background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
   border-radius: 12px;
   width: 100%;
-  height: 380px;
+  height: 420px;
   display: flex;
   align-items: center;
   justify-content: center;

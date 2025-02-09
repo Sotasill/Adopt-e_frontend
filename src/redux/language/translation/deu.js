@@ -252,6 +252,18 @@ const deuTranslation = {
     },
     price: "{{price}}€",
   },
+
+  // Badges (Etiketten)
+  badges: {
+    top: "Bestseller",
+    new: "Neu",
+    discount: "{{percent}}% Rabatt",
+    topService: "Beliebter Service",
+    newService: "Neuer Service",
+    topDoctor: "Top-Spezialist",
+    newDoctor: "Neuer Arzt",
+    sale: "Ausverkauf",
+  },
 };
 
 export default deuTranslation;

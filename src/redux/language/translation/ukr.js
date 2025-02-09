@@ -261,6 +261,18 @@ const ukrTranslation = {
     },
     price: "{{price}}₴",
   },
+
+  // Мітки
+  badges: {
+    top: "Хіт продажу",
+    new: "Новинка",
+    discount: "Знижка {{percent}}%",
+    topService: "Популярна послуга",
+    newService: "Нова послуга",
+    topDoctor: "Кращий спеціаліст",
+    newDoctor: "Новий лікар",
+    sale: "Розпродаж",
+  },
 };
 
 console.log("Ukrainian translations loaded:", {

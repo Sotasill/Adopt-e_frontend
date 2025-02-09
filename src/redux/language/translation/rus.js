@@ -244,8 +244,8 @@ const ruTranslation = {
   veterinary: {
     findProducts: "Найти ветеринарные услуги",
     viewMore: "Показать больше",
-    viewMoreText: "Посмотреть все ветеринарные услуги",
-    viewDetails: "Подробнее",
+    viewMoreText: "Переглянуть все ветеринарные услуги",
+    viewDetails: "Детальніше",
     categories: {
       consultation: "Консультация",
       vaccination: "Вакцинация",
@@ -254,7 +254,19 @@ const ruTranslation = {
       surgery: "Хирургия",
       tests: "Анализы",
     },
-    price: "{{price}} ₽",
+    price: "{{price}}₴",
+  },
+
+  // Метки
+  badges: {
+    top: "Хит продаж",
+    new: "Новинка",
+    discount: "Скидка {{percent}}%",
+    topService: "Популярная услуга",
+    newService: "Новая услуга",
+    topDoctor: "Лучший специалист",
+    newDoctor: "Новый врач",
+    sale: "Распродажа",
   },
 };
 

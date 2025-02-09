@@ -72,10 +72,49 @@ const PetCard = ({ pet }) => {
 
   const countryInfo = getCountryInfo(pet.country);
 
+  // Вычисляем процент скидки если есть старая цена
+  const discount = pet.oldPrice
+    ? Math.round(((pet.oldPrice - pet.price) / pet.oldPrice) * 100)
+    : 0;
+
+  // Добавляем бейдж скидки автоматически, если есть старая цена
+  const allBadges = [
+    ...(pet.oldPrice
+      ? [
+          {
+            type: "discount",
+            text: t("badges.discount", { percent: discount }),
+          },
+        ]
+      : []),
+    ...(pet.badges || []).map((badge) => ({
+      type: badge.type.toLowerCase(),
+      text: t(`badges.${badge.type.toLowerCase()}`),
+    })),
+  ];
+
   return (
     <div className={styles.petCard}>
       <div className={styles.imageContainer}>
         <img src={pet.image} alt={pet.name} className={styles.petImage} />
+        {allBadges.length > 0 && (
+          <div className={styles.badges}>
+            {allBadges.map((badge, index) => (
+              <span
+                key={index}
+                className={`${styles.badge} ${
+                  styles[
+                    `badge${badge.type
+                      .charAt(0)
+                      .toUpperCase()}${badge.type.slice(1)}`
+                  ]
+                }`}
+              >
+                {badge.text}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
       <div className={styles.petInfo}>
         <div className={styles.petNameBreed}>
@@ -106,7 +145,19 @@ const PetCard = ({ pet }) => {
             </div>
           </div>
           <div className={styles.price}>
-            {t("pets.price", { price: pet.price })}
+            {pet.oldPrice && (
+              <span className={styles.priceOld}>
+                {t("pets.price", { price: pet.oldPrice })}
+              </span>
+            )}
+            <span className={pet.oldPrice ? styles.priceNew : ""}>
+              {t("pets.price", { price: pet.price })}
+            </span>
+            {pet.oldPrice && (
+              <span className={styles.priceDiscount}>
+                {t("badges.discount", { percent: discount })}
+              </span>
+            )}
           </div>
         </div>
         <button
@@ -131,9 +182,16 @@ PetCard.propTypes = {
     ageInMonths: PropTypes.number.isRequired,
     gender: PropTypes.oneOf(["male", "female"]).isRequired,
     price: PropTypes.number.isRequired,
+    oldPrice: PropTypes.number,
     breederId: PropTypes.string.isRequired,
     city: PropTypes.string.isRequired,
     country: PropTypes.string.isRequired,
+    badges: PropTypes.arrayOf(
+      PropTypes.shape({
+        type: PropTypes.string.isRequired,
+        text: PropTypes.string.isRequired,
+      })
+    ),
   }).isRequired,
 };
 

@@ -253,6 +253,18 @@ const enTranslation = {
     },
     price: "${{price}}",
   },
+
+  // Badges
+  badges: {
+    top: "Best Seller",
+    new: "New",
+    discount: "{{percent}}% Off",
+    topService: "Popular Service",
+    newService: "New Service",
+    topDoctor: "Top Specialist",
+    newDoctor: "New Doctor",
+    sale: "Sale",
+  },
 };
 
 export default enTranslation;
