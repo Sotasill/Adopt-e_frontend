@@ -63,7 +63,7 @@ const PetContent = ({ pets = [], error, petType }) => {
     <div className={styles.petsSlider}>
       <Swiper
         modules={[Navigation, Autoplay]}
-        spaceBetween={30}
+        spaceBetween={20}
         navigation
         autoplay={{
           delay: 3000,
@@ -73,12 +73,23 @@ const PetContent = ({ pets = [], error, petType }) => {
         breakpoints={{
           320: {
             slidesPerView: 1,
+            spaceBetween: 20,
           },
-          760: {
+          576: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          768: {
             slidesPerView: 3,
+            spaceBetween: 20,
+          },
+          992: {
+            slidesPerView: 4,
+            spaceBetween: 20,
           },
           1200: {
             slidesPerView: 4,
+            spaceBetween: 20,
           },
         }}
         className={styles.swiper}

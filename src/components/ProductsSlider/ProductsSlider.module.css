@@ -154,7 +154,8 @@
 
 .productCard:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3),
+    0 0 20px rgba(52, 152, 219, 0.2);
 }
 
 .imageContainer {

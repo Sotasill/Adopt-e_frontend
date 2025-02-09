@@ -136,12 +136,12 @@
   width: 95%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 10px 0;
-  min-height: 460px;
+  padding: 20px 0;
 }
 
 .swiper {
-  padding: 10px 10px !important;
+  padding: 20px 10px !important;
+  height: 100%;
 }
 
 /* Стили для навигации Swiper */
@@ -178,104 +178,101 @@
   color: #95a5a6;
 }
 
-.petsSlider :global(.swiper-slide) {
-  height: auto;
+.swiper :global(.swiper-slide) {
+  height: 380px;
   display: flex;
   justify-content: center;
-  padding: 10px 0;
+  padding: 0;
 }
 
 /* Карточка питомца */
 .petCard {
-  flex: 0 0 auto;
-  width: 200px;
-  min-height: 340px;
-  background: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  padding: 14px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  margin: 10px 5px;
+  width: 100%;
+  height: 380px;
+  padding-bottom: 8px;
 }
 
 .petCard:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(52, 152, 219, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3),
+    0 0 20px rgba(52, 152, 219, 0.2);
 }
 
 .imageContainer {
+  position: relative;
   width: 100%;
   height: 180px;
   overflow: hidden;
-  border-radius: 12px;
-  margin-bottom: 10px;
+  flex-shrink: 0;
 }
 
 .petImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: all 0.4s ease;
+  transition: transform 0.3s ease;
 }
 
 .petCard:hover .petImage {
-  transform: scale(1.08);
+  transform: scale(1.05);
 }
 
 .petInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  text-align: center;
-}
-
-.petNameBreed {
+  padding: 8px 12px 0;
   display: flex;
   flex-direction: column;
   gap: 4px;
+  flex: 1;
+}
+
+.petNameBreed {
+  min-height: 44px;
+  overflow: hidden;
+  margin-bottom: 2px;
 }
 
 .petName {
-  font-size: 1.1rem;
-  color: #2c3e50;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 600;
   margin: 0;
-  letter-spacing: 0.5px;
+  color: #2c3e50;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .petBreed {
-  font-size: 1rem;
-  color: #7f8c8d;
-  margin: 0;
-  font-weight: 500;
+  font-size: 13px;
+  color: #666;
+  margin: 2px 0 0;
 }
 
 .petDetails {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin: 8px 0;
+  gap: 4px;
+  flex: 1;
 }
 
 .ageGender {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 12px;
-  background: #f8f9fa;
-  padding: 6px 12px;
-  border-radius: 20px;
+  gap: 8px;
+  font-size: 14px;
+  color: #666;
 }
 
 .age {
-  font-size: 0.9rem;
-  color: #7f8c8d;
+  font-weight: 500;
 }
 
 .gender {
@@ -285,21 +282,72 @@
 
 .maleIcon {
   color: #3498db;
-  font-size: 1.1rem;
+  font-size: 16px;
 }
 
 .femaleIcon {
   color: #e74c3c;
-  font-size: 1.1rem;
+  font-size: 16px;
+}
+
+.locationContainer {
+  margin-top: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  color: #666;
+  font-size: 14px;
+  height: 32px;
+}
+
+.locationIcon {
+  color: #3498db;
+  font-size: 16px;
+  margin-top: 2px;
+}
+
+.locationInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.city {
+  font-weight: 500;
+  color: #2c3e50;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.countryInfo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.countryFlag {
+  font-size: 16px;
+}
+
+.countryName {
+  color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .price {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #27ae60;
-  background: #f8f9fa;
-  padding: 6px 12px;
-  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2c3e50;
+  padding: 2px 0;
+  margin-bottom: 4px;
+}
+
+.breederIcon {
+  font-size: 18px;
+  color: white;
 }
 
 /* Рейтинг */
@@ -444,6 +492,10 @@
 
 /* Адаптивные стили */
 @media (max-width: 1199px) {
+  .productsRow {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+
   .petCard {
     width: 200px;
     padding: 14px;
@@ -510,15 +562,40 @@
 }
 
 @media (max-width: 480px) {
-  .petCard {
-    width: calc(100vw - 120px);
-  }
   .petsSection {
-    padding: 40px 10px;
+    padding: 0 10px;
   }
-  .sliderButton {
-    width: 40px;
-    height: 40px;
+
+  .petsSectionHeader {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .productsRow {
+    grid-template-columns: 1fr;
+  }
+
+  .petInfo {
+    padding: 12px;
+  }
+
+  .petName {
+    font-size: 14px;
+  }
+
+  .petCategory,
+  .descriptionContainer,
+  .location {
+    font-size: 12px;
+  }
+
+  .price {
+    font-size: 14px;
+  }
+
+  .contactButton {
+    font-size: 12px;
+    padding: 8px;
   }
 }
 

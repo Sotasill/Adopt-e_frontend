@@ -25,6 +25,8 @@ const MOCK_PETS = {
       gender: "male",
       price: 1500,
       breederId: "breeder1",
+      city: "Москва",
+      country: "Россия",
     },
     {
       id: 2,
@@ -36,6 +38,8 @@ const MOCK_PETS = {
       gender: "female",
       price: 1800,
       breederId: "breeder2",
+      city: "Санкт-Петербург",
+      country: "Россия",
     },
     {
       id: 3,
@@ -47,6 +51,8 @@ const MOCK_PETS = {
       gender: "male",
       price: 2000,
       breederId: "breeder3",
+      city: "Казань",
+      country: "Россия",
     },
     {
       id: 4,
@@ -58,6 +64,8 @@ const MOCK_PETS = {
       gender: "female",
       price: 1700,
       breederId: "breeder4",
+      city: "Новосибирск",
+      country: "Россия",
     },
     {
       id: 5,
@@ -69,6 +77,8 @@ const MOCK_PETS = {
       gender: "male",
       price: 2200,
       breederId: "breeder5",
+      city: "Екатеринбург",
+      country: "Россия",
     },
     {
       id: 6,
@@ -80,6 +90,8 @@ const MOCK_PETS = {
       gender: "female",
       price: 1600,
       breederId: "breeder6",
+      city: "Краснодар",
+      country: "Россия",
     },
   ],
   cats: [
@@ -93,6 +105,8 @@ const MOCK_PETS = {
       gender: "female",
       price: 1200,
       breederId: "breeder7",
+      city: "Москва",
+      country: "Россия",
     },
     {
       id: 2,
@@ -104,6 +118,8 @@ const MOCK_PETS = {
       gender: "male",
       price: 1500,
       breederId: "breeder8",
+      city: "Санкт-Петербург",
+      country: "Россия",
     },
     {
       id: 3,
@@ -115,6 +131,8 @@ const MOCK_PETS = {
       gender: "female",
       price: 1300,
       breederId: "breeder9",
+      city: "Казань",
+      country: "Россия",
     },
     {
       id: 4,
@@ -126,6 +144,8 @@ const MOCK_PETS = {
       gender: "male",
       price: 1400,
       breederId: "breeder10",
+      city: "Новосибирск",
+      country: "Россия",
     },
     {
       id: 5,
@@ -137,6 +157,8 @@ const MOCK_PETS = {
       gender: "female",
       price: 1600,
       breederId: "breeder11",
+      city: "Екатеринбург",
+      country: "Россия",
     },
     {
       id: 6,
@@ -148,6 +170,8 @@ const MOCK_PETS = {
       gender: "male",
       price: 2000,
       breederId: "breeder12",
+      city: "Краснодар",
+      country: "Россия",
     },
   ],
 };

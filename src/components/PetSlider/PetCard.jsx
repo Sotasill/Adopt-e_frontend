@@ -1,15 +1,21 @@
 import { useTranslatedContent } from "../../redux/hooks/useTranslatedContent";
 import { FaMars, FaVenus, FaUser } from "react-icons/fa6";
+import { MdLocationOn } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import styles from "./PetSlider.module.css";
 import commonStyles from "../../styles/common.module.css";
 import catBreeds from "../../redux/language/dictionaries/cats.json";
 import dogBreeds from "../../redux/language/dictionaries/dogs.json";
+import countries from "../../redux/language/dictionaries/countries.json";
+import { useSelector } from "react-redux";
 
 const PetCard = ({ pet }) => {
   const { t } = useTranslatedContent();
   const navigate = useNavigate();
+  const currentLanguage = useSelector(
+    (state) => state.language.currentLanguage
+  );
 
   const getBreedName = (breedKey, petType) => {
     try {
@@ -21,12 +27,30 @@ const PetCard = ({ pet }) => {
         return breedKey;
       }
 
-      // Пробуем получить перевод на русском, если нет - на английском
       return breedData.ru || breedData.en || breedKey;
     } catch (error) {
       console.error("Error getting breed name:", error);
       return breedKey;
     }
+  };
+
+  const getCountryInfo = (countryName) => {
+    const countryKey = Object.keys(countries).find(
+      (key) => countries[key].ru === countryName
+    );
+
+    if (countryKey) {
+      const countryData = countries[countryKey];
+      return {
+        flag: countryData.flag,
+        name: countryData[currentLanguage] || countryData.en || countryData.ru,
+      };
+    }
+
+    return {
+      flag: "🌍",
+      name: countryName,
+    };
   };
 
   const getAgeText = (months) => {
@@ -45,6 +69,8 @@ const PetCard = ({ pet }) => {
   const handleBreederClick = () => {
     navigate(`/breeder/${pet.breederId}`);
   };
+
+  const countryInfo = getCountryInfo(pet.country);
 
   return (
     <div className={styles.petCard}>
@@ -68,6 +94,16 @@ const PetCard = ({ pet }) => {
                 <FaVenus className={styles.femaleIcon} />
               )}
             </span>
+          </div>
+          <div className={styles.locationContainer}>
+            <MdLocationOn className={styles.locationIcon} />
+            <div className={styles.locationInfo}>
+              <span className={styles.city}>{pet.city}</span>
+              <span className={styles.countryInfo}>
+                <span className={styles.countryFlag}>{countryInfo.flag}</span>
+                <span className={styles.countryName}>{countryInfo.name}</span>
+              </span>
+            </div>
           </div>
           <div className={styles.price}>
             {t("pets.price", { price: pet.price })}
@@ -96,6 +132,8 @@ PetCard.propTypes = {
     gender: PropTypes.oneOf(["male", "female"]).isRequired,
     price: PropTypes.number.isRequired,
     breederId: PropTypes.string.isRequired,
+    city: PropTypes.string.isRequired,
+    country: PropTypes.string.isRequired,
   }).isRequired,
 };
 
