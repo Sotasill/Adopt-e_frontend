@@ -17,6 +17,7 @@ import BreedersPage from "../../pages/BreedersPage/BreedersPage";
 import AboutPage from "../../pages/AboutPage/AboutPage";
 import BreedsListPage from "../../pages/BreedsListPage/BreedsListPage";
 import BreedPage from "../../pages/BreedPage/BreedPage";
+import ProductsPage from "../../pages/ProductsPage/ProductsPage";
 import styles from "./App.module.css";
 
 const PublicRoute = ({ children }) => {
@@ -135,6 +136,31 @@ const App = () => {
               element={
                 <PublicRoute>
                   <AboutPage />
+                </PublicRoute>
+              }
+            />
+            {/* Маршруты для продуктов и услуг */}
+            <Route
+              path="/products"
+              element={
+                <PublicRoute>
+                  <ProductsPage type="products" />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/services"
+              element={
+                <PublicRoute>
+                  <ProductsPage type="services" />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/veterinary"
+              element={
+                <PublicRoute>
+                  <ProductsPage type="veterinary" />
                 </PublicRoute>
               }
             />

@@ -188,12 +188,70 @@ const enTranslation = {
   // Pets section
   pets: {
     findYourPet: "Find Your Pet",
-    viewMore: "View More",
-    viewMoreText: "See all available pets",
+    viewMore: "Show More",
+    viewMoreText: "View All Available Pets",
     age: "{{age}} years",
-    price: "{{price}} €",
+    price: "${{price}}",
     rating: "Rating",
     outOf: "out of",
+    viewBreeder: "View Breeder",
+    ageYearsAndMonths: "{{years}}y {{months}}m",
+    ageYears: "{{years}}y",
+    ageMonths: "{{months}}m",
+  },
+
+  products: {
+    zootovary: "Pet Supplies",
+    services: "Services",
+    veterinary: "Veterinary",
+    findProducts: "Find Pet Supplies",
+    findServices: "Find Services",
+    findVeterinary: "Find Veterinary Services",
+    viewMore: "Show More",
+    viewMoreText: "View All Pet Supplies",
+    viewDetails: "View Details",
+    categories: {
+      food: "Food",
+      toys: "Toys",
+      equipment: "Equipment",
+      beds: "Beds",
+      hygiene: "Hygiene",
+      accessories: "Accessories",
+    },
+    price: "${{price}}",
+  },
+
+  services: {
+    findServices: "Find Services",
+    findProducts: "Find Pet Services",
+    viewMore: "Show More",
+    viewMoreText: "View All Services",
+    viewDetails: "View Details",
+    categories: {
+      grooming: "Grooming",
+      training: "Training",
+      boarding: "Boarding",
+      walking: "Walking",
+      photoshoot: "Photo Session",
+      petaxi: "Pet Taxi",
+    },
+    price: "${{price}}",
+  },
+
+  veterinary: {
+    findProducts: "Find Veterinary Services",
+    viewMore: "Show More",
+    viewMoreText: "View All Veterinary Services",
+    viewDetails: "View Details",
+    categories: {
+      consultation: "Consultation",
+      vaccination: "Vaccination",
+      diagnostics: "Diagnostics",
+      dental: "Dental Care",
+      surgery: "Surgery",
+      tests: "Tests",
+    },
+    price: "${{price}}",
   },
 };
 

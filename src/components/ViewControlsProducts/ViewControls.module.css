@@ -1,0 +1,149 @@
+.viewControls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 24px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 24px;
+}
+
+.controlsLeft {
+  flex: 1;
+  min-width: 200px;
+}
+
+.controlsRight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Стили для переключателя типов продукции */
+.productTypeSwitch {
+  display: flex;
+  background: #f5f6f7;
+  border-radius: 12px;
+  padding: 4px;
+}
+
+.switchContainer {
+  display: flex;
+  gap: 4px;
+}
+
+.productTypeOption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #757575;
+  position: relative;
+}
+
+.productTypeOption:hover {
+  background: rgba(33, 150, 243, 0.1);
+}
+
+.productTypeOption.active {
+  background: #fff;
+  color: #2196f3;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.productIcon {
+  font-size: 20px;
+  pointer-events: none;
+}
+
+.productIcon.active {
+  color: #2196f3;
+}
+
+.productLabel {
+  font-size: 14px;
+  font-weight: 500;
+  display: none;
+  pointer-events: none;
+}
+
+.productTypeOption:hover .productLabel {
+  display: inline-block;
+}
+
+/* Поиск */
+.searchField {
+  width: 100%;
+}
+
+.searchField input {
+  padding: 12px 14px;
+}
+
+.searchField :global(.MuiOutlinedInput-root) {
+  background: #fff;
+  border-radius: 15px;
+}
+
+.searchField :global(.MuiOutlinedInput-notchedOutline) {
+  border-color: #e0e0e0;
+}
+
+.searchField :global(.MuiInputAdornment-root) svg {
+  color: #757575;
+}
+
+/* Кнопки управления */
+.viewButton {
+  width: 40px !important;
+  height: 40px !important;
+  color: #757575 !important;
+  transition: all 0.3s ease !important;
+  padding: 8px !important;
+  border-radius: 50% !important;
+  background-color: #f5f6f7 !important;
+}
+
+.viewButton:hover {
+  background-color: #e8e9ea !important;
+}
+
+.viewButton.active {
+  color: #2196f3 !important;
+  background-color: #fff !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .viewControls {
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  .controlsLeft,
+  .controlsRight {
+    width: 100%;
+  }
+
+  .controlsRight {
+    justify-content: space-between;
+  }
+
+  .productLabel {
+    display: inline-block;
+  }
+}
+
+@media (max-width: 480px) {
+  .productTypeOption {
+    padding: 8px 12px;
+  }
+}

@@ -335,6 +335,17 @@
   background-position: 0% center !important;
 }
 
+/* Модификатор для маленькой кнопки */
+.findBreederButton.small {
+  margin-top: 1rem !important;
+  padding: 0.5rem 1rem !important;
+  font-size: 0.9rem !important;
+  border-radius: 15px !important;
+  text-transform: none !important;
+  font-weight: 500 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
 /* Модификатор для кнопки на странице породы */
 .findBreederButton.large {
   padding: 1.2rem 3rem !important;

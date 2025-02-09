@@ -229,6 +229,4 @@ const PetSlider = () => {
   );
 };
 
-const MemoizedPetContent = memo(PetContent);
-
 export default memo(PetSlider);

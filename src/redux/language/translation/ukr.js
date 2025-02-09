@@ -193,15 +193,73 @@ const ukrTranslation = {
     findBreeder: "Знайти заводчика",
   },
 
-  // Секція улюбленців
+  // Секція тварин
   pets: {
     findYourPet: "Знайди свого улюбленця",
     viewMore: "Показати більше",
-    viewMoreText: "Переглянути всіх доступних улюбленців",
+    viewMoreText: "Переглянути всіх доступних тварин",
     age: "{{age}} років",
-    price: "{{price}} ₴",
+    price: "{{price}}₴",
     rating: "Рейтинг",
     outOf: "з",
+    viewBreeder: "Переглянути заводчика",
+    ageYearsAndMonths: "{{years}}р {{months}}м",
+    ageYears: "{{years}}р",
+    ageMonths: "{{months}}м",
+  },
+
+  products: {
+    zootovary: "Зоотовари",
+    services: "Послуги",
+    veterinary: "Ветеринарія",
+    findProducts: "Знайти зоотовари",
+    findServices: "Знайти послуги",
+    findVeterinary: "Знайти ветеринарні послуги",
+    viewMore: "Показати більше",
+    viewMoreText: "Переглянути всі зоотовари",
+    viewDetails: "Детальніше",
+    categories: {
+      food: "Корм",
+      toys: "Іграшки",
+      equipment: "Обладнання",
+      beds: "Лежаки",
+      hygiene: "Гігієна",
+      accessories: "Аксесуари",
+    },
+    price: "{{price}}₴",
+  },
+
+  services: {
+    findServices: "Знайти послуги",
+    findProducts: "Знайти послуги для улюбленців",
+    viewMore: "Показати більше",
+    viewMoreText: "Переглянути всі послуги",
+    viewDetails: "Детальніше",
+    categories: {
+      grooming: "Грумінг",
+      training: "Дресирування",
+      boarding: "Перетримка",
+      walking: "Вигул",
+      photoshoot: "Фотосесія",
+      petaxi: "Зоотаксі",
+    },
+    price: "{{price}}₴",
+  },
+
+  veterinary: {
+    findProducts: "Знайти ветеринарні послуги",
+    viewMore: "Показати більше",
+    viewMoreText: "Переглянути всі ветеринарні послуги",
+    viewDetails: "Детальніше",
+    categories: {
+      consultation: "Консультація",
+      vaccination: "Вакцинація",
+      diagnostics: "Діагностика",
+      dental: "Стоматологія",
+      surgery: "Хірургія",
+      tests: "Аналізи",
+    },
+    price: "{{price}}₴",
   },
 };
 

@@ -3,6 +3,7 @@ import { FaMars, FaVenus, FaUser } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import styles from "./PetSlider.module.css";
+import commonStyles from "../../styles/common.module.css";
 import catBreeds from "../../redux/language/dictionaries/cats.json";
 import dogBreeds from "../../redux/language/dictionaries/dogs.json";
 
@@ -72,7 +73,10 @@ const PetCard = ({ pet }) => {
             {t("pets.price", { price: pet.price })}
           </div>
         </div>
-        <button className={styles.contactButton} onClick={handleBreederClick}>
+        <button
+          className={`${commonStyles.findBreederButton} ${commonStyles.small}`}
+          onClick={handleBreederClick}
+        >
           <FaUser className={styles.breederIcon} />
           {t("pets.viewBreeder")}
         </button>
