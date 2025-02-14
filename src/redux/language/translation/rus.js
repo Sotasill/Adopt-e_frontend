@@ -67,9 +67,9 @@ const ruTranslation = {
     contact: {
       title: "Контакты",
       shelter: "Приют",
-      address: "ул. Примерная, 123, Москва",
-      email: "info@adopt-e.ru",
-      phone: "+7 (999) 123-45-67",
+      address: "ул. Примерная, 123, Kyiv",
+      email: "info@adopt-e.ua",
+      phone: "+380 (99) 123-45-67",
       phoneLabel: "Телефон",
       workingHours: "Время работы",
       hours: "Пн-Вс: 10:00 - 18:00",
@@ -267,6 +267,11 @@ const ruTranslation = {
     topDoctor: "Лучший специалист",
     newDoctor: "Новый врач",
     sale: "Распродажа",
+  },
+
+  notFound: {
+    message: "Страница не найдена",
+    returnHome: "Вернуться на главную",
   },
 };
 

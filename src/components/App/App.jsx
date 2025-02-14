@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import PropTypes from "prop-types";
 import { Toaster } from "sonner";
+import { useTranslation } from "react-i18next";
 import Layout from "../Layout/Layout";
 import HomePage from "../../pages/HomePage/HomePage";
 import RegistrationPage from "../../pages/RegistrationPage/RegistrationPage";
@@ -18,6 +19,7 @@ import AboutPage from "../../pages/AboutPage/AboutPage";
 import BreedsListPage from "../../pages/BreedsListPage/BreedsListPage";
 import BreedPage from "../../pages/BreedPage/BreedPage";
 import ProductsPage from "../../pages/ProductsPage/ProductsPage";
+import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
 import styles from "./App.module.css";
 
 const PublicRoute = ({ children }) => {
@@ -51,6 +53,10 @@ PublicRoute.propTypes = {
 
 const App = () => {
   const dispatch = useDispatch();
+  const { i18n } = useTranslation();
+  const currentLanguage = useSelector(
+    (state) => state.language.currentLanguage
+  );
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem("language");
@@ -59,117 +65,188 @@ const App = () => {
     }
   }, [dispatch]);
 
+  useEffect(() => {
+    if (i18n.language !== currentLanguage) {
+      i18n.changeLanguage(currentLanguage);
+    }
+  }, [currentLanguage, i18n]);
+
   return (
     <AuthProvider>
-      <Layout className={styles.root}>
-        <main className={styles.main}>
-          <Routes>
-            <Route
-              path="/"
-              element={
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Layout className={styles.root}>
+              <main className={styles.main}>
                 <PublicRoute>
                   <HomePage />
                 </PublicRoute>
-              }
-            />
-            <Route
-              path="/register"
-              element={
+                <Toaster position="top-right" richColors />
+              </main>
+            </Layout>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <Layout className={styles.root}>
+              <main className={styles.main}>
                 <PublicRoute>
                   <RegistrationPage />
                 </PublicRoute>
-              }
-            />
-            <Route
-              path="/login"
-              element={
+                <Toaster position="top-right" richColors />
+              </main>
+            </Layout>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <Layout className={styles.root}>
+              <main className={styles.main}>
                 <PublicRoute>
                   <LoginPage />
                 </PublicRoute>
-              }
-            />
-            <Route
-              path="/mainbcs/*"
-              element={
+                <Toaster position="top-right" richColors />
+              </main>
+            </Layout>
+          }
+        />
+        <Route
+          path="/mainbcs/*"
+          element={
+            <Layout className={styles.root}>
+              <main className={styles.main}>
                 <ProtectedRoute
                   allowedRoles={["breeder", "Breeder", "BREEDER"]}
                 >
                   <MainBCS />
                 </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/mainusersystem/*"
-              element={
+                <Toaster position="top-right" richColors />
+              </main>
+            </Layout>
+          }
+        />
+        <Route
+          path="/mainusersystem/*"
+          element={
+            <Layout className={styles.root}>
+              <main className={styles.main}>
                 <ProtectedRoute allowedRoles={["user", "User", "USER"]}>
                   <MainUserSystem />
                 </ProtectedRoute>
-              }
-            />
-            <Route path="/animals/:id" element={<AnimalDetails />} />
-            <Route
-              path="/kennels"
-              element={
+                <Toaster position="top-right" richColors />
+              </main>
+            </Layout>
+          }
+        />
+        <Route
+          path="/animals/:id"
+          element={
+            <Layout className={styles.root}>
+              <main className={styles.main}>
+                <AnimalDetails />
+                <Toaster position="top-right" richColors />
+              </main>
+            </Layout>
+          }
+        />
+        <Route
+          path="/kennels"
+          element={
+            <Layout className={styles.root}>
+              <main className={styles.main}>
                 <PublicRoute>
                   <BreedersPage />
                 </PublicRoute>
-              }
-            />
-            <Route
-              path="/breeds"
-              element={
+                <Toaster position="top-right" richColors />
+              </main>
+            </Layout>
+          }
+        />
+        <Route
+          path="/breeds"
+          element={
+            <Layout className={styles.root}>
+              <main className={styles.main}>
                 <PublicRoute>
                   <BreedsListPage />
                 </PublicRoute>
-              }
-            />
-            <Route
-              path="/breeds/:type/:breedId"
-              element={
+                <Toaster position="top-right" richColors />
+              </main>
+            </Layout>
+          }
+        />
+        <Route
+          path="/breeds/:type/:breedId"
+          element={
+            <Layout className={styles.root}>
+              <main className={styles.main}>
                 <PublicRoute>
                   <BreedPage />
                 </PublicRoute>
-              }
-            />
-            <Route
-              path="/about"
-              element={
+                <Toaster position="top-right" richColors />
+              </main>
+            </Layout>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <Layout className={styles.root}>
+              <main className={styles.main}>
                 <PublicRoute>
                   <AboutPage />
                 </PublicRoute>
-              }
-            />
-            {/* Маршруты для продуктов и услуг */}
-            <Route
-              path="/products"
-              element={
+                <Toaster position="top-right" richColors />
+              </main>
+            </Layout>
+          }
+        />
+        <Route
+          path="/products"
+          element={
+            <Layout className={styles.root}>
+              <main className={styles.main}>
                 <PublicRoute>
                   <ProductsPage type="products" />
                 </PublicRoute>
-              }
-            />
-            <Route
-              path="/services"
-              element={
+                <Toaster position="top-right" richColors />
+              </main>
+            </Layout>
+          }
+        />
+        <Route
+          path="/services"
+          element={
+            <Layout className={styles.root}>
+              <main className={styles.main}>
                 <PublicRoute>
                   <ProductsPage type="services" />
                 </PublicRoute>
-              }
-            />
-            <Route
-              path="/veterinary"
-              element={
+                <Toaster position="top-right" richColors />
+              </main>
+            </Layout>
+          }
+        />
+        <Route
+          path="/veterinary"
+          element={
+            <Layout className={styles.root}>
+              <main className={styles.main}>
                 <PublicRoute>
                   <ProductsPage type="veterinary" />
                 </PublicRoute>
-              }
-            />
-            {/* Перенаправляем все неизвестные маршруты на домашнюю страницу */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-          <Toaster position="top-right" richColors />
-        </main>
-      </Layout>
+                <Toaster position="top-right" richColors />
+              </main>
+            </Layout>
+          }
+        />
+
+        {/* Страница 404 без layout */}
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
     </AuthProvider>
   );
 };

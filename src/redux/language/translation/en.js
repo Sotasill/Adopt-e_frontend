@@ -265,6 +265,11 @@ const enTranslation = {
     newDoctor: "New Doctor",
     sale: "Sale",
   },
+
+  notFound: {
+    message: "Page Not Found",
+    returnHome: "Return to Home",
+  },
 };
 
 export default enTranslation;

@@ -273,6 +273,11 @@ const ukrTranslation = {
     newDoctor: "Новий лікар",
     sale: "Розпродаж",
   },
+
+  notFound: {
+    message: "Сторінку не знайдено",
+    returnHome: "Повернутися на головну",
+  },
 };
 
 console.log("Ukrainian translations loaded:", {

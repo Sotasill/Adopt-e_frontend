@@ -264,6 +264,11 @@ const deuTranslation = {
     newDoctor: "Neuer Arzt",
     sale: "Ausverkauf",
   },
+
+  notFound: {
+    message: "Seite Nicht Gefunden",
+    returnHome: "Zurück zur Startseite",
+  },
 };
 
 export default deuTranslation;

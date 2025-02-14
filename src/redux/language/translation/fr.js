@@ -265,6 +265,11 @@ const frTranslation = {
     newDoctor: "Nouveau médecin",
     sale: "Soldes",
   },
+
+  notFound: {
+    message: "Page Non Trouvée",
+    returnHome: "Retour à l'Accueil",
+  },
 };
 
 export default frTranslation;
