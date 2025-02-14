@@ -5,13 +5,17 @@ import Hero from "../../components/Hero/Hero";
 import PromoBanners from "../../components/PromoBanners/PromoBanners";
 import styles from "./HomePage.module.css";
 
+
 const HomePage = () => {
+  
+
   return (
     <div className={styles.container}>
       <Hero />
       <div className={styles.mainContainer}>
         <PromoBanners />
         <KennelsSlider />
+       
         <PetSlider />
         <ProductsSlider />
       </div>

@@ -9,7 +9,6 @@ import {
   TableHead,
   TableRow,
   Paper,
-  CircularProgress,
   Typography,
   Avatar,
   IconButton,
@@ -26,6 +25,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { animalService } from "../../services/animalService";
+import CustomLoader from "../CustomLoader/CustomLoader";
 import styles from "./AnimalsList.module.css";
 
 const AnimalsList = ({ onClose }) => {
@@ -193,7 +193,7 @@ const AnimalsList = ({ onClose }) => {
   );
 
   if (loading && !animals.length) {
-    return <CircularProgress className={styles.loader} />;
+    return <CustomLoader />;
   }
 
   if (error) {
@@ -340,7 +340,7 @@ const AnimalsList = ({ onClose }) => {
 
       {renderFilters()}
 
-      {loading && <CircularProgress size={24} className={styles.tableLoader} />}
+      {loading && <CustomLoader />}
 
       {isMobile ? renderMobileView() : renderDesktopView()}
 

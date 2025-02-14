@@ -273,6 +273,18 @@ const ruTranslation = {
     message: "Страница не найдена",
     returnHome: "Вернуться на главную",
   },
+
+  // Типы животных
+  cats: {
+    findPets: "Найти кошку",
+    viewMore: "Показать больше кошек",
+    viewMoreText: "Посмотреть всех доступных кошек",
+  },
+  dogs: {
+    findPets: "Найти собаку",
+    viewMore: "Показать больше собак",
+    viewMoreText: "Посмотреть всех доступных собак",
+  },
 };
 
 export default ruTranslation;

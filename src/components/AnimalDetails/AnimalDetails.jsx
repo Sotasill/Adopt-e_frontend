@@ -45,6 +45,7 @@ import {
   nameValidationSchema,
   microchipValidationSchema,
 } from "./validationSchemas";
+import CustomLoader from "../CustomLoader/CustomLoader";
 
 const getDefaultImage = (species) => {
   return species?.toLowerCase() === "кошка"
@@ -1383,7 +1384,7 @@ const AnimalDetails = () => {
   };
 
   if (loading) {
-    return <CircularProgress className={styles.loader} />;
+    return <CustomLoader />;
   }
 
   if (error) {

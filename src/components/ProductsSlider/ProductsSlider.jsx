@@ -8,6 +8,7 @@ import {
 } from "../../redux/productType/productTypeSlice";
 import ProductContent from "./ProductContent";
 import ViewControlsProducts from "../ViewControlsProducts/ViewControls";
+import CustomLoader from "../CustomLoader/CustomLoader";
 import styles from "./ProductsSlider.module.css";
 
 // Моковые данные
@@ -23,7 +24,6 @@ const MOCK_ITEMS = {
       city: "New York",
       country: "USA",
       badges: [{ type: "Top", text: "Хит продаж" }],
-
     },
     {
       id: 2,
@@ -34,7 +34,6 @@ const MOCK_ITEMS = {
       city: "Kiev",
       country: "Ukraine",
       badges: [{ type: "New", text: "New" }],
-
     },
     {
       id: 3,
@@ -45,7 +44,6 @@ const MOCK_ITEMS = {
       oldPrice: 1500,
       city: "Kazan",
       country: "Russia",
-
     },
     {
       id: 4,
@@ -55,7 +53,6 @@ const MOCK_ITEMS = {
       price: 3500,
       city: "Paris",
       country: "France",
-
     },
     {
       id: 5,
@@ -66,7 +63,6 @@ const MOCK_ITEMS = {
       oldPrice: 650,
       city: "Berlin",
       country: "Germany",
-
     },
     {
       id: 6,
@@ -209,6 +205,15 @@ const ProductsSlider = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Имитация загрузки данных
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, [productType]);
 
   // Восстанавливаем тип из localStorage при монтировании
   useEffect(() => {
@@ -265,16 +270,17 @@ const ProductsSlider = () => {
         <ViewControlsProducts
           searchValue={searchQuery}
           onSearchChange={setSearchQuery}
-          productType={productType}
-          onProductTypeChange={handleProductTypeChange}
           sortOrder={sortOrder}
           onSortChange={setSortOrder}
-          showSort={false}
-          hideSearch={true}
+          onProductTypeChange={handleProductTypeChange}
+          productType={productType}
         />
       </div>
-
-      <ProductContent products={filteredAndSortedItems} />
+      {isLoading ? (
+        <CustomLoader />
+      ) : (
+        <ProductContent products={filteredAndSortedItems} />
+      )}
     </section>
   );
 };

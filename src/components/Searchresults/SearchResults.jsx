@@ -1,12 +1,13 @@
 import { useSelector } from "react-redux";
 import { List, ListItem, ListItemText, Typography } from "@mui/material";
+import CustomLoader from "../CustomLoader/CustomLoader";
 import styles from "./SearchResults.module.css";
 
 const SearchResults = () => {
   const { results, loading, error } = useSelector((state) => state.search);
 
   if (loading) {
-    return <Typography>Поиск...</Typography>;
+    return <CustomLoader />;
   }
 
   if (error) {

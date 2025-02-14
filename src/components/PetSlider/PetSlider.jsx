@@ -9,6 +9,7 @@ import {
 } from "../../redux/petType/petTypeSlice";
 import PetContent from "./PetContent";
 import ViewControls from "../ViewControls/ViewControls";
+import CustomLoader from "../CustomLoader/CustomLoader";
 import styles from "./PetSlider.module.css";
 
 const PetSlider = () => {
@@ -17,8 +18,8 @@ const PetSlider = () => {
   const dispatch = useDispatch();
   const petType = useSelector(selectPetType);
 
-  const [searchQuery, setSearchQuery] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
+  const [isLoading, setIsLoading] = useState(true);
 
   // Моковые данные для питомцев
   const MOCK_PETS = {
@@ -202,6 +203,14 @@ const PetSlider = () => {
     }
   }, [dispatch, petType]);
 
+  useEffect(() => {
+    // Имитация загрузки данных
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, [petType]);
+
   const handlePetTypeChange = (type) => {
     if (type !== petType) {
       dispatch(togglePetType());
@@ -211,13 +220,6 @@ const PetSlider = () => {
 
   const filteredAndSortedPets = useMemo(() => {
     let pets = MOCK_PETS[petType] || [];
-
-    // Применяем поиск
-    if (searchQuery) {
-      pets = pets.filter((pet) =>
-        pet.name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
 
     // Применяем сортировку
     pets = [...pets].sort((a, b) => {
@@ -233,31 +235,30 @@ const PetSlider = () => {
       text: t("pets.viewMoreText"),
     };
     return [...pets, morePetsCard];
-  }, [petType, searchQuery, sortOrder, t, MOCK_PETS]);
+  }, [petType, sortOrder, t, MOCK_PETS]);
 
   return (
-    <section id="pets-slider" className={styles.petsSection}>
+    <section id="pet-slider" className={styles.petsSection}>
       <div className={styles.petsSectionHeader}>
         <h2
           className={styles.sectionTitle}
-          onClick={() => navigate(`/pets?type=${petType}`)}
+          onClick={() => navigate(`/${petType}`)}
         >
           {t("pets.findYourPet")}
         </h2>
-
         <ViewControls
-          searchValue={searchQuery}
-          onSearchChange={setSearchQuery}
-          petType={petType}
-          onPetTypeChange={handlePetTypeChange}
           sortOrder={sortOrder}
           onSortChange={setSortOrder}
-          showSort={false}
+          onPetTypeChange={handlePetTypeChange}
+          petType={petType}
           hideSearch={true}
         />
       </div>
-
-      <PetContent pets={filteredAndSortedPets} petType={petType} />
+      {isLoading ? (
+        <CustomLoader />
+      ) : (
+        <PetContent pets={filteredAndSortedPets} petType={petType} />
+      )}
     </section>
   );
 };
