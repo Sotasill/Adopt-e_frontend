@@ -127,6 +127,8 @@ const deuTranslation = {
       nameDesc: "Name (Z-A)",
       ratingDesc: "Bewertung (hoch)",
       ratingAsc: "Bewertung (niedrig)",
+      priceAsc: "Preis (aufsteigend)",
+      priceDesc: "Preis (absteigend)",
       countries: "Land",
       breeds: "Rasse",
       minRating: "Mindestbewertung",
@@ -207,7 +209,8 @@ const deuTranslation = {
 
   // Haustiere Sektion
   pets: {
-    findYourPet: "Finde dein Haustier",
+    title: "Finden Sie Ihr Haustier",
+    findYourPet: "Finden Sie Ihr Haustier",
     viewMore: "Mehr anzeigen",
     viewMoreText: "Alle verfügbaren Haustiere anzeigen",
     age: "{{age}} Jahre",
@@ -221,14 +224,15 @@ const deuTranslation = {
   },
 
   products: {
+    title: "Tierprodukte und Dienstleistungen",
     zootovary: "Tierprodukte",
     services: "Dienstleistungen",
-    veterinary: "Tiermedizin",
+    veterinary: "Tierarzt",
     findProducts: "Tierprodukte finden",
     findServices: "Dienstleistungen finden",
-    findVeterinary: "Tierärztliche Dienste finden",
+    findVeterinary: "Tierarzt finden",
     viewMore: "Mehr anzeigen",
-    viewMoreText: "Alle Tierprodukte anzeigen",
+    viewMoreText: "Alle Produkte anzeigen",
     viewDetails: "Details anzeigen",
     categories: {
       food: "Futter",
@@ -237,8 +241,26 @@ const deuTranslation = {
       beds: "Betten",
       hygiene: "Hygiene",
       accessories: "Zubehör",
+      grooming: "Pflege",
+      training: "Training",
+      boarding: "Unterbringung",
+      walking: "Gassi gehen",
+      photoshoot: "Fotoshooting",
+      petaxi: "Tiertaxi",
+      consultation: "Beratung",
+      vaccination: "Impfung",
+      diagnostics: "Diagnostik",
+      dental: "Zahnpflege",
+      surgery: "Chirurgie",
+      tests: "Tests",
     },
-    price: "{{price}}€",
+    price: "{{price}} €",
+    badges: {
+      top: "Bestseller",
+      new: "Neu",
+      sale: "Sale",
+      popular: "Beliebt",
+    },
   },
 
   services: {

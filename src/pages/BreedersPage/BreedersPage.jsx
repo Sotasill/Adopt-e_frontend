@@ -286,6 +286,8 @@ const BreedersPage = () => {
           setMinRating={setMinRating}
           countries={countries}
           breeds={uniqueBreeds}
+          showPriceFilter={false}
+          showRatingFilter={true}
           // ViewControls props
           searchValue={searchValue}
           onSearchChange={setSearchValue}

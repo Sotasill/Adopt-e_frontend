@@ -1,4 +1,4 @@
-.productsPage {
+.petsListPage {
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px;
@@ -66,16 +66,16 @@
   min-height: 400px;
 }
 
-.productsList {
+.petsList {
   display: grid;
   gap: 2rem;
 }
 
-.productsList.grid {
+.petsList.grid {
   grid-template-columns: repeat(4, 1fr);
 }
 
-.productsList.list {
+.petsList.list {
   grid-template-columns: 1fr;
   gap: 1rem;
 }
@@ -90,40 +90,40 @@
 }
 
 @media (max-width: 1200px) {
-  .productsPage {
+  .petsListPage {
     max-width: 960px;
   }
 
-  .productsList.grid {
+  .petsList.grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
   }
 }
 
 @media (max-width: 960px) {
-  .productsPage {
+  .petsListPage {
     max-width: 760px;
   }
 
-  .productsList.grid {
+  .petsList.grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
   }
 }
 
 @media (max-width: 760px) {
-  .productsPage {
+  .petsListPage {
     max-width: 540px;
   }
 
-  .productsList.grid {
+  .petsList.grid {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
 }
 
 @media (max-width: 540px) {
-  .productsPage {
+  .petsListPage {
     max-width: 100%;
     padding: 20px 10px;
   }

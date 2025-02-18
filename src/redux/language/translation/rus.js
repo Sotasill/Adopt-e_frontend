@@ -25,8 +25,10 @@ const ruTranslation = {
       sortBy: "Сортировать по",
       nameAsc: "Имени (А-Я)",
       nameDesc: "Имени (Я-А)",
-      ratingDesc: "Рейтингу (высокий)",
-      ratingAsc: "Рейтингу (низкий)",
+      ratingDesc: "Рейтингом (высокий)",
+      ratingAsc: "Рейтингом (низкий)",
+      priceAsc: "Цене (по возрастанию)",
+      priceDesc: "Цене (по убыванию)",
       countries: "Страна",
       breeds: "Порода",
       minRating: "Минимальный рейтинг",
@@ -211,6 +213,7 @@ const ruTranslation = {
 
   // Секция питомцев
   pets: {
+    title: "Найди своего питомца",
     findYourPet: "Найди своего питомца",
     viewMore: "Показать больше",
     viewMoreText: "Посмотреть всех доступных питомцев",
@@ -225,6 +228,7 @@ const ruTranslation = {
   },
 
   products: {
+    title: "Зоотовары и услуги",
     zootovary: "Зоотовары",
     services: "Услуги",
     veterinary: "Ветеринария",

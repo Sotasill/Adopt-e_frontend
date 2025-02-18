@@ -187,6 +187,7 @@ const enTranslation = {
 
   // Pets section
   pets: {
+    title: "Find Your Pet",
     findYourPet: "Find Your Pet",
     viewMore: "Show More",
     viewMoreText: "View All Available Pets",
@@ -201,14 +202,15 @@ const enTranslation = {
   },
 
   products: {
-    zootovary: "Pet Supplies",
+    title: "Pet Products and Services",
+    zootovary: "Pet Products",
     services: "Services",
     veterinary: "Veterinary",
-    findProducts: "Find Pet Supplies",
+    findProducts: "Find Pet Products",
     findServices: "Find Services",
     findVeterinary: "Find Veterinary Services",
     viewMore: "Show More",
-    viewMoreText: "View All Pet Supplies",
+    viewMoreText: "View All Products",
     viewDetails: "View Details",
     categories: {
       food: "Food",
@@ -217,8 +219,26 @@ const enTranslation = {
       beds: "Beds",
       hygiene: "Hygiene",
       accessories: "Accessories",
+      grooming: "Grooming",
+      training: "Training",
+      boarding: "Boarding",
+      walking: "Walking",
+      photoshoot: "Photo Session",
+      petaxi: "Pet Taxi",
+      consultation: "Consultation",
+      vaccination: "Vaccination",
+      diagnostics: "Diagnostics",
+      dental: "Dental Care",
+      surgery: "Surgery",
+      tests: "Tests",
     },
-    price: "${{price}}",
+    price: "{{price}} $",
+    badges: {
+      top: "Best Seller",
+      new: "New",
+      sale: "Sale",
+      popular: "Popular",
+    },
   },
 
   services: {
@@ -290,6 +310,8 @@ const enTranslation = {
       nameDesc: "Name (Z-A)",
       ratingDesc: "Rating (high)",
       ratingAsc: "Rating (low)",
+      priceAsc: "Price (low to high)",
+      priceDesc: "Price (high to low)",
       countries: "Country",
       breeds: "Breed",
       minRating: "Minimum Rating",

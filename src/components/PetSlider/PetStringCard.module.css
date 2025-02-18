@@ -1,208 +1,170 @@
-.kennelString {
-  display: flex;
-  align-items: center;
-  padding: 12px 20px;
+.petString {
+  width: 100%;
   background: #fff;
   border-radius: 12px;
-  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-}
-
-.kennelString:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.mainInfo {
-  display: grid;
-  grid-template-columns: 48px 250px 180px 200px auto;
-  gap: 24px;
-  align-items: center;
-  padding: 12px 16px;
-  transition: background-color 0.3s ease;
-  background: #ffffff;
-  width: 100%;
-}
-
-.mainInfo:hover {
-  background-color: #f8f9fa;
-}
-
-.kennelLogo {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #3498db;
-}
-
-.kennelNameBreed {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  min-width: 0;
-}
-
-.kennelName {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #2c3e50;
-  margin: 0;
-  white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  padding: 1rem;
 }
 
-.kennelBreed {
-  font-size: 0.85rem;
-  color: #7f8c8d;
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.countryContainer {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.countryFlag {
-  width: 20px;
-  height: auto;
-  border-radius: 2px;
-}
-
-.kennelCountry {
-  font-size: 0.9rem;
-  color: #7f8c8d;
-}
-
-.ratingContainer {
-  min-width: 150px;
-}
-
-.ratingBar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 4px 8px;
-  background: #f8f9fa;
-  border-radius: 8px;
-}
-
-.ratingProgress {
-  flex: 1;
-}
-
-.ratingProgress :global(.MuiLinearProgress-root) {
-  height: 6px;
-  border-radius: 3px;
-  background-color: #ecf0f1;
-}
-
-.ratingProgress :global(.MuiLinearProgress-bar) {
-  background: linear-gradient(45deg, #f1c40f, #f39c12);
-}
-
-.ratingValue {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #2c3e50;
-  min-width: 28px;
-  text-align: center;
-}
-
-.socialIcons {
-  display: flex;
-  gap: 12px;
-  justify-content: flex-end;
-}
-
-.socialIcon {
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: white;
-  color: #7f8c8d;
-  font-size: 16px;
-  transition: all 0.3s ease;
-  text-decoration: none;
-}
-
-.socialIcon:hover {
+.petString:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transform: translateY(-2px);
 }
 
-.socialIcon.facebook:hover {
-  background: #1877f2;
-  color: white;
+.mainInfo {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
 }
 
-.socialIcon.instagram:hover {
-  background: linear-gradient(
-    45deg,
-    #f09433 0%,
-    #e6683c 25%,
-    #dc2743 50%,
-    #cc2366 75%,
-    #bc1888 100%
-  );
-  color: white;
+.petImage {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
 }
 
-.socialIcon.youtube:hover {
-  background: #ff0000;
-  color: white;
+.petNameBreed {
+  min-width: 200px;
 }
 
-.socialIcon.twitter:hover {
-  background: #1da1f2;
-  color: white;
+.petName {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
 }
 
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.petBreed {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  margin: 0.25rem 0 0;
 }
 
-@media (max-width: 960px) {
+.ageGender {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 120px;
+}
+
+.age {
+  font-size: 0.9rem;
+  color: #34495e;
+}
+
+.gender {
+  display: flex;
+  align-items: center;
+}
+
+.maleIcon {
+  color: #3498db;
+  font-size: 1.1rem;
+}
+
+.femaleIcon {
+  color: #e74c3c;
+  font-size: 1.1rem;
+}
+
+.locationContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 200px;
+}
+
+.locationIcon {
+  color: #7f8c8d;
+  font-size: 1.2rem;
+}
+
+.locationInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.city {
+  font-size: 0.9rem;
+  color: #34495e;
+}
+
+.countryInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.countryFlag {
+  font-size: 1rem;
+}
+
+.countryName {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 150px;
+}
+
+.priceOld {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  text-decoration: line-through;
+}
+
+.priceNew {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.priceDiscount {
+  font-size: 0.8rem;
+  color: #e74c3c;
+  background: rgba(231, 76, 60, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.breederIcon {
+  font-size: 1rem;
+}
+
+@media (max-width: 1200px) {
   .mainInfo {
-    grid-template-columns: 48px 1fr auto auto;
-    gap: 16px;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
 
-  .countryContainer {
-    display: none;
+  .petNameBreed,
+  .ageGender,
+  .locationContainer,
+  .price {
+    min-width: auto;
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .mainInfo {
-    grid-template-columns: 48px 1fr auto;
-    gap: 12px;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .ratingContainer {
-    display: none;
+  .petImage {
+    width: 100%;
+    height: 200px;
   }
 
-  .socialIcons {
-    gap: 8px;
-  }
-
-  .socialIcon {
-    width: 28px;
-    height: 28px;
-    font-size: 14px;
+  .price {
+    margin-top: 0.5rem;
   }
 }

@@ -187,6 +187,7 @@ const frTranslation = {
 
   // Section animaux
   pets: {
+    title: "Trouvez Votre Animal",
     findYourPet: "Trouvez votre animal",
     viewMore: "Voir plus",
     viewMoreText: "Voir tous les animaux disponibles",
@@ -201,15 +202,16 @@ const frTranslation = {
   },
 
   products: {
-    zootovary: "Produits pour animaux",
+    title: "Produits et Services pour Animaux",
+    zootovary: "Produits pour Animaux",
     services: "Services",
     veterinary: "Vétérinaire",
-    findProducts: "Trouver des produits pour animaux",
-    findServices: "Trouver des services",
-    findVeterinary: "Trouver des services vétérinaires",
-    viewMore: "Voir plus",
-    viewMoreText: "Voir tous les produits pour animaux",
-    viewDetails: "Voir les détails",
+    findProducts: "Trouver des Produits",
+    findServices: "Trouver des Services",
+    findVeterinary: "Trouver un Vétérinaire",
+    viewMore: "Voir Plus",
+    viewMoreText: "Voir Tous les Produits",
+    viewDetails: "Voir les Détails",
     categories: {
       food: "Nourriture",
       toys: "Jouets",
@@ -217,8 +219,26 @@ const frTranslation = {
       beds: "Lits",
       hygiene: "Hygiène",
       accessories: "Accessoires",
+      grooming: "Toilettage",
+      training: "Dressage",
+      boarding: "Pension",
+      walking: "Promenade",
+      photoshoot: "Séance Photo",
+      petaxi: "Taxi Animalier",
+      consultation: "Consultation",
+      vaccination: "Vaccination",
+      diagnostics: "Diagnostic",
+      dental: "Soins Dentaires",
+      surgery: "Chirurgie",
+      tests: "Analyses",
     },
-    price: "{{price}}€",
+    price: "{{price}} €",
+    badges: {
+      top: "Meilleure Vente",
+      new: "Nouveau",
+      sale: "Soldes",
+      popular: "Populaire",
+    },
   },
 
   services: {

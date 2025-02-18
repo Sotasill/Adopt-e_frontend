@@ -19,4 +19,4 @@ const ProductStringCard = ({ title, text }) => {
   );
 };
 
-export default memo(ProductStringCard); 
+export default memo(ProductStringCard);

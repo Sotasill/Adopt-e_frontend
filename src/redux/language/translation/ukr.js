@@ -196,6 +196,7 @@ const ukrTranslation = {
 
   // Секція тварин
   pets: {
+    title: "Знайди свого улюбленця",
     findYourPet: "Знайди свого улюбленця",
     viewMore: "Показати більше",
     viewMoreText: "Переглянути всіх доступних тварин",
@@ -210,6 +211,7 @@ const ukrTranslation = {
   },
 
   products: {
+    title: "Зоотовари та послуги",
     zootovary: "Зоотовари",
     services: "Послуги",
     veterinary: "Ветеринарія",
@@ -217,7 +219,7 @@ const ukrTranslation = {
     findServices: "Знайти послуги",
     findVeterinary: "Знайти ветеринарні послуги",
     viewMore: "Показати більше",
-    viewMoreText: "Переглянути всі зоотовари",
+    viewMoreText: "Переглянути всі товари",
     viewDetails: "Детальніше",
     categories: {
       food: "Корм",
@@ -226,8 +228,26 @@ const ukrTranslation = {
       beds: "Лежаки",
       hygiene: "Гігієна",
       accessories: "Аксесуари",
+      grooming: "Грумінг",
+      training: "Дресирування",
+      boarding: "Перетримка",
+      walking: "Вигул",
+      photoshoot: "Фотосесія",
+      petaxi: "Зоотаксі",
+      consultation: "Консультація",
+      vaccination: "Вакцинація",
+      diagnostics: "Діагностика",
+      dental: "Стоматологія",
+      surgery: "Хірургія",
+      tests: "Аналізи",
     },
-    price: "{{price}}₴",
+    price: "{{price}} ₴",
+    badges: {
+      top: "Хіт продажу",
+      new: "Новинка",
+      sale: "Знижка",
+      popular: "Популярне",
+    },
   },
 
   services: {
@@ -311,6 +331,8 @@ const ukrTranslation = {
       nameDesc: "Ім'ям (Я-А)",
       ratingDesc: "Рейтингом (високий)",
       ratingAsc: "Рейтингом (низький)",
+      priceAsc: "Ціною (за зростанням)",
+      priceDesc: "Ціною (за спаданням)",
       countries: "Країна",
       breeds: "Порода",
       minRating: "Мінімальний рейтинг",

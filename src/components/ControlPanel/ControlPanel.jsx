@@ -12,10 +12,19 @@ const ControlPanel = ({
   setSelectedCountries,
   selectedBreeds,
   setSelectedBreeds,
+  selectedBreeders,
+  setSelectedBreeders,
+  minPrice,
+  setMinPrice,
+  maxPrice,
+  setMaxPrice,
   minRating,
   setMinRating,
   countries,
   breeds,
+  breeders,
+  showPriceFilter = false,
+  showRatingFilter = false,
   // ViewControls props
   searchValue,
   onSearchChange,
@@ -38,10 +47,19 @@ const ControlPanel = ({
             setSelectedCountries={setSelectedCountries}
             selectedBreeds={selectedBreeds}
             setSelectedBreeds={setSelectedBreeds}
+            selectedBreeders={selectedBreeders}
+            setSelectedBreeders={setSelectedBreeders}
+            minPrice={minPrice}
+            setMinPrice={setMinPrice}
+            maxPrice={maxPrice}
+            setMaxPrice={setMaxPrice}
             minRating={minRating}
             setMinRating={setMinRating}
             countries={countries}
             breeds={breeds}
+            breeders={breeders}
+            showPriceFilter={showPriceFilter}
+            showRatingFilter={showRatingFilter}
             t={t}
           />
         </div>

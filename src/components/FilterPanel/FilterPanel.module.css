@@ -356,25 +356,105 @@
 }
 
 .viewButton {
-  color: #95a5a6 !important;
-  padding: 0 !important;
-  border-radius: 50% !important;
-  transition: all 0.3s ease !important;
-  width: 32px !important;
-  height: 32px !important;
-  min-height: 32px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+  border: none;
+  border-radius: 8px;
+  background: #f8f9fa;
+  color: #6c757d;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
 }
 
 .viewButton:hover {
-  color: #3498db !important;
-  background-color: rgba(52, 152, 219, 0.1) !important;
+  background: #e9ecef;
+  color: #2c3e50;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .viewButton.active {
+  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.priceSort {
+  position: relative;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 10px solid currentColor;
+  transition: transform 0.3s ease;
+}
+
+.triangle.down {
+  transform: rotate(180deg);
+}
+
+.viewButton svg {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+.priceRangeControl {
+  padding: 1rem;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid rgba(52, 152, 219, 0.3);
+  margin-top: 1rem;
+}
+
+.priceRangeLabel {
+  font-size: 0.9rem;
+  color: #2c3e50;
+  margin: 0 0 1rem 0;
+}
+
+/* Стили для слайдера цен */
+:global(.MuiSlider-root) {
   color: #3498db !important;
-  background-color: rgba(52, 152, 219, 0.15) !important;
-  box-shadow: none !important;
+  height: 4px !important;
+}
+
+:global(.MuiSlider-thumb) {
+  width: 16px !important;
+  height: 16px !important;
+  background-color: #fff !important;
+  border: 2px solid #3498db !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+:global(.MuiSlider-thumb:hover),
+:global(.MuiSlider-thumb.Mui-focusVisible) {
+  box-shadow: 0 0 0 8px rgba(52, 152, 219, 0.16) !important;
+}
+
+:global(.MuiSlider-track) {
+  height: 4px !important;
+  background-color: #3498db !important;
+}
+
+:global(.MuiSlider-rail) {
+  height: 4px !important;
+  background-color: #e0e0e0 !important;
+}
+
+:global(.MuiSlider-valueLabel) {
+  background-color: #3498db !important;
+  color: #fff !important;
+  font-size: 0.75rem !important;
+  padding: 0.25rem 0.5rem !important;
+  border-radius: 4px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
 }

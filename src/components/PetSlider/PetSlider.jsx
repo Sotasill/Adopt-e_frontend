@@ -240,10 +240,7 @@ const PetSlider = () => {
   return (
     <section id="pet-slider" className={styles.petsSection}>
       <div className={styles.petsSectionHeader}>
-        <h2
-          className={styles.sectionTitle}
-          onClick={() => navigate(`/${petType}`)}
-        >
+        <h2 className={styles.sectionTitle} onClick={() => navigate("/pets")}>
           {t("pets.findYourPet")}
         </h2>
       </div>

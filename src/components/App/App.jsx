@@ -19,6 +19,7 @@ import AboutPage from "../../pages/AboutPage/AboutPage";
 import BreedsListPage from "../../pages/BreedsListPage/BreedsListPage";
 import BreedPage from "../../pages/BreedPage/BreedPage";
 import ProductsPage from "../../pages/ProductsPage/ProductsPage";
+import PetsListPage from "../../pages/PetsListPage/PetsListPage";
 import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
 import styles from "./App.module.css";
 
@@ -237,6 +238,19 @@ const App = () => {
               <main className={styles.main}>
                 <PublicRoute>
                   <ProductsPage type="veterinary" />
+                </PublicRoute>
+                <Toaster position="top-right" richColors />
+              </main>
+            </Layout>
+          }
+        />
+        <Route
+          path="/pets"
+          element={
+            <Layout className={styles.root}>
+              <main className={styles.main}>
+                <PublicRoute>
+                  <PetsListPage />
                 </PublicRoute>
                 <Toaster position="top-right" richColors />
               </main>
