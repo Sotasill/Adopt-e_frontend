@@ -1,1 +1,1 @@
-export { default } from './PetsListPage'; 
+export { default } from "./PetsListPage.jsx";

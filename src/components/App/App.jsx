@@ -19,7 +19,7 @@ import AboutPage from "../../pages/AboutPage/AboutPage";
 import BreedsListPage from "../../pages/BreedsListPage/BreedsListPage";
 import BreedPage from "../../pages/BreedPage/BreedPage";
 import ProductsPage from "../../pages/ProductsPage/ProductsPage";
-import PetsListPage from "../../pages/PetsListPage";
+import PetsListPage from "../../pages/PetsListPage/PetsListPage.jsx";
 import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
 import styles from "./App.module.css";
 
