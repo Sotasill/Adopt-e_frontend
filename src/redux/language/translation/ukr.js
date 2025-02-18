@@ -20,7 +20,7 @@ const ukrTranslation = {
     ourMission: "Наша місія",
     breeders: "Заводчики",
     findBreeder: "Знайти заводчика",
-    findYourPet: "Знайти улюбленця",
+    findYourPet: "Знайти улюbленця",
     breeds: "Породи тварин",
   },
 
@@ -290,6 +290,36 @@ const ukrTranslation = {
     findPets: "Знайти собаку",
     viewMore: "Показати більше собак",
     viewMoreText: "Переглянути всіх доступних собак",
+  },
+
+  // Загальні
+  common: {
+    dogs: "Собаки",
+    cats: "Коти",
+  },
+
+  // Сторінка заводчиків
+  breeders: {
+    title: "Знайди свого заводчика",
+    filters: {
+      title: "Фільтри",
+      button: "Фільтри",
+      apply: "Застосувати",
+      reset: "Скинути",
+      sortBy: "Сортувати за",
+      nameAsc: "Ім'ям (А-Я)",
+      nameDesc: "Ім'ям (Я-А)",
+      ratingDesc: "Рейтингом (високий)",
+      ratingAsc: "Рейтингом (низький)",
+      countries: "Країна",
+      breeds: "Порода",
+      minRating: "Мінімальний рейтинг",
+      any: "Будь-який рейтинг",
+    },
+    viewModes: {
+      grid: "Сітка",
+      list: "Список",
+    },
   },
 };
 

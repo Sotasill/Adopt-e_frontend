@@ -3,118 +3,351 @@
   justify-content: center;
   align-items: center;
   min-height: 200px;
+  width: 100%;
 }
 
-.loader {
+/* Общие стили для лоадеров */
+.catLoader,
+.dogLoader {
   position: relative;
-  width: 100px;
-  height: 100px;
-  animation: rotate 3s linear infinite;
+  width: 150px;
+  height: 150px;
 }
 
-@keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.cat,
-.dog {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-}
-
+/* Стили для кота */
 .cat {
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.dog {
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.catBody,
-.dogBody {
   position: absolute;
-  width: 30px;
-  height: 20px;
-  background: #ff9800;
-  border-radius: 15px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
 }
 
-.dogBody {
-  background: #795548;
-}
-
-.catHead,
-.dogHead {
+.catBody {
   position: absolute;
-  width: 20px;
-  height: 20px;
-  background: #ff9800;
-  border-radius: 50%;
-  left: -5px;
+  width: 45px;
+  height: 35px;
+  background: #808080;
+  border-radius: 25px 25px 15px 15px;
+  top: 20px;
+  box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.2);
 }
 
-.dogHead {
-  background: #795548;
+.catHead {
+  position: absolute;
+  width: 35px;
+  height: 32px;
+  background: #808080;
+  border-radius: 50% 50% 45% 45%;
+  box-shadow: inset -3px -3px 8px rgba(0, 0, 0, 0.2);
 }
 
-.catEars,
-.dogEars {
+.catEars {
+  position: relative;
+}
+
+.catEars::before,
+.catEars::after {
+  content: "";
   position: absolute;
   width: 0;
   height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 12px solid #ff9800;
-  top: -8px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 18px solid #808080;
+  top: -12px;
+}
+
+.catEars::before {
+  left: 0;
+  transform: rotate(-20deg);
+}
+
+.catEars::after {
+  right: -15px;
+  transform: rotate(20deg);
+}
+
+.catFace {
+  position: relative;
+}
+
+.catFace::before,
+.catFace::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #333;
+  border-radius: 50%;
+  top: 12px;
+}
+
+.catFace::before {
+  left: 8px;
+}
+
+.catFace::after {
+  right: 8px;
+}
+
+.catFace::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 4px;
+  background: #ff9999;
+  border-radius: 4px;
+  top: 18px;
+  left: 13px;
+}
+
+.catTail {
+  position: absolute;
+  width: 35px;
+  height: 8px;
+  background: #808080;
+  right: -25px;
+  top: 30px;
+  border-radius: 4px;
+  transform-origin: left center;
+  animation: tailWag 1s infinite;
+  box-shadow: inset -3px -2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Стили для мышек */
+.mice {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  animation: rotate 5s linear infinite;
+}
+
+.mouse {
+  position: absolute;
+  width: 15px;
+  height: 10px;
+  background: #a9a9a9;
+  border-radius: 8px 12px 12px 8px;
+  top: 50%;
+  left: 50%;
+  margin-left: -7.5px;
+  margin-top: -5px;
+  box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.2);
+  border: 1px solid #808080;
+}
+
+.mouse::before {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #000;
+  border-radius: 50%;
   left: 2px;
+  top: 2px;
+}
+
+.mouse::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 2px;
+  background: #a9a9a9;
+  right: -10px;
+  top: 4px;
+  border-radius: 2px;
+  transform-origin: left center;
+  transform: rotate(5deg);
+  border-top: 1px solid #808080;
+}
+
+.mouse1 {
+  transform: rotate(0deg) translateX(60px) rotate(0deg);
+}
+.mouse2 {
+  transform: rotate(72deg) translateX(60px) rotate(-72deg);
+}
+.mouse3 {
+  transform: rotate(144deg) translateX(60px) rotate(-144deg);
+}
+.mouse4 {
+  transform: rotate(216deg) translateX(60px) rotate(-216deg);
+}
+.mouse5 {
+  transform: rotate(288deg) translateX(60px) rotate(-288deg);
+}
+
+/* Стили для собаки */
+.dog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+}
+
+.dogBody {
+  position: absolute;
+  width: 50px;
+  height: 35px;
+  background: #d2691e;
+  border-radius: 25px 25px 15px 15px;
+  top: 20px;
+  box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dogHead {
+  position: absolute;
+  width: 38px;
+  height: 35px;
+  background: #d2691e;
+  border-radius: 45% 45% 40% 40%;
+  box-shadow: inset -3px -3px 8px rgba(0, 0, 0, 0.2);
 }
 
 .dogEars {
-  border-bottom-color: #795548;
+  position: relative;
 }
 
-.catTail,
-.dogTail {
+.dogEars::before,
+.dogEars::after {
+  content: "";
   position: absolute;
-  width: 20px;
-  height: 8px;
-  background: #ff9800;
-  right: -15px;
-  top: 8px;
-  border-radius: 4px;
-  transform-origin: left center;
-  animation: tailWag 0.5s infinite alternate;
+  width: 18px;
+  height: 22px;
+  background: #d2691e;
+  border-radius: 50% 50% 0 50%;
+  top: -15px;
 }
 
-.dogTail {
-  background: #795548;
+.dogEars::before {
+  left: -2px;
+  transform: rotate(-15deg);
 }
 
-@keyframes tailWag {
-  0% {
-    transform: rotate(-20deg);
-  }
-  100% {
-    transform: rotate(20deg);
-  }
+.dogEars::after {
+  right: -12px;
+  transform: rotate(15deg);
 }
 
 .dogSnout {
+  position: relative;
+  width: 25px;
+  height: 18px;
+  background: #8b4513;
+  border-radius: 40% 40% 60% 60%;
+  top: 15px;
+  left: 6px;
+}
+
+.dogSnout::before {
+  content: "";
   position: absolute;
   width: 12px;
   height: 8px;
-  background: #5d4037;
-  border-radius: 6px;
+  background: #000;
+  border-radius: 50%;
   bottom: 2px;
-  left: 4px;
+  left: 6px;
+}
+
+.dogSnout::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 10px;
+  border-bottom: 2px solid #6b4423;
+  border-radius: 0 0 45% 45%;
+  bottom: 8px;
+  left: 2px;
+}
+
+.dogTail {
+  position: absolute;
+  width: 30px;
+  height: 10px;
+  background: #d2691e;
+  right: -20px;
+  top: 25px;
+  border-radius: 5px;
+  transform-origin: left center;
+  animation: tailWag 0.8s infinite;
+  box-shadow: inset -3px -2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Стили для косточек */
+.bones {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  animation: rotate 5s linear infinite;
+}
+
+.bone {
+  position: absolute;
+  width: 20px;
+  height: 8px;
+  background: #fff5ee;
+  border-radius: 4px;
+  top: 50%;
+  left: 50%;
+  margin-left: -10px;
+  margin-top: -4px;
+  box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #d2691e;
+}
+
+.bone::before,
+.bone::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 14px;
+  background: #fff5ee;
+  border-radius: 5px;
+  box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #d2691e;
+}
+
+.bone::before {
+  left: -6px;
+  top: -3px;
+}
+
+.bone::after {
+  right: -6px;
+  top: -3px;
+}
+
+.bone1 {
+  transform: rotate(0deg) translateX(60px) rotate(0deg);
+}
+.bone2 {
+  transform: rotate(120deg) translateX(60px) rotate(-120deg);
+}
+.bone3 {
+  transform: rotate(240deg) translateX(60px) rotate(-240deg);
+}
+
+/* Анимации */
+@keyframes tailWag {
+  0%,
+  100% {
+    transform: rotate(-15deg);
+  }
+  50% {
+    transform: rotate(15deg);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

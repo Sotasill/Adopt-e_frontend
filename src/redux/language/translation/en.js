@@ -270,6 +270,36 @@ const enTranslation = {
     message: "Page Not Found",
     returnHome: "Return to Home",
   },
+
+  // Common
+  common: {
+    dogs: "Dogs",
+    cats: "Cats",
+  },
+
+  // Breeders page
+  breeders: {
+    title: "Find Your Breeder",
+    filters: {
+      title: "Filters",
+      button: "Filters",
+      apply: "Apply",
+      reset: "Reset",
+      sortBy: "Sort by",
+      nameAsc: "Name (A-Z)",
+      nameDesc: "Name (Z-A)",
+      ratingDesc: "Rating (high)",
+      ratingAsc: "Rating (low)",
+      countries: "Country",
+      breeds: "Breed",
+      minRating: "Minimum Rating",
+      any: "Any rating",
+    },
+    viewModes: {
+      grid: "Grid",
+      list: "List",
+    },
+  },
 };
 
 export default enTranslation;

@@ -160,12 +160,26 @@
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
-  background: linear-gradient(90deg, #2c3e50, #3498db);
+  background: linear-gradient(90deg, #2c3e50, #3498db, #2c3e50);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   display: inline-block;
   padding: 0.5rem 2rem;
+  animation: gradientMove 3s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+  100% {
+    background-position: 0% center;
+  }
 }
 
 .title::after {
@@ -261,10 +275,28 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.controlsRight {
+.controlsContainer {
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.controlsLeft {
+  flex: 1;
+  min-width: 200px;
+}
+
+.controlsCenter {
+  flex: 2;
+  min-width: 300px;
+}
+
+.controlsRight {
+  flex: 0 0 auto;
+  min-width: 120px;
 }
 
 .filterButton {
@@ -448,8 +480,16 @@
 /* Список заводчиков */
 .breedersList {
   display: grid;
-  gap: 24px;
-  padding: 16px 0;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.breedersList.grid {
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.breedersList.list {
+  grid-template-columns: 1fr;
 }
 
 /* Стили для режима сетки */
@@ -984,5 +1024,19 @@
 
   .breedersList.list :global(.kennelInfo) {
     width: calc(100% - 60px);
+  }
+}
+
+@media (max-width: 768px) {
+  .controlsContainer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .controlsLeft,
+  .controlsCenter,
+  .controlsRight {
+    width: 100%;
+    min-width: 100%;
   }
 }

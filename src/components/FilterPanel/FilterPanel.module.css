@@ -1,0 +1,380 @@
+.viewControls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+}
+
+.controlsLeft {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+  min-width: 180px;
+  height: 32px;
+  align-items: center;
+}
+
+.controlsRight {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.filterControl {
+  min-width: 200px;
+}
+
+.filterControl :global(.MuiOutlinedInput-root) {
+  border-radius: 15px;
+  background: white !important;
+  transition: all 0.3s ease !important;
+}
+
+.filterControl :global(.MuiOutlinedInput-root:hover) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filterControl :global(.MuiOutlinedInput-notchedOutline) {
+  border: 1px solid rgba(52, 152, 219, 0.3) !important;
+}
+
+.filterControl :global(.MuiSelect-select) {
+  color: #2c3e50 !important;
+  padding: 0.8rem 1.6rem !important;
+}
+
+.filterControl :global(.MuiInputLabel-root) {
+  color: #2c3e50 !important;
+  background: white !important;
+  padding: 0 0.5rem;
+}
+
+.filterControl :global(.MuiSvgIcon-root) {
+  color: #2c3e50 !important;
+}
+
+.filterControl :global(.MuiSelect-multiple) {
+  min-height: 42px;
+}
+
+.filterControl :global(.MuiChip-root) {
+  margin: 2px;
+}
+
+.filterControl :global(.MuiMenuItem-root) {
+  padding: 8px 16px;
+}
+
+.filterControl :global(.MuiMenuItem-root.Mui-selected) {
+  background-color: rgba(52, 152, 219, 0.08);
+}
+
+.filterControl :global(.MuiMenuItem-root.Mui-selected:hover) {
+  background-color: rgba(52, 152, 219, 0.12);
+}
+
+.filterButton {
+  margin: 0 !important;
+  padding: 0 12px !important;
+  font-size: 0.875rem !important;
+  color: #ffffff !important;
+  background: linear-gradient(90deg, #2c3e50, #3498db, #2c3e50) !important;
+  background-size: 200% auto !important;
+  border: none !important;
+  border-radius: 12px !important;
+  cursor: pointer;
+  transition: all 0.3s ease !important;
+  text-transform: none !important;
+  font-weight: 500 !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  background-position: 0% center !important;
+  position: relative;
+  height: 32px !important;
+  min-height: 32px !important;
+  line-height: 32px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap !important;
+}
+
+.filterButton:hover {
+  background-position: 100% center !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+.filterButton:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+.filterBadge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #e74c3c;
+  color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.filtersModal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  outline: none;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  text-align: center;
+}
+
+.modalHeader h2 {
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  background: linear-gradient(90deg, #2c3e50 0%, #3498db 50%, #2c3e50 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+  padding: 0.5rem 2rem;
+  animation: gradientMove 3s ease infinite;
+}
+
+.modalHeader h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, #3498db, #2c3e50);
+  border-radius: 1.5px;
+  transition: width 0.3s ease;
+}
+
+.modalHeader h2:hover::after {
+  width: 150px;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+  100% {
+    background-position: 0% center;
+  }
+}
+
+.closeButton {
+  color: #95a5a6 !important;
+  transition: all 0.3s ease !important;
+}
+
+.closeButton:hover {
+  color: #e74c3c !important;
+  background-color: rgba(231, 76, 60, 0.1) !important;
+}
+
+.modalActions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.modalActions button {
+  padding: 0.8rem 1.6rem !important;
+  font-size: 1rem !important;
+  border-radius: 15px !important;
+  text-transform: none !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+}
+
+.modalActions button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+.modalActions button:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+.resetButton {
+  background: linear-gradient(90deg, #e74c3c, #c0392b, #e74c3c) !important;
+  background-size: 200% auto !important;
+  color: white !important;
+  border: none !important;
+  box-shadow: 0 4px 6px rgba(231, 76, 60, 0.3) !important;
+  background-position: 0% center !important;
+}
+
+.resetButton:hover {
+  background-position: 100% center !important;
+}
+
+.resetButton:disabled {
+  background: linear-gradient(90deg, #bdc3c7, #95a5a6, #bdc3c7) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.modalActions button[variant="contained"] {
+  background: linear-gradient(90deg, #2c3e50, #3498db, #2c3e50) !important;
+  background-size: 200% auto !important;
+  color: white !important;
+  border: none !important;
+  box-shadow: 0 4px 6px rgba(52, 152, 219, 0.3) !important;
+  background-position: 0% center !important;
+}
+
+.modalActions button[variant="contained"]:hover {
+  background-position: 100% center !important;
+}
+
+.filterControls {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 960px) {
+  .filterControls {
+    grid-template-columns: 1fr;
+  }
+
+  .filterControl {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .viewControls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .controlsRight {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filterButton {
+    align-self: flex-end;
+  }
+
+  .modalContent {
+    padding: 1rem;
+  }
+
+  .filterControls {
+    grid-template-columns: 1fr;
+  }
+
+  .modalActions {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .modalActions button {
+    width: 100%;
+  }
+
+  .modalHeader {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .filterButton {
+    padding: 0.7rem 1.4rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  .modalActions button {
+    padding: 0.7rem 1.4rem !important;
+    font-size: 0.9rem !important;
+  }
+}
+
+@media (max-width: 320px) {
+  .filterButton {
+    padding: 0.6rem 1.2rem !important;
+    font-size: 0.85rem !important;
+    width: 100%;
+  }
+
+  .modalActions button {
+    padding: 0.6rem 1.2rem !important;
+    font-size: 0.85rem !important;
+  }
+}
+
+.viewButton {
+  color: #95a5a6 !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  transition: all 0.3s ease !important;
+  width: 32px !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.viewButton:hover {
+  color: #3498db !important;
+  background-color: rgba(52, 152, 219, 0.1) !important;
+}
+
+.viewButton.active {
+  color: #3498db !important;
+  background-color: rgba(52, 152, 219, 0.15) !important;
+  box-shadow: none !important;
+}

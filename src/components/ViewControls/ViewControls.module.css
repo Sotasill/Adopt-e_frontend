@@ -2,53 +2,69 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
-  padding: 16px 24px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  margin-bottom: 24px;
+  gap: 12px;
+  height: 32px;
+  width: 100%;
 }
 
 .controlsLeft {
   flex: 1;
   min-width: 200px;
+  height: 32px;
+  display: flex;
+  align-items: center;
 }
 
 .controlsRight {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 8px;
+  height: 32px;
 }
 
 .searchField {
   width: 100%;
-}
-
-.searchField input {
-  padding: 12px 14px;
+  max-width: 400px;
+  height: 32px;
 }
 
 .searchField :global(.MuiOutlinedInput-root) {
-  background: #fff;
-  border-radius: 15px;
+  height: 32px;
+  min-height: 32px;
+  border-radius: 12px;
+  background: white;
+  padding: 0 !important;
+}
+
+.searchField :global(.MuiOutlinedInput-input) {
+  padding: 0 8px !important;
+  font-size: 0.875rem;
+  height: 32px !important;
+  line-height: 32px !important;
 }
 
 .searchField :global(.MuiOutlinedInput-notchedOutline) {
-  border-color: #e0e0e0;
+  border-color: rgba(52, 152, 219, 0.3);
+}
+
+.searchField :global(.MuiInputAdornment-root) {
+  height: 32px;
+  margin: 0;
+  padding-right: 8px;
 }
 
 .searchField :global(.MuiInputAdornment-root) svg {
   color: #757575;
+  font-size: 20px;
 }
 
 /* Кнопки управления */
 .viewButton {
-  width: 40px !important;
-  height: 40px !important;
+  width: 32px !important;
+  height: 32px !important;
   color: #757575 !important;
   transition: all 0.3s ease !important;
-  padding: 8px !important;
+  padding: 6px !important;
   border-radius: 50% !important;
   background-color: #f5f6f7 !important;
 }
@@ -67,7 +83,6 @@
 @media (max-width: 768px) {
   .viewControls {
     flex-direction: column;
-    padding: 16px;
   }
 
   .controlsLeft,
@@ -84,4 +99,53 @@
   .petTypeOption {
     padding: 8px 12px;
   }
+}
+
+.petTypeSwitch {
+  display: flex;
+  align-items: center;
+  height: 32px;
+}
+
+.switchContainer {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 16px;
+  padding: 0 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  gap: 6px;
+  height: 32px;
+}
+
+.petTypeOption {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 0 6px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  height: 32px;
+  line-height: 32px;
+}
+
+.petIcon {
+  font-size: 14px;
+  color: #95a5a6;
+}
+
+.petIcon.active {
+  color: #3498db;
+}
+
+.petLabel {
+  font-size: 0.875rem;
+  color: #95a5a6;
+  margin: 0;
+  font-weight: 500;
+}
+
+.petLabel.active {
+  color: #3498db;
 }

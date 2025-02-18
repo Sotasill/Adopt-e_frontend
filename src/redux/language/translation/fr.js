@@ -270,6 +270,36 @@ const frTranslation = {
     message: "Page Non Trouvée",
     returnHome: "Retour à l'Accueil",
   },
+
+  // Commun
+  common: {
+    dogs: "Chiens",
+    cats: "Chats",
+  },
+
+  // Page des éleveurs
+  breeders: {
+    title: "Trouvez Votre Éleveur",
+    filters: {
+      title: "Filtres",
+      button: "Filtres",
+      apply: "Appliquer",
+      reset: "Réinitialiser",
+      sortBy: "Trier par",
+      nameAsc: "Nom (A-Z)",
+      nameDesc: "Nom (Z-A)",
+      ratingDesc: "Note (élevée)",
+      ratingAsc: "Note (basse)",
+      countries: "Pays",
+      breeds: "Race",
+      minRating: "Note minimale",
+      any: "Toute note",
+    },
+    viewModes: {
+      grid: "Grille",
+      list: "Liste",
+    },
+  },
 };
 
 export default frTranslation;

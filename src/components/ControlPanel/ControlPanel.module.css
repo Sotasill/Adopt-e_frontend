@@ -1,0 +1,111 @@
+.controlPanel {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 0.25rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  height: 42px;
+  display: flex;
+  align-items: center;
+}
+
+.controlsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+}
+
+.controlsLeft {
+  flex: 1;
+  min-width: 180px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+}
+
+.controlsCenter {
+  flex: 2;
+  min-width: 280px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.controlsRight {
+  flex: 0 0 auto;
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 1200px) {
+  .controlPanel {
+    padding: 0.25rem;
+  }
+
+  .controlsContainer {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 960px) {
+  .controlsContainer {
+    gap: 8px;
+  }
+
+  .controlsCenter {
+    min-width: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  .controlPanel {
+    height: auto;
+    padding: 0.5rem;
+  }
+
+  .controlsContainer {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .controlsLeft,
+  .controlsCenter,
+  .controlsRight {
+    width: 100%;
+    min-width: 100%;
+    justify-content: center;
+    height: 42px;
+  }
+
+  .controlsRight {
+    order: 2;
+  }
+
+  .controlsCenter {
+    order: 1;
+  }
+
+  .controlsLeft {
+    order: 3;
+  }
+}
+
+@media (max-width: 480px) {
+  .controlPanel {
+    padding: 0.25rem;
+    border-radius: 15px;
+  }
+
+  .controlsContainer {
+    gap: 6px;
+  }
+}

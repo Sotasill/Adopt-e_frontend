@@ -1,0 +1,38 @@
+.viewToggle {
+  display: flex;
+  gap: 4px;
+  padding: 2px;
+  border-radius: 8px;
+  background: #f8f9fa;
+  height: 32px;
+}
+
+.viewButton {
+  color: #95a5a6 !important;
+  padding: 4px !important;
+  border-radius: 50% !important;
+  transition: all 0.3s ease !important;
+  width: 28px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.viewButton:hover {
+  color: #3498db !important;
+  background-color: rgba(52, 152, 219, 0.1) !important;
+}
+
+.viewButton.active {
+  color: #3498db !important;
+  background-color: rgba(52, 152, 219, 0.15) !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 768px) {
+  .viewToggle {
+    margin-left: auto;
+  }
+}

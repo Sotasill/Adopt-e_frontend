@@ -15,7 +15,28 @@ const ruTranslation = {
   gallery: "Галерея",
   about: "О нас",
   ourMission: "Наша миссия",
-  breeders: "Заводчики",
+  breeders: {
+    title: "Найди своего заводчика",
+    filters: {
+      title: "Фильтры",
+      button: "Фильтры",
+      apply: "Применить",
+      reset: "Сбросить",
+      sortBy: "Сортировать по",
+      nameAsc: "Имени (А-Я)",
+      nameDesc: "Имени (Я-А)",
+      ratingDesc: "Рейтингу (высокий)",
+      ratingAsc: "Рейтингу (низкий)",
+      countries: "Страна",
+      breeds: "Порода",
+      minRating: "Минимальный рейтинг",
+      any: "Любой рейтинг",
+    },
+    viewModes: {
+      grid: "Сетка",
+      list: "Список",
+    },
+  },
   findBreeder: "Найти заводчика",
   findYourPet: "Найти питомца",
   breeds: {
@@ -284,6 +305,12 @@ const ruTranslation = {
     findPets: "Найти собаку",
     viewMore: "Показать больше собак",
     viewMoreText: "Посмотреть всех доступных собак",
+  },
+
+  // Общие
+  common: {
+    dogs: "Собаки",
+    cats: "Кошки",
   },
 };
 

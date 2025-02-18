@@ -115,7 +115,28 @@ const deuTranslation = {
   gallery: "Galerie",
   about: "Über uns",
   ourMission: "Unsere Mission",
-  breeders: "Züchter",
+  breeders: {
+    title: "Finden Sie Ihren Züchter",
+    filters: {
+      title: "Filter",
+      button: "Filter",
+      apply: "Anwenden",
+      reset: "Zurücksetzen",
+      sortBy: "Sortieren nach",
+      nameAsc: "Name (A-Z)",
+      nameDesc: "Name (Z-A)",
+      ratingDesc: "Bewertung (hoch)",
+      ratingAsc: "Bewertung (niedrig)",
+      countries: "Land",
+      breeds: "Rasse",
+      minRating: "Mindestbewertung",
+      any: "Beliebige Bewertung",
+    },
+    viewModes: {
+      grid: "Raster",
+      list: "Liste",
+    },
+  },
   findBreeder: "Züchter finden",
   findYourPet: "Haustier finden",
   breeds: {
@@ -268,6 +289,12 @@ const deuTranslation = {
   notFound: {
     message: "Seite Nicht Gefunden",
     returnHome: "Zurück zur Startseite",
+  },
+
+  // Allgemein
+  common: {
+    dogs: "Hunde",
+    cats: "Katzen",
   },
 };
 
