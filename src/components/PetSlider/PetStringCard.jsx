@@ -78,62 +78,57 @@ const PetStringCard = ({ pet }) => {
     : 0;
 
   return (
-    <div className={styles.petString}>
-      <div className={styles.mainInfo}>
-        <img src={pet.image} alt={pet.name} className={styles.petImage} />
+    <div className={styles.card}>
+      <div className={styles.cardContent}>
+        <img src={pet.image} alt={pet.name} className={styles.media} />
+        <div className={styles.content}>
+          <div className={styles.mainInfo}>
+            <h3 className={styles.title}>{pet.name}</h3>
+            <p className={styles.subtitle}>
+              {getBreedName(pet.breedKey, pet.type)}
+            </p>
+          </div>
 
-        <div className={styles.petNameBreed}>
-          <h3 className={styles.petName}>{pet.name}</h3>
-          <p className={styles.petBreed}>
-            {getBreedName(pet.breedKey, pet.type)}
-          </p>
-        </div>
+          <div className={styles.details}>
+            <div className={styles.ageGender}>
+              <span className={styles.age}>{getAgeText(pet.ageInMonths)}</span>
+              <span className={styles.gender}>
+                {pet.gender === "male" ? (
+                  <FaMars className={styles.maleIcon} />
+                ) : (
+                  <FaVenus className={styles.femaleIcon} />
+                )}
+              </span>
+            </div>
 
-        <div className={styles.ageGender}>
-          <span className={styles.age}>{getAgeText(pet.ageInMonths)}</span>
-          <span className={styles.gender}>
-            {pet.gender === "male" ? (
-              <FaMars className={styles.maleIcon} />
-            ) : (
-              <FaVenus className={styles.femaleIcon} />
-            )}
-          </span>
-        </div>
+            <div className={styles.locationInfo}>
+              <MdLocationOn className={styles.locationIcon} />
+              <span>
+                {pet.city}, {countryInfo.name}
+              </span>
+            </div>
+          </div>
 
-        <div className={styles.locationContainer}>
-          <MdLocationOn className={styles.locationIcon} />
-          <div className={styles.locationInfo}>
-            <span className={styles.city}>{pet.city}</span>
-            <span className={styles.countryInfo}>
-              <span className={styles.countryFlag}>{countryInfo.flag}</span>
-              <span className={styles.countryName}>{countryInfo.name}</span>
-            </span>
+          <div className={styles.priceContainer}>
+            <div className={styles.priceInfo}>
+              <span className={styles.price}>
+                {t("pets.price", { price: pet.price })}
+              </span>
+              {pet.oldPrice && (
+                <span className={styles.oldPrice}>
+                  {t("pets.price", { price: pet.oldPrice })}
+                </span>
+              )}
+            </div>
+            <button
+              className={`${commonStyles.findBreederButton} ${commonStyles.small}`}
+              onClick={handleBreederClick}
+            >
+              <FaUser className={styles.breederIcon} />
+              {t("pets.viewBreeder")}
+            </button>
           </div>
         </div>
-
-        <div className={styles.price}>
-          {pet.oldPrice && (
-            <span className={styles.priceOld}>
-              {t("pets.price", { price: pet.oldPrice })}
-            </span>
-          )}
-          <span className={pet.oldPrice ? styles.priceNew : ""}>
-            {t("pets.price", { price: pet.price })}
-          </span>
-          {pet.oldPrice && (
-            <span className={styles.priceDiscount}>
-              {t("badges.discount", { percent: discount })}
-            </span>
-          )}
-        </div>
-
-        <button
-          className={`${commonStyles.findBreederButton} ${commonStyles.small}`}
-          onClick={handleBreederClick}
-        >
-          <FaUser className={styles.breederIcon} />
-          {t("pets.viewBreeder")}
-        </button>
       </div>
     </div>
   );

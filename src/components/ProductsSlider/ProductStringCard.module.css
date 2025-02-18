@@ -25,8 +25,8 @@
   height: 120px;
   object-fit: cover;
   flex-shrink: 0;
-  border-radius: 8px 0 0 8px;
   transition: transform 0.3s ease;
+  border-radius: 8px 0 0 8px;
 }
 
 .card:hover .media {
@@ -47,6 +47,7 @@
 }
 
 .title {
+  font-family: "Montserrat", sans-serif !important;
   font-size: 16px !important;
   font-weight: 700 !important;
   color: #2c3e50;
@@ -58,43 +59,47 @@
 }
 
 .subtitle {
+  font-family: "Montserrat", sans-serif !important;
   font-size: 14px !important;
   color: #666;
   margin-top: 4px !important;
   font-weight: 500 !important;
 }
 
+.badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #f0f0f0;
+}
+
 .details {
   flex: 0 0 20%;
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  align-items: center;
   color: #666;
   min-width: 150px;
 }
 
-.ageGender {
+.details > * {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 14px;
-}
-
-.maleIcon {
-  color: #3d69b9;
-  font-size: 16px;
-}
-
-.femaleIcon {
-  color: #e91e63;
-  font-size: 16px;
+  gap: 6px;
+  font-size: 0.875rem !important;
 }
 
 .locationInfo {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 14px;
+  font-family: "Montserrat", sans-serif !important;
+  font-size: 14px !important;
 }
 
 .locationIcon {
@@ -118,6 +123,7 @@
 }
 
 .price {
+  font-family: "Montserrat", sans-serif !important;
   font-size: 18px !important;
   font-weight: 700 !important;
   color: #2c3e50;
@@ -125,16 +131,35 @@
 }
 
 .oldPrice {
+  font-family: "Montserrat", sans-serif !important;
   font-size: 14px !important;
   color: #999 !important;
   text-decoration: line-through;
   font-weight: 500 !important;
 }
 
-.breederIcon {
+.cartIcon {
   margin-right: 8px;
   font-size: 1rem;
   color: #fff;
+}
+
+.viewButton {
+  background: #3d69b9 !important;
+  color: white !important;
+  padding: 4px 16px !important;
+  font-size: 0.875rem !important;
+  font-weight: 400 !important;
+  text-transform: none !important;
+  border-radius: 4px !important;
+  min-width: 120px !important;
+  height: 32px !important;
+  box-shadow: none !important;
+}
+
+.viewButton:hover {
+  background: #2d4d8c !important;
+  box-shadow: none !important;
 }
 
 @media (max-width: 960px) {

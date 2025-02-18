@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { FiFilter } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import {
@@ -16,12 +16,44 @@ import {
   Box,
   Checkbox,
   Slider,
+  ListItemText,
+  OutlinedInput,
 } from "@mui/material";
 import styles from "./FilterPanel.module.css";
+import PropTypes from "prop-types";
+
+const CATEGORIES_BY_TYPE = {
+  products: [
+    { id: "food", label: "Корм" },
+    { id: "toys", label: "Игрушки" },
+    { id: "accessories", label: "Аксессуары" },
+    { id: "hygiene", label: "Гигиена" },
+    { id: "beds", label: "Лежанки" },
+    { id: "equipment", label: "Амуниция" },
+  ],
+  services: [
+    { id: "grooming", label: "Груминг" },
+    { id: "training", label: "Дрессировка" },
+    { id: "boarding", label: "Передержка" },
+    { id: "walking", label: "Выгул" },
+    { id: "photoshoot", label: "Фотосессия" },
+    { id: "petaxi", label: "Зоотакси" },
+  ],
+  veterinary: [
+    { id: "consultation", label: "Консультация" },
+    { id: "vaccination", label: "Вакцинация" },
+    { id: "diagnostics", label: "Диагностика" },
+    { id: "dental", label: "Стоматология" },
+    { id: "surgery", label: "Хирургия" },
+    { id: "tests", label: "Анализы" },
+  ],
+};
 
 const FilterPanel = ({
   sortBy,
   setSortBy,
+  selectedCategories,
+  setSelectedCategories,
   selectedCountries = [],
   setSelectedCountries = () => {},
   selectedBreeds = [],
@@ -39,6 +71,7 @@ const FilterPanel = ({
   breeders = [],
   showPriceFilter = false,
   showRatingFilter = false,
+  productType,
   t,
 }) => {
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
@@ -95,6 +128,22 @@ const FilterPanel = ({
 
   const showBreedersFilter =
     typeof setSelectedBreeders === "function" && breeders.length > 0;
+
+  const handleCategoryChange = (event) => {
+    const value = event.target.value;
+    setSelectedCategories(typeof value === "string" ? value.split(",") : value);
+  };
+
+  const handleCountryChange = (event) => {
+    const value = event.target.value;
+    setSelectedCountries(typeof value === "string" ? value.split(",") : value);
+  };
+
+  const handleSortChange = (event) => {
+    setSortBy(event.target.value);
+  };
+
+  const availableCategories = CATEGORIES_BY_TYPE[productType] || [];
 
   return (
     <>
@@ -166,34 +215,67 @@ const FilterPanel = ({
           </div>
 
           <div className={styles.filterControls}>
+            <FormControl className={styles.filterControl}>
+              <InputLabel>{t("filters.sort")}</InputLabel>
+              <Select value={sortBy} onChange={handleSortChange}>
+                <MenuItem value="nameAsc">{t("filters.sortNameAsc")}</MenuItem>
+                <MenuItem value="nameDesc">
+                  {t("filters.sortNameDesc")}
+                </MenuItem>
+                <MenuItem value="priceAsc">
+                  {t("filters.sortPriceAsc")}
+                </MenuItem>
+                <MenuItem value="priceDesc">
+                  {t("filters.sortPriceDesc")}
+                </MenuItem>
+              </Select>
+            </FormControl>
+
+            <FormControl className={styles.filterControl}>
+              <InputLabel>{t("filters.categories")}</InputLabel>
+              <Select
+                multiple
+                value={selectedCategories}
+                onChange={handleCategoryChange}
+                input={<OutlinedInput label={t("filters.categories")} />}
+                renderValue={(selected) =>
+                  selected
+                    .map(
+                      (categoryId) =>
+                        availableCategories.find((cat) => cat.id === categoryId)
+                          ?.label
+                    )
+                    .filter(Boolean)
+                    .join(", ")
+                }
+              >
+                {availableCategories.map((category) => (
+                  <MenuItem key={category.id} value={category.id}>
+                    <Checkbox
+                      checked={selectedCategories.includes(category.id)}
+                    />
+                    <ListItemText primary={category.label} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
             {countries.length > 0 && (
               <FormControl className={styles.filterControl}>
-                <InputLabel>{t("breeders.filters.countries")}</InputLabel>
+                <InputLabel>{t("filters.countries")}</InputLabel>
                 <Select
                   multiple
                   value={selectedCountries}
-                  onChange={(e) => setSelectedCountries(e.target.value)}
-                  label={t("breeders.filters.countries")}
-                  renderValue={(selected) =>
-                    selected
-                      .map((code) => {
-                        const country = countries.find((c) => c.code === code);
-                        return country ? country.name : code;
-                      })
-                      .join(", ")
-                  }
+                  onChange={handleCountryChange}
+                  input={<OutlinedInput label={t("filters.countries")} />}
+                  renderValue={(selected) => selected.join(", ")}
                 >
                   {countries.map((country) => (
                     <MenuItem key={country.code} value={country.code}>
                       <Checkbox
                         checked={selectedCountries.includes(country.code)}
                       />
-                      <img
-                        src={country.flag}
-                        alt={country.name}
-                        style={{ width: 20, marginRight: 8 }}
-                      />
-                      {country.name}
+                      <ListItemText primary={country.name} />
                     </MenuItem>
                   ))}
                 </Select>
@@ -308,4 +390,35 @@ const FilterPanel = ({
   );
 };
 
-export default FilterPanel;
+FilterPanel.propTypes = {
+  sortBy: PropTypes.string.isRequired,
+  setSortBy: PropTypes.func.isRequired,
+  selectedCategories: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setSelectedCategories: PropTypes.func.isRequired,
+  selectedCountries: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setSelectedCountries: PropTypes.func.isRequired,
+  minPrice: PropTypes.number.isRequired,
+  setMinPrice: PropTypes.func.isRequired,
+  maxPrice: PropTypes.number.isRequired,
+  setMaxPrice: PropTypes.func.isRequired,
+  minRating: PropTypes.number.isRequired,
+  setMinRating: PropTypes.func.isRequired,
+  countries: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      flag: PropTypes.string,
+    })
+  ).isRequired,
+  selectedBreeds: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setSelectedBreeds: PropTypes.func.isRequired,
+  selectedBreeders: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setSelectedBreeders: PropTypes.func.isRequired,
+  showPriceFilter: PropTypes.bool,
+  showRatingFilter: PropTypes.bool,
+  productType: PropTypes.oneOf(["products", "services", "veterinary"])
+    .isRequired,
+  t: PropTypes.func.isRequired,
+};
+
+export default memo(FilterPanel);

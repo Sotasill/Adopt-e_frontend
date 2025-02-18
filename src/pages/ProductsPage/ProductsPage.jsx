@@ -5,7 +5,7 @@ import {
   setProductType,
   selectProductType,
 } from "../../redux/productType/productTypeSlice";
-import ViewControlsProducts from "../../components/ViewControlsProducts/ViewControls";
+import ControlPanelProducts from "../../components/ControlPanel/ControlPanelProducts";
 import ProductCard from "../../components/ProductsSlider/ProductCard";
 import ProductStringCard from "../../components/ProductsSlider/ProductStringCard";
 import CustomLoader from "../../components/CustomLoader/CustomLoader";
@@ -327,7 +327,7 @@ const ProductsPage = () => {
       </div>
 
       <div className={styles.content}>
-        <ViewControlsProducts
+        <ControlPanelProducts
           sortBy={sortBy}
           setSortBy={setSortBy}
           selectedCategories={selectedCategories}
@@ -341,7 +341,6 @@ const ProductsPage = () => {
           categories={uniqueCategories}
           countries={countries}
           showPriceFilter={true}
-          showRatingFilter={false}
           searchValue={searchValue}
           onSearchChange={setSearchValue}
           productType={productType}
@@ -362,14 +361,30 @@ const ProductsPage = () => {
               viewMode === "grid" ? (
                 <ProductCard
                   key={item.id}
-                  product={item}
+                  id={item.id}
+                  name={item.name}
+                  image={item.image}
+                  category={item.category}
+                  price={item.price}
+                  oldPrice={item.oldPrice}
+                  city={item.city}
+                  country={item.country}
+                  badges={item.badges}
                   expanded={expandedCardId === item.id}
                   onExpand={() => handleCardExpand(item.id)}
                 />
               ) : (
                 <ProductStringCard
                   key={item.id}
-                  product={item}
+                  id={item.id}
+                  name={item.name}
+                  image={item.image}
+                  category={item.category}
+                  price={item.price}
+                  oldPrice={item.oldPrice}
+                  city={item.city}
+                  country={item.country}
+                  badges={item.badges}
                   expanded={expandedCardId === item.id}
                   onExpand={() => handleCardExpand(item.id)}
                 />
