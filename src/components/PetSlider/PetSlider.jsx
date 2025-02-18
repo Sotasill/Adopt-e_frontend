@@ -246,6 +246,8 @@ const PetSlider = () => {
         >
           {t("pets.findYourPet")}
         </h2>
+      </div>
+      <div className={styles.petsControls}>
         <ViewControls
           sortOrder={sortOrder}
           onSortChange={setSortOrder}

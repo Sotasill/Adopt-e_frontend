@@ -343,7 +343,9 @@ const KennelsSlider = () => {
         >
           {t("kennels.title")}
         </h2>
+      </div>
 
+      <div className={styles.kennelsControls}>
         <ViewControls
           searchValue={searchQuery}
           onSearchChange={setSearchQuery}

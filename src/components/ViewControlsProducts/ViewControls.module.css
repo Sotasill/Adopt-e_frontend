@@ -2,139 +2,206 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
-  padding: 16px 24px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  margin-bottom: 24px;
+  gap: 12px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 0.25rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  height: 42px;
+  width: 100%;
 }
 
 .controlsLeft {
   flex: 1;
-  min-width: 200px;
+  min-width: 180px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
 }
 
 .controlsRight {
+  flex: 0 0 auto;
+  min-width: 100px;
   display: flex;
   align-items: center;
-  gap: 16px;
+  justify-content: flex-end;
+  height: 100%;
 }
 
-/* Стили для переключателя типов продукции */
+/* Поиск */
+.searchField {
+  width: 100%;
+  max-width: 400px;
+  height: 32px;
+}
+
+.searchField :global(.MuiOutlinedInput-root) {
+  height: 32px;
+  min-height: 32px;
+  border-radius: 12px;
+  background: white;
+  padding: 0 !important;
+  transition: all 0.3s ease;
+}
+
+.searchField :global(.MuiOutlinedInput-root:hover) {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.searchField :global(.MuiOutlinedInput-input) {
+  padding: 0 8px !important;
+  font-size: 0.875rem;
+  height: 32px !important;
+  line-height: 32px !important;
+}
+
+.searchField :global(.MuiOutlinedInput-notchedOutline) {
+  border-color: #e0e0e0;
+  transition: border-color 0.3s ease;
+}
+
+.searchField
+  :global(.MuiOutlinedInput-root:hover)
+  .searchField
+  :global(.MuiOutlinedInput-notchedOutline) {
+  border-color: rgba(52, 152, 219, 0.3);
+}
+
+.searchField :global(.MuiInputAdornment-root) {
+  height: 32px;
+  margin: 0;
+  padding-right: 8px;
+}
+
+.searchField :global(.MuiInputAdornment-root) svg {
+  color: #757575;
+  font-size: 20px;
+}
+
+/* Переключатель типа продукции */
 .productTypeSwitch {
   display: flex;
-  background: #f5f6f7;
-  border-radius: 12px;
-  padding: 4px;
+  align-items: center;
+  height: 100%;
 }
 
 .switchContainer {
   display: flex;
-  gap: 4px;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 0.25rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  gap: 8px;
+  height: 100%;
+  transition: all 0.3s ease;
 }
 
 .productTypeOption {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
+  gap: 4px;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  height: 32px;
+  line-height: 32px;
   border: none;
   background: transparent;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  color: #757575;
-  position: relative;
+  color: #95a5a6;
 }
 
 .productTypeOption:hover {
-  background: rgba(33, 150, 243, 0.1);
+  background: rgba(52, 152, 219, 0.1);
+  color: #3498db;
 }
 
 .productTypeOption.active {
-  background: #fff;
-  color: #2196f3;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: rgba(52, 152, 219, 0.15);
+  color: #3498db;
 }
 
 .productIcon {
-  font-size: 20px;
-  pointer-events: none;
+  font-size: 16px;
+  color: #95a5a6;
+  transition: color 0.3s ease;
 }
 
 .productIcon.active {
-  color: #2196f3;
+  color: #3498db;
 }
 
 .productLabel {
-  font-size: 14px;
+  font-size: 0.875rem;
+  color: #95a5a6;
+  margin: 0;
   font-weight: 500;
+  transition: color 0.3s ease;
   display: none;
-  pointer-events: none;
+}
+
+.productLabel.active {
+  color: #3498db;
 }
 
 .productTypeOption:hover .productLabel {
   display: inline-block;
 }
 
-/* Поиск */
-.searchField {
-  width: 100%;
-}
-
-.searchField input {
-  padding: 12px 14px;
-}
-
-.searchField :global(.MuiOutlinedInput-root) {
-  background: #fff;
-  border-radius: 15px;
-}
-
-.searchField :global(.MuiOutlinedInput-notchedOutline) {
-  border-color: #e0e0e0;
-}
-
-.searchField :global(.MuiInputAdornment-root) svg {
-  color: #757575;
-}
-
 /* Кнопки управления */
 .viewButton {
-  width: 40px !important;
-  height: 40px !important;
-  color: #757575 !important;
+  width: 32px !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  color: #95a5a6 !important;
   transition: all 0.3s ease !important;
-  padding: 8px !important;
+  padding: 6px !important;
   border-radius: 50% !important;
-  background-color: #f5f6f7 !important;
+  background-color: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .viewButton:hover {
-  background-color: #e8e9ea !important;
+  color: #3498db !important;
+  background-color: rgba(52, 152, 219, 0.1) !important;
 }
 
 .viewButton.active {
-  color: #2196f3 !important;
-  background-color: #fff !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  color: #3498db !important;
+  background-color: rgba(52, 152, 219, 0.15) !important;
+  box-shadow: none !important;
 }
 
 /* Адаптивность */
+@media (max-width: 1200px) {
+  .viewControls {
+    padding: 0.25rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .viewControls {
+    gap: 8px;
+  }
+}
+
 @media (max-width: 768px) {
   .viewControls {
+    height: auto;
+    padding: 0.5rem;
     flex-direction: column;
-    padding: 16px;
   }
 
   .controlsLeft,
   .controlsRight {
     width: 100%;
-  }
-
-  .controlsRight {
-    justify-content: space-between;
+    min-width: 100%;
+    justify-content: center;
+    height: 42px;
   }
 
   .productLabel {
@@ -143,7 +210,16 @@
 }
 
 @media (max-width: 480px) {
+  .viewControls {
+    padding: 0.25rem;
+    border-radius: 15px;
+  }
+
   .productTypeOption {
-    padding: 8px 12px;
+    padding: 0.25rem;
+  }
+
+  .switchContainer {
+    padding: 0.25rem;
   }
 }

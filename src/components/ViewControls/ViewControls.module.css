@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   height: 32px;
   width: 100%;
 }
@@ -13,15 +13,17 @@
   height: 32px;
   display: flex;
   align-items: center;
+  margin-right: -4px;
 }
 
 .controlsRight {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   height: 32px;
 }
 
+/* Поиск */
 .searchField {
   width: 100%;
   max-width: 400px;
@@ -34,6 +36,11 @@
   border-radius: 12px;
   background: white;
   padding: 0 !important;
+  transition: all 0.3s ease;
+}
+
+.searchField :global(.MuiOutlinedInput-root:hover) {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .searchField :global(.MuiOutlinedInput-input) {
@@ -44,6 +51,14 @@
 }
 
 .searchField :global(.MuiOutlinedInput-notchedOutline) {
+  border-color: #e0e0e0;
+  transition: border-color 0.3s ease;
+}
+
+.searchField
+  :global(.MuiOutlinedInput-root:hover)
+  .searchField
+  :global(.MuiOutlinedInput-notchedOutline) {
   border-color: rgba(52, 152, 219, 0.3);
 }
 
@@ -58,53 +73,12 @@
   font-size: 20px;
 }
 
-/* Кнопки управления */
-.viewButton {
-  width: 32px !important;
-  height: 32px !important;
-  color: #757575 !important;
-  transition: all 0.3s ease !important;
-  padding: 6px !important;
-  border-radius: 50% !important;
-  background-color: #f5f6f7 !important;
-}
-
-.viewButton:hover {
-  background-color: #e8e9ea !important;
-}
-
-.viewButton.active {
-  color: #2196f3 !important;
-  background-color: #fff !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-}
-
-/* Адаптивность */
-@media (max-width: 768px) {
-  .viewControls {
-    flex-direction: column;
-  }
-
-  .controlsLeft,
-  .controlsRight {
-    width: 100%;
-  }
-
-  .controlsRight {
-    justify-content: space-between;
-  }
-}
-
-@media (max-width: 480px) {
-  .petTypeOption {
-    padding: 8px 12px;
-  }
-}
-
+/* Переключатель типа питомца */
 .petTypeSwitch {
   display: flex;
   align-items: center;
   height: 32px;
+  margin-left: -4px;
 }
 
 .switchContainer {
@@ -112,10 +86,15 @@
   align-items: center;
   background: white;
   border-radius: 16px;
-  padding: 0 6px;
+  padding: 0 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  gap: 6px;
+  gap: 4px;
   height: 32px;
+  transition: all 0.3s ease;
+}
+
+.switchContainer:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .petTypeOption {
@@ -128,11 +107,24 @@
   transition: all 0.3s ease;
   height: 32px;
   line-height: 32px;
+  border: none;
+  background: transparent;
+  color: #95a5a6;
+}
+
+.petTypeOption:hover {
+  background: rgba(52, 152, 219, 0.1);
+}
+
+.petTypeOption.active {
+  background: rgba(52, 152, 219, 0.15);
+  color: #3498db;
 }
 
 .petIcon {
   font-size: 14px;
   color: #95a5a6;
+  transition: color 0.3s ease;
 }
 
 .petIcon.active {
@@ -144,8 +136,67 @@
   color: #95a5a6;
   margin: 0;
   font-weight: 500;
+  transition: color 0.3s ease;
 }
 
 .petLabel.active {
   color: #3498db;
+}
+
+/* Кнопки управления */
+.viewButton {
+  width: 32px !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  color: #95a5a6 !important;
+  transition: all 0.3s ease !important;
+  padding: 6px !important;
+  border-radius: 50% !important;
+  background-color: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.viewButton:hover {
+  color: #3498db !important;
+  background-color: rgba(52, 152, 219, 0.1) !important;
+}
+
+.viewButton.active {
+  color: #3498db !important;
+  background-color: rgba(52, 152, 219, 0.15) !important;
+  box-shadow: none !important;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .viewControls {
+    flex-direction: column;
+    height: auto;
+    gap: 8px;
+  }
+
+  .controlsLeft,
+  .controlsRight {
+    width: 100%;
+  }
+
+  .controlsRight {
+    justify-content: flex-end;
+  }
+
+  .petLabel {
+    display: inline-block;
+  }
+}
+
+@media (max-width: 480px) {
+  .petTypeOption {
+    padding: 0 4px;
+  }
+
+  .switchContainer {
+    padding: 0 4px;
+  }
 }

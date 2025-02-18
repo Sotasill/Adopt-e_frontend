@@ -266,7 +266,8 @@ const ProductsSlider = () => {
         >
           {t(`${productType}.findProducts`)}
         </h2>
-
+      </div>
+      <div className={styles.productsControls}>
         <ViewControlsProducts
           searchValue={searchQuery}
           onSearchChange={setSearchQuery}

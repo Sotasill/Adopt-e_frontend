@@ -12,26 +12,27 @@
 }
 
 .kennelsSectionHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  padding: 0 10px;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 .sectionTitle {
   margin: 0;
-  font-size: clamp(1.3rem, 3vw, 2rem);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
-  background: linear-gradient(90deg, #2c3e50, #3498db);
+  background: linear-gradient(90deg, #2c3e50, #3498db, #2c3e50);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  display: inline-block;
+  padding: 0.5rem 2rem;
+  animation: gradientMove 3s ease infinite;
 }
 
 .sectionTitle:hover {
@@ -778,5 +779,45 @@
   :global(.list) .socialIcons {
     width: 100%;
     justify-content: flex-start;
+  }
+}
+
+.kennelsControls {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  background: #ffffff;
+  padding: 0.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 768px) {
+  .kennelsControls {
+    margin: 0 1rem 1.5rem;
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .kennelsControls {
+    margin: 0 0.5rem 1.5rem;
+    padding: 0.5rem;
+    border-radius: 12px;
+  }
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+  100% {
+    background-position: 0% center;
   }
 }

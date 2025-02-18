@@ -3,58 +3,68 @@
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 20px;
-  margin-bottom: 40px;
+  padding: 10px;
   position: relative;
   overflow: hidden;
   background: #f8f9fa;
-  scroll-margin-top: 80px; /* Отступ для якоря */
 }
 
 .petsSectionHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  padding: 0 10px;
+  text-align: center;
+  margin-bottom: 0.75rem;
 }
 
 .sectionTitle {
-  margin: 0;
-  font-size: clamp(1.3rem, 3vw, 2rem);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
-  background: linear-gradient(90deg, #2c3e50, #3498db);
+  display: inline-block;
+  background: linear-gradient(90deg, #2c3e50, #3498db, #2c3e50);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gradientMove 8s linear infinite;
 }
 
 .sectionTitle:hover {
   transform: translateY(-2px);
-  background: linear-gradient(90deg, #3498db, #2c3e50);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .sectionTitle::after {
   content: "";
   position: absolute;
-  bottom: -2px;
+  bottom: -4px;
   left: 0;
-  width: 0;
+  width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, #3498db, #2c3e50);
-  transition: width 0.3s ease;
+  background: linear-gradient(90deg, #3498db, #2c3e50, #3498db);
+  background-size: 200% auto;
+  animation: gradientMove 8s linear infinite;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
 }
 
 .sectionTitle:hover::after {
-  width: 100%;
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+  100% {
+    background-position: 0% center;
+  }
 }
 
 /* Переключатель типа животных */
@@ -619,7 +629,7 @@
 
 @media (max-width: 480px) {
   .petsSection {
-    padding: 0 10px;
+    padding: 1rem 10px;
   }
 
   .petsSectionHeader {
@@ -962,4 +972,36 @@
 
 .phoneIcon {
   font-size: 1rem;
+}
+
+.petsControls {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  background: #ffffff;
+  padding: 0.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 768px) {
+  .petsSection {
+    padding: 1.5rem 20px;
+  }
+
+  .petsControls {
+    margin: 0 1rem 1.5rem;
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .petsControls {
+    margin: 0 0.5rem 1.5rem;
+    padding: 0.5rem;
+    border-radius: 12px;
+  }
 }
