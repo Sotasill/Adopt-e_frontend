@@ -7,6 +7,8 @@
   padding: 20px;
   background-color: transparent;
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .cardContainer {
@@ -323,4 +325,116 @@
   background-color: rgba(204, 204, 204, 0.9);
   cursor: not-allowed;
   opacity: 0.8;
+}
+
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(8px);
+}
+
+.modalContent {
+  position: relative;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(10px);
+}
+
+.modalBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  font-size: 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: all 0.2s ease;
+  z-index: 3;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.closeButton:hover {
+  transform: scale(1.1);
+  color: #ff4444;
+}
+
+.modalInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 30px;
+  z-index: 2;
+  background: transparent;
+}
+
+.modalContent .registrationForm {
+  margin: 0;
+  padding: 20px;
+  background: transparent;
+  box-shadow: none;
+  position: relative;
+  z-index: 2;
+  backdrop-filter: none;
+}
+
+/* Стили для скроллбара */
+.modalInner::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modalInner::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.modalInner::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.modalInner::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Обновляем стили для формы внутри модального окна */
+.modalContent .registrationContainer {
+  min-height: auto;
+  padding: 0;
+  width: 100%;
+  position: relative;
+  z-index: 2;
 }

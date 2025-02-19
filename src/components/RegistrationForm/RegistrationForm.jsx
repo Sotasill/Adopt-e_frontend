@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import Select from "react-select";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
 import { toast } from "sonner";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useTranslatedContent } from "../../redux/hooks/useTranslatedContent";
 import {
   registerUser,
@@ -148,42 +148,273 @@ const customSelectStyles = {
   }),
 };
 
-const validationSchema = Yup.object().shape({
-  username: Yup.string()
-    .min(3, "Минимум 3 символа")
-    .max(30, "Максимум 30 символов")
-    .required("Обязательное поле"),
-  email: Yup.string().email("Некорректный email").required("Обязательное поле"),
-  password: Yup.string()
-    .min(6, "Минимум 6 символов")
-    .required("Обязательное поле"),
-  role: Yup.string().required("Обязательное поле"),
-  companyName: Yup.string().when("role", {
-    is: "breeder",
-    then: () => Yup.string().required("Обязательное поле для заводчика"),
-  }),
-  address: Yup.string().when("role", {
-    is: "breeder",
-    then: () => Yup.string().required("Обязательное поле для заводчика"),
-  }),
-  country: Yup.string().when("role", {
-    is: "breeder",
-    then: () => Yup.string().required("Выберите страну"),
-  }),
-  specialization: Yup.string().when("role", {
-    is: (role) => role === "breeder" || role === "specialist",
-    then: () => Yup.string().required("Обязательное поле"),
-  }),
-  services: Yup.array().when("role", {
-    is: "specialist",
-    then: () =>
-      Yup.array()
-        .min(1, "Выберите хотя бы одну услугу")
-        .required("Обязательное поле для специалиста"),
-  }),
-});
+const UserRegistrationForm = ({ loading, isSubmitting }) => (
+  <>
+    <div className={styles.formGroup}>
+      <label htmlFor="username">Имя пользователя:</label>
+      <Field
+        type="text"
+        id="username"
+        name="username"
+        autoComplete="username"
+        disabled={loading || isSubmitting}
+      />
+      <ErrorMessage name="username" component="div" className={styles.error} />
+    </div>
 
-const CustomSelect = ({ field, form, isDisabled, ...props }) => {
+    <div className={styles.formGroup}>
+      <label htmlFor="email">Email:</label>
+      <Field
+        type="email"
+        id="email"
+        name="email"
+        autoComplete="email"
+        disabled={loading || isSubmitting}
+      />
+      <ErrorMessage name="email" component="div" className={styles.error} />
+    </div>
+
+    <div className={styles.formGroup}>
+      <label htmlFor="password">Пароль:</label>
+      <Field
+        type="password"
+        id="password"
+        name="password"
+        autoComplete="new-password"
+        disabled={loading || isSubmitting}
+      />
+      <ErrorMessage name="password" component="div" className={styles.error} />
+    </div>
+  </>
+);
+
+UserRegistrationForm.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
+};
+
+const BreederRegistrationForm = ({ loading, isSubmitting }) => (
+  <>
+    <div className={styles.formGroup}>
+      <label htmlFor="username">Имя пользователя:</label>
+      <Field
+        type="text"
+        id="username"
+        name="username"
+        autoComplete="username"
+        disabled={loading || isSubmitting}
+      />
+      <ErrorMessage name="username" component="div" className={styles.error} />
+    </div>
+
+    <div className={styles.formGroup}>
+      <label htmlFor="email">Email:</label>
+      <Field
+        type="email"
+        id="email"
+        name="email"
+        autoComplete="email"
+        disabled={loading || isSubmitting}
+      />
+      <ErrorMessage name="email" component="div" className={styles.error} />
+    </div>
+
+    <div className={styles.formGroup}>
+      <label htmlFor="password">Пароль:</label>
+      <Field
+        type="password"
+        id="password"
+        name="password"
+        autoComplete="new-password"
+        disabled={loading || isSubmitting}
+      />
+      <ErrorMessage name="password" component="div" className={styles.error} />
+    </div>
+
+    <div className={styles.formGroup}>
+      <label htmlFor="companyName">Название питомника:</label>
+      <Field
+        type="text"
+        id="companyName"
+        name="companyName"
+        disabled={loading || isSubmitting}
+      />
+      <ErrorMessage
+        name="companyName"
+        component="div"
+        className={styles.error}
+      />
+    </div>
+
+    <div className={styles.formGroup}>
+      <label htmlFor="address">Адрес:</label>
+      <Field
+        type="text"
+        id="address"
+        name="address"
+        disabled={loading || isSubmitting}
+      />
+      <ErrorMessage name="address" component="div" className={styles.error} />
+    </div>
+
+    <div className={styles.formGroup}>
+      <label htmlFor="country">Страна:</label>
+      <Field
+        name="country"
+        component={CustomSelect}
+        isDisabled={loading || isSubmitting}
+      />
+      <ErrorMessage name="country" component="div" className={styles.error} />
+    </div>
+
+    <div className={styles.formGroup}>
+      <label htmlFor="specialization">Специализация:</label>
+      <Field
+        as="select"
+        id="specialization"
+        name="specialization"
+        disabled={loading || isSubmitting}
+      >
+        <option value="dog">Собаки</option>
+        <option value="cat">Кошки</option>
+      </Field>
+      <ErrorMessage
+        name="specialization"
+        component="div"
+        className={styles.error}
+      />
+    </div>
+  </>
+);
+
+BreederRegistrationForm.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
+};
+
+const SpecialistRegistrationForm = ({ loading, isSubmitting }) => (
+  <>
+    <div className={styles.formGroup}>
+      <label htmlFor="username">Имя пользователя:</label>
+      <Field
+        type="text"
+        id="username"
+        name="username"
+        autoComplete="username"
+        disabled={loading || isSubmitting}
+      />
+      <ErrorMessage name="username" component="div" className={styles.error} />
+    </div>
+
+    <div className={styles.formGroup}>
+      <label htmlFor="email">Email:</label>
+      <Field
+        type="email"
+        id="email"
+        name="email"
+        autoComplete="email"
+        disabled={loading || isSubmitting}
+      />
+      <ErrorMessage name="email" component="div" className={styles.error} />
+    </div>
+
+    <div className={styles.formGroup}>
+      <label htmlFor="password">Пароль:</label>
+      <Field
+        type="password"
+        id="password"
+        name="password"
+        autoComplete="new-password"
+        disabled={loading || isSubmitting}
+      />
+      <ErrorMessage name="password" component="div" className={styles.error} />
+    </div>
+
+    <div className={styles.formGroup}>
+      <label htmlFor="services">Услуги:</label>
+      <Field
+        as="select"
+        id="services"
+        name="services"
+        disabled={loading || isSubmitting}
+        multiple
+      >
+        <option value="vet">Ветеринар</option>
+        <option value="groomer">Грумер</option>
+        <option value="trainer">Тренер</option>
+      </Field>
+      <ErrorMessage name="services" component="div" className={styles.error} />
+    </div>
+  </>
+);
+
+SpecialistRegistrationForm.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
+};
+
+const getValidationSchema = (roleId) => {
+  const baseSchema = {
+    username: Yup.string()
+      .min(3, "Минимум 3 символа")
+      .max(30, "Максимум 30 символов")
+      .required("Обязательное поле"),
+    email: Yup.string()
+      .email("Некорректный email")
+      .required("Обязательное поле"),
+    password: Yup.string()
+      .min(6, "Минимум 6 символов")
+      .required("Обязательное поле"),
+  };
+
+  switch (roleId) {
+    case "breeder":
+      return Yup.object().shape({
+        ...baseSchema,
+        companyName: Yup.string().required("Обязательное поле для заводчика"),
+        address: Yup.string().required("Обязательное поле для заводчика"),
+        country: Yup.string().required("Выберите страну"),
+        specialization: Yup.string().required("Обязательное поле"),
+      });
+    case "specialist":
+      return Yup.object().shape({
+        ...baseSchema,
+        services: Yup.array()
+          .min(1, "Выберите хотя бы одну услугу")
+          .required("Обязательное поле для специалиста"),
+      });
+    default:
+      return Yup.object().shape(baseSchema);
+  }
+};
+
+const getInitialValues = (roleId) => {
+  const baseValues = {
+    username: "",
+    email: "",
+    password: "",
+  };
+
+  switch (roleId) {
+    case "breeder":
+      return {
+        ...baseValues,
+        companyName: "",
+        address: "",
+        country: "",
+        specialization: "dog",
+      };
+    case "specialist":
+      return {
+        ...baseValues,
+        services: [],
+      };
+    default:
+      return baseValues;
+  }
+};
+
+const CustomSelect = ({ field, form, isDisabled = false, ...props }) => {
   const onChange = (option) => {
     form.setFieldValue(field.name, option ? option.value : "");
   };
@@ -220,10 +451,6 @@ CustomSelect.propTypes = {
     setFieldValue: PropTypes.func.isRequired,
   }).isRequired,
   isDisabled: PropTypes.bool,
-};
-
-CustomSelect.defaultProps = {
-  isDisabled: false,
 };
 
 const roleTypes = [
@@ -312,18 +539,217 @@ const formVariants = {
   },
 };
 
-const RegistrationForm = () => {
-  const [selectedRole, setSelectedRole] = useState(null);
-  const [showForm, setShowForm] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const cardContainerRef = useRef(null);
+const backdropVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+  },
+};
 
+const modalVariants = {
+  hidden: {
+    opacity: 0,
+    y: 50,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 12,
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -50,
+  },
+};
+
+const RegistrationModal = ({ onClose, selectedRole }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslatedContent();
-
   const loading = useSelector(selectRegistrationLoading);
   const error = useSelector(selectRegistrationError);
+
+  useEffect(() => {
+    const handleEscKey = (event) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscKey);
+    return () => {
+      document.removeEventListener('keydown', handleEscKey);
+    };
+  }, [onClose]);
+
+  const handleSubmit = async (values, { setSubmitting, setStatus }) => {
+    try {
+      setStatus(null);
+      const registerAction = {
+        user: registerUser,
+        breeder: registerBreeder,
+        specialist: registerSpecialist,
+      }[selectedRole.id];
+
+      if (!registerAction) {
+        throw new Error("Неверный тип пользователя");
+      }
+
+      await dispatch(registerAction(values));
+
+      toast.success("Регистрация прошла успешно!", {
+        duration: 3000,
+        position: "top-center",
+        style: {
+          background: "#4caf50",
+          color: "#fff",
+          fontSize: "16px",
+          padding: "16px",
+          borderRadius: "8px",
+        },
+      });
+
+      dispatch(
+        addNotification({
+          id: Date.now(),
+          title: "Добро пожаловать!",
+          message: `Здравствуйте, ${values.username}! Мы рады приветствовать вас на нашей платформе.`,
+          timestamp: new Date().toISOString(),
+        })
+      );
+
+      const loginResult = await dispatch(
+        login({
+          username: values.username,
+          password: values.password,
+        })
+      );
+
+      if (loginResult?.payload?.user) {
+        const redirectPaths = {
+          breeder: "/mainbcs",
+          specialist: "/mainspecialistsystem",
+          user: "/mainusersystem",
+        };
+        navigate(redirectPaths[selectedRole.id]);
+      }
+    } catch (error) {
+      console.error("Registration/Login error:", error);
+      setStatus("Ошибка при регистрации");
+      toast.error(
+        error.response?.data?.message || "Произошла ошибка при регистрации"
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const FormComponent = {
+    user: UserRegistrationForm,
+    breeder: BreederRegistrationForm,
+    specialist: SpecialistRegistrationForm,
+  }[selectedRole.id];
+
+  if (!FormComponent) {
+    console.error("Неверный тип пользователя:", selectedRole.id);
+    onClose();
+    return null;
+  }
+
+  return (
+    <motion.div
+      className={styles.modalBackdrop}
+      variants={backdropVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+    >
+      <motion.div
+        className={styles.modalContent}
+        variants={modalVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+      >
+        <div className={styles.modalBackground}>
+          <Aurora
+            colorStops={selectedRole.colors}
+            amplitude={1.2}
+            speed={0.5}
+          />
+        </div>
+        <div className={styles.modalInner}>
+          <button className={styles.closeButton} onClick={onClose}>
+            ×
+          </button>
+          <div className={styles.registrationContainer}>
+            <motion.div
+              variants={formVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              <Formik
+                initialValues={getInitialValues(selectedRole.id)}
+                validationSchema={getValidationSchema(selectedRole.id)}
+                onSubmit={handleSubmit}
+              >
+                {({ isSubmitting }) => (
+                  <Form className={styles.registrationForm}>
+                    <h2>
+                      Регистрация{" "}
+                      {t(`registration.roles.${selectedRole.id}.title`)}
+                    </h2>
+                    {error && (
+                      <div className={styles.error}>{error.toString()}</div>
+                    )}
+                    <FormComponent
+                      loading={loading}
+                      isSubmitting={isSubmitting}
+                    />
+                    <button
+                      type="submit"
+                      className={styles.submitButton}
+                      disabled={loading || isSubmitting}
+                    >
+                      {loading || isSubmitting
+                        ? t("registration.loading")
+                        : t("registration.submit")}
+                    </button>
+                  </Form>
+                )}
+              </Formik>
+            </motion.div>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+RegistrationModal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  selectedRole: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    icon: PropTypes.elementType.isRequired,
+    colors: PropTypes.arrayOf(PropTypes.string).isRequired,
+    image: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+const RegistrationForm = () => {
+  const [selectedRole, setSelectedRole] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const cardContainerRef = useRef(null);
+  const { t } = useTranslatedContent();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -359,356 +785,73 @@ const RegistrationForm = () => {
 
   const handleRoleSelect = (role) => {
     setSelectedRole(role);
-    setShowForm(true);
+    setIsModalOpen(true);
   };
 
-  const initialValues = {
-    username: "",
-    email: "",
-    password: "",
-    role: selectedRole?.id || "",
-    companyName: "",
-    address: "",
-    country: "",
-    specialization: "dog",
-    services: [],
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
-
-  const handleSubmit = async (values, { setSubmitting, setStatus }) => {
-    try {
-      setStatus(null);
-
-      if (values.role === "breeder") {
-        const breederData = {
-          username: values.username,
-          email: values.email,
-          password: values.password,
-          companyName: values.companyName,
-          address: values.address,
-          country: values.country,
-          specialization: values.specialization,
-        };
-        await dispatch(registerBreeder(breederData));
-      } else if (values.role === "specialist") {
-        const specialistData = {
-          username: values.username,
-          email: values.email,
-          password: values.password,
-          specialization: values.specialization,
-          services: values.services,
-        };
-        await dispatch(registerSpecialist(specialistData));
-      } else {
-        const userData = {
-          username: values.username,
-          email: values.email,
-          password: values.password,
-        };
-        await dispatch(registerUser(userData));
-      }
-
-      toast.success("Регистрация прошла успешно!", {
-        duration: 3000,
-        position: "top-center",
-        style: {
-          background: "#4caf50",
-          color: "#fff",
-          fontSize: "16px",
-          padding: "16px",
-          borderRadius: "8px",
-        },
-      });
-
-      // Добавляем приветственное уведомление
-      dispatch(
-        addNotification({
-          id: Date.now(),
-          title: "Добро пожаловать!",
-          message: `Здравствуйте, ${
-            values.username
-          }! Мы рады приветствовать вас на нашей платформе. Здесь вы найдете все необходимые инструменты для ${
-            values.role === "breeder"
-              ? "управления вашим питомником"
-              : values.role === "specialist"
-              ? "оказания услуг по уходу за животными"
-              : "заботы о ваших питомцах"
-          }. Если у вас возникнут вопросы, наша служба поддержки всегда готова помочь.`,
-          timestamp: new Date().toISOString(),
-        })
-      );
-
-      // Делаем небольшую задержку перед входом
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
-      const loginResult = await dispatch(
-        login({
-          username: values.username,
-          password: values.password,
-        })
-      );
-
-      if (loginResult?.payload?.user) {
-        const userRole = loginResult.payload.user.role.toLowerCase();
-        const redirectPath =
-          userRole === "breeder"
-            ? "/mainbcs"
-            : userRole === "specialist"
-            ? "/mainspecialistsystem"
-            : "/mainusersystem";
-        navigate(redirectPath);
-      }
-    } catch (error) {
-      console.error("Registration/Login error:", error);
-      setStatus("Ошибка при регистрации");
-      toast.error(
-        error.response?.data?.message || "Произошла ошибка при регистрации"
-      );
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  if (!showForm) {
-    return (
-      <>
-        <Aurora colorStops={roleTypes[0].colors} amplitude={1.2} speed={0.5} />
-        <div className={styles.registrationContainer}>
-          <div className={styles.swipeHintContainer}>
-            <div className={styles.swipeHint}>
-              <FaArrowsAltH className={styles.swipeIcon} />
-              <span>Листайте для выбора типа регистрации</span>
-            </div>
-          </div>
-          <div className={styles.cardContainer} ref={cardContainerRef}>
-            {roleTypes.map((role) => (
-              <motion.div
-                key={role.id}
-                variants={cardVariants}
-                whileHover={{
-                  scale: 1.05,
-                  transition: { type: "spring", stiffness: 300 },
-                }}
-                whileTap={{ scale: 0.95 }}
-                className={`${styles.roleCard} ${
-                  selectedRole === role.id ? styles.selected : ""
-                }`}
-                onClick={() => handleRoleSelect(role)}
-              >
-                <img
-                  src={role.image}
-                  alt={t(`registration.roles.${role.id}.title`)}
-                  className={styles.roleCardImage}
-                />
-                <role.icon size={40} className={styles.roleIcon} />
-                <h3 className={styles.roleTitle}>
-                  {t(`registration.roles.${role.id}.title`)}
-                </h3>
-                <p className={styles.roleDescription}>
-                  {t(`registration.roles.${role.id}.description`)}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-          <div className={styles.slideIndicators}>
-            {roleTypes.map((_, index) => (
-              <div
-                key={index}
-                className={`${styles.indicator} ${
-                  currentSlide === index ? styles.active : ""
-                }`}
-                onClick={() => scrollToSlide(index)}
-              />
-            ))}
-          </div>
-        </div>
-      </>
-    );
-  }
 
   return (
     <>
-      <Aurora
-        colorStops={
-          selectedRole
-            ? roleTypes.find((r) => r.id === selectedRole)?.colors
-            : roleTypes[0].colors
-        }
-        amplitude={1.2}
-        speed={0.5}
-      />
+      <Aurora colorStops={roleTypes[0].colors} amplitude={1.2} speed={0.5} />
       <div className={styles.registrationContainer}>
-        <motion.div
-          variants={formVariants}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-        >
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={handleSubmit}
-          >
-            {({ values, errors, touched, status, isSubmitting }) => (
-              <Form className={styles.registrationForm}>
-                <h2>Регистрация</h2>
-                {status && <div className={styles.error}>{status}</div>}
-                {error && (
-                  <div className={styles.error}>{error.toString()}</div>
-                )}
-
-                <div className={styles.formGroup}>
-                  <label htmlFor="role">Тип пользователя:</label>
-                  <Field
-                    as="select"
-                    id="role"
-                    name="role"
-                    disabled={loading || isSubmitting}
-                  >
-                    <option value="user">Пользователь</option>
-                    <option value="breeder">Заводчик</option>
-                    <option value="specialist">Специалист</option>
-                  </Field>
-                  {errors.role && touched.role && (
-                    <div className={styles.error}>{errors.role}</div>
-                  )}
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label htmlFor="username">Имя пользователя:</label>
-                  <Field
-                    type="text"
-                    id="username"
-                    name="username"
-                    autoComplete="username"
-                    disabled={loading || isSubmitting}
-                  />
-                  {errors.username && touched.username && (
-                    <div className={styles.error}>{errors.username}</div>
-                  )}
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label htmlFor="email">Email:</label>
-                  <Field
-                    type="email"
-                    id="email"
-                    name="email"
-                    autoComplete="email"
-                    disabled={loading || isSubmitting}
-                  />
-                  {errors.email && touched.email && (
-                    <div className={styles.error}>{errors.email}</div>
-                  )}
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label htmlFor="password">Пароль:</label>
-                  <Field
-                    type="password"
-                    id="password"
-                    name="password"
-                    autoComplete="new-password"
-                    disabled={loading || isSubmitting}
-                  />
-                  {errors.password && touched.password && (
-                    <div className={styles.error}>{errors.password}</div>
-                  )}
-                </div>
-
-                {values.role === "breeder" && (
-                  <>
-                    <div className={styles.formGroup}>
-                      <label htmlFor="companyName">Название компании:</label>
-                      <Field
-                        type="text"
-                        id="companyName"
-                        name="companyName"
-                        disabled={loading || isSubmitting}
-                      />
-                      {errors.companyName && touched.companyName && (
-                        <div className={styles.error}>{errors.companyName}</div>
-                      )}
-                    </div>
-
-                    <div className={styles.formGroup}>
-                      <label htmlFor="address">Адрес:</label>
-                      <Field
-                        type="text"
-                        id="address"
-                        name="address"
-                        disabled={loading || isSubmitting}
-                      />
-                      {errors.address && touched.address && (
-                        <div className={styles.error}>{errors.address}</div>
-                      )}
-                    </div>
-
-                    <div className={styles.formGroup}>
-                      <label htmlFor="country">Страна:</label>
-                      <Field
-                        name="country"
-                        component={CustomSelect}
-                        isDisabled={loading || isSubmitting}
-                      />
-                      {errors.country && touched.country && (
-                        <div className={styles.error}>{errors.country}</div>
-                      )}
-                    </div>
-
-                    <div className={styles.formGroup}>
-                      <label htmlFor="specialization">Специализация:</label>
-                      <Field
-                        as="select"
-                        id="specialization"
-                        name="specialization"
-                        disabled={loading || isSubmitting}
-                      >
-                        <option value="dog">Собаки</option>
-                        <option value="cat">Кошки</option>
-                      </Field>
-                      {errors.specialization && touched.specialization && (
-                        <div className={styles.error}>
-                          {errors.specialization}
-                        </div>
-                      )}
-                    </div>
-                  </>
-                )}
-
-                {values.role === "specialist" && (
-                  <div className={styles.formGroup}>
-                    <label htmlFor="services">Услуги:</label>
-                    <Field
-                      as="select"
-                      id="services"
-                      name="services"
-                      disabled={loading || isSubmitting}
-                      multiple
-                    >
-                      <option value="vet">Ветеринар</option>
-                      <option value="groomer">Грумер</option>
-                      <option value="trainer">Тренер</option>
-                    </Field>
-                    {errors.services && touched.services && (
-                      <div className={styles.error}>{errors.services}</div>
-                    )}
-                  </div>
-                )}
-
-                <button
-                  type="submit"
-                  className={styles.submitButton}
-                  disabled={loading || isSubmitting}
-                >
-                  {loading || isSubmitting
-                    ? t("registration.loading")
-                    : t("registration.submit")}
-                </button>
-              </Form>
-            )}
-          </Formik>
-        </motion.div>
+        <div className={styles.swipeHintContainer}>
+          <div className={styles.swipeHint}>
+            <FaArrowsAltH className={styles.swipeIcon} />
+            <span>Листайте для выбора типа регистрации</span>
+          </div>
+        </div>
+        <div className={styles.cardContainer} ref={cardContainerRef}>
+          {roleTypes.map((role) => (
+            <motion.div
+              key={role.id}
+              variants={cardVariants}
+              whileHover={{
+                scale: 1.05,
+                transition: { type: "spring", stiffness: 300 },
+              }}
+              whileTap={{ scale: 0.95 }}
+              className={`${styles.roleCard} ${
+                selectedRole?.id === role.id ? styles.selected : ""
+              }`}
+              onClick={() => handleRoleSelect(role)}
+            >
+              <img
+                src={role.image}
+                alt={t(`registration.roles.${role.id}.title`)}
+                className={styles.roleCardImage}
+              />
+              <role.icon size={40} className={styles.roleIcon} />
+              <h3 className={styles.roleTitle}>
+                {t(`registration.roles.${role.id}.title`)}
+              </h3>
+              <p className={styles.roleDescription}>
+                {t(`registration.roles.${role.id}.description`)}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+        <div className={styles.slideIndicators}>
+          {roleTypes.map((_, index) => (
+            <div
+              key={index}
+              className={`${styles.indicator} ${
+                currentSlide === index ? styles.active : ""
+              }`}
+              onClick={() => scrollToSlide(index)}
+            />
+          ))}
+        </div>
       </div>
+      <AnimatePresence>
+        {isModalOpen && (
+          <RegistrationModal
+            onClose={handleCloseModal}
+            selectedRole={selectedRole}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 };
