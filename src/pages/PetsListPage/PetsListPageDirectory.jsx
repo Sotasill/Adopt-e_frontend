@@ -7,7 +7,7 @@ import PetCard from "../../components/PetSlider/PetCard";
 import PetStringCard from "../../components/PetSlider/PetStringCard";
 import CustomLoader from "../../components/CustomLoader/CustomLoader";
 import commonStyles from "../../styles/common.module.css";
-import styles from "./PetsListPage.module.css";
+import styles from "./PetsListPageDirectory.module.css";
 
 const PetsListPage = () => {
   const [viewMode, setViewMode] = useState("grid");
@@ -33,7 +33,15 @@ const PetsListPage = () => {
     setTimeout(() => {
       setIsLoading(false);
     }, 1500);
-  }, [petType, selectedBreeds, selectedCountries, selectedBreeders, minPrice, maxPrice, sortBy]);
+  }, [
+    petType,
+    selectedBreeds,
+    selectedCountries,
+    selectedBreeders,
+    minPrice,
+    maxPrice,
+    sortBy,
+  ]);
 
   // Временные моковые данные для питомцев
   const MOCK_PETS = useMemo(
