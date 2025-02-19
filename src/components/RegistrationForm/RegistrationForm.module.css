@@ -1,19 +1,251 @@
 .registrationContainer {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   padding: 20px;
-  background-color: #f5f5f5;
+  background-color: transparent;
+  width: 100%;
+}
+
+.cardContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1200px;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Планшетная версия */
+@media (max-width: 1200px) {
+  .cardContainer {
+    gap: 20px;
+    padding: 15px;
+    max-width: 900px;
+  }
+
+  .roleCard {
+    padding: 20px;
+  }
+
+  .roleTitle {
+    font-size: 24px;
+  }
+
+  .roleDescription {
+    font-size: 16px;
+  }
+
+  .roleIcon {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* Мобильная версия */
+@media (max-width: 480px) {
+  .registrationContainer {
+    padding: 10px;
+    position: relative;
+  }
+
+  .cardContainer {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: 10px;
+    gap: 0;
+  }
+
+  .roleCard {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+    margin: 0 10px;
+    padding: 20px;
+  }
+
+  /* Подсказка для свайпа */
+  .swipeHintContainer {
+    display: flex;
+    position: absolute;
+    top: -50px;
+    left: 0;
+    right: 0;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .swipeHint {
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: fadeInOut 3s ease-in-out infinite;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .swipeIcon {
+    animation: swipeAnimation 2s ease-in-out infinite;
+  }
+
+  /* Индикаторы слайдов */
+  .slideIndicators {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .indicator.active {
+    width: 24px;
+    border-radius: 12px;
+    background: rgba(0, 123, 255, 0.8);
+  }
+
+  @keyframes swipeAnimation {
+    0% {
+      transform: translateX(-5px);
+    }
+    50% {
+      transform: translateX(5px);
+    }
+    100% {
+      transform: translateX(-5px);
+    }
+  }
+
+  @keyframes fadeInOut {
+    0%,
+    100% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    20%,
+    80% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Скрываем скролл бар */
+  .cardContainer::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cardContainer {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Скрываем подсказку на больших экранах */
+.swipeHintContainer {
+  display: none;
+}
+
+.roleCard {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.roleCardImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.3;
+  z-index: 1;
+}
+
+.roleCardContent {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.roleCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+}
+
+.roleCard.selected {
+  border: 2px solid rgba(0, 123, 255, 0.8);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.roleIcon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 15px;
+  color: #333;
+  opacity: 1;
+  position: relative;
+  z-index: 2;
+}
+
+.roleTitle {
+  font-size: 30px;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.roleDescription {
+  color: #000000;
+  font-size: 18px;
+  line-height: 1.5;
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
 }
 
 .registrationForm {
-  background: white;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
   padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 500px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .registrationForm h2 {
@@ -29,60 +261,66 @@
 .formGroup label {
   display: block;
   margin-bottom: 5px;
-  color: #666;
+  color: #333;
   font-weight: 500;
 }
 
 .formGroup input,
 .formGroup select {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  padding: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
   font-size: 16px;
   transition: all 0.2s;
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .formGroup input:focus,
 .formGroup select:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  border-color: rgba(0, 123, 255, 0.5);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+  background: rgba(255, 255, 255, 1);
 }
 
 .formGroup input:disabled,
 .formGroup select:disabled {
-  background-color: #f8f9fa;
+  background-color: rgba(248, 249, 250, 0.9);
   cursor: not-allowed;
 }
 
 .error {
   color: #dc3545;
-  background-color: #f8d7da;
+  background-color: rgba(248, 215, 218, 0.9);
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 8px;
   margin-bottom: 20px;
   text-align: center;
+  backdrop-filter: blur(5px);
 }
 
 .submitButton {
   width: 100%;
-  padding: 12px;
-  background-color: #007bff;
+  padding: 14px;
+  background-color: rgba(0, 123, 255, 0.9);
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   font-size: 16px;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
+  backdrop-filter: blur(5px);
 }
 
 .submitButton:hover:not(:disabled) {
-  background-color: #0056b3;
+  background-color: rgba(0, 86, 179, 0.9);
+  transform: translateY(-1px);
 }
 
 .submitButton:disabled {
-  background-color: #ccc;
+  background-color: rgba(204, 204, 204, 0.9);
   cursor: not-allowed;
   opacity: 0.8;
 }

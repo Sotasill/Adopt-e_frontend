@@ -83,3 +83,52 @@ export const registerBreeder = createAsyncThunk(
     }
   }
 );
+
+export const registerSpecialist = createAsyncThunk(
+  "registration/registerSpecialist",
+  async (specialistData, { rejectWithValue }) => {
+    try {
+      // Проверяем доступность сервера перед отправкой запроса
+      const isServerAvailable = await checkServerAvailability();
+      if (!isServerAvailable) {
+        return rejectWithValue(
+          "Сервер временно недоступен. Пожалуйста, попробуйте позже."
+        );
+      }
+
+      // Добавляем роль для специалиста
+      const specialistDataWithRole = {
+        ...specialistData,
+        role: "specialist",
+      };
+
+      console.log(
+        "Данные специалиста перед отправкой:",
+        specialistDataWithRole
+      );
+
+      const response = await api.post(
+        API_URLS.registerSpecialist,
+        specialistDataWithRole
+      );
+
+      console.log("Ответ сервера при регистрации специалиста:", response.data);
+
+      return response.data;
+    } catch (error) {
+      console.error("Полная ошибка специалиста:", error);
+      console.error("Данные ошибки специалиста:", error.response?.data);
+      console.error("Статус ошибки специалиста:", error.response?.status);
+
+      if (!error.response) {
+        return rejectWithValue(
+          "Ошибка подключения к серверу. Проверьте ваше интернет-соединение."
+        );
+      }
+      return rejectWithValue(
+        error.response?.data?.message ||
+          "Произошла ошибка при регистрации специалиста"
+      );
+    }
+  }
+);

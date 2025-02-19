@@ -196,8 +196,25 @@ const deuTranslation = {
 
   // Registrierung
   registration: {
-    loading: "Registrierung läuft...",
+    loading: "Registrierung...",
     submit: "Registrieren",
+    roles: {
+      user: {
+        title: "Benutzer",
+        description:
+          "Registrieren Sie sich als Benutzer, um den perfekten Begleiter für Ihre Familie zu finden",
+      },
+      breeder: {
+        title: "Züchter",
+        description:
+          "Erstellen Sie ein Züchterprofil, um Ihre Tiere zu präsentieren und mit potenziellen Besitzern in Kontakt zu treten",
+      },
+      specialist: {
+        title: "Tierspezialist",
+        description:
+          "Registrieren Sie sich als Tierpflegespezialist (Tierarzt, Groomer, Trainer)",
+      },
+    },
   },
 
   hero: {

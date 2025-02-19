@@ -46,6 +46,23 @@ const enTranslation = {
   registration: {
     loading: "Registering...",
     submit: "Register",
+    roles: {
+      user: {
+        title: "User",
+        description:
+          "Register as a user to find the perfect companion for your family",
+      },
+      breeder: {
+        title: "Breeder",
+        description:
+          "Create a breeder profile to showcase your pets and connect with potential owners",
+      },
+      specialist: {
+        title: "Pet Specialist",
+        description:
+          "Register as a pet care specialist (veterinarian, groomer, trainer)",
+      },
+    },
   },
 
   // Footer

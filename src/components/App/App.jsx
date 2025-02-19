@@ -91,14 +91,12 @@ const App = () => {
         <Route
           path="/register"
           element={
-            <Layout className={styles.root}>
-              <main className={styles.main}>
-                <PublicRoute>
-                  <RegistrationPage />
-                </PublicRoute>
-                <Toaster position="top-right" richColors />
-              </main>
-            </Layout>
+            <main className={styles.main}>
+              <PublicRoute>
+                <RegistrationPage />
+              </PublicRoute>
+              <Toaster position="top-right" richColors />
+            </main>
           }
         />
         <Route

@@ -13,6 +13,7 @@ export const API_URLS = {
   login: "/auth/login",
   registerBreeder: "/auth/register/breeder",
   registerUser: "/auth/register/user",
+  registerSpecialist: "/auth/register/specialist",
   refresh: "/auth/refresh",
   logout: "/auth/logout",
   updateAvatar: "/user/avatar",
@@ -41,6 +42,7 @@ api.interceptors.request.use(
       API_URLS.login,
       API_URLS.registerBreeder,
       API_URLS.registerUser,
+      API_URLS.registerSpecialist,
       API_URLS.refresh,
       "/health",
     ];

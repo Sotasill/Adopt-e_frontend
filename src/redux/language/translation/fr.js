@@ -46,6 +46,23 @@ const frTranslation = {
   registration: {
     loading: "Inscription en cours...",
     submit: "S'inscrire",
+    roles: {
+      user: {
+        title: "Utilisateur",
+        description:
+          "Inscrivez-vous en tant qu'utilisateur pour trouver le compagnon idéal pour votre famille",
+      },
+      breeder: {
+        title: "Éleveur",
+        description:
+          "Créez un profil d'éleveur pour présenter vos animaux et communiquer avec les propriétaires potentiels",
+      },
+      specialist: {
+        title: "Spécialiste animalier",
+        description:
+          "Inscrivez-vous en tant que spécialiste des soins animaliers (vétérinaire, toiletteur, dresseur)",
+      },
+    },
   },
 
   // Footer
