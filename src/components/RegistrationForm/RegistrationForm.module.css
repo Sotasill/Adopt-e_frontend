@@ -257,23 +257,25 @@
 }
 
 .formGroup {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+  width: 100%;
 }
 
 .formGroup label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
   color: #333;
+  font-size: 14px;
   font-weight: 500;
 }
 
 .formGroup input,
 .formGroup select {
   width: 100%;
-  padding: 12px;
+  padding: 8px 12px;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  font-size: 16px;
+  border-radius: 6px;
+  font-size: 14px;
   transition: all 0.2s;
   background: rgba(255, 255, 255, 0.9);
 }
@@ -281,25 +283,36 @@
 .formGroup input:focus,
 .formGroup select:focus {
   outline: none;
-  border-color: rgba(0, 123, 255, 0.5);
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-  background: rgba(255, 255, 255, 1);
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
 }
 
 .formGroup input:disabled,
 .formGroup select:disabled {
-  background-color: rgba(248, 249, 250, 0.9);
+  background-color: #f8f9fa;
   cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.formGroup select[multiple] {
+  height: auto;
+  min-height: 100px;
+  padding: 8px;
+}
+
+.formGroup select[multiple] option {
+  padding: 4px 8px;
+  font-size: 14px;
 }
 
 .error {
-  color: #dc3545;
-  background-color: rgba(248, 215, 218, 0.9);
-  padding: 10px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  text-align: center;
-  backdrop-filter: blur(5px);
+  color: #ff4444;
+  font-size: 12px;
+  margin-top: 4px;
+  padding: 4px 8px;
+  background: rgba(255, 73, 73, 0.1);
+  border-radius: 4px;
+  text-align: left;
 }
 
 .submitButton {
@@ -437,4 +450,185 @@
   width: 100%;
   position: relative;
   z-index: 2;
+}
+
+.userForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.formTitle {
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+  animation: fadeInDown 0.6s ease;
+}
+
+.inputGroup {
+  position: relative;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem 2.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.input:focus {
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+  outline: none;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #718096;
+  pointer-events: none;
+}
+
+.showPasswordButton {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #718096;
+  cursor: pointer;
+  padding: 0;
+}
+
+.showPasswordButton:hover {
+  color: #4a5568;
+}
+
+.error {
+  color: #e53e3e;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.licenseAgreement {
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkbox {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.licenseLink {
+  color: #4299e1;
+  text-decoration: underline;
+}
+
+.licenseLink:hover {
+  color: #2b6cb0;
+}
+
+.socialAuth {
+  margin-top: 2rem;
+}
+
+.socialDivider {
+  position: relative;
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.socialDivider::before,
+.socialDivider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 45%;
+  height: 1px;
+  background-color: #e2e8f0;
+}
+
+.socialDivider::before {
+  left: 0;
+}
+
+.socialDivider::after {
+  right: 0;
+}
+
+.socialButtons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.socialButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.socialButton:hover {
+  background-color: #f7fafc;
+  border-color: #cbd5e0;
+}
+
+.socialButton img {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

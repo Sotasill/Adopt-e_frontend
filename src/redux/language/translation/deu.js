@@ -215,6 +215,25 @@ const deuTranslation = {
           "Registrieren Sie sich als Tierpflegespezialist (Tierarzt, Groomer, Trainer)",
       },
     },
+    user: {
+      title: "Benutzerregistrierung",
+      username: "Benutzername",
+      email: "E-Mail",
+      password: "Passwort",
+      submit: "Registrieren",
+    },
+    social: {
+      or: "oder melden Sie sich an mit",
+      google: "Google",
+      facebook: "Facebook",
+      apple: "Apple",
+    },
+    errors: {
+      required: "Dieses Feld ist erforderlich",
+      email: "Ungültige E-Mail-Adresse",
+      minLength: "Mindestens {{count}} Zeichen",
+      maxLength: "Maximal {{count}} Zeichen",
+    },
   },
 
   hero: {

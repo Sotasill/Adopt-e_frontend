@@ -63,6 +63,25 @@ const enTranslation = {
           "Register as a pet care specialist (veterinarian, groomer, trainer)",
       },
     },
+    user: {
+      title: "User Registration",
+      username: "Username",
+      email: "Email",
+      password: "Password",
+      submit: "Register",
+    },
+    social: {
+      or: "or sign in with",
+      google: "Google",
+      facebook: "Facebook",
+      apple: "Apple",
+    },
+    errors: {
+      required: "This field is required",
+      email: "Invalid email address",
+      minLength: "Minimum {{count}} characters",
+      maxLength: "Maximum {{count}} characters",
+    },
   },
 
   // Footer

@@ -71,6 +71,25 @@ const ukrTranslation = {
           "Зареєструйтеся як спеціаліст з догляду за тваринами (ветеринар, грумер, кінолог)",
       },
     },
+    user: {
+      title: "Реєстрація користувача",
+      username: "Ім'я користувача",
+      email: "Електронна пошта",
+      password: "Пароль",
+      submit: "Зареєструватися",
+    },
+    social: {
+      or: "або увійдіть через",
+      google: "Google",
+      facebook: "Facebook",
+      apple: "Apple",
+    },
+    errors: {
+      required: "Обов'язкове поле",
+      email: "Некоректна email адреса",
+      minLength: "Мінімум {{count}} символів",
+      maxLength: "Максимум {{count}} символів",
+    },
   },
 
   // Футер

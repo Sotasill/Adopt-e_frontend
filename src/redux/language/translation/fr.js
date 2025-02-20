@@ -63,6 +63,25 @@ const frTranslation = {
           "Inscrivez-vous en tant que spécialiste des soins animaliers (vétérinaire, toiletteur, dresseur)",
       },
     },
+    user: {
+      title: "Inscription Utilisateur",
+      username: "Nom d'utilisateur",
+      email: "E-mail",
+      password: "Mot de passe",
+      submit: "S'inscrire",
+    },
+    social: {
+      or: "ou connectez-vous avec",
+      google: "Google",
+      facebook: "Facebook",
+      apple: "Apple",
+    },
+    errors: {
+      required: "Ce champ est obligatoire",
+      email: "Adresse e-mail invalide",
+      minLength: "Minimum {{count}} caractères",
+      maxLength: "Maximum {{count}} caractères",
+    },
   },
 
   // Footer

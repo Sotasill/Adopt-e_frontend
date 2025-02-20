@@ -109,5 +109,65 @@
       "fr": "{{years}} ans {{months}} mois",
       "de": "{{years}}J {{months}}M"
     }
+  },
+  "registration": {
+    "user": {
+      "title": {
+        "ru": "Регистрация пользователя",
+        "en": "User Registration"
+      },
+      "username": {
+        "ru": "Имя пользователя",
+        "en": "Username"
+      },
+      "email": {
+        "ru": "Электронная почта",
+        "en": "Email"
+      },
+      "password": {
+        "ru": "Пароль",
+        "en": "Password"
+      },
+      "submit": {
+        "ru": "Зарегистрироваться",
+        "en": "Register"
+      }
+    },
+    "social": {
+      "or": {
+        "ru": "или войдите через",
+        "en": "or sign in with"
+      },
+      "google": {
+        "ru": "Google",
+        "en": "Google"
+      },
+      "facebook": {
+        "ru": "Facebook",
+        "en": "Facebook"
+      },
+      "apple": {
+        "ru": "Apple",
+        "en": "Apple"
+      }
+    },
+    "errors": {
+      "required": {
+        "ru": "Обязательное поле",
+        "en": "This field is required"
+      },
+      "email": {
+        "ru": "Некорректный email",
+        "en": "Invalid email address"
+      },
+      "minLength": {
+        "ru": "Минимум {{count}} символов",
+        "en": "Minimum {{count}} characters"
+      },
+      "maxLength": {
+        "ru": "Максимум {{count}} символов",
+        "en": "Maximum {{count}} characters"
+      }
+    }
   }
 }
