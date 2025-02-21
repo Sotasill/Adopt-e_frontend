@@ -4,30 +4,36 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
   z-index: 1000;
   animation: fadeIn 0.3s ease;
+  overflow: hidden;
 }
 
 .modal {
   position: relative;
   width: 100%;
   max-width: 320px;
-  background: white;
+  /* background: rgba(255, 255, 255, 0.6); */
   border-radius: 16px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
   overflow: visible;
   animation: slideIn 0.4s ease;
   transform-origin: center;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .modalContent {
   width: 100%;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.6);
   border-radius: 12px;
   position: relative;
   overflow-y: auto;
@@ -36,6 +42,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(209, 213, 219, 0.5) transparent;
 }
 
 .modalContent::-webkit-scrollbar {
@@ -47,12 +55,12 @@
 }
 
 .modalContent::-webkit-scrollbar-thumb {
-  background: #d1d5db;
+  background: rgba(209, 213, 219, 0.5);
   border-radius: 2px;
 }
 
 .modalContent::-webkit-scrollbar-thumb:hover {
-  background: #9ca3af;
+  background: rgba(156, 163, 175, 0.5);
 }
 
 .formContainer {
@@ -64,30 +72,31 @@
   max-width: 260px;
   margin: 0 auto;
   animation: fadeInUp 0.5s ease;
+  background: transparent;
 }
 
 .closeButton {
   position: absolute;
   top: 10px;
   right: 10px;
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
   background: transparent;
   border: none;
-  color: #374151;
+  color: black;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  font-size: 28px;
   z-index: 10;
   transition: all 0.2s ease;
 }
 
 .closeButton:hover {
   color: #111827;
-  background: #e5e7eb;
+  transform: scale(1.2);
 }
 
 @media (max-width: 480px) {
@@ -96,12 +105,16 @@
   }
 
   .modal {
-    overflow: hidden;
+    border-radius: 0;
+    height: 100vh;
+    max-width: 100%;
+    overflow-y: auto;
   }
 
   .modalContent {
     padding: 20px;
     border-radius: 0;
+    height: 100%;
   }
 
   .closeButton {

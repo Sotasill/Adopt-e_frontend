@@ -5,7 +5,16 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import {
+  FaUser,
+  FaEnvelope,
+  FaLock,
+  FaEye,
+  FaEyeSlash,
+  FaGoogle,
+  FaFacebook,
+  FaApple,
+} from "react-icons/fa";
 import { useTranslatedContent } from "../../redux/hooks/useTranslatedContent";
 import {
   registerUser,
@@ -14,35 +23,35 @@ import {
 } from "../../redux/registration/registrationThunks";
 import { login } from "../../redux/auth/authActions";
 import { addNotification } from "../../redux/notifications/notificationsSlice";
-import {
-  selectRegistrationLoading,
-  selectRegistrationError,
-} from "../../redux/registration/registrationSlice";
+import { selectRegistrationLoading } from "../../redux/registration/registrationSlice";
 import { handleSocialAuth } from "../../utils/socialAuth";
 import styles from "./UserRegistrationForm.module.css";
+import commonStyles from "../../styles/common.module.css";
 
 const validationSchema = Yup.object().shape({
   username: Yup.string()
-    .min(3, "Минимум 3 символа")
-    .max(30, "Максимум 30 символов")
-    .required("Обязательное поле"),
-  email: Yup.string().email("Некорректный email").required("Обязательное поле"),
+    .min(3, "Имя пользователя должно содержать минимум 3 символа")
+    .max(30, "Имя пользователя не должно превышать 30 символов")
+    .required("Введите имя пользователя"),
+  email: Yup.string()
+    .email("Введите корректный email адрес")
+    .required("Введите email"),
   password: Yup.string()
-    .min(8, "Минимум 8 символов")
+    .min(8, "Пароль должен содержать минимум 8 символов")
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
       "Пароль должен содержать заглавные, строчные буквы и цифры"
     )
-    .required("Обязательное поле"),
+    .required("Введите пароль"),
   acceptTerms: Yup.boolean()
     .oneOf([true], "Необходимо принять условия использования")
-    .required("Обязательное поле"),
+    .required("Необходимо принять условия использования"),
 });
 
 const socialIcons = {
-  google: "/images/social/google.svg",
-  facebook: "/images/social/facebook.svg",
-  apple: "/images/social/apple.svg",
+  google: FaGoogle,
+  facebook: FaFacebook,
+  apple: FaApple,
 };
 
 const UserRegistrationForm = ({ selectedRole }) => {
@@ -133,7 +142,7 @@ const UserRegistrationForm = ({ selectedRole }) => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {({ errors, touched, isSubmitting }) => (
+      {({ errors, touched, isSubmitting, isValid, dirty, values }) => (
         <Form className={styles.form}>
           <div className={styles.formHeader}>
             <h2 className={styles.formTitle}>{t("registration.user.title")}</h2>
@@ -147,7 +156,9 @@ const UserRegistrationForm = ({ selectedRole }) => {
               <Field
                 type="text"
                 name="username"
-                className={styles.input}
+                className={`${styles.input} ${
+                  errors.username && touched.username ? styles.error : ""
+                }`}
                 placeholder={t("registration.user.username")}
                 disabled={loading || isSubmitting}
               />
@@ -163,7 +174,9 @@ const UserRegistrationForm = ({ selectedRole }) => {
               <Field
                 type="email"
                 name="email"
-                className={styles.input}
+                className={`${styles.input} ${
+                  errors.email && touched.email ? styles.error : ""
+                }`}
                 placeholder={t("registration.user.email")}
                 disabled={loading || isSubmitting}
               />
@@ -179,7 +192,9 @@ const UserRegistrationForm = ({ selectedRole }) => {
               <Field
                 type={showPassword ? "text" : "password"}
                 name="password"
-                className={styles.input}
+                className={`${styles.input} ${
+                  errors.password && touched.password ? styles.error : ""
+                }`}
                 placeholder={t("registration.user.password")}
                 disabled={loading || isSubmitting}
               />
@@ -222,8 +237,16 @@ const UserRegistrationForm = ({ selectedRole }) => {
 
           <button
             type="submit"
-            className={styles.submitButton}
-            disabled={loading || isSubmitting}
+            className={`${commonStyles.findBreederButton} ${commonStyles.small} ${styles.submitButton}`}
+            disabled={
+              loading ||
+              isSubmitting ||
+              !isValid ||
+              !values.username ||
+              !values.email ||
+              !values.password ||
+              !values.acceptTerms
+            }
           >
             {loading || isSubmitting
               ? t("registration.loading")
@@ -235,7 +258,7 @@ const UserRegistrationForm = ({ selectedRole }) => {
               {t("registration.social.or")}
             </div>
             <div className={styles.socialButtons}>
-              {Object.entries(socialIcons).map(([provider, iconPath]) => (
+              {Object.entries(socialIcons).map(([provider, Icon]) => (
                 <button
                   key={provider}
                   type="button"
@@ -243,7 +266,7 @@ const UserRegistrationForm = ({ selectedRole }) => {
                   onClick={() => handleSocialClick(provider)}
                   title={t(`registration.social.${provider}`)}
                 >
-                  <img src={iconPath} alt={provider} width="24" height="24" />
+                  <Icon size={20} />
                 </button>
               ))}
             </div>

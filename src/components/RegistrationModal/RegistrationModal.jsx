@@ -22,6 +22,24 @@ const modalVariants = {
 
 const RegistrationModal = ({ onClose, selectedRole }) => {
   useEffect(() => {
+    // Сохраняем текущую позицию прокрутки
+    const scrollY = window.scrollY;
+
+    // Блокируем прокрутку и фиксируем страницу
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = "100%";
+
+    // Восстанавливаем прокрутку при закрытии
+    return () => {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      window.scrollTo(0, scrollY);
+    };
+  }, []);
+
+  useEffect(() => {
     const handleEscKey = (event) => {
       if (event.key === "Escape") {
         onClose();
