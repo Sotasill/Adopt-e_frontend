@@ -4,152 +4,144 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 20px;
+  align-items: center;
   z-index: 1000;
-  animation: fadeIn 0.3s ease;
-  overflow: hidden;
+  padding: 20px;
+  backdrop-filter: blur(5px);
 }
 
 .modal {
-  position: relative;
-  width: 100%;
-  max-width: 320px;
-  /* background: rgba(255, 255, 255, 0.6); */
+  background: rgba(255, 255, 255, 0.7);
   border-radius: 16px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
-  overflow: visible;
-  animation: slideIn 0.4s ease;
-  transform-origin: center;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow: hidden;
+  position: relative;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.auroraContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  z-index: 0;
+}
+
+.aurora {
+  position: absolute;
+  top: -30%;
+  left: -30%;
+  right: -30%;
+  bottom: -30%;
+  transform: scale(1.5);
+  opacity: 0.9;
+  filter: blur(30px);
+  pointer-events: none;
 }
 
 .modalContent {
-  width: 100%;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 12px;
   position: relative;
+  z-index: 1;
+  padding: 2rem;
+  height: 100%;
+  max-height: 90vh;
   overflow-y: auto;
-  max-height: 85vh;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(209, 213, 219, 0.5) transparent;
-}
-
-.modalContent::-webkit-scrollbar {
-  width: 4px;
-}
-
-.modalContent::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.modalContent::-webkit-scrollbar-thumb {
-  background: rgba(209, 213, 219, 0.5);
-  border-radius: 2px;
-}
-
-.modalContent::-webkit-scrollbar-thumb:hover {
-  background: rgba(156, 163, 175, 0.5);
-}
-
-.formContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 260px;
-  margin: 0 auto;
-  animation: fadeInUp 0.5s ease;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border-radius: 16px;
 }
 
 .closeButton {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
+  top: 15px;
+  right: 15px;
   background: transparent;
   border: none;
-  color: black;
+  font-size: 28px;
+  color: rgba(102, 102, 102, 0.8);
   cursor: pointer;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
-  z-index: 10;
   transition: all 0.2s ease;
+  z-index: 10;
+  padding: 0;
+  line-height: 1;
 }
 
 .closeButton:hover {
-  color: #111827;
-  transform: scale(1.2);
+  color: #333;
+  transform: rotate(90deg);
 }
 
-@media (max-width: 480px) {
-  .backdrop {
-    padding: 0;
-  }
+.formContainer {
+  position: relative;
+  z-index: 2;
+}
 
+/* Стили для скроллбара */
+.modalContent::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modalContent::-webkit-scrollbar-track {
+  background: rgba(241, 241, 241, 0.5);
+  border-radius: 4px;
+}
+
+.modalContent::-webkit-scrollbar-thumb {
+  background: rgba(136, 136, 136, 0.5);
+  border-radius: 4px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.modalContent::-webkit-scrollbar-thumb:hover {
+  background: rgba(85, 85, 85, 0.7);
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 768px) {
   .modal {
-    border-radius: 0;
-    height: 100vh;
-    max-width: 100%;
-    overflow-y: auto;
+    width: 95%;
+    max-height: 95vh;
   }
 
   .modalContent {
-    padding: 20px;
-    border-radius: 0;
-    height: 100%;
+    padding: 1.5rem;
+  }
+
+  .aurora {
+    transform: scale(3);
+    opacity: 0.6;
+  }
+}
+
+@media (max-width: 480px) {
+  .modalContent {
+    padding: 1rem;
   }
 
   .closeButton {
-    top: 14px;
-    right: 14px;
+    top: 10px;
+    right: 10px;
   }
-}
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95) translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  .aurora {
+    transform: scale(4);
+    opacity: 0.5;
   }
 }

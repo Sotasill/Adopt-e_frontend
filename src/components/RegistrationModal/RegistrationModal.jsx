@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 import UserRegistrationForm from "../UserRegistrationForm/UserRegistrationForm";
+import BreederRegistrationForm from "../BreederRegistrationForm/BreederRegistrationForm";
+import Aurora from "../Aurora/Aurora";
 import styles from "./RegistrationModal.module.css";
 
 const backdropVariants = {
@@ -52,6 +54,20 @@ const RegistrationModal = ({ onClose, selectedRole }) => {
     };
   }, [onClose]);
 
+  const renderRegistrationForm = () => {
+    switch (selectedRole.id) {
+      case "breeder":
+        return <BreederRegistrationForm />;
+      case "user":
+        return <UserRegistrationForm selectedRole={selectedRole} />;
+      case "specialist":
+        // TODO: Добавить форму для специалиста
+        return <UserRegistrationForm selectedRole={selectedRole} />;
+      default:
+        return <UserRegistrationForm selectedRole={selectedRole} />;
+    }
+  };
+
   return (
     <motion.div
       className={styles.backdrop}
@@ -68,13 +84,19 @@ const RegistrationModal = ({ onClose, selectedRole }) => {
         animate="visible"
         exit="exit"
       >
+        <div className={styles.auroraContainer}>
+          <Aurora
+            colorStops={selectedRole.colors}
+            amplitude={1.2}
+            speed={0.5}
+            className={styles.aurora}
+          />
+        </div>
         <div className={styles.modalContent}>
           <button className={styles.closeButton} onClick={onClose}>
             ×
           </button>
-          <div className={styles.formContainer}>
-            <UserRegistrationForm selectedRole={selectedRole} />
-          </div>
+          <div className={styles.formContainer}>{renderRegistrationForm()}</div>
         </div>
       </motion.div>
     </motion.div>
