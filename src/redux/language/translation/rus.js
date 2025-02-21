@@ -70,6 +70,9 @@ const ruTranslation = {
   registration: {
     loading: "Регистрация...",
     submit: "Зарегистрироваться",
+    step: "Шаг {{current}} из {{total}}",
+    success: "Регистрация прошла успешно!",
+    error: "Произошла ошибка при регистрации",
     roles: {
       user: {
         title: "Пользователь",
@@ -93,6 +96,37 @@ const ruTranslation = {
       email: "Электронная почта",
       password: "Пароль",
       submit: "Зарегистрироваться",
+    },
+    breeder: {
+      title: "Регистрация заводчика",
+      steps: {
+        basic: "Основная информация",
+        kennel: "Информация о питомнике",
+        experience: "Опыт и сертификаты",
+      },
+      form: {
+        username: "Имя пользователя",
+        email: "Электронная почта",
+        password: "Пароль",
+        companyName: "Название питомника",
+        specialization: {
+          label: "Специализация",
+          placeholder: "Выберите специализацию",
+          dog: "Собаки",
+          cat: "Кошки",
+        },
+        country: {
+          label: "Страна",
+          placeholder: "Выберите страну",
+        },
+        city: {
+          label: "Город",
+          placeholder: "Введите город латиницей",
+        },
+        submit: "Завершить регистрацию",
+        next: "Далее",
+        back: "Назад",
+      },
     },
     social: {
       or: "или войдите через",

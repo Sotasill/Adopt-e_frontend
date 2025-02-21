@@ -46,6 +46,9 @@ const frTranslation = {
   registration: {
     loading: "Inscription en cours...",
     submit: "S'inscrire",
+    step: "Étape {{current}} sur {{total}}",
+    success: "Inscription réussie !",
+    error: "Une erreur s'est produite lors de l'inscription",
     roles: {
       user: {
         title: "Utilisateur",
@@ -58,23 +61,64 @@ const frTranslation = {
           "Créez un profil d'éleveur pour présenter vos animaux et communiquer avec les propriétaires potentiels",
       },
       specialist: {
-        title: "Spécialiste animalier",
+        title: "Spécialiste",
         description:
-          "Inscrivez-vous en tant que spécialiste des soins animaliers (vétérinaire, toiletteur, dresseur)",
+          "Inscrivez-vous en tant que spécialiste des soins aux animaux (vétérinaire, toiletteur, dresseur)",
       },
     },
     user: {
-      title: "Inscription Utilisateur",
+      title: "Inscription utilisateur",
       username: "Nom d'utilisateur",
       email: "E-mail",
       password: "Mot de passe",
       submit: "S'inscrire",
+    },
+    breeder: {
+      title: "Inscription éleveur",
+      steps: {
+        basic: "Informations de base",
+        kennel: "Informations sur l'élevage",
+        experience: "Expérience et certificats",
+      },
+      form: {
+        username: "Nom d'utilisateur",
+        email: "E-mail",
+        password: "Mot de passe",
+        companyName: "Nom de l'élevage",
+        specialization: {
+          label: "Spécialisation",
+          placeholder: "Sélectionnez une spécialisation",
+          dog: "Chiens",
+          cat: "Chats",
+        },
+        country: {
+          label: "Pays",
+          placeholder: "Sélectionnez un pays",
+        },
+        city: {
+          label: "Ville",
+          placeholder: "Entrez la ville en lettres latines",
+        },
+        description: "Description de l'élevage",
+        experience: "Années d'expérience",
+        certificates: {
+          label: "Télécharger les certificats",
+          hint: "Vous pouvez sélectionner plusieurs fichiers",
+        },
+        submit: "Terminer l'inscription",
+        next: "Suivant",
+        back: "Retour",
+      },
     },
     social: {
       or: "ou connectez-vous avec",
       google: "Google",
       facebook: "Facebook",
       apple: "Apple",
+    },
+    license: {
+      agree: "J'accepte les",
+      text: "conditions d'utilisation",
     },
     errors: {
       required: "Ce champ est obligatoire",

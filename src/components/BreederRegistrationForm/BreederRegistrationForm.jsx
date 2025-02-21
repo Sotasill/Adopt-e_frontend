@@ -2,70 +2,182 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   FaUser,
   FaEnvelope,
   FaLock,
   FaBuilding,
   FaPaw,
-  FaArrowRight,
+  FaEye,
+  FaEyeSlash,
   FaArrowLeft,
+  FaArrowRight,
+  FaGlobe,
+  FaCity,
 } from "react-icons/fa";
 import { registerBreeder } from "../../redux/registration/registrationThunks";
 import { login } from "../../redux/auth/authActions";
+import { useTranslatedContent } from "../../redux/hooks/useTranslatedContent";
 import {
   selectRegistrationLoading,
   selectRegistrationError,
 } from "../../redux/registration/registrationSlice";
 import styles from "./BreederRegistrationForm.module.css";
+import commonStyles from "../../styles/common.module.css";
+import countries from "../../redux/language/dictionaries/countries.json";
+
+const formAnimation = {
+  hidden: { opacity: 0, x: -20 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.2,
+      ease: "easeOut",
+    },
+  },
+  exit: {
+    opacity: 0,
+    x: 20,
+    transition: {
+      duration: 0.2,
+    },
+  },
+};
 
 const BreederRegistrationForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [currentStep, setCurrentStep] = useState(1);
+  const { t } = useTranslatedContent();
   const loading = useSelector(selectRegistrationLoading);
   const registrationError = useSelector(selectRegistrationError);
+  const [showPassword, setShowPassword] = useState(false);
+  const [currentStep, setCurrentStep] = useState(1);
+  const totalSteps = 3;
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
     companyName: "",
     specialization: "",
-    experience: "",
-    description: "",
-    certificates: [],
+    country: "",
+    city: "",
+    acceptTerms: false,
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const [errors, setErrors] = useState({
+    username: "",
+    email: "",
+    password: "",
+    companyName: "",
+    specialization: "",
+    country: "",
+    city: "",
+  });
+
+  const validateField = (name, value) => {
+    switch (name) {
+      case "username":
+        if (value.length < 3) {
+          return t("registration.errors.minLength", { count: 3 });
+        }
+        if (value.length > 30) {
+          return t("registration.errors.maxLength", { count: 30 });
+        }
+        break;
+      case "email":
+        if (!value.includes("@") || !value.includes(".")) {
+          return t("registration.errors.email");
+        }
+        break;
+      case "password":
+        if (value.length < 6) {
+          return t("registration.errors.minLength", { count: 6 });
+        }
+        break;
+      case "companyName":
+        if (!value) {
+          return t("registration.errors.required");
+        }
+        if (!/^[A-Z]/.test(value)) {
+          return "Название должно начинаться с заглавной буквы";
+        }
+        if (!/^[A-Za-z\-_;\s*]+$/.test(value)) {
+          return "Разрешены только латинские буквы и символы: - _ ; *";
+        }
+        break;
+      case "specialization":
+        if (!value || value === "") {
+          return t("registration.errors.required");
+        }
+        break;
+      case "country":
+        if (!value) {
+          return t("registration.errors.required");
+        }
+        break;
+      case "city":
+        if (!value) {
+          return t("registration.errors.required");
+        }
+        if (!/^[a-zA-Z\s]*$/.test(value)) {
+          return "Только латинские буквы";
+        }
+        break;
+      default:
+        return "";
+    }
+    return "";
   };
 
-  const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    if (name === "companyName") {
+      if (value !== "" && !/^[A-Za-z\-_;\s*]*$/.test(value)) {
+        return;
+      }
+    }
+
+    if (name === "city" && value !== "" && !/^[a-zA-Z\s]*$/.test(value)) {
+      return;
+    }
+
+    const newValue = type === "checkbox" ? checked : value;
     setFormData((prev) => ({
       ...prev,
-      certificates: files,
+      [name]: newValue,
     }));
+
+    if (type !== "checkbox") {
+      const error = validateField(name, value);
+      setErrors((prev) => ({
+        ...prev,
+        [name]: error,
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formData.acceptTerms) {
+      toast.error(t("registration.errors.acceptTerms"));
+      return;
+    }
 
     try {
       const registrationResult = await dispatch(
         registerBreeder(formData)
       ).unwrap();
 
-      toast.success("Регистрация прошла успешно!", {
+      toast.success(t("registration.success"), {
         duration: 3000,
         position: "top-center",
       });
 
-      // Автоматический вход после регистрации
       if (registrationResult) {
         const loginResult = await dispatch(
           login({
@@ -79,24 +191,63 @@ const BreederRegistrationForm = () => {
         }
       }
     } catch (err) {
-      toast.error(err.message || "Произошла ошибка при регистрации");
+      toast.error(err.message || t("registration.error"));
     }
   };
 
   const nextStep = () => {
-    setCurrentStep((prev) => Math.min(prev + 1, 3));
+    if (currentStep < totalSteps) {
+      setCurrentStep(currentStep + 1);
+    }
   };
 
   const prevStep = () => {
-    setCurrentStep((prev) => Math.max(prev - 1, 1));
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+    }
   };
 
-  const renderStep = () => {
+  const validateStep = () => {
     switch (currentStep) {
       case 1:
         return (
-          <div className={styles.stepContainer}>
-            <h3>Основная информация</h3>
+          formData.username.length >= 3 &&
+          formData.email.includes("@") &&
+          formData.password.length >= 6 &&
+          !errors.username &&
+          !errors.email &&
+          !errors.password
+        );
+      case 2:
+        return (
+          formData.companyName &&
+          formData.specialization &&
+          formData.specialization !== "" &&
+          !errors.companyName &&
+          !errors.specialization
+        );
+      case 3:
+        return (
+          formData.country && formData.city && !errors.country && !errors.city
+        );
+      default:
+        return false;
+    }
+  };
+
+  const renderStepContent = () => {
+    switch (currentStep) {
+      case 1:
+        return (
+          <motion.div
+            key="step1"
+            variants={formAnimation}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            style={{ width: "100%" }}
+            className={styles.formFields}
+          >
             <div className={styles.formGroup}>
               <div className={styles.inputWrapper}>
                 <FaUser className={styles.inputIcon} />
@@ -105,12 +256,18 @@ const BreederRegistrationForm = () => {
                   name="username"
                   value={formData.username}
                   onChange={handleChange}
-                  placeholder="Имя пользователя"
+                  placeholder={t("registration.breeder.form.username")}
+                  className={`${styles.input} ${
+                    errors.username ? styles.inputError : ""
+                  }`}
                   required
                   minLength={3}
                   maxLength={30}
                 />
               </div>
+              {errors.username && (
+                <div className={styles.errorText}>{errors.username}</div>
+              )}
             </div>
 
             <div className={styles.formGroup}>
@@ -121,32 +278,58 @@ const BreederRegistrationForm = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="Email"
+                  placeholder={t("registration.breeder.form.email")}
+                  className={`${styles.input} ${
+                    errors.email ? styles.inputError : ""
+                  }`}
                   required
                 />
               </div>
+              {errors.email && (
+                <div className={styles.errorText}>{errors.email}</div>
+              )}
             </div>
 
             <div className={styles.formGroup}>
               <div className={styles.inputWrapper}>
                 <FaLock className={styles.inputIcon} />
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  placeholder="Пароль"
+                  placeholder={t("registration.breeder.form.password")}
+                  className={`${styles.input} ${
+                    errors.password ? styles.inputError : ""
+                  }`}
                   required
                 />
+                <button
+                  type="button"
+                  className={styles.showPasswordButton}
+                  onClick={() => setShowPassword(!showPassword)}
+                  tabIndex={-1}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
               </div>
+              {errors.password && (
+                <div className={styles.errorText}>{errors.password}</div>
+              )}
             </div>
-          </div>
+          </motion.div>
         );
-
       case 2:
         return (
-          <div className={styles.stepContainer}>
-            <h3>Информация о питомнике</h3>
+          <motion.div
+            key="step2"
+            variants={formAnimation}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            style={{ width: "100%" }}
+            className={styles.formFields}
+          >
             <div className={styles.formGroup}>
               <div className={styles.inputWrapper}>
                 <FaBuilding className={styles.inputIcon} />
@@ -155,10 +338,16 @@ const BreederRegistrationForm = () => {
                   name="companyName"
                   value={formData.companyName}
                   onChange={handleChange}
-                  placeholder="Название питомника"
+                  placeholder={t("registration.breeder.form.companyName")}
+                  className={`${styles.input} ${
+                    errors.companyName ? styles.inputError : ""
+                  }`}
                   required
                 />
               </div>
+              {errors.companyName && (
+                <div className={styles.errorText}>{errors.companyName}</div>
+              )}
             </div>
 
             <div className={styles.formGroup}>
@@ -168,59 +357,110 @@ const BreederRegistrationForm = () => {
                   name="specialization"
                   value={formData.specialization}
                   onChange={handleChange}
+                  className={`${styles.input} ${
+                    errors.specialization ? styles.inputError : ""
+                  }`}
                   required
                 >
-                  <option value="">Выберите специализацию</option>
-                  <option value="dog">Собаки</option>
-                  <option value="cat">Кошки</option>
-                  <option value="both">Собаки и кошки</option>
+                  <option value="">
+                    {t("registration.breeder.form.specialization.placeholder")}
+                  </option>
+                  <option value="dog">
+                    {t("registration.breeder.form.specialization.dog")}
+                  </option>
+                  <option value="cat">
+                    {t("registration.breeder.form.specialization.cat")}
+                  </option>
                 </select>
               </div>
+              {errors.specialization && (
+                <div className={styles.errorText}>{errors.specialization}</div>
+              )}
             </div>
-
-            <div className={styles.formGroup}>
-              <textarea
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                placeholder="Описание питомника"
-                rows={4}
-              />
-            </div>
-          </div>
+          </motion.div>
         );
-
       case 3:
         return (
-          <div className={styles.stepContainer}>
-            <h3>Опыт и сертификаты</h3>
+          <motion.div
+            key="step3"
+            variants={formAnimation}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            style={{ width: "100%" }}
+            className={styles.formFields}
+          >
             <div className={styles.formGroup}>
-              <input
-                type="number"
-                name="experience"
-                value={formData.experience}
-                onChange={handleChange}
-                placeholder="Опыт работы (лет)"
-                min="0"
-                required
-              />
+              <div className={styles.inputWrapper}>
+                <FaGlobe className={styles.inputIcon} />
+                <select
+                  name="country"
+                  value={formData.country}
+                  onChange={handleChange}
+                  className={`${styles.input} ${
+                    errors.country ? styles.inputError : ""
+                  }`}
+                  required
+                >
+                  <option value="">
+                    {t("registration.breeder.form.country.placeholder")}
+                  </option>
+                  {Object.entries(countries).map(([key, country]) => (
+                    <option key={key} value={country.iso}>
+                      {country.ru} {country.flag}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              {errors.country && (
+                <div className={styles.errorText}>{errors.country}</div>
+              )}
             </div>
 
             <div className={styles.formGroup}>
-              <label className={styles.fileInput}>
-                Загрузить сертификаты
+              <div className={styles.inputWrapper}>
+                <FaCity className={styles.inputIcon} />
                 <input
-                  type="file"
-                  multiple
-                  onChange={handleFileChange}
-                  accept=".pdf,.jpg,.jpeg,.png"
+                  type="text"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleChange}
+                  placeholder={t("registration.breeder.form.city.placeholder")}
+                  className={`${styles.input} ${
+                    errors.city ? styles.inputError : ""
+                  }`}
+                  required
+                  pattern="[A-Za-z\s]+"
                 />
-              </label>
-              <small>Можно выбрать несколько файлов</small>
+              </div>
+              {errors.city && (
+                <div className={styles.errorText}>{errors.city}</div>
+              )}
             </div>
-          </div>
-        );
 
+            <div className={styles.checkboxGroup}>
+              <input
+                type="checkbox"
+                name="acceptTerms"
+                checked={formData.acceptTerms}
+                onChange={handleChange}
+                className={styles.checkbox}
+                id="acceptTerms"
+              />
+              <label htmlFor="acceptTerms" className={styles.licenseText}>
+                {t("registration.license.agree")}{" "}
+                <a
+                  href="/license"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.licenseLink}
+                >
+                  {t("registration.license.text")}
+                </a>
+              </label>
+            </div>
+          </motion.div>
+        );
       default:
         return null;
     }
@@ -229,49 +469,63 @@ const BreederRegistrationForm = () => {
   return (
     <div className={styles.registrationContainer}>
       <form onSubmit={handleSubmit} className={styles.registrationForm}>
-        <div className={styles.progressBar}>
-          <div
-            className={styles.progressFill}
-            style={{ width: `${(currentStep / 3) * 100}%` }}
-          />
-        </div>
+        <h2 className={styles.formTitle}>{t("registration.breeder.title")}</h2>
+        <p className={styles.formSubtitle}>
+          {t("registration.roles.breeder.description")}
+        </p>
 
-        <div className={styles.stepIndicator}>Шаг {currentStep} из 3</div>
+        <div className={styles.stepIndicator}>
+          {Array.from({ length: totalSteps }, (_, i) => (
+            <div
+              key={i}
+              className={`${styles.stepDot} ${
+                i + 1 === currentStep ? styles.active : ""
+              } ${i + 1 < currentStep ? styles.completed : ""}`}
+            />
+          ))}
+        </div>
 
         {registrationError && (
           <div className={styles.error}>{registrationError}</div>
         )}
 
-        {renderStep()}
+        <AnimatePresence mode="wait">{renderStepContent()}</AnimatePresence>
 
-        <div className={styles.navigationButtons}>
+        <div className={styles.buttonGroup}>
           {currentStep > 1 && (
             <button
               type="button"
               onClick={prevStep}
-              className={styles.navButton}
-              disabled={loading}
+              className={`${commonStyles.findBreederButton} ${commonStyles.small}`}
             >
-              <FaArrowLeft /> Назад
+              <FaArrowLeft className={styles.buttonIcon} />
+              {t("registration.breeder.form.back")}
             </button>
           )}
-
-          {currentStep < 3 ? (
+          {currentStep < totalSteps ? (
             <button
               type="button"
               onClick={nextStep}
-              className={styles.navButton}
-              disabled={loading}
+              className={`${commonStyles.findBreederButton} ${commonStyles.small}`}
+              disabled={!validateStep()}
+              style={{ opacity: validateStep() ? 1 : 0.7 }}
             >
-              Далее <FaArrowRight />
+              {t("registration.breeder.form.next")}
+              <FaArrowRight className={styles.buttonIcon} />
             </button>
           ) : (
             <button
               type="submit"
-              className={styles.submitButton}
-              disabled={loading}
+              className={`${commonStyles.findBreederButton} ${commonStyles.small}`}
+              disabled={loading || !formData.acceptTerms || !validateStep()}
+              style={{
+                opacity:
+                  !loading && formData.acceptTerms && validateStep() ? 1 : 0.7,
+              }}
             >
-              {loading ? "Регистрация..." : "Завершить регистрацию"}
+              {loading
+                ? t("registration.loading")
+                : t("registration.breeder.form.submit")}
             </button>
           )}
         </div>

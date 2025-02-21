@@ -44,21 +44,24 @@ const enTranslation = {
 
   // Registration
   registration: {
-    loading: "Registering...",
+    loading: "Registration...",
     submit: "Register",
+    step: "Step {{current}} of {{total}}",
+    success: "Registration successful!",
+    error: "Registration error occurred",
     roles: {
       user: {
         title: "User",
         description:
-          "Register as a user to find the perfect companion for your family",
+          "Register as a user to find the perfect pet for your family",
       },
       breeder: {
         title: "Breeder",
         description:
-          "Create a breeder profile to showcase your pets and connect with potential owners",
+          "Create a breeder profile to list your pets and connect with potential owners",
       },
       specialist: {
-        title: "Pet Specialist",
+        title: "Specialist",
         description:
           "Register as a pet care specialist (veterinarian, groomer, trainer)",
       },
@@ -70,11 +73,52 @@ const enTranslation = {
       password: "Password",
       submit: "Register",
     },
+    breeder: {
+      title: "Breeder Registration",
+      steps: {
+        basic: "Basic Information",
+        kennel: "Kennel Information",
+        experience: "Experience & Certificates",
+      },
+      form: {
+        username: "Username",
+        email: "Email",
+        password: "Password",
+        companyName: "Kennel Name",
+        specialization: {
+          label: "Specialization",
+          placeholder: "Select specialization",
+          dog: "Dogs",
+          cat: "Cats",
+        },
+        country: {
+          label: "Country",
+          placeholder: "Select country",
+        },
+        city: {
+          label: "City",
+          placeholder: "Enter city in Latin letters",
+        },
+        description: "Kennel Description",
+        experience: "Years of Experience",
+        certificates: {
+          label: "Upload Certificates",
+          hint: "You can select multiple files",
+        },
+        submit: "Complete Registration",
+        next: "Next",
+        back: "Back",
+      },
+    },
     social: {
       or: "or sign in with",
       google: "Google",
       facebook: "Facebook",
       apple: "Apple",
+    },
+    license: {
+      agree: "I agree to the",
+      text: "terms of service",
     },
     errors: {
       required: "This field is required",

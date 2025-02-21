@@ -198,11 +198,14 @@ const deuTranslation = {
   registration: {
     loading: "Registrierung...",
     submit: "Registrieren",
+    step: "Schritt {{current}} von {{total}}",
+    success: "Registrierung erfolgreich!",
+    error: "Bei der Registrierung ist ein Fehler aufgetreten",
     roles: {
       user: {
         title: "Benutzer",
         description:
-          "Registrieren Sie sich als Benutzer, um den perfekten Begleiter für Ihre Familie zu finden",
+          "Registrieren Sie sich als Benutzer, um das perfekte Haustier für Ihre Familie zu finden",
       },
       breeder: {
         title: "Züchter",
@@ -210,9 +213,9 @@ const deuTranslation = {
           "Erstellen Sie ein Züchterprofil, um Ihre Tiere zu präsentieren und mit potenziellen Besitzern in Kontakt zu treten",
       },
       specialist: {
-        title: "Tierspezialist",
+        title: "Spezialist",
         description:
-          "Registrieren Sie sich als Tierpflegespezialist (Tierarzt, Groomer, Trainer)",
+          "Registrieren Sie sich als Tierpflege-Spezialist (Tierarzt, Groomer, Trainer)",
       },
     },
     user: {
@@ -222,11 +225,46 @@ const deuTranslation = {
       password: "Passwort",
       submit: "Registrieren",
     },
+    breeder: {
+      title: "Züchterregistrierung",
+      steps: {
+        basic: "Grundinformationen",
+        kennel: "Zwinger-Informationen",
+        experience: "Erfahrung & Zertifikate",
+      },
+      form: {
+        username: "Benutzername",
+        email: "E-Mail",
+        password: "Passwort",
+        companyName: "Zwingername",
+        specialization: {
+          label: "Spezialisierung",
+          placeholder: "Spezialisierung wählen",
+          dog: "Hunde",
+          cat: "Katzen",
+        },
+        country: {
+          label: "Land",
+          placeholder: "Land auswählen",
+        },
+        city: {
+          label: "Stadt",
+          placeholder: "Stadt in lateinischen Buchstaben eingeben",
+        },
+        submit: "Registrierung abschließen",
+        next: "Weiter",
+        back: "Zurück",
+      },
+    },
     social: {
-      or: "oder melden Sie sich an mit",
+      or: "oder anmelden mit",
       google: "Google",
       facebook: "Facebook",
       apple: "Apple",
+    },
+    license: {
+      agree: "Ich stimme den",
+      text: "Nutzungsbedingungen zu",
     },
     errors: {
       required: "Dieses Feld ist erforderlich",
