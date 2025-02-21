@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 import UserRegistrationForm from "../UserRegistrationForm/UserRegistrationForm";
 import BreederRegistrationForm from "../BreederRegistrationForm/BreederRegistrationForm";
+import SpecialistRegistrationForm from "../SpecialistRegistrationForm/SpecialistRegistrationForm";
 import Aurora from "../Aurora/Aurora";
 import styles from "./RegistrationModal.module.css";
 
@@ -58,10 +59,9 @@ const RegistrationModal = ({ onClose, selectedRole }) => {
     switch (selectedRole.id) {
       case "breeder":
         return <BreederRegistrationForm />;
-      case "user":
-        return <UserRegistrationForm selectedRole={selectedRole} />;
       case "specialist":
-        // TODO: Добавить форму для специалиста
+        return <SpecialistRegistrationForm />;
+      case "user":
         return <UserRegistrationForm selectedRole={selectedRole} />;
       default:
         return <UserRegistrationForm selectedRole={selectedRole} />;

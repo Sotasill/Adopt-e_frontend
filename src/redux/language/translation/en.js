@@ -402,6 +402,12 @@ const enTranslation = {
       list: "List",
     },
   },
+
+  specialist: {
+    dashboard: {
+      welcome: "Welcome, {{name}}!",
+    },
+  },
 };
 
 export default enTranslation;

@@ -32,6 +32,8 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
         navigate("/mainusersystem", { replace: true });
       } else if (userRole === "breeder") {
         navigate("/mainbcs", { replace: true });
+      } else if (userRole === "specialist") {
+        navigate("/mainspecialist", { replace: true });
       } else {
         navigate("/", { replace: true });
       }

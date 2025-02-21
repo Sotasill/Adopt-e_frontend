@@ -61,9 +61,33 @@ const frTranslation = {
           "Créez un profil d'éleveur pour présenter vos animaux et communiquer avec les propriétaires potentiels",
       },
       specialist: {
-        title: "Spécialiste",
+        title: "Inscription Spécialiste",
         description:
-          "Inscrivez-vous en tant que spécialiste des soins aux animaux (vétérinaire, toiletteur, dresseur)",
+          "Inscrivez-vous en tant que spécialiste des soins pour animaux (vétérinaire, vendeur d'articles pour animaux, toiletteur)",
+        form: {
+          username: "Nom d'utilisateur",
+          email: "E-mail",
+          password: "Mot de passe",
+          companyName: "Nom de l'entreprise",
+          specialization: {
+            label: "Spécialisation",
+            placeholder: "Sélectionnez une spécialisation",
+            veterinary: "Services vétérinaires",
+            petshop: "Articles pour animaux",
+            services: "Autres services animaliers",
+          },
+          country: {
+            label: "Pays",
+            placeholder: "Sélectionnez un pays",
+          },
+          city: {
+            label: "Ville",
+            placeholder: "Entrez la ville en lettres latines",
+          },
+          submit: "Terminer l'inscription",
+          next: "Suivant",
+          back: "Retour",
+        },
       },
     },
     user: {
@@ -398,6 +422,12 @@ const frTranslation = {
     viewModes: {
       grid: "Grille",
       list: "Liste",
+    },
+  },
+
+  specialist: {
+    dashboard: {
+      welcome: "Bienvenue, {{name}}!",
     },
   },
 };

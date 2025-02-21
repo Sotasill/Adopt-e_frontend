@@ -1,0 +1,257 @@
+.registrationContainer {
+  width: 100%;
+  max-width: 260px;
+  margin: 0 auto;
+}
+
+.registrationForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+}
+
+.formTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+  text-align: center;
+}
+
+.formSubtitle {
+  font-size: 12px;
+  color: #666;
+  line-height: 1.3;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.formFields {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.formGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+}
+
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  height: 36px;
+  padding: 0 32px 0 36px;
+  border: 1px solid rgba(229, 231, 235, 0.4);
+  border-radius: 6px;
+  font-size: 14px;
+  color: #1a1a1a;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.input[type="password"],
+.input[type="text"],
+.input[type="email"],
+.input[type="number"] {
+  padding-right: 40px;
+}
+
+.input:focus {
+  border-color: rgba(37, 99, 235, 0.5);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  transform: translateY(-1px);
+}
+
+.input.inputError {
+  border-color: #dc2626;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.input.inputError:focus {
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.errorText {
+  font-size: 11px;
+  color: #dc2626;
+  margin-top: 2px;
+}
+
+.input::placeholder {
+  color: rgba(156, 163, 175, 0.8);
+  transition: all 0.2s ease;
+}
+
+.input:focus::placeholder {
+  opacity: 0.7;
+  transform: translateY(-2px);
+}
+
+.inputIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  font-size: 14px;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+
+.input:focus + .inputIcon {
+  color: #2563eb;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.input.inputError + .inputIcon {
+  color: #dc2626;
+}
+
+.showPasswordButton {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  z-index: 2;
+}
+
+.showPasswordButton:hover {
+  color: #4b5563;
+}
+
+.checkboxGroup {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  cursor: pointer;
+  accent-color: #2563eb;
+}
+
+.licenseText {
+  font-size: 11px;
+  color: #4b5563;
+  line-height: 1.3;
+}
+
+.licenseLink {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.licenseLink:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.error {
+  font-size: 11px;
+  color: #dc2626;
+  margin: 1px 0 0 2px;
+}
+
+.stepIndicator {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.stepDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(203, 213, 225, 0.5);
+  transition: all 0.2s ease;
+}
+
+.stepDot.active {
+  background: #2563eb;
+  transform: scale(1.2);
+}
+
+.stepDot.completed {
+  background: #10b981;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  margin-top: 24px;
+}
+
+.buttonIcon {
+  font-size: 12px;
+}
+
+button[disabled] {
+  background: #e5e7eb !important;
+  border-color: #e5e7eb !important;
+  color: #9ca3af !important;
+  cursor: not-allowed !important;
+  opacity: 0.7 !important;
+}
+
+button[disabled]:hover {
+  transform: none !important;
+  background: #e5e7eb !important;
+}
+
+select.input {
+  padding-right: 32px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.5 4L6 7.5L9.5 4' stroke='%236B7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+
+@media (max-width: 480px) {
+  .registrationContainer {
+    padding: 0 1rem;
+  }
+
+  .formTitle {
+    font-size: 18px;
+  }
+}

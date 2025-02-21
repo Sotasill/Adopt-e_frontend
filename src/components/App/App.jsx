@@ -21,6 +21,7 @@ import BreedPage from "../../pages/BreedPage/BreedPage";
 import ProductsPage from "../../pages/ProductsPage/ProductsPage";
 import PetsListPage from "../../pages/PetsListPage/PetsListPageDirectory";
 import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
+import MainSpecialist from "../../pages/MainSpecialist/MainSpecialist.jsx";
 import styles from "./App.module.css";
 
 const PublicRoute = ({ children }) => {
@@ -37,6 +38,8 @@ const PublicRoute = ({ children }) => {
       redirectPath = "/mainbcs";
     } else if (userRole === "user") {
       redirectPath = "/mainusersystem";
+    } else if (userRole === "specialist") {
+      redirectPath = "/mainspecialist";
     }
 
     // Перенаправляем только если текущий путь отличается от целевого
@@ -134,6 +137,21 @@ const App = () => {
               <main className={styles.main}>
                 <ProtectedRoute allowedRoles={["user", "User", "USER"]}>
                   <MainUserSystem />
+                </ProtectedRoute>
+                <Toaster position="top-right" richColors />
+              </main>
+            </Layout>
+          }
+        />
+        <Route
+          path="/mainspecialist/*"
+          element={
+            <Layout className={styles.root}>
+              <main className={styles.main}>
+                <ProtectedRoute
+                  allowedRoles={["specialist", "Specialist", "SPECIALIST"]}
+                >
+                  <MainSpecialist />
                 </ProtectedRoute>
                 <Toaster position="top-right" richColors />
               </main>

@@ -213,9 +213,33 @@ const deuTranslation = {
           "Erstellen Sie ein Züchterprofil, um Ihre Tiere zu präsentieren und mit potenziellen Besitzern in Kontakt zu treten",
       },
       specialist: {
-        title: "Spezialist",
+        title: "Spezialist Registrierung",
         description:
-          "Registrieren Sie sich als Tierpflege-Spezialist (Tierarzt, Groomer, Trainer)",
+          "Registrieren Sie sich als Haustierpflege-Spezialist (Tierarzt, Zoofachhändler, Tierpfleger)",
+        form: {
+          username: "Benutzername",
+          email: "E-Mail",
+          password: "Passwort",
+          companyName: "Firmenname",
+          specialization: {
+            label: "Spezialisierung",
+            placeholder: "Spezialisierung auswählen",
+            veterinary: "Tierärztliche Dienste",
+            petshop: "Tierbedarfsartikel",
+            services: "Andere Tierdienstleistungen",
+          },
+          country: {
+            label: "Land",
+            placeholder: "Land auswählen",
+          },
+          city: {
+            label: "Stadt",
+            placeholder: "Stadt in lateinischen Buchstaben eingeben",
+          },
+          submit: "Registrierung abschließen",
+          next: "Weiter",
+          back: "Zurück",
+        },
       },
     },
     user: {
@@ -391,6 +415,12 @@ const deuTranslation = {
   common: {
     dogs: "Hunde",
     cats: "Katzen",
+  },
+
+  specialist: {
+    dashboard: {
+      welcome: "Willkommen, {{name}}!",
+    },
   },
 };
 
