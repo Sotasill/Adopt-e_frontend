@@ -3,12 +3,14 @@ import { useSelector } from "react-redux";
 import { useTranslations } from "../../redux/hooks/useTranslations";
 import styles from "./Navigation.module.css";
 import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
+import LoginModal from "../LoginModal/LoginModal";
 import { useState, useEffect } from "react";
 
 const Navigation = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
   const { translate } = useTranslations();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -69,12 +71,12 @@ const Navigation = () => {
           <div className={styles.mobileVisible}>
             <LanguageSwitcher />
             {!isAuthenticated && (
-              <Link
-                to="/login"
+              <button
+                onClick={() => setIsLoginModalOpen(true)}
                 className={`${styles.navButton} ${styles.loginButton}`}
               >
                 {translate("common", "navigation.login")}
-              </Link>
+              </button>
             )}
             <div
               className={`${styles.burgerIcon} ${
@@ -93,12 +95,12 @@ const Navigation = () => {
             <LanguageSwitcher />
             {!isAuthenticated && (
               <>
-                <Link
-                  to="/login"
+                <button
+                  onClick={() => setIsLoginModalOpen(true)}
                   className={`${styles.navButton} ${styles.loginButton}`}
                 >
                   {translate("common", "navigation.login")}
-                </Link>
+                </button>
                 <Link
                   to="/register"
                   className={`${styles.navButton} ${styles.registerButton}`}
@@ -124,6 +126,11 @@ const Navigation = () => {
           </div>
         </div>
       </nav>
+
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+      />
     </>
   );
 };

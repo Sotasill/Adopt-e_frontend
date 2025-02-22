@@ -8,6 +8,7 @@ import Layout from "../Layout/Layout";
 import HomePage from "../../pages/HomePage/HomePage";
 import RegistrationPage from "../../pages/RegistrationPage/RegistrationPage";
 import LoginPage from "../../pages/LoginPage/LoginPage";
+import ForgotPasswordPage from "../../pages/ForgotPasswordPage/ForgotPasswordPage";
 import MainBCS from "../../pages/MainBCS/MainBCS";
 import MainUserSystem from "../../pages/MainUserSysytem/MainUserSysytem";
 import AuthProvider from "../AuthProvider/AuthProvider";
@@ -109,6 +110,19 @@ const App = () => {
               <main className={styles.main}>
                 <PublicRoute>
                   <LoginPage />
+                </PublicRoute>
+                <Toaster position="top-right" richColors />
+              </main>
+            </Layout>
+          }
+        />
+        <Route
+          path="/forgot-password"
+          element={
+            <Layout className={styles.root}>
+              <main className={styles.main}>
+                <PublicRoute>
+                  <ForgotPasswordPage />
                 </PublicRoute>
                 <Toaster position="top-right" richColors />
               </main>

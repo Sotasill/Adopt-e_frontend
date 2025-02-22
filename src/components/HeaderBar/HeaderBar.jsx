@@ -24,9 +24,7 @@ const HeaderBar = () => {
     <>
       <Navigation />
       <div className={styles.headerBar}>
-        <div className={styles.logo}>
-          
-        </div>
+        <div className={styles.logo}></div>
         <div className={styles.actions}>
           {isAuthenticated && (
             <button onClick={handleLogout} className={styles.logoutButton}>
