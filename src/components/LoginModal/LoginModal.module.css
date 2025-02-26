@@ -4,68 +4,153 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  backdrop-filter: blur(8px);
+  padding: 20px;
+  backdrop-filter: blur(5px);
 }
 
 .modal {
-  position: relative;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   width: 100%;
-  max-width: 500px;
-  border-radius: 20px;
+  max-width: 700px;
+  max-height: 90vh;
   overflow: hidden;
+  position: relative;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.auroraContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  z-index: 0;
+}
+
+.aurora {
+  position: absolute;
+  top: -30%;
+  left: -30%;
+  right: -30%;
+  bottom: -30%;
+  background: linear-gradient(
+    90deg,
+    rgba(88, 175, 236, 0.8),
+    rgba(182, 255, 201, 0.8),
+    rgba(88, 175, 236, 0.8)
+  );
+  background-size: 400% 400%;
+  transform: scale(1.2);
+  opacity: 1;
+  filter: blur(30px);
+  pointer-events: none;
+  animation: auroraFlow 15s ease infinite;
+}
+
+@keyframes auroraFlow {
+  0% {
+    background-position: 0% 50%;
+    opacity: 0.8;
+  }
+  50% {
+    background-position: 100% 50%;
+    opacity: 1;
+  }
+  100% {
+    background-position: 0% 50%;
+    opacity: 0.8;
+  }
 }
 
 .modalInner {
   position: relative;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  background: transparent;
 }
 
 .modalContent {
   position: relative;
   z-index: 1;
   padding: 2rem;
+  height: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  border-radius: 16px;
 }
 
 .closeButton {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: none;
+  top: 15px;
+  right: 15px;
+  background: transparent;
   border: none;
-  font-size: 1.5rem;
-  color: #333;
+  font-size: 28px;
+  color: rgba(102, 102, 102, 0.8);
   cursor: pointer;
-  z-index: 2;
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  z-index: 10;
+  padding: 0;
+  line-height: 1;
 }
 
 .closeButton:hover {
-  color: #000;
+  color: #333;
   transform: rotate(90deg);
+}
+
+.backButton {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: transparent;
+  border: none;
+  color: rgba(102, 102, 102, 0.8);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 8px;
+  transition: all 0.3s ease;
+  z-index: 10;
+  border-radius: 6px;
+}
+
+.backButton:hover {
+  color: #333;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(-2px);
 }
 
 .typeSelection {
   text-align: center;
+  padding: 1rem;
 }
 
-.typeSelection h2 {
-  margin: 0 0 2rem;
-  font-size: 1.8rem;
+.typeSelection h2,
+.loginForm h2 {
+  margin: 0;
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -80,23 +165,27 @@
   display: inline-block;
   padding: 0.5rem 1rem;
   animation: gradientMove 3s ease infinite;
+  margin-bottom: 30px;
+  text-align: center;
 }
 
-.typeSelection h2::after {
+.typeSelection h2::after,
+.loginForm h2::after {
   content: "";
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 100px;
-  height: 3px;
+  width: 80px;
+  height: 2px;
   background: linear-gradient(90deg, #3498db, #2c3e50);
   border-radius: 1.5px;
   transition: width 0.3s ease;
 }
 
-.typeSelection h2:hover::after {
-  width: 150px;
+.typeSelection h2:hover::after,
+.loginForm h2:hover::after {
+  width: 120px;
 }
 
 @keyframes gradientMove {
@@ -114,44 +203,84 @@
 .userTypeButtons {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  padding: 1rem;
+  gap: 30px;
+  padding: 20px;
 }
 
 .userTypeButton {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  border-radius: 15px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 2rem 1rem;
-  border: none;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
-  color: #333;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  gap: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   position: relative;
   overflow: hidden;
+  min-height: 200px;
 }
 
 .userTypeButton::before {
   content: "";
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
   background: linear-gradient(
-    135deg,
-    rgba(52, 152, 219, 0.1),
-    rgba(44, 62, 80, 0.1)
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
   );
-  opacity: 0;
-  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 0;
+  transition: 0.5s;
+}
+
+.userTypeButton:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.userTypeButton:hover::before {
+  left: 100%;
+}
+
+.userTypeButton .iconWrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.userTypeButton span {
+  position: relative;
+  z-index: 2;
+  color: #333;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.userTypeButton:hover span {
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.userTypeButton:hover .iconWrapper {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+  transform: scale(1.1);
+}
+
+.userTypeButton:hover .userIcon {
+  color: #fff;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 .iconWrapper {
@@ -165,187 +294,183 @@
   margin-bottom: 1rem;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .userIcon {
   font-size: 2rem;
   color: #666;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.userTypeButton span {
   position: relative;
-  z-index: 1;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.userButton:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 15px rgba(52, 152, 219, 0.2);
-}
-
-.userButton:hover::before {
-  opacity: 1;
-}
-
-.userButton:hover .iconWrapper {
-  background: #3498db;
-  transform: scale(1.1);
-}
-
-.userButton:hover .userIcon {
-  color: white;
-  transform: scale(1.1);
-}
-
-.userButton:hover span {
-  color: #3498db;
-  transform: scale(1.05);
-}
-
-.sellerButton:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 15px rgba(44, 62, 80, 0.2);
-}
-
-.sellerButton:hover::before {
-  opacity: 1;
-}
-
-.sellerButton:hover .iconWrapper {
-  background: #2c3e50;
-  transform: scale(1.1);
-}
-
-.sellerButton:hover .userIcon {
-  color: white;
-  transform: scale(1.1);
-}
-
-.sellerButton:hover span {
-  color: #2c3e50;
-  transform: scale(1.05);
+  z-index: 2;
 }
 
 .loginForm {
-  position: relative;
-  padding-top: 1rem;
-}
-
-.backButton {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: none;
-  border: none;
-  color: #666;
-  cursor: pointer;
-  font-size: 0.9rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem;
-  transition: color 0.3s ease;
+  gap: 15px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  animation: fadeInUp 0.6s ease;
 }
 
-.backButton:hover {
-  color: #333;
+.loginForm form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
 }
 
 .formGroup {
+  position: relative;
   margin-bottom: 1rem;
+  width: 100%;
+  max-width: 320px;
 }
 
 .formGroup input {
   width: 100%;
-  padding: 1rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
+  padding: 0.75rem 2.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
   font-size: 1rem;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(5px);
-  transition: all 0.3s ease;
+  transition: all 0.3s;
+  background: rgba(255, 255, 255, 0.9);
+  box-sizing: border-box;
 }
 
 .formGroup input:focus {
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
   outline: none;
-  border-color: #61dca3;
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 0 0 3px rgba(97, 220, 163, 0.1);
+}
+
+.inputIcon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #718096;
+  font-size: 1rem;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.formGroup input:focus + .inputIcon {
+  color: #4299e1;
+}
+
+.passwordToggleIcon {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #718096;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.formGroup input:focus + .passwordToggleIcon {
+  color: #4299e1;
 }
 
 .loginButton {
   width: 100%;
-  padding: 1rem;
-  background: linear-gradient(135deg, #61dca3, #61b3dc);
+  max-width: 320px;
+  padding: 0.75rem;
+  background: linear-gradient(90deg, #2c3e50, #3498db, #2c3e50);
+  background-size: 200% auto;
   color: white;
   border: none;
-  border-radius: 12px;
+  border-radius: 20px;
   font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-bottom: 1rem;
-  backdrop-filter: blur(5px);
+  margin-top: 1rem;
 }
 
 .loginButton:hover {
+  background-position: right center;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(97, 220, 163, 0.2);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
 
 .loginButton:active {
   transform: translateY(0);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .divider {
-  display: flex;
-  align-items: center;
+  position: relative;
   text-align: center;
   margin: 1.5rem 0;
+  width: 100%;
 }
 
 .divider::before,
 .divider::after {
   content: "";
-  flex: 1;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 50%;
+  width: 45%;
+  height: 1px;
+  background-color: #e2e8f0;
+}
+
+.divider::before {
+  left: 0;
+}
+
+.divider::after {
+  right: 0;
 }
 
 .divider span {
-  padding: 0 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 0 10px;
   color: #666;
   font-size: 0.9rem;
 }
 
 .socialButtons {
   display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  margin-bottom: 1.5rem;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 320px;
+  margin-top: 1rem;
 }
 
 .socialButton {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.8rem;
-  width: 100%;
+  width: 48px;
+  height: 48px;
   padding: 0.8rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(5px);
-  color: #333;
-  font-size: 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .socialButton:hover {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 1);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.socialButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .socialIcon {
@@ -354,20 +479,27 @@
   object-fit: contain;
 }
 
+.socialButton span {
+  display: none;
+}
+
 .forgotPasswordButton {
-  width: 100%;
   background: none;
   border: none;
-  color: #666;
-  text-decoration: underline;
+  color: #4299e1;
+  font-size: 0.9rem;
   cursor: pointer;
   padding: 0.5rem;
-  font-size: 0.9rem;
   transition: color 0.3s ease;
+  text-decoration: underline;
+  display: block;
+  margin: 1rem auto 0;
+  text-align: center;
+  width: fit-content;
 }
 
 .forgotPasswordButton:hover {
-  color: #333;
+  color: #2b6cb0;
 }
 
 .sellerNote {
@@ -380,56 +512,91 @@
   text-align: center;
   line-height: 1.5;
   backdrop-filter: blur(5px);
+  width: 100%;
+  max-width: 320px;
 }
 
 .supportLink {
-  color: #61dca3;
+  color: #4299e1;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .supportLink:hover {
-  color: #4fa883;
+  color: #2b6cb0;
   text-decoration: underline;
 }
 
-.bcsButton {
-  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
-  color: white;
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.bcsButton:hover {
-  background: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.specialistButton {
-  background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
-  color: white;
-}
-
-.specialistButton:hover {
-  background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
-}
-
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .modal {
-    margin: 1rem;
-    max-width: calc(100% - 2rem);
+    width: 95%;
+    max-height: 95vh;
   }
 
   .modalContent {
     padding: 1.5rem;
   }
 
-  .typeSelection h2 {
-    font-size: 1.5rem;
+  .userTypeButtons {
+    gap: 20px;
+    padding: 15px;
+  }
+
+  .aurora {
+    transform: scale(3);
+    opacity: 0.6;
+  }
+}
+
+@media (max-width: 480px) {
+  .modalContent {
+    padding: 1rem;
   }
 
   .userTypeButtons {
     grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 10px;
   }
 
-  .userTypeButton {
-    padding: 1.5rem 1rem;
+  .closeButton {
+    top: 10px;
+    right: 10px;
+  }
+
+  .backButton {
+    top: 10px;
+    left: 10px;
+  }
+
+  .loginForm {
+    padding: 10px;
+  }
+
+  .aurora {
+    transform: scale(4);
+    opacity: 0.5;
   }
 }

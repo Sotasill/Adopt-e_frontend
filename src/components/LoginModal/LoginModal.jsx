@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaUser, FaUserTie, FaPaw, FaStethoscope } from "react-icons/fa";
+import {
+  FaUser,
+  FaUserTie,
+  FaPaw,
+  FaStethoscope,
+  FaEnvelope,
+  FaLock,
+  FaEye,
+  FaEyeSlash,
+} from "react-icons/fa";
 import styles from "./LoginModal.module.css";
 
 const backdropVariants = {
@@ -34,9 +43,22 @@ const contentVariants = {
 };
 
 const SocialButton = ({ icon, label, onClick }) => (
-  <button type="button" className={styles.socialButton} onClick={onClick}>
+  <button
+    type="button"
+    className={styles.socialButton}
+    onClick={onClick}
+    aria-label={`Войти через ${label}`}
+  >
     <img src={icon} alt={label} className={styles.socialIcon} />
-    <span>Войти через {label}</span>
+  </button>
+);
+
+const UserTypeButton = ({ icon: Icon, label, onClick }) => (
+  <button className={styles.userTypeButton} onClick={onClick}>
+    <div className={styles.iconWrapper}>
+      <Icon className={styles.userIcon} />
+    </div>
+    <span>{label}</span>
   </button>
 );
 
@@ -52,6 +74,7 @@ const LoginModal = ({
   const [specialistSubtype, setSpecialistSubtype] = useState(initialSubtype);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   // Обновляем состояния при изменении initialType или initialSubtype
   useEffect(() => {
@@ -129,6 +152,25 @@ const LoginModal = ({
     navigate("/forgot-password");
   };
 
+  const renderBackButton = () => {
+    if (!selectedType) return null;
+
+    return (
+      <button
+        className={styles.backButton}
+        onClick={
+          selectedType === "seller" && !specialistSubtype
+            ? handleBackToTypes
+            : selectedType === "seller"
+            ? handleBackToSpecialistTypes
+            : handleBackToTypes
+        }
+      >
+        ← Назад
+      </button>
+    );
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -148,11 +190,15 @@ const LoginModal = ({
         exit="exit"
         onClick={(e) => e.stopPropagation()}
       >
+        <div className={styles.auroraContainer}>
+          <div className={styles.aurora} />
+        </div>
         <div className={styles.modalInner}>
           <div className={styles.modalContent}>
             <button className={styles.closeButton} onClick={onClose}>
               ×
             </button>
+            {renderBackButton()}
 
             <AnimatePresence mode="wait">
               {!selectedType ? (
@@ -166,24 +212,16 @@ const LoginModal = ({
                 >
                   <h2>Выберите тип пользователя</h2>
                   <div className={styles.userTypeButtons}>
-                    <button
-                      className={`${styles.userTypeButton} ${styles.userButton}`}
+                    <UserTypeButton
+                      icon={FaUser}
+                      label="Пользователь"
                       onClick={() => setSelectedType("user")}
-                    >
-                      <div className={styles.iconWrapper}>
-                        <FaUser className={styles.userIcon} />
-                      </div>
-                      <span>Пользователь</span>
-                    </button>
-                    <button
-                      className={`${styles.userTypeButton} ${styles.sellerButton}`}
+                    />
+                    <UserTypeButton
+                      icon={FaUserTie}
+                      label="Заводчик/Специалист"
                       onClick={() => setSelectedType("seller")}
-                    >
-                      <div className={styles.iconWrapper}>
-                        <FaUserTie className={styles.userIcon} />
-                      </div>
-                      <span>Заводчик/Специалист</span>
-                    </button>
+                    />
                   </div>
                 </motion.div>
               ) : selectedType === "seller" && !specialistSubtype ? (
@@ -195,32 +233,18 @@ const LoginModal = ({
                   exit="exit"
                   className={styles.typeSelection}
                 >
-                  <button
-                    className={styles.backButton}
-                    onClick={handleBackToTypes}
-                  >
-                    ← Назад
-                  </button>
                   <h2>Выберите тип входа</h2>
                   <div className={styles.userTypeButtons}>
-                    <button
-                      className={`${styles.userTypeButton} ${styles.bcsButton}`}
+                    <UserTypeButton
+                      icon={FaPaw}
+                      label="Login to BCS"
                       onClick={() => setSpecialistSubtype("bcs")}
-                    >
-                      <div className={styles.iconWrapper}>
-                        <FaPaw className={styles.userIcon} />
-                      </div>
-                      <span>Login to BCS</span>
-                    </button>
-                    <button
-                      className={`${styles.userTypeButton} ${styles.specialistButton}`}
+                    />
+                    <UserTypeButton
+                      icon={FaStethoscope}
+                      label="Login as Pet Specialist"
                       onClick={() => setSpecialistSubtype("specialist")}
-                    >
-                      <div className={styles.iconWrapper}>
-                        <FaStethoscope className={styles.userIcon} />
-                      </div>
-                      <span>Login as Pet Specialist</span>
-                    </button>
+                    />
                   </div>
                 </motion.div>
               ) : (
@@ -232,16 +256,6 @@ const LoginModal = ({
                   exit="exit"
                   className={styles.loginForm}
                 >
-                  <button
-                    className={styles.backButton}
-                    onClick={
-                      selectedType === "seller"
-                        ? handleBackToSpecialistTypes
-                        : handleBackToTypes
-                    }
-                  >
-                    ← Назад
-                  </button>
                   <h2>
                     {selectedType === "user"
                       ? "Вход в аккаунт"
@@ -251,6 +265,7 @@ const LoginModal = ({
                   </h2>
                   <form onSubmit={handleLogin}>
                     <div className={styles.formGroup}>
+                      <FaEnvelope className={styles.inputIcon} />
                       <input
                         type="email"
                         placeholder="Email"
@@ -260,13 +275,25 @@ const LoginModal = ({
                       />
                     </div>
                     <div className={styles.formGroup}>
+                      <FaLock className={styles.inputIcon} />
                       <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         placeholder="Пароль"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                       />
+                      {showPassword ? (
+                        <FaEyeSlash
+                          className={styles.passwordToggleIcon}
+                          onClick={() => setShowPassword(false)}
+                        />
+                      ) : (
+                        <FaEye
+                          className={styles.passwordToggleIcon}
+                          onClick={() => setShowPassword(true)}
+                        />
+                      )}
                     </div>
                     <button type="submit" className={styles.loginButton}>
                       Войти
