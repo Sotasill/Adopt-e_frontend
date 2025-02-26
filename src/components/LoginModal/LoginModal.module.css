@@ -393,6 +393,24 @@
   text-decoration: underline;
 }
 
+.bcsButton {
+  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+  color: white;
+}
+
+.bcsButton:hover {
+  background: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
+}
+
+.specialistButton {
+  background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+  color: white;
+}
+
+.specialistButton:hover {
+  background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+}
+
 @media (max-width: 480px) {
   .modal {
     margin: 1rem;

@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import LoginForm from "../../components/LoginForm/LoginForm";
+import PageTitle from "../../components/PageTitle/PageTitle";
 import { useEffect } from "react";
 
 const LoginPage = () => {
@@ -22,6 +23,7 @@ const LoginPage = () => {
         textAlign: "center",
       }}
     >
+      <PageTitle pageKey="login" />
       <h2>Войти в аккаунт</h2>
       <LoginForm />
     </div>

@@ -6,6 +6,7 @@ import { setPetType, selectPetType } from "../../redux/petType/petTypeSlice";
 import KennelCard from "../../components/KennelsSlider/KennelCard";
 import KennelStringCard from "../../components/KennelsSlider/KennelStringCard";
 import ControlPanel from "../../components/ControlPanel/ControlPanel";
+import PageTitle from "../../components/PageTitle/PageTitle";
 import styles from "./BreedersPage.module.css";
 
 // Используем те же моковые данные, что и в слайдере
@@ -269,10 +270,7 @@ const BreedersPage = () => {
 
   return (
     <div className={styles.breedersPage}>
-      <div className={styles.header}>
-        <h1 className={styles.title}>{t("breeders.title")}</h1>
-      </div>
-
+      <PageTitle pageKey="breeders" />
       <div className={styles.content}>
         <ControlPanel
           // FilterPanel props

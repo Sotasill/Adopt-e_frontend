@@ -444,3 +444,22 @@
     padding: 5px 0;
   }
 }
+
+.bcsButton {
+  background: linear-gradient(90deg, #4caf50, #45a049, #4caf50) !important;
+  background-size: 200% auto !important;
+  color: white !important;
+  transition: all 0.3s ease !important;
+  background-position: 0% center !important;
+}
+
+.bcsButton:hover {
+  background-position: 100% center !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(76, 175, 80, 0.2);
+}
+
+.bcsButton:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 6px rgba(76, 175, 80, 0.1);
+}

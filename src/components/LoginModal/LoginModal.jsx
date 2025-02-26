@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaUser, FaUserTie } from "react-icons/fa";
+import { FaUser, FaUserTie, FaPaw, FaStethoscope } from "react-icons/fa";
 import styles from "./LoginModal.module.css";
 
 const backdropVariants = {
@@ -40,12 +40,24 @@ const SocialButton = ({ icon, label, onClick }) => (
   </button>
 );
 
-const LoginModal = ({ isOpen, onClose }) => {
+const LoginModal = ({
+  isOpen,
+  onClose,
+  initialType = null,
+  initialSubtype = null,
+}) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [selectedType, setSelectedType] = useState(null);
+  const [selectedType, setSelectedType] = useState(initialType);
+  const [specialistSubtype, setSpecialistSubtype] = useState(initialSubtype);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // Обновляем состояния при изменении initialType или initialSubtype
+  useEffect(() => {
+    setSelectedType(initialType);
+    setSpecialistSubtype(initialSubtype);
+  }, [initialType, initialSubtype]);
 
   // Закрытие модального окна при изменении маршрута
   useEffect(() => {
@@ -101,6 +113,13 @@ const LoginModal = ({ isOpen, onClose }) => {
 
   const handleBackToTypes = () => {
     setSelectedType(null);
+    setSpecialistSubtype(null);
+    setEmail("");
+    setPassword("");
+  };
+
+  const handleBackToSpecialistTypes = () => {
+    setSpecialistSubtype(null);
     setEmail("");
     setPassword("");
   };
@@ -167,6 +186,43 @@ const LoginModal = ({ isOpen, onClose }) => {
                     </button>
                   </div>
                 </motion.div>
+              ) : selectedType === "seller" && !specialistSubtype ? (
+                <motion.div
+                  key="specialist-type-selection"
+                  variants={contentVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  className={styles.typeSelection}
+                >
+                  <button
+                    className={styles.backButton}
+                    onClick={handleBackToTypes}
+                  >
+                    ← Назад
+                  </button>
+                  <h2>Выберите тип входа</h2>
+                  <div className={styles.userTypeButtons}>
+                    <button
+                      className={`${styles.userTypeButton} ${styles.bcsButton}`}
+                      onClick={() => setSpecialistSubtype("bcs")}
+                    >
+                      <div className={styles.iconWrapper}>
+                        <FaPaw className={styles.userIcon} />
+                      </div>
+                      <span>Login to BCS</span>
+                    </button>
+                    <button
+                      className={`${styles.userTypeButton} ${styles.specialistButton}`}
+                      onClick={() => setSpecialistSubtype("specialist")}
+                    >
+                      <div className={styles.iconWrapper}>
+                        <FaStethoscope className={styles.userIcon} />
+                      </div>
+                      <span>Login as Pet Specialist</span>
+                    </button>
+                  </div>
+                </motion.div>
               ) : (
                 <motion.div
                   key="login-form"
@@ -178,14 +234,20 @@ const LoginModal = ({ isOpen, onClose }) => {
                 >
                   <button
                     className={styles.backButton}
-                    onClick={handleBackToTypes}
+                    onClick={
+                      selectedType === "seller"
+                        ? handleBackToSpecialistTypes
+                        : handleBackToTypes
+                    }
                   >
                     ← Назад
                   </button>
                   <h2>
                     {selectedType === "user"
                       ? "Вход в аккаунт"
-                      : "Вход для заводчика/специалиста"}
+                      : specialistSubtype === "bcs"
+                      ? "Вход в BCS систему"
+                      : "Вход для специалиста"}
                   </h2>
                   <form onSubmit={handleLogin}>
                     <div className={styles.formGroup}>
@@ -242,8 +304,11 @@ const LoginModal = ({ isOpen, onClose }) => {
                     </button>
                     {selectedType === "seller" && (
                       <p className={styles.sellerNote}>
-                        Для получения доступа как заводчик/специалист,
-                        пожалуйста,
+                        Для получения доступа как{" "}
+                        {specialistSubtype === "bcs"
+                          ? "заводчик"
+                          : "специалист"}
+                        , пожалуйста,
                         <a
                           href="mailto:support@example.com"
                           className={styles.supportLink}

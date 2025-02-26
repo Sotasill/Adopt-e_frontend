@@ -11,6 +11,7 @@ const Navigation = () => {
   const { translate } = useTranslations();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isBcsLoginModalOpen, setIsBcsLoginModalOpen] = useState(false);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -71,12 +72,23 @@ const Navigation = () => {
           <div className={styles.mobileVisible}>
             <LanguageSwitcher />
             {!isAuthenticated && (
-              <button
-                onClick={() => setIsLoginModalOpen(true)}
-                className={`${styles.navButton} ${styles.loginButton}`}
-              >
-                {translate("common", "navigation.login")}
-              </button>
+              <>
+                <button
+                  onClick={() => setIsLoginModalOpen(true)}
+                  className={`${styles.navButton} ${styles.loginButton}`}
+                >
+                  {translate("common", "navigation.login")}
+                </button>
+                <button
+                  onClick={() => {
+                    setIsLoginModalOpen(true);
+                    setIsBcsLoginModalOpen(true);
+                  }}
+                  className={`${styles.navButton} ${styles.bcsButton}`}
+                >
+                  BCS
+                </button>
+              </>
             )}
             <div
               className={`${styles.burgerIcon} ${
@@ -107,6 +119,15 @@ const Navigation = () => {
                 >
                   {translate("common", "navigation.register")}
                 </Link>
+                <button
+                  onClick={() => {
+                    setIsLoginModalOpen(true);
+                    setIsBcsLoginModalOpen(true);
+                  }}
+                  className={`${styles.navButton} ${styles.bcsButton}`}
+                >
+                  BCS
+                </button>
               </>
             )}
             {isAuthenticated && (
@@ -129,7 +150,12 @@ const Navigation = () => {
 
       <LoginModal
         isOpen={isLoginModalOpen}
-        onClose={() => setIsLoginModalOpen(false)}
+        onClose={() => {
+          setIsLoginModalOpen(false);
+          setIsBcsLoginModalOpen(false);
+        }}
+        initialType={isBcsLoginModalOpen ? "seller" : null}
+        initialSubtype={isBcsLoginModalOpen ? "bcs" : null}
       />
     </>
   );

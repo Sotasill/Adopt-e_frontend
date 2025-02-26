@@ -2,40 +2,40 @@ import * as Yup from "yup";
 
 export const LoginSchema = Yup.object().shape({
   username: Yup.string()
-    .min(3, "Минимум 3 символа")
-    .max(50, "Максимум 50 символов")
-    .required("Обязательное поле"),
+    .min(3, "Minimum 3 characters")
+    .max(50, "Maximum 50 characters")
+    .required("Required field"),
   password: Yup.string()
-    .min(6, "Минимум 6 символов")
-    .required("Обязательное поле"),
+    .min(6, "Minimum 6 characters")
+    .required("Required field"),
   rememberMe: Yup.boolean(),
 });
 
 export const getErrorMessage = (error) => {
-  if (!error) return "Произошла неизвестная ошибка";
+  if (!error) return "Unexpected error";
 
   const errorLower = error.toLowerCase();
 
   if (errorLower.includes("401") || errorLower.includes("unauthorized")) {
-    return "Неверное имя пользователя или пароль";
+    return "Invalid username or password";
   }
 
   if (errorLower.includes("404") || errorLower.includes("not found")) {
-    return "Пользователь не найден";
+    return "User not found";
   }
 
   if (
     errorLower.includes("network") ||
     errorLower.includes("failed to fetch")
   ) {
-    return "Ошибка соединения с сервером. Проверьте подключение к интернету";
+    return "Connection error. Check your internet connection";
   }
 
   if (errorLower.includes("timeout")) {
-    return "Превышено время ожидания ответа от сервера";
+    return "Timeout error. Please try again later";
   }
 
-  return "Произошла ошибка при входе. Попробуйте позже";
+  return "An error occurred during login. Please try again later";
 };
 
 export const loadSavedCredentials = () => {
@@ -59,7 +59,7 @@ export const loadSavedCredentials = () => {
       };
     }
   } catch (error) {
-    console.error("Ошибка при загрузке сохраненных данных:", error);
+    console.error("Error loading saved data:", error);
   }
 
   return initialValues;
