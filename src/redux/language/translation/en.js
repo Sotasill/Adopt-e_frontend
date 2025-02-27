@@ -375,6 +375,7 @@ const enTranslation = {
   common: {
     dogs: "Dogs",
     cats: "Cats",
+    back: "Back",
   },
 
   // Breeders page
@@ -406,6 +407,40 @@ const enTranslation = {
   specialist: {
     dashboard: {
       welcome: "Welcome, {{name}}!",
+    },
+  },
+
+  // Login Modal
+  loginModal: {
+    title: "Welcome Back!",
+    userTypes: {
+      individual: {
+        title: "User",
+        description: "Find and adopt your perfect pet",
+      },
+      breeder: {
+        title: "Breeder/Specialist",
+        description: "Manage your kennel and listings",
+      },
+      specialist: {
+        title: "Pet Specialist",
+        description: "Access your specialist dashboard",
+      },
+    },
+    form: {
+      email: "Email",
+      password: "Password",
+      forgotPassword: "Forgot Password?",
+      loginButton: "Sign In",
+      orContinueWith: "or continue with",
+      sellerNote:
+        "Are you a breeder or specialist? Contact our support team for assistance",
+      supportLink: "Contact Support",
+    },
+    social: {
+      google: "Continue with Google",
+      facebook: "Continue with Facebook",
+      apple: "Continue with Apple",
     },
   },
 };

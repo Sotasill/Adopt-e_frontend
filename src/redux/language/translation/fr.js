@@ -399,6 +399,7 @@ const frTranslation = {
   common: {
     dogs: "Chiens",
     cats: "Chats",
+    back: "Retour",
   },
 
   // Page des éleveurs
@@ -428,6 +429,40 @@ const frTranslation = {
   specialist: {
     dashboard: {
       welcome: "Bienvenue, {{name}}!",
+    },
+  },
+
+  // Login Modal
+  loginModal: {
+    title: "Bon retour!",
+    userTypes: {
+      individual: {
+        title: "Utilisateur",
+        description: "Trouvez et adoptez votre animal de compagnie idéal",
+      },
+      breeder: {
+        title: "Éleveur/Spécialiste",
+        description: "Gérez votre élevage et vos annonces",
+      },
+      specialist: {
+        title: "Spécialiste",
+        description: "Accédez à votre tableau de bord spécialiste",
+      },
+    },
+    form: {
+      email: "E-mail",
+      password: "Mot de passe",
+      forgotPassword: "Mot de passe oublié?",
+      loginButton: "Se connecter",
+      orContinueWith: "ou continuer avec",
+      sellerNote:
+        "Vous êtes éleveur ou spécialiste? Contactez notre équipe de support",
+      supportLink: "Contacter le support",
+    },
+    social: {
+      google: "Continuer avec Google",
+      facebook: "Continuer avec Facebook",
+      apple: "Continuer avec Apple",
     },
   },
 };

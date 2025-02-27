@@ -413,11 +413,46 @@ const ruTranslation = {
   common: {
     dogs: "Собаки",
     cats: "Кошки",
+    back: "Назад",
   },
 
   specialist: {
     dashboard: {
       welcome: "Добро пожаловать, {{name}}!",
+    },
+  },
+
+  // Login Modal
+  loginModal: {
+    title: "С возвращением!",
+    userTypes: {
+      individual: {
+        title: "Пользователь",
+        description: "Найдите и возьмите своего идеального питомца",
+      },
+      breeder: {
+        title: "Заводчик/Специалист",
+        description: "Управляйте своим питомником и объявлениями",
+      },
+      specialist: {
+        title: "Специалист",
+        description: "Доступ к панели специалиста",
+      },
+    },
+    form: {
+      email: "Электронная почта",
+      password: "Пароль",
+      forgotPassword: "Забыли пароль?",
+      loginButton: "Войти",
+      orContinueWith: "или продолжить через",
+      sellerNote:
+        "Вы заводчик или специалист? Свяжитесь с нашей службой поддержки",
+      supportLink: "Связаться с поддержкой",
+    },
+    social: {
+      google: "Продолжить через Google",
+      facebook: "Продолжить через Facebook",
+      apple: "Продолжить через Apple",
     },
   },
 };

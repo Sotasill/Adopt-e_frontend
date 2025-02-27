@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import {
   FaUser,
   FaUserTie,
@@ -70,6 +71,7 @@ const LoginModal = ({
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation();
   const [selectedType, setSelectedType] = useState(initialType);
   const [specialistSubtype, setSpecialistSubtype] = useState(initialSubtype);
   const [email, setEmail] = useState("");
@@ -166,7 +168,7 @@ const LoginModal = ({
             : handleBackToTypes
         }
       >
-        ← Назад
+        ← {t("common.back")}
       </button>
     );
   };
@@ -210,16 +212,16 @@ const LoginModal = ({
                   exit="exit"
                   className={styles.typeSelection}
                 >
-                  <h2>Выберите тип пользователя</h2>
+                  <h2>{t("loginModal.title")}</h2>
                   <div className={styles.userTypeButtons}>
                     <UserTypeButton
                       icon={FaUser}
-                      label="Пользователь"
+                      label={t("loginModal.userTypes.individual.title")}
                       onClick={() => setSelectedType("user")}
                     />
                     <UserTypeButton
                       icon={FaUserTie}
-                      label="Заводчик/Специалист"
+                      label={t("loginModal.userTypes.breeder.title")}
                       onClick={() => setSelectedType("seller")}
                     />
                   </div>
@@ -233,16 +235,16 @@ const LoginModal = ({
                   exit="exit"
                   className={styles.typeSelection}
                 >
-                  <h2>Выберите тип входа</h2>
+                  <h2>{t("loginModal.title")}</h2>
                   <div className={styles.userTypeButtons}>
                     <UserTypeButton
                       icon={FaPaw}
-                      label="Login to BCS"
+                      label={t("loginModal.userTypes.breeder.title")}
                       onClick={() => setSpecialistSubtype("bcs")}
                     />
                     <UserTypeButton
                       icon={FaStethoscope}
-                      label="Login as Pet Specialist"
+                      label={t("loginModal.userTypes.specialist.title")}
                       onClick={() => setSpecialistSubtype("specialist")}
                     />
                   </div>
@@ -256,19 +258,13 @@ const LoginModal = ({
                   exit="exit"
                   className={styles.loginForm}
                 >
-                  <h2>
-                    {selectedType === "user"
-                      ? "Вход в аккаунт"
-                      : specialistSubtype === "bcs"
-                      ? "Вход в BCS систему"
-                      : "Вход для специалиста"}
-                  </h2>
+                  <h2>{t("loginModal.title")}</h2>
                   <form onSubmit={handleLogin}>
                     <div className={styles.formGroup}>
                       <FaEnvelope className={styles.inputIcon} />
                       <input
                         type="email"
-                        placeholder="Email"
+                        placeholder={t("loginModal.form.email")}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
@@ -278,7 +274,7 @@ const LoginModal = ({
                       <FaLock className={styles.inputIcon} />
                       <input
                         type={showPassword ? "text" : "password"}
-                        placeholder="Пароль"
+                        placeholder={t("loginModal.form.password")}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
@@ -296,27 +292,27 @@ const LoginModal = ({
                       )}
                     </div>
                     <button type="submit" className={styles.loginButton}>
-                      Войти
+                      {t("loginModal.form.loginButton")}
                     </button>
                     {selectedType === "user" && (
                       <>
                         <div className={styles.divider}>
-                          <span>или</span>
+                          <span>{t("loginModal.form.orContinueWith")}</span>
                         </div>
                         <div className={styles.socialButtons}>
                           <SocialButton
                             icon="/icons/google.svg"
-                            label="Google"
+                            label={t("loginModal.social.google")}
                             onClick={() => handleSocialLogin("google")}
                           />
                           <SocialButton
                             icon="/icons/facebook.svg"
-                            label="Facebook"
+                            label={t("loginModal.social.facebook")}
                             onClick={() => handleSocialLogin("facebook")}
                           />
                           <SocialButton
                             icon="/icons/apple.svg"
-                            label="Apple"
+                            label={t("loginModal.social.apple")}
                             onClick={() => handleSocialLogin("apple")}
                           />
                         </div>
@@ -327,21 +323,16 @@ const LoginModal = ({
                       className={styles.forgotPasswordButton}
                       onClick={handleForgotPassword}
                     >
-                      Забыли пароль?
+                      {t("loginModal.form.forgotPassword")}
                     </button>
                     {selectedType === "seller" && (
                       <p className={styles.sellerNote}>
-                        Для получения доступа как{" "}
-                        {specialistSubtype === "bcs"
-                          ? "заводчик"
-                          : "специалист"}
-                        , пожалуйста,
+                        {t("loginModal.form.sellerNote")}{" "}
                         <a
                           href="mailto:support@example.com"
                           className={styles.supportLink}
                         >
-                          {" "}
-                          свяжитесь с поддержкой
+                          {t("loginModal.form.supportLink")}
                         </a>
                       </p>
                     )}

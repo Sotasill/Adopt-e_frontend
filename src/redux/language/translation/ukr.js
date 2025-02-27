@@ -414,6 +414,7 @@ const ukrTranslation = {
   common: {
     dogs: "Собаки",
     cats: "Коти",
+    back: "Назад",
   },
 
   // Сторінка заводчиків
@@ -445,6 +446,40 @@ const ukrTranslation = {
   specialist: {
     dashboard: {
       welcome: "Ласкаво просимо, {{name}}!",
+    },
+  },
+
+  // Login Modal
+  loginModal: {
+    title: "З поверненням!",
+    userTypes: {
+      individual: {
+        title: "Користувач",
+        description: "Знайдіть та візьміть свого ідеального улюбленця",
+      },
+      breeder: {
+        title: "Заводчик/Спеціаліст",
+        description: "Керуйте своїм розплідником та оголошеннями",
+      },
+      specialist: {
+        title: "Спеціаліст",
+        description: "Доступ до панелі спеціаліста",
+      },
+    },
+    form: {
+      email: "Електронна пошта",
+      password: "Пароль",
+      forgotPassword: "Забули пароль?",
+      loginButton: "Увійти",
+      orContinueWith: "або продовжити через",
+      sellerNote:
+        "Ви заводчик або спеціаліст? Зв'яжіться з нашою службою підтримки",
+      supportLink: "Зв'язатися з підтримкою",
+    },
+    social: {
+      google: "Продовжити через Google",
+      facebook: "Продовжити через Facebook",
+      apple: "Продовжити через Apple",
     },
   },
 };

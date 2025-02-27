@@ -415,11 +415,46 @@ const deuTranslation = {
   common: {
     dogs: "Hunde",
     cats: "Katzen",
+    back: "Zurück",
   },
 
   specialist: {
     dashboard: {
       welcome: "Willkommen, {{name}}!",
+    },
+  },
+
+  // Login Modal
+  loginModal: {
+    title: "Willkommen zurück!",
+    userTypes: {
+      individual: {
+        title: "Benutzer",
+        description: "Finden und adoptieren Sie Ihr perfektes Haustier",
+      },
+      breeder: {
+        title: "Züchter/Spezialist",
+        description: "Verwalten Sie Ihre Zucht und Anzeigen",
+      },
+      specialist: {
+        title: "Spezialist",
+        description: "Zugang zu Ihrem Spezialisten-Dashboard",
+      },
+    },
+    form: {
+      email: "E-Mail",
+      password: "Passwort",
+      forgotPassword: "Passwort vergessen?",
+      loginButton: "Anmelden",
+      orContinueWith: "oder fortfahren mit",
+      sellerNote:
+        "Sind Sie Züchter oder Spezialist? Kontaktieren Sie unseren Support",
+      supportLink: "Support kontaktieren",
+    },
+    social: {
+      google: "Mit Google fortfahren",
+      facebook: "Mit Facebook fortfahren",
+      apple: "Mit Apple fortfahren",
     },
   },
 };
