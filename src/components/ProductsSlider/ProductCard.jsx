@@ -1,5 +1,5 @@
 import { useTranslatedContent } from "../../redux/hooks/useTranslatedContent";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaHeart, FaRegHeart } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -7,6 +7,8 @@ import styles from "./ProductsSlider.module.css";
 import commonStyles from "../../styles/common.module.css";
 import countries from "../../redux/language/dictionaries/countries.json";
 import { useSelector } from "react-redux";
+import { useAuthModal } from "../../hooks/useAuthModal";
+import AuthModal from "../AuthModal/AuthModal";
 
 const ProductCard = ({
   id,
@@ -19,6 +21,8 @@ const ProductCard = ({
   city,
   country,
   badges = [],
+  isFavorite,
+  onFavoriteClick,
 }) => {
   const { t } = useTranslatedContent();
   const navigate = useNavigate();
@@ -26,6 +30,8 @@ const ProductCard = ({
     (state) => state.language.currentLanguage
   );
   const productType = useSelector((state) => state.productType.productType);
+  const { isAuthModalOpen, closeAuthModal, handleFavoriteClick } =
+    useAuthModal();
 
   // Вычисляем процент скидки если есть старая цена
   const discount = oldPrice
@@ -90,6 +96,26 @@ const ProductCard = ({
     <div className={styles.productCard}>
       <div className={styles.imageContainer}>
         <img src={image} alt={name} className={styles.productImage} />
+        <button
+          className={styles.favoriteButton}
+          onClick={(e) => handleFavoriteClick(e, id, onFavoriteClick)}
+          aria-label={
+            isFavorite
+              ? t("common.removeFromFavorites")
+              : t("common.addToFavorites")
+          }
+          title={
+            isFavorite
+              ? t("common.removeFromFavorites")
+              : t("common.addToFavorites")
+          }
+        >
+          {isFavorite ? (
+            <span className={styles.favoriteIconActive}>❤️</span>
+          ) : (
+            <span className={styles.favoriteIcon}>🤍</span>
+          )}
+        </button>
         <div className={styles.badges}>
           {allBadges.map((badge, index) => (
             <span
@@ -150,6 +176,7 @@ const ProductCard = ({
           {getButtonText()}
         </button>
       </div>
+      <AuthModal isOpen={isAuthModalOpen} onClose={closeAuthModal} />
     </div>
   );
 };
@@ -170,6 +197,8 @@ ProductCard.propTypes = {
       text: PropTypes.string.isRequired,
     })
   ),
+  isFavorite: PropTypes.bool.isRequired,
+  onFavoriteClick: PropTypes.func.isRequired,
 };
 
 export default ProductCard;

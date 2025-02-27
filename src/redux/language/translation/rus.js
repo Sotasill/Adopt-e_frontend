@@ -414,6 +414,8 @@ const ruTranslation = {
     dogs: "Собаки",
     cats: "Кошки",
     back: "Назад",
+    addToFavorites: "Добавить в избранное",
+    removeFromFavorites: "Удалить из избранного",
   },
 
   specialist: {
@@ -454,6 +456,20 @@ const ruTranslation = {
       facebook: "Продолжить через Facebook",
       apple: "Продолжить через Apple",
     },
+  },
+
+  auth: {
+    favoriteFeature: "Функция избранного",
+    registerToUse:
+      "Эта функция доступна только зарегистрированным пользователям, войдите или зарегистрируйтесь на сайте",
+    benefitsDescription:
+      "Регистрация на сайте дает вам доступ к дополнительным возможностям:",
+    benefits: {
+      favorites: "Сохранение избранных товаров и питомцев",
+      personalAccount: "Личный кабинет с историей просмотров",
+    },
+    register: "Зарегистрироваться",
+    login: "Войти",
   },
 };
 

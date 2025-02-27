@@ -415,6 +415,8 @@ const ukrTranslation = {
     dogs: "Собаки",
     cats: "Коти",
     back: "Назад",
+    addToFavorites: "Додати до обраного",
+    removeFromFavorites: "Видалити з обраного",
   },
 
   // Сторінка заводчиків
@@ -447,6 +449,20 @@ const ukrTranslation = {
     dashboard: {
       welcome: "Ласкаво просимо, {{name}}!",
     },
+  },
+
+  auth: {
+    favoriteFeature: "Функція обраного",
+    registerToUse:
+      "Ця функція доступна лише зареєстрованим користувачам, будь ласка, увійдіть або зареєструйтеся на сайті",
+    benefitsDescription:
+      "Реєстрація на сайті надає вам доступ до додаткових можливостей:",
+    benefits: {
+      favorites: "Збереження обраних товарів та тварин",
+      personalAccount: "Особистий кабінет з історією переглядів",
+    },
+    register: "Зареєструватися",
+    login: "Увійти",
   },
 
   // Login Modal

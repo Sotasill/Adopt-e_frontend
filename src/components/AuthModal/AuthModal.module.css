@@ -1,0 +1,175 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modalContent {
+  background-color: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.3s ease;
+  outline: none;
+}
+
+.closeButton {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  color: #ff4d4d;
+  transform: scale(1.1);
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.heartIcon {
+  color: #ff4d4d;
+  font-size: 28px;
+}
+
+.modalHeader h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.modalBody {
+  margin-bottom: 20px;
+  padding-top: 20px;
+}
+
+.modalBody p {
+  margin: 0 0 12px;
+  color: #555;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.benefitsList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.benefitItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.benefitIcon {
+  color: #3498db;
+  font-size: 16px;
+}
+
+.modalFooter {
+  display: flex;
+  gap: 10px;
+}
+
+.actionButton {
+  flex: 1;
+  min-width: 0 !important;
+  white-space: nowrap;
+  font-size: 0.85rem !important;
+  padding: 0.4rem 0.8rem !important;
+}
+
+.registerButton {
+  background: linear-gradient(90deg, #2c3e50, #3498db, #2c3e50) !important;
+}
+
+.loginButton {
+  background: linear-gradient(90deg, #34495e, #7f8c8d, #34495e) !important;
+}
+
+/* Стили для иконок избранного */
+:global(.fa-heart),
+:global(.fa-heart-o),
+:global(.fa-regular),
+:global(.fa-solid) {
+  display: inline-block !important;
+  font-style: normal !important;
+  font-variant: normal !important;
+  font-weight: normal !important;
+  line-height: 1 !important;
+  font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands" !important;
+}
+
+:global(.favoriteIcon),
+:global(.favoriteIconActive) {
+  display: inline-block !important;
+  font-size: 18px !important;
+}
+
+:global(.favoriteIconActive) {
+  color: #ff4d4d !important;
+}
+
+:global(.favoriteIcon) {
+  color: #666 !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .modalContent {
+    width: 95%;
+    padding: 16px;
+  }
+
+  .modalBody p {
+    font-size: 13px;
+  }
+
+  .actionButton {
+    font-size: 0.8rem !important;
+    padding: 0.35rem 0.7rem !important;
+  }
+}

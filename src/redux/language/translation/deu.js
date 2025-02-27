@@ -416,12 +416,28 @@ const deuTranslation = {
     dogs: "Hunde",
     cats: "Katzen",
     back: "Zurück",
+    addToFavorites: "Zu Favoriten hinzufügen",
+    removeFromFavorites: "Aus Favoriten entfernen",
   },
 
   specialist: {
     dashboard: {
       welcome: "Willkommen, {{name}}!",
     },
+  },
+
+  auth: {
+    favoriteFeature: "Favoriten-Funktion",
+    registerToUse:
+      "Diese Funktion ist nur für registrierte Benutzer verfügbar, bitte melden Sie sich an oder registrieren Sie sich auf der Website",
+    benefitsDescription:
+      "Die Registrierung auf der Website gibt Ihnen Zugang zu zusätzlichen Funktionen:",
+    benefits: {
+      favorites: "Speichern Sie Lieblingsprodukte und Haustiere",
+      personalAccount: "Persönliches Konto mit Browserverlauf",
+    },
+    register: "Registrieren",
+    login: "Anmelden",
   },
 
   // Login Modal

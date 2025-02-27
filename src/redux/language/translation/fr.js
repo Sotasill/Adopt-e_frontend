@@ -400,6 +400,8 @@ const frTranslation = {
     dogs: "Chiens",
     cats: "Chats",
     back: "Retour",
+    addToFavorites: "Ajouter aux favoris",
+    removeFromFavorites: "Retirer des favoris",
   },
 
   // Page des éleveurs
@@ -430,6 +432,20 @@ const frTranslation = {
     dashboard: {
       welcome: "Bienvenue, {{name}}!",
     },
+  },
+
+  auth: {
+    favoriteFeature: "Fonction Favoris",
+    registerToUse:
+      "Cette fonctionnalité est uniquement disponible pour les utilisateurs enregistrés, veuillez vous connecter ou vous inscrire sur le site",
+    benefitsDescription:
+      "L'inscription sur le site vous donne accès à des fonctionnalités supplémentaires:",
+    benefits: {
+      favorites: "Enregistrer les produits et animaux favoris",
+      personalAccount: "Compte personnel avec historique de navigation",
+    },
+    register: "S'inscrire",
+    login: "Se connecter",
   },
 
   // Login Modal

@@ -1,26 +1,34 @@
 import PropTypes from "prop-types";
 import { MdLocationOn } from "react-icons/md";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaHeart, FaRegHeart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { useTranslatedContent } from "../../redux/hooks/useTranslatedContent";
+import { useNavigate } from "react-router-dom";
 import styles from "./ProductStringCard.module.css";
 import commonStyles from "../../styles/common.module.css";
+import { useAuthModal } from "../../hooks/useAuthModal";
+import AuthModal from "../AuthModal/AuthModal";
 
 const ProductStringCard = ({
   id,
-  name,
-  image,
-  category,
-  price,
+  name = "Без названия",
+  image = "/images/default/no-image.webp",
+  category = "Без категории",
+  price = 0,
   oldPrice,
-  city,
-  country,
-  badges,
-  expanded,
-  onExpand,
+  city = "",
+  country = "",
+  badges = [],
+  expanded = false,
+  onExpand = () => {},
+  isFavorite = false,
+  onFavoriteClick = () => {},
 }) => {
   const { t } = useTranslatedContent();
+  const navigate = useNavigate();
   const productType = useSelector((state) => state.productType.productType);
+  const { isAuthModalOpen, closeAuthModal, handleFavoriteClick } =
+    useAuthModal();
 
   const getButtonText = () => {
     switch (productType) {
@@ -38,16 +46,34 @@ const ProductStringCard = ({
   return (
     <div className={styles.card}>
       <div className={styles.cardContent}>
-        <img
-          src={image || "/images/default/no-image.webp"}
-          alt={name || ""}
-          className={styles.media}
-        />
+        <div className={styles.mediaContainer}>
+          <img src={image} alt={name} className={styles.media} />
+          <button
+            className={styles.favoriteButton}
+            onClick={(e) => handleFavoriteClick(e, id, onFavoriteClick)}
+            aria-label={
+              isFavorite
+                ? t("common.removeFromFavorites")
+                : t("common.addToFavorites")
+            }
+            title={
+              isFavorite
+                ? t("common.removeFromFavorites")
+                : t("common.addToFavorites")
+            }
+          >
+            {isFavorite ? (
+              <span className={styles.favoriteIconActive}>❤️</span>
+            ) : (
+              <span className={styles.favoriteIcon}>🤍</span>
+            )}
+          </button>
+        </div>
         <div className={styles.content}>
           <div className={styles.mainInfo}>
-            <h3 className={styles.title}>{name || "Без названия"}</h3>
+            <h3 className={styles.title}>{name}</h3>
             <p className={styles.subtitle}>
-              {t(`${productType}.categories.${category}`) || "Без категории"}
+              {t(`${productType}.categories.${category}`)}
             </p>
           </div>
 
@@ -83,6 +109,8 @@ const ProductStringCard = ({
           </div>
         </div>
       </div>
+
+      <AuthModal isOpen={isAuthModalOpen} onClose={closeAuthModal} />
     </div>
   );
 };
@@ -103,17 +131,9 @@ ProductStringCard.propTypes = {
     })
   ),
   expanded: PropTypes.bool,
-  onExpand: PropTypes.func.isRequired,
-};
-
-ProductStringCard.defaultProps = {
-  name: "Без названия",
-  image: "/images/default/no-image.webp",
-  category: "Без категории",
-  price: 0,
-  city: "",
-  country: "",
-  badges: [],
+  onExpand: PropTypes.func,
+  isFavorite: PropTypes.bool,
+  onFavoriteClick: PropTypes.func,
 };
 
 export default ProductStringCard;

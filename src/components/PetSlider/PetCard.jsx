@@ -1,5 +1,6 @@
 import { useTranslatedContent } from "../../redux/hooks/useTranslatedContent";
 import { FaMars, FaVenus, FaUser } from "react-icons/fa6";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -9,13 +10,22 @@ import catBreeds from "../../redux/language/dictionaries/cats.json";
 import dogBreeds from "../../redux/language/dictionaries/dogs.json";
 import countries from "../../redux/language/dictionaries/countries.json";
 import { useSelector } from "react-redux";
+import { useAuthModal } from "../../hooks/useAuthModal";
+import AuthModal from "../AuthModal/AuthModal";
 
-const PetCard = ({ pet }) => {
+const PetCard = ({ pet, isFavorite, onFavoriteClick }) => {
   const { t } = useTranslatedContent();
   const navigate = useNavigate();
   const currentLanguage = useSelector(
     (state) => state.language.currentLanguage
   );
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const {
+    isAuthModalOpen,
+    openAuthModal,
+    closeAuthModal,
+    handleFavoriteClick,
+  } = useAuthModal();
 
   const getBreedName = (breedKey, petType) => {
     try {
@@ -97,6 +107,26 @@ const PetCard = ({ pet }) => {
     <div className={styles.petCard}>
       <div className={styles.imageContainer}>
         <img src={pet.image} alt={pet.name} className={styles.petImage} />
+        <button
+          className={styles.favoriteButton}
+          onClick={(e) => handleFavoriteClick(e, pet.id, onFavoriteClick)}
+          aria-label={
+            isFavorite
+              ? t("common.removeFromFavorites")
+              : t("common.addToFavorites")
+          }
+          title={
+            isFavorite
+              ? t("common.removeFromFavorites")
+              : t("common.addToFavorites")
+          }
+        >
+          {isFavorite ? (
+            <span className={styles.favoriteIconActive}>❤️</span>
+          ) : (
+            <span className={styles.favoriteIcon}>🤍</span>
+          )}
+        </button>
         {allBadges.length > 0 && (
           <div className={styles.badges}>
             {allBadges.map((badge, index) => (
@@ -168,6 +198,7 @@ const PetCard = ({ pet }) => {
           {t("pets.viewBreeder")}
         </button>
       </div>
+      <AuthModal isOpen={isAuthModalOpen} onClose={closeAuthModal} />
     </div>
   );
 };
@@ -193,6 +224,8 @@ PetCard.propTypes = {
       })
     ),
   }).isRequired,
+  isFavorite: PropTypes.bool.isRequired,
+  onFavoriteClick: PropTypes.func.isRequired,
 };
 
 export default PetCard;

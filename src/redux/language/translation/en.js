@@ -376,6 +376,8 @@ const enTranslation = {
     dogs: "Dogs",
     cats: "Cats",
     back: "Back",
+    addToFavorites: "Add to favorites",
+    removeFromFavorites: "Remove from favorites",
   },
 
   // Breeders page
@@ -408,6 +410,20 @@ const enTranslation = {
     dashboard: {
       welcome: "Welcome, {{name}}!",
     },
+  },
+
+  auth: {
+    favoriteFeature: "Favorites Feature",
+    registerToUse:
+      "This feature is only available to registered users, please login or register on the site",
+    benefitsDescription:
+      "Registration on the site gives you access to additional features:",
+    benefits: {
+      favorites: "Save favorite products and pets",
+      personalAccount: "Personal account with browsing history",
+    },
+    register: "Register",
+    login: "Login",
   },
 
   // Login Modal

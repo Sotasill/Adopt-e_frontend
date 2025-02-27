@@ -5,6 +5,7 @@ import {
   setProductType,
   selectProductType,
 } from "../../redux/productType/productTypeSlice";
+import { useFavorites } from "../../redux/hooks/useFavorites";
 import ControlPanelProducts from "../../components/ControlPanel/ControlPanelProducts";
 import ProductCard from "../../components/ProductsSlider/ProductCard";
 import ProductStringCard from "../../components/ProductsSlider/ProductStringCard";
@@ -314,6 +315,8 @@ const ProductsPage = () => {
     setExpandedCardId(expandedCardId === cardId ? null : cardId);
   };
 
+  const { handleToggleFavorite, isFavorite } = useFavorites();
+
   return (
     <div className={styles.productsPage}>
       <div className={styles.header}>
@@ -372,6 +375,8 @@ const ProductsPage = () => {
                   badges={item.badges}
                   expanded={expandedCardId === item.id}
                   onExpand={() => handleCardExpand(item.id)}
+                  isFavorite={isFavorite(item.id)}
+                  onFavoriteClick={() => handleToggleFavorite(item)}
                 />
               ) : (
                 <ProductStringCard
@@ -387,6 +392,8 @@ const ProductsPage = () => {
                   badges={item.badges}
                   expanded={expandedCardId === item.id}
                   onExpand={() => handleCardExpand(item.id)}
+                  isFavorite={isFavorite(item.id)}
+                  onFavoriteClick={() => handleToggleFavorite(item)}
                 />
               )
             )}

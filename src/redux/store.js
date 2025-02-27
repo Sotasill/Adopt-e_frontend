@@ -6,6 +6,7 @@ import notificationsReducer from "./notifications/notificationsSlice";
 import languageReducer from "./language/languageSlice";
 import petTypeReducer from "./petType/petTypeSlice";
 import productTypeReducer from "./productType/productTypeSlice";
+import favoritesReducer from "./reducers/favoritesReducer";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     language: languageReducer,
     petType: petTypeReducer,
     productType: productTypeReducer,
+    favorites: favoritesReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

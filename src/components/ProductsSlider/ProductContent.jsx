@@ -4,12 +4,15 @@ import { Navigation } from "swiper/modules";
 import ProductCard from "./ProductCard";
 import ProductStringCard from "./ProductStringCard";
 import styles from "./ProductsSlider.module.css";
+import { useFavorites } from "../../redux/hooks/useFavorites";
 
 // Импорты стилей Swiper
 import "swiper/css";
 import "swiper/css/navigation";
 
 const ProductContent = ({ products }) => {
+  const { handleToggleFavorite, isFavorite } = useFavorites();
+
   return (
     <div className={styles.productsSlider}>
       <Swiper
@@ -48,7 +51,19 @@ const ProductContent = ({ products }) => {
         {products.map((product) => (
           <SwiperSlide key={product.id} className={styles.productCardWrapper}>
             {product.isMoreProducts ? (
-              <ProductStringCard title={product.title} text={product.text} />
+              <ProductStringCard
+                id={product.id}
+                name={product.name}
+                image={product.image}
+                category={product.category}
+                price={product.price}
+                oldPrice={product.oldPrice}
+                city={product.city}
+                country={product.country}
+                badges={product.badges}
+                isFavorite={isFavorite(product.id)}
+                onFavoriteClick={() => handleToggleFavorite(product)}
+              />
             ) : (
               <ProductCard
                 id={product.id}
@@ -61,6 +76,8 @@ const ProductContent = ({ products }) => {
                 city={product.city}
                 country={product.country}
                 badges={product.badges}
+                isFavorite={isFavorite(product.id)}
+                onFavoriteClick={() => handleToggleFavorite(product)}
               />
             )}
           </SwiperSlide>
