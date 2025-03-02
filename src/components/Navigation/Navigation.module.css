@@ -104,6 +104,19 @@
   font-size: 0.9rem !important;
 }
 
+/* Анимация для aurora эффекта */
+@keyframes aurora {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 /* Сайдбар */
 .sidebar {
   position: fixed;
@@ -111,7 +124,7 @@
   right: -300px;
   width: 300px;
   height: 100vh;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   box-shadow: -2px 0 15px rgba(0, 0, 0, 0.1);
@@ -121,6 +134,22 @@
   display: flex;
   flex-direction: column;
   border-left: 1px solid rgba(255, 255, 255, 0.3);
+  overflow: hidden;
+}
+
+.auroraWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  opacity: 0.8;
+}
+
+.auroraWrapper :global(.aurora-container) {
+  width: 100%;
+  height: 100%;
 }
 
 .sidebarOpen {
@@ -128,40 +157,47 @@
 }
 
 .sidebarHeader {
+  position: relative;
   padding: 1rem;
   display: flex;
   justify-content: flex-end;
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.5);
+  z-index: 1;
 }
 
 .closeButton {
-  background: rgba(240, 240, 240, 0.3);
+  background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border: none;
   padding: 0.5rem;
   cursor: pointer;
-  color: #333;
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   border-radius: 50%;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .closeButton:hover {
-  color: #666;
-  background: rgba(240, 240, 240, 0.5);
+  background: rgba(255, 255, 255, 0.3);
   transform: scale(1.05);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .sidebarContent {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 1rem;
   overflow-y: auto;
   gap: 0.5rem;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 /* Стилизация скроллбара */
@@ -197,42 +233,48 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #333;
+  color: #fff;
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   position: relative;
   padding: 0;
   width: auto;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .buttonIcon {
   width: 40px;
   height: 40px;
-  background: rgba(240, 240, 240, 0.5);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: linear-gradient(90deg, #2c3e50 0%, #3498db 50%, #2c3e50 100%);
+  background-size: 200% auto;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #fff;
 }
 
 .buttonLabel {
   font-size: 0.8rem;
-  color: #666;
+  color: #fff;
   transition: all 0.2s ease;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .sidebarButton:hover .buttonIcon {
-  background: rgba(224, 224, 224, 0.7);
+  background-position: 100% center;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .sidebarButton:hover .buttonLabel {
-  color: #333;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* Стили для всплывающих подсказок */
@@ -264,23 +306,64 @@
 /* Обновляем стили для ссылок в сайдбаре */
 .sidebarLink {
   padding: 0.75rem 1rem;
-  color: #333;
+  color: #fff;
   text-decoration: none;
   border-radius: 0.5rem;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: transparent;
-  border: 1px solid transparent;
+  background: linear-gradient(90deg, #2c3e50 0%, #3498db 50%, #2c3e50 100%);
+  background-size: 200% auto;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebarLink::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
 }
 
 .sidebarLink:hover {
-  background: rgba(240, 240, 240, 0.5);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background-position: 100% center;
   transform: translateX(4px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+}
+
+.sidebarLink:hover::before {
+  left: 100%;
+}
+
+.sidebarLink span {
+  background: linear-gradient(90deg, #fff, #e0e0e0);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.3s ease;
+}
+
+.sidebarLink:hover span {
+  background-position: 100% center;
+  transform: scale(1.05);
 }
 
 /* Медиа-запросы */
@@ -519,4 +602,10 @@
 .bcsButton:active {
   transform: translateY(0);
   box-shadow: 0 4px 6px rgba(76, 175, 80, 0.1);
+}
+
+.sidebarDivider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+  margin: 1rem 0;
 }

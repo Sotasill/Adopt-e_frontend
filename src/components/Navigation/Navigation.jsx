@@ -8,6 +8,7 @@ import { useState, useEffect, useRef } from "react";
 import { FaUserCircle, FaSignInAlt, FaUserPlus } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { MdStorefront } from "react-icons/md";
+import Aurora from "../Aurora/Aurora";
 
 const Navigation = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
@@ -110,28 +111,28 @@ const Navigation = () => {
         className={styles.sidebarLink}
         onClick={() => setIsSidebarOpen(false)}
       >
-        {translate("common", "navigation.about")}
+        <span>{translate("common", "navigation.about")}</span>
       </Link>
       <Link
         to="/breeds"
         className={styles.sidebarLink}
         onClick={() => setIsSidebarOpen(false)}
       >
-        {translate("common", "breeds.title")}
+        <span>{translate("common", "breeds.title")}</span>
       </Link>
       <a
         href="/#kennels-slider"
         className={styles.sidebarLink}
         onClick={() => setIsSidebarOpen(false)}
       >
-        {translate("common", "navigation.findBreeder")}
+        <span>{translate("common", "navigation.findBreeder")}</span>
       </a>
       <Link
         to="/find-pet"
         className={styles.sidebarLink}
         onClick={() => setIsSidebarOpen(false)}
       >
-        {translate("common", "navigation.findYourPet")}
+        <span>{translate("common", "navigation.findYourPet")}</span>
       </Link>
     </div>
   );
@@ -165,6 +166,13 @@ const Navigation = () => {
           isSidebarOpen ? styles.sidebarOpen : ""
         }`}
       >
+        <div className={styles.auroraWrapper}>
+          <Aurora
+            colorStops={["#7f7fd5", "#86a8e7", "#91eae4"]}
+            amplitude={0.8}
+            speed={0.5}
+          />
+        </div>
         <SidebarContent />
       </div>
 
