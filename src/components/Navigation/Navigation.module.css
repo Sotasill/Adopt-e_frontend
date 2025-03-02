@@ -3,27 +3,366 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  height: 60px;
-  transition: background-color 0.3s ease;
-}
-
-.navigation:hover {
-  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  z-index: 1000;
+  height: 50px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .navContainer {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0.5rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 100%;
-  padding: 0 20px;
+}
+
+.leftSide {
+  display: flex;
+  align-items: center;
+}
+
+.rightSide {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.homeLink {
+  text-decoration: none;
+  color: #2c3e50;
+  pointer-events: auto;
+}
+
+.homeLink:hover,
+.homeLink:active,
+.homeLink:focus,
+.homeLink:visited {
+  color: #2c3e50;
+  text-decoration: none;
+}
+
+.homeLink h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.profileButton {
+  background: rgba(240, 240, 240, 0.3);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: none;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  cursor: pointer;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  border-radius: 50%;
+}
+
+.profileButton:hover {
+  color: #666;
+  background: rgba(240, 240, 240, 0.5);
+  transform: scale(1.05);
+}
+
+/* Стили для языкового переключателя */
+:global(.languageSwitcher) {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  background: rgba(240, 240, 240, 0.3) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+  transition: all 0.2s ease !important;
+}
+
+:global(.languageSwitcher:hover) {
+  background: rgba(240, 240, 240, 0.5) !important;
+  transform: scale(1.05) !important;
+}
+
+:global(.languageSwitcher button) {
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 0.9rem !important;
+}
+
+/* Сайдбар */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: -2px 0 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  z-index: 1001;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.sidebarOpen {
+  transform: translateX(-300px);
+}
+
+.sidebarHeader {
+  padding: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.closeButton {
+  background: rgba(240, 240, 240, 0.3);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  border-radius: 50%;
+}
+
+.closeButton:hover {
+  color: #666;
+  background: rgba(240, 240, 240, 0.5);
+  transform: scale(1.05);
+}
+
+.sidebarContent {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  overflow-y: auto;
+  gap: 0.5rem;
+}
+
+/* Стилизация скроллбара */
+.sidebarContent::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebarContent::-webkit-scrollbar-track {
+  background: rgba(240, 240, 240, 0.1);
+}
+
+.sidebarContent::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.sidebarContent::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.actionButtons {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  justify-content: center;
+}
+
+.sidebarButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  position: relative;
+  padding: 0;
+  width: auto;
+}
+
+.buttonIcon {
+  width: 40px;
+  height: 40px;
+  background: rgba(240, 240, 240, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.buttonLabel {
+  font-size: 0.8rem;
+  color: #666;
+  transition: all 0.2s ease;
+}
+
+.sidebarButton:hover .buttonIcon {
+  background: rgba(224, 224, 224, 0.7);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebarButton:hover .buttonLabel {
+  color: #333;
+}
+
+/* Стили для всплывающих подсказок */
+.sidebarButton::after {
+  content: attr(title);
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.sidebarButton:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) scale(1);
+  top: -35px;
+}
+
+/* Обновляем стили для ссылок в сайдбаре */
+.sidebarLink {
+  padding: 0.75rem 1rem;
+  color: #333;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+.sidebarLink:hover {
+  background: rgba(240, 240, 240, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transform: translateX(4px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Медиа-запросы */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 280px;
+    right: -280px;
+  }
+
+  .sidebarOpen {
+    transform: translateX(-280px);
+  }
+}
+
+@media (max-width: 768px) {
+  .navContainer {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .homeLink h2 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 100%;
+    right: -100%;
+  }
+
+  .sidebarOpen {
+    transform: translateX(-100%);
+  }
+
+  .navContainer {
+    padding: 0.5rem;
+  }
+
+  .homeLink h2 {
+    font-size: 1.1rem;
+  }
+
+  .rightSide {
+    gap: 0.5rem;
+  }
+
+  .profileButton {
+    width: 28px;
+    height: 28px;
+  }
+
+  :global(.languageSwitcher) {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  :global(.languageSwitcher button) {
+    font-size: 0.8rem !important;
+  }
+
+  .actionButtons {
+    gap: 0.75rem;
+  }
+
+  .buttonIcon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .buttonLabel {
+    font-size: 0.75rem;
+  }
+}
+
+/* Очищаем ненужные старые стили */
+.burgerMenu,
+.burgerIcon,
+.mobileVisible,
+.mobileMenu,
+.mobileMenuItem,
+.mobileOnlyLinks {
+  display: none;
 }
 
 .navList {
@@ -52,41 +391,7 @@
 
 /* Добавляем отступ для контента под фиксированной навигацией */
 :global(body) {
-  padding-top: 60px;
-}
-
-.leftSide {
-  margin-right: 1rem;
-  display: flex;
-  align-items: center;
-}
-
-.leftSide h2 {
-  margin: 0;
-  font-size: 1.2rem;
-  color: #2c3e50;
-}
-
-.rightSide {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  height: 100%;
-}
-
-.mobileVisible {
-  display: none;
-}
-
-.homeLink {
-  text-decoration: none;
-  color: #2c3e50;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
-
-.homeLink:hover {
-  color: #3498db;
+  padding-top: 50px;
 }
 
 @keyframes gradientMove {
@@ -194,254 +499,6 @@
   .navButton {
     padding: 6px 12px;
     font-size: 0.8rem;
-  }
-}
-
-.burgerMenu {
-  display: none;
-}
-
-.burgerIcon {
-  width: 24px;
-  height: 24px;
-  position: relative;
-  cursor: pointer;
-  display: none;
-}
-
-.burgerIcon span {
-  display: block;
-  position: absolute;
-  height: 2px;
-  width: 100%;
-  background: #2c3e50;
-  transition: 0.3s all;
-}
-
-.burgerIcon span:nth-child(1) {
-  top: 2px;
-}
-.burgerIcon span:nth-child(2) {
-  top: 11px;
-}
-.burgerIcon span:nth-child(3) {
-  top: 20px;
-}
-
-.burgerIcon.active span:nth-child(1) {
-  transform: rotate(45deg);
-  top: 11px;
-}
-
-.burgerIcon.active span:nth-child(2) {
-  opacity: 0;
-}
-
-.burgerIcon.active span:nth-child(3) {
-  transform: rotate(-45deg);
-  top: 11px;
-}
-
-.backdrop {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-}
-
-.backdrop.active {
-  display: block;
-}
-
-.mobileMenuItem {
-  text-decoration: none;
-  color: #2c3e50;
-  font-size: 1rem;
-  padding: 12px 0;
-  border-bottom: 1px solid #eaeaea;
-  transition: all 0.3s ease;
-  position: relative;
-  display: block;
-}
-
-.mobileMenuItem::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: #3498db;
-  transition: width 0.3s ease;
-}
-
-.mobileMenuItem:hover,
-.mobileMenuItem:active,
-.mobileMenuItem:focus {
-  color: #3498db;
-  padding-left: 10px;
-}
-
-.mobileMenuItem:hover::after,
-.mobileMenuItem:active::after,
-.mobileMenuItem:focus::after {
-  width: 100%;
-}
-
-.mobileMenuItem:last-child {
-  border-bottom: none;
-}
-
-/* Специальные стили для кнопки регистрации в мобильном меню */
-.mobileMenuItem[href="/register"] {
-  margin-top: 10px;
-  background-image: linear-gradient(
-    to right,
-    #2c3e50 0%,
-    #3498db 51%,
-    #2c3e50 100%
-  );
-  background-size: 200% auto;
-  color: white;
-  border-radius: 6px;
-  padding: 8px 16px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: none;
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.mobileMenuItem[href="/register"]:hover,
-.mobileMenuItem[href="/register"]:active,
-.mobileMenuItem[href="/register"]:focus {
-  background-position: right center;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-  padding-left: 16px;
-}
-
-.mobileMenuItem[href="/register"]::after {
-  display: none;
-}
-
-.mobileOnlyLinks {
-  display: none;
-}
-
-.mobileMenu {
-  display: none;
-}
-
-@media (max-width: 320px) {
-  .navContainer {
-    padding: 0 10px;
-  }
-
-  .leftSide h2 {
-    font-size: 0.9rem;
-  }
-
-  .rightSide {
-    display: none;
-  }
-
-  .mobileVisible {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .burgerIcon {
-    display: block;
-    z-index: 1001;
-  }
-
-  .mobileMenu {
-    display: none;
-    position: fixed;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    height: auto;
-    max-height: calc(100vh - 60px);
-    background: white;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    flex-direction: column;
-    gap: 0;
-    z-index: 1000;
-    overflow-y: auto;
-  }
-
-  .mobileMenu.active {
-    display: flex;
-  }
-
-  .mobileMenuItem {
-    text-decoration: none;
-    color: #2c3e50;
-    font-size: 1rem;
-    padding: 12px 0;
-    border-bottom: 1px solid #eaeaea;
-    transition: all 0.3s ease;
-    position: relative;
-    display: block;
-  }
-
-  .mobileMenuItem::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: #3498db;
-    transition: width 0.3s ease;
-  }
-
-  .mobileMenuItem:hover {
-    color: #3498db;
-    padding-left: 10px;
-  }
-
-  .mobileMenuItem:hover::after {
-    width: 100%;
-  }
-
-  .mobileMenuItem:last-child {
-    border-bottom: none;
-  }
-
-  /* Стили для кнопки смены языка */
-  :global(.languageSwitcher) {
-    width: 30px;
-    height: 30px;
-    overflow: hidden;
-    border-radius: 50%;
-  }
-
-  :global(.languageSwitcher button) {
-    padding: 0;
-    width: 30px;
-    height: 30px;
-  }
-
-  :global(.languageSwitcher .languageOptions) {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    padding: 5px 0;
   }
 }
 
