@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { useTranslatedContent } from "../../redux/hooks/useTranslatedContent";
 import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 import {
   setProductType,
   selectProductType,
@@ -13,6 +14,7 @@ import CustomLoader from "../../components/CustomLoader/CustomLoader";
 import styles from "./ProductsPage.module.css";
 
 const ProductsPage = () => {
+  const location = useLocation();
   const [viewMode, setViewMode] = useState("grid");
   const [sortBy, setSortBy] = useState("nameAsc");
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -26,6 +28,18 @@ const ProductsPage = () => {
   const dispatch = useDispatch();
   const productType = useSelector(selectProductType);
   const { t } = useTranslatedContent();
+
+  // Обработка параметра type из URL
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const typeFromUrl = searchParams.get("type");
+    if (
+      typeFromUrl &&
+      ["products", "services", "veterinary"].includes(typeFromUrl)
+    ) {
+      dispatch(setProductType(typeFromUrl));
+    }
+  }, [location.search, dispatch]);
 
   useEffect(() => {
     setIsLoading(true);

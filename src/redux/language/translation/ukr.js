@@ -22,6 +22,9 @@ const ukrTranslation = {
     findBreeder: "Знайти заводчика",
     findYourPet: "Знайти улюbленця",
     breeds: "Породи тварин",
+    zootovary: "Зоотовари",
+    services: "Послуги для тварин",
+    veterinary: "Ветеринарні послуги",
   },
 
   // Породи
@@ -309,10 +312,10 @@ const ukrTranslation = {
   },
 
   products: {
-    title: "Зоотовари та послуги",
     zootovary: "Зоотовари",
-    services: "Послуги",
-    veterinary: "Ветеринарія",
+    services: "Послуги для тварин",
+    veterinary: "Ветеринарні послуги",
+    title: "Товари та послуги",
     findProducts: "Знайти зоотовари",
     findServices: "Знайти послуги",
     findVeterinary: "Знайти ветеринарні послуги",
@@ -320,10 +323,9 @@ const ukrTranslation = {
     viewMoreText: "Переглянути всі товари",
     viewDetails: "Детальніше",
     categories: {
-      food: "Корм",
+      food: "Корми",
       toys: "Іграшки",
       equipment: "Обладнання",
-      beds: "Лежаки",
       hygiene: "Гігієна",
       accessories: "Аксесуари",
       grooming: "Грумінг",
@@ -417,6 +419,19 @@ const ukrTranslation = {
     back: "Назад",
     addToFavorites: "Додати до обраного",
     removeFromFavorites: "Видалити з обраного",
+    navigation: {
+      about: "Про нас",
+      findBreeder: "Знайти заводчика",
+      findYourPet: "Знайти улюбленця",
+      login: "Увійти",
+      register: "Реєстрація",
+      zootovary: "Зоотовари",
+      services: "Послуги для тварин",
+      veterinary: "Ветеринарні послуги",
+    },
+    breeds: {
+      title: "Породи",
+    },
   },
 
   // Сторінка заводчиків

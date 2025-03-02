@@ -128,11 +128,35 @@ const Navigation = () => {
         <span>{translate("common", "navigation.findBreeder")}</span>
       </a>
       <Link
-        to="/find-pet"
+        to="/pets"
         className={styles.sidebarLink}
         onClick={() => setIsSidebarOpen(false)}
       >
         <span>{translate("common", "navigation.findYourPet")}</span>
+      </Link>
+
+      <div className={styles.sidebarDivider} />
+
+      <Link
+        to="/products?type=products"
+        className={styles.sidebarLink}
+        onClick={() => setIsSidebarOpen(false)}
+      >
+        <span>{translate("common", "navigation.zootovary")}</span>
+      </Link>
+      <Link
+        to="/products?type=services"
+        className={styles.sidebarLink}
+        onClick={() => setIsSidebarOpen(false)}
+      >
+        <span>{translate("common", "navigation.services")}</span>
+      </Link>
+      <Link
+        to="/products?type=veterinary"
+        className={styles.sidebarLink}
+        onClick={() => setIsSidebarOpen(false)}
+      >
+        <span>{translate("common", "navigation.veterinary")}</span>
       </Link>
     </div>
   );

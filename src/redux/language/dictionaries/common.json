@@ -42,35 +42,50 @@
       "findBreeder": "Знайти заводчика",
       "findYourPet": "Знайти улюбленця",
       "register": "Зареєструватися",
-      "login": "Увійти"
+      "login": "Увійти",
+      "zootovary": "Зоотовари",
+      "services": "Послуги для тварин",
+      "veterinary": "Ветеринарні послуги"
     },
     "rus": {
       "about": "О нас",
       "findBreeder": "Найти заводчика",
       "findYourPet": "Найти питомца",
       "register": "Регистрация",
-      "login": "Войти"
+      "login": "Войти",
+      "zootovary": "Зоотовары",
+      "services": "Услуги для животных",
+      "veterinary": "Ветеринарные услуги"
     },
     "en": {
       "about": "About",
       "findBreeder": "Find a Breeder",
       "findYourPet": "Find Your Pet",
       "register": "Sign up",
-      "login": "Sign in"
+      "login": "Sign in",
+      "zootovary": "Pet Supplies",
+      "services": "Pet Services",
+      "veterinary": "Veterinary Services"
     },
     "deu": {
       "about": "Über uns",
       "findBreeder": "Züchter finden",
       "findYourPet": "Haustier finden",
       "register": "Registrieren",
-      "login": "Anmelden"
+      "login": "Anmelden",
+      "zootovary": "Tierbedarfsartikel",
+      "services": "Tierdienstleistungen",
+      "veterinary": "Tierärztliche Dienste"
     },
     "fr": {
       "about": "À propos",
       "findBreeder": "Trouver un éleveur",
       "findYourPet": "Trouver votre animal",
       "register": "S'inscrire",
-      "login": "Se connecter"
+      "login": "Se connecter",
+      "zootovary": "Articles pour animaux",
+      "services": "Services animaliers",
+      "veterinary": "Services vétérinaires"
     }
   },
   "pets": {

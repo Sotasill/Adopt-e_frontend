@@ -282,10 +282,10 @@ const enTranslation = {
   },
 
   products: {
-    title: "Pet Products and Services",
-    zootovary: "Pet Products",
-    services: "Services",
-    veterinary: "Veterinary",
+    zootovary: "Pet Supplies",
+    services: "Pet Services",
+    veterinary: "Veterinary Services",
+    title: "Products and Services",
     findProducts: "Find Pet Products",
     findServices: "Find Services",
     findVeterinary: "Find Veterinary Services",
@@ -293,7 +293,7 @@ const enTranslation = {
     viewMoreText: "View All Products",
     viewDetails: "View Details",
     categories: {
-      food: "Food",
+      food: "Pet Food",
       toys: "Toys",
       equipment: "Equipment",
       beds: "Beds",
@@ -302,8 +302,8 @@ const enTranslation = {
       grooming: "Grooming",
       training: "Training",
       boarding: "Boarding",
-      walking: "Walking",
-      photoshoot: "Photo Session",
+      walking: "Dog Walking",
+      photoshoot: "Pet Photography",
       petaxi: "Pet Taxi",
       consultation: "Consultation",
       vaccination: "Vaccination",
@@ -378,6 +378,16 @@ const enTranslation = {
     back: "Back",
     addToFavorites: "Add to favorites",
     removeFromFavorites: "Remove from favorites",
+    navigation: {
+      about: "About Us",
+      findBreeder: "Find a Breeder",
+      findYourPet: "Find Your Pet",
+      login: "Sign In",
+      register: "Sign Up",
+      zootovary: "Pet Supplies",
+      services: "Pet Services",
+      veterinary: "Veterinary Services",
+    },
   },
 
   // Breeders page
