@@ -37,6 +37,11 @@
   z-index: 0;
 }
 
+.auroraContainer :global(.aurora-container) {
+  width: 100%;
+  height: 100%;
+}
+
 .aurora {
   position: absolute;
   top: -30%;
@@ -96,10 +101,10 @@
   position: absolute;
   top: 15px;
   right: 15px;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.9);
   border: none;
   font-size: 28px;
-  color: rgba(102, 102, 102, 0.8);
+  color: #2c3e50;
   cursor: pointer;
   width: 32px;
   height: 32px;
@@ -110,36 +115,42 @@
   z-index: 10;
   padding: 0;
   line-height: 1;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.15);
 }
 
 .closeButton:hover {
-  color: #333;
+  color: #e74c3c;
   transform: rotate(90deg);
+  background: white;
+  box-shadow: 0 4px 12px rgba(44, 62, 80, 0.2);
 }
 
 .backButton {
   position: absolute;
   top: 15px;
   left: 15px;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.9);
   border: none;
-  color: rgba(102, 102, 102, 0.8);
+  color: #2c3e50;
   cursor: pointer;
   font-size: 1rem;
   font-weight: 500;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 8px;
+  padding: 8px 12px;
   transition: all 0.3s ease;
   z-index: 10;
-  border-radius: 6px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.15);
 }
 
 .backButton:hover {
-  color: #333;
-  background: rgba(255, 255, 255, 0.1);
+  color: #2980b9;
+  background: white;
   transform: translateX(-2px);
+  box-shadow: 0 4px 12px rgba(44, 62, 80, 0.2);
 }
 
 .typeSelection {

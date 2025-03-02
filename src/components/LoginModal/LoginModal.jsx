@@ -12,6 +12,7 @@ import {
   FaEye,
   FaEyeSlash,
 } from "react-icons/fa";
+import Aurora from "../Aurora/Aurora";
 import styles from "./LoginModal.module.css";
 
 const backdropVariants = {
@@ -63,6 +64,14 @@ const UserTypeButton = ({ icon: Icon, label, onClick }) => (
   </button>
 );
 
+const colorSchemes = {
+  default: ["#e8f4f8", "#f0f4ea", "#fdf1eb"],
+  user: ["#e6f3ff", "#e6fff3", "#ffe6f3"], // более заметный голубой к розовому
+  seller: ["#e6ffe6", "#f3e6ff", "#e6f3ff"], // более заметный зеленый к голубому
+  specialist: ["#ffe6f3", "#e6e6ff", "#e6f3ff"], // более заметный розовый к голубому
+  bcs: ["#e6fff3", "#f3ffe6", "#ffe6f3"], // более заметный мятный к розовому
+};
+
 const LoginModal = ({
   isOpen,
   onClose,
@@ -77,6 +86,12 @@ const LoginModal = ({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [auroraKey, setAuroraKey] = useState(0);
+
+  // Обновляем ключ Aurora при изменении типа
+  useEffect(() => {
+    setAuroraKey((prev) => prev + 1);
+  }, [selectedType, specialistSubtype]);
 
   // Обновляем состояния при изменении initialType или initialSubtype
   useEffect(() => {
@@ -193,7 +208,23 @@ const LoginModal = ({
         onClick={(e) => e.stopPropagation()}
       >
         <div className={styles.auroraContainer}>
-          <div className={styles.aurora} />
+          <Aurora
+            key={`aurora-${auroraKey}`}
+            colorStops={
+              !selectedType
+                ? colorSchemes.default
+                : selectedType === "seller" &&
+                  specialistSubtype === "specialist"
+                ? colorSchemes.specialist
+                : selectedType === "seller" && specialistSubtype === "bcs"
+                ? colorSchemes.bcs
+                : selectedType === "seller"
+                ? colorSchemes.seller
+                : colorSchemes.user
+            }
+            amplitude={0.7}
+            speed={0.5}
+          />
         </div>
         <div className={styles.modalInner}>
           <div className={styles.modalContent}>
