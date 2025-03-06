@@ -1,6 +1,5 @@
-import React from 'react';
-import { useFavorites } from '../../redux/hooks/useFavorites';
-import PetCard from './PetCard';
+import { useFavorites } from "../../redux/hooks/useFavorites";
+import PetCard from "./PetCard";
 // ... остальные импорты
 
 const PetSlider = ({ pets }) => {
@@ -20,4 +19,4 @@ const PetSlider = ({ pets }) => {
   );
 };
 
-export default PetSlider; 
+export default PetSlider;

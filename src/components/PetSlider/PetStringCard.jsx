@@ -10,7 +10,7 @@ import catBreeds from "../../redux/language/dictionaries/cats.json";
 import dogBreeds from "../../redux/language/dictionaries/dogs.json";
 import countries from "../../redux/language/dictionaries/countries.json";
 import { useSelector } from "react-redux";
-import { useAuthModal } from "../../hooks/useAuthModal";
+import { useAuthModal } from "../../redux/hooks/useAuthModal";
 import AuthModal from "../AuthModal/AuthModal";
 
 const PetStringCard = ({ pet, isFavorite, onFavoriteClick }) => {

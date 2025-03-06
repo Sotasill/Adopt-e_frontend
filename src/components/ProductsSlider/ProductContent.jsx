@@ -5,12 +5,13 @@ import ProductCard from "./ProductCard";
 import ProductStringCard from "./ProductStringCard";
 import styles from "./ProductsSlider.module.css";
 import { useFavorites } from "../../redux/hooks/useFavorites";
+import PropTypes from "prop-types";
 
 // Импорты стилей Swiper
 import "swiper/css";
 import "swiper/css/navigation";
 
-const ProductContent = ({ products }) => {
+const ProductContent = ({ products, onOpenAuthModal }) => {
   const { handleToggleFavorite, isFavorite } = useFavorites();
 
   return (
@@ -53,16 +54,15 @@ const ProductContent = ({ products }) => {
             {product.isMoreProducts ? (
               <ProductStringCard
                 id={product.id}
-                name={product.name}
-                image={product.image}
-                category={product.category}
-                price={product.price}
-                oldPrice={product.oldPrice}
-                city={product.city}
-                country={product.country}
-                badges={product.badges}
-                isFavorite={isFavorite(product.id)}
-                onFavoriteClick={() => handleToggleFavorite(product)}
+                name={product.title}
+                category="more"
+                price={0}
+                city=""
+                country=""
+                expanded={false}
+                isFavorite={false}
+                onFavoriteClick={() => {}}
+                onOpenAuthModal={onOpenAuthModal}
               />
             ) : (
               <ProductCard
@@ -78,6 +78,7 @@ const ProductContent = ({ products }) => {
                 badges={product.badges}
                 isFavorite={isFavorite(product.id)}
                 onFavoriteClick={() => handleToggleFavorite(product)}
+                onOpenAuthModal={onOpenAuthModal}
               />
             )}
           </SwiperSlide>
@@ -85,6 +86,36 @@ const ProductContent = ({ products }) => {
       </Swiper>
     </div>
   );
+};
+
+ProductContent.propTypes = {
+  products: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        image: PropTypes.string.isRequired,
+        category: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        oldPrice: PropTypes.number,
+        city: PropTypes.string.isRequired,
+        country: PropTypes.string.isRequired,
+        badges: PropTypes.arrayOf(
+          PropTypes.shape({
+            type: PropTypes.string.isRequired,
+            text: PropTypes.string.isRequired,
+          })
+        ),
+      }),
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        isMoreProducts: PropTypes.bool.isRequired,
+        title: PropTypes.string.isRequired,
+        text: PropTypes.string.isRequired,
+      }),
+    ])
+  ).isRequired,
+  onOpenAuthModal: PropTypes.func.isRequired,
 };
 
 export default memo(ProductContent);

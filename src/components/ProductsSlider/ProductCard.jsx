@@ -7,7 +7,7 @@ import styles from "./ProductsSlider.module.css";
 import commonStyles from "../../styles/common.module.css";
 import countries from "../../redux/language/dictionaries/countries.json";
 import { useSelector } from "react-redux";
-import { useAuthModal } from "../../hooks/useAuthModal";
+import { useAuthModal } from "../../redux/hooks/useAuthModal";
 import AuthModal from "../AuthModal/AuthModal";
 
 const ProductCard = ({
@@ -23,6 +23,7 @@ const ProductCard = ({
   badges = [],
   isFavorite,
   onFavoriteClick,
+  onOpenAuthModal,
 }) => {
   const { t } = useTranslatedContent();
   const navigate = useNavigate();
@@ -30,8 +31,11 @@ const ProductCard = ({
     (state) => state.language.currentLanguage
   );
   const productType = useSelector((state) => state.productType.productType);
-  const { isAuthModalOpen, closeAuthModal, handleFavoriteClick } =
-    useAuthModal();
+  const {
+    isAuthModalOpen,
+    closeAuthModal,
+    handleFavoriteClick: handleAuthFavoriteClick,
+  } = useAuthModal();
 
   // Вычисляем процент скидки если есть старая цена
   const discount = oldPrice
@@ -98,7 +102,9 @@ const ProductCard = ({
         <img src={image} alt={name} className={styles.productImage} />
         <button
           className={styles.favoriteButton}
-          onClick={(e) => handleFavoriteClick(e, id, onFavoriteClick)}
+          onClick={(e) =>
+            handleAuthFavoriteClick(e, id, onFavoriteClick, onOpenAuthModal)
+          }
           aria-label={
             isFavorite
               ? t("common.removeFromFavorites")
@@ -199,6 +205,7 @@ ProductCard.propTypes = {
   ),
   isFavorite: PropTypes.bool.isRequired,
   onFavoriteClick: PropTypes.func.isRequired,
+  onOpenAuthModal: PropTypes.func.isRequired,
 };
 
 export default ProductCard;

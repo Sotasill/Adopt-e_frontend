@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
 import { MdLocationOn } from "react-icons/md";
-import { FaShoppingCart, FaHeart, FaRegHeart } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import { useTranslatedContent } from "../../redux/hooks/useTranslatedContent";
 import { useNavigate } from "react-router-dom";
-import styles from "./ProductStringCard.module.css";
+import styles from "./ProductsSlider.module.css";
 import commonStyles from "../../styles/common.module.css";
-import { useAuthModal } from "../../hooks/useAuthModal";
-import AuthModal from "../AuthModal/AuthModal";
+import { useAuthModal } from "../../redux/hooks/useAuthModal";
 
 const ProductStringCard = ({
   id,
@@ -23,25 +23,40 @@ const ProductStringCard = ({
   onExpand = () => {},
   isFavorite = false,
   onFavoriteClick = () => {},
+  onOpenAuthModal,
 }) => {
   const { t } = useTranslatedContent();
   const navigate = useNavigate();
   const productType = useSelector((state) => state.productType.productType);
-  const { isAuthModalOpen, closeAuthModal, handleFavoriteClick } =
-    useAuthModal();
+  const { handleFavoriteClick: handleAuthFavoriteClick } = useAuthModal();
 
-  const getButtonText = () => {
-    switch (productType) {
-      case "products":
-        return t("products.viewDetails");
-      case "services":
-        return t("services.viewDetails");
-      case "veterinary":
-        return t("veterinary.viewDetails");
-      default:
-        return t("products.viewDetails");
-    }
+  const handleMoreClick = () => {
+    navigate(`/${productType}`);
   };
+
+  // Специальный рендер для карточки "Показать больше"
+  if (category === "more") {
+    return (
+      <div className={styles.moreProductsCard}>
+        <div className={styles.morePetsContent}>
+          <div className={styles.morePetsIcon}>
+            <FaShoppingCart size={32} />
+          </div>
+          <h3 className={styles.morePetsTitle}>{name}</h3>
+          <p className={styles.morePetsText}>
+            {t(`${productType}.viewMoreText`)}
+          </p>
+          <button
+            className={styles.morePetsButton}
+            onClick={handleMoreClick}
+            aria-label={t(`${productType}.viewMore`)}
+          >
+            <FaArrowRight size={24} />
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.card}>
@@ -50,7 +65,9 @@ const ProductStringCard = ({
           <img src={image} alt={name} className={styles.media} />
           <button
             className={styles.favoriteButton}
-            onClick={(e) => handleFavoriteClick(e, id, onFavoriteClick)}
+            onClick={(e) =>
+              handleAuthFavoriteClick(e, id, onFavoriteClick, onOpenAuthModal)
+            }
             aria-label={
               isFavorite
                 ? t("common.removeFromFavorites")
@@ -104,19 +121,17 @@ const ProductStringCard = ({
               onClick={() => onExpand(id)}
             >
               <FaShoppingCart className={styles.cartIcon} />
-              {getButtonText()}
+              {t(`${productType}.viewDetails`)}
             </button>
           </div>
         </div>
       </div>
-
-      <AuthModal isOpen={isAuthModalOpen} onClose={closeAuthModal} />
     </div>
   );
 };
 
 ProductStringCard.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   name: PropTypes.string,
   image: PropTypes.string,
   category: PropTypes.string,
@@ -134,6 +149,7 @@ ProductStringCard.propTypes = {
   onExpand: PropTypes.func,
   isFavorite: PropTypes.bool,
   onFavoriteClick: PropTypes.func,
+  onOpenAuthModal: PropTypes.func.isRequired,
 };
 
 export default ProductStringCard;
