@@ -2,6 +2,7 @@ import { FaFacebookF, FaInstagram, FaYoutube, FaTwitter } from "react-icons/fa";
 import { LinearProgress, Tooltip } from "@mui/material";
 import { IoIosArrowForward } from "react-icons/io";
 import { useTranslatedContent } from "../../redux/hooks/useTranslatedContent";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import styles from "./KennelsSlider.module.css";
 
@@ -19,6 +20,13 @@ const COUNTRY_CODES = {
 
 const KennelCard = ({ kennel }) => {
   const { t } = useTranslatedContent();
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    if (!kennel.isMoreKennels) {
+      navigate(`/breeder/${kennel.id}`);
+    }
+  };
 
   if (kennel.isMoreKennels) {
     return (
@@ -37,7 +45,7 @@ const KennelCard = ({ kennel }) => {
   const countryCode = COUNTRY_CODES[kennel.countryKey];
 
   return (
-    <div className={styles.kennelCard}>
+    <div className={styles.kennelCard} onClick={handleCardClick}>
       <img src={kennel.logo} alt={kennel.name} className={styles.kennelLogo} />
       <div className={styles.kennelInfo}>
         <div className={styles.kennelNameBreed}>

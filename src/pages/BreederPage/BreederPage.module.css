@@ -1,0 +1,241 @@
+.breederPage {
+  padding: 2rem 0;
+}
+
+.breederProfile {
+  background: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  height: 100%;
+}
+
+.breederLogo {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 4px solid #fff;
+}
+
+.breederName {
+  margin-bottom: 0.5rem !important;
+  color: #333;
+  font-weight: 600 !important;
+}
+
+.breederBreed {
+  color: #666;
+  margin-bottom: 0.5rem !important;
+}
+
+.experience {
+  color: #666;
+  font-style: italic;
+  margin-bottom: 1rem !important;
+}
+
+.ratingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0;
+  gap: 0.5rem;
+  padding: 0 1rem;
+}
+
+.ratingProgress {
+  flex: 1;
+  height: 8px !important;
+  border-radius: 4px;
+}
+
+.ratingProgress > * {
+  background-color: #ffd700 !important;
+}
+
+.ratingValue {
+  min-width: 30px;
+  text-align: right;
+  font-weight: bold;
+  color: #666;
+}
+
+.socialIcons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.socialIcon {
+  font-size: 1.5rem;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.socialIcon:hover {
+  color: #1976d2;
+  transform: scale(1.1);
+}
+
+.breederInfo {
+  background: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+.breederInfo h6 {
+  color: #333;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.breederInfo h6::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background-color: #1976d2;
+}
+
+.breederInfo p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.breederInfo strong {
+  color: #333;
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.gallery {
+  margin-top: 1rem;
+}
+
+.galleryImage {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.galleryImage:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.achievements {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.achievements li {
+  background: #f8f9fa;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+  color: #333;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border-left: 4px solid #1976d2;
+}
+
+.achievements li:hover {
+  transform: translateX(5px);
+  background: #f0f2f5;
+}
+
+.services,
+.team,
+.facilities {
+  background: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+}
+
+.servicesList,
+.facilitiesList {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.servicesList li,
+.facilitiesList li {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 4px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.servicesList li::before,
+.facilitiesList li::before {
+  content: "✓";
+  margin-right: 0.5rem;
+  color: #1976d2;
+  font-weight: bold;
+}
+
+.servicesList li:hover,
+.facilitiesList li:hover {
+  background: #f0f2f5;
+  transform: translateY(-2px);
+}
+
+.teamMember {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.teamMember:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.teamMember h6 {
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 960px) {
+  .breederProfile,
+  .breederInfo,
+  .services,
+  .team,
+  .facilities {
+    margin-bottom: 2rem;
+  }
+
+  .servicesList,
+  .facilitiesList {
+    grid-template-columns: 1fr;
+  }
+}

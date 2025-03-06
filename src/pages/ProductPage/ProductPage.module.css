@@ -1,0 +1,263 @@
+.productPage {
+  padding: 2rem 0;
+}
+
+/* Галерея */
+.mainGallery {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mainImage {
+  width: 100%;
+  height: 400px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  background: #f8f9fa;
+}
+
+.thumbnails {
+  margin-top: 1rem;
+}
+
+.thumbnail {
+  width: 100%;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.7;
+  border: 2px solid transparent;
+}
+
+.thumbnail:hover {
+  opacity: 1;
+}
+
+.thumbnail.selected {
+  opacity: 1;
+  border-color: #1976d2;
+}
+
+/* Информация о товаре */
+.productInfo {
+  background: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.productName {
+  margin-bottom: 1rem !important;
+  color: #333;
+  font-weight: 600 !important;
+}
+
+.badges {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.badge {
+  border-radius: 16px !important;
+}
+
+.badge.top {
+  background-color: #ffd700 !important;
+  color: #333 !important;
+}
+
+.badge.sale {
+  background-color: #ff4444 !important;
+  color: white !important;
+}
+
+.ratingSection {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.priceSection {
+  margin: 1.5rem 0;
+}
+
+.oldPrice {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.price {
+  color: #1976d2;
+  font-weight: 600 !important;
+}
+
+.stockInfo {
+  margin-bottom: 1.5rem;
+}
+
+.quantitySection {
+  margin-bottom: 1.5rem;
+}
+
+.actionButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.addToCartButton {
+  background-color: #1976d2 !important;
+  color: white !important;
+  padding: 1rem !important;
+}
+
+.favoriteButton {
+  border-color: #1976d2 !important;
+  color: #1976d2 !important;
+  padding: 1rem !important;
+}
+
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #eee;
+}
+
+.benefitItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #666;
+}
+
+.benefitItem svg {
+  color: #1976d2;
+  font-size: 1.5rem;
+}
+
+/* Секции */
+.section {
+  background: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+}
+
+.sectionTitle {
+  color: #333;
+  margin-bottom: 1.5rem !important;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.sectionTitle::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background-color: #1976d2;
+}
+
+/* Характеристики */
+.specifications {
+  display: grid;
+  gap: 1rem;
+}
+
+.specificationItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 4px;
+}
+
+.specKey {
+  color: #666;
+  font-weight: 500;
+}
+
+.specValue {
+  color: #333;
+}
+
+/* Списки */
+.featuresList,
+.ingredientsList,
+.benefitsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.featuresList li,
+.ingredientsList li,
+.benefitsList li {
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border-radius: 4px;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.featuresList li:hover,
+.ingredientsList li:hover,
+.benefitsList li:hover {
+  transform: translateX(5px);
+  background: #f0f2f5;
+}
+
+/* Отзывы */
+.reviews {
+  display: grid;
+  gap: 2rem;
+}
+
+.review {
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.reviewHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.reviewDetails {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+@media (max-width: 960px) {
+  .mainImage {
+    height: 300px;
+  }
+
+  .benefits {
+    grid-template-columns: 1fr;
+  }
+
+  .specifications {
+    grid-template-columns: 1fr;
+  }
+}

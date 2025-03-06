@@ -22,6 +22,9 @@ import ProductsPage from "../../pages/ProductsPage/ProductsPage";
 import PetsListPage from "../../pages/PetsListPage/PetsListPageDirectory";
 import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
 import MainSpecialist from "../../pages/MainSpecialist/MainSpecialist.jsx";
+import BreederPage from "../../pages/BreederPage/BreederPage";
+import PetPage from "../../pages/PetPage/PetPage";
+import ProductPage from "../../pages/ProductPage/ProductPage";
 import styles from "./App.module.css";
 
 const PublicRoute = ({ children }) => {
@@ -241,6 +244,45 @@ const App = () => {
               <main className={styles.main}>
                 <PublicRoute>
                   <ProductsPage type="services" />
+                </PublicRoute>
+                <Toaster position="top-right" richColors />
+              </main>
+            </Layout>
+          }
+        />
+        <Route
+          path="/breeder/:id"
+          element={
+            <Layout className={styles.root}>
+              <main className={styles.main}>
+                <PublicRoute>
+                  <BreederPage />
+                </PublicRoute>
+                <Toaster position="top-right" richColors />
+              </main>
+            </Layout>
+          }
+        />
+        <Route
+          path="/pets/:type/:id"
+          element={
+            <Layout className={styles.root}>
+              <main className={styles.main}>
+                <PublicRoute>
+                  <PetPage />
+                </PublicRoute>
+                <Toaster position="top-right" richColors />
+              </main>
+            </Layout>
+          }
+        />
+        <Route
+          path="/products/:type/:id"
+          element={
+            <Layout className={styles.root}>
+              <main className={styles.main}>
+                <PublicRoute>
+                  <ProductPage />
                 </PublicRoute>
                 <Toaster position="top-right" richColors />
               </main>

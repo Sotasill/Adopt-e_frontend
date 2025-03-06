@@ -79,6 +79,10 @@ const ProductCard = ({
 
   const countryInfo = getCountryInfo(country);
 
+  const handleCardClick = () => {
+    navigate(`/products/${productType}/${id}`);
+  };
+
   const handleClick = (e) => {
     e.preventDefault();
     handleAuthFavoriteClick(
@@ -105,14 +109,15 @@ const ProductCard = ({
   };
 
   return (
-    <div className={styles.productCard}>
+    <div className={styles.productCard} onClick={handleCardClick}>
       <div className={styles.imageContainer}>
         <img src={image} alt={name} className={styles.productImage} />
         <button
           className={styles.favoriteButton}
-          onClick={(e) =>
-            handleAuthFavoriteClick(e, id, onFavoriteClick, onOpenAuthModal)
-          }
+          onClick={(e) => {
+            e.stopPropagation(); // Предотвращаем всплытие события
+            handleAuthFavoriteClick(e, id, onFavoriteClick, onOpenAuthModal);
+          }}
           aria-label={
             isFavorite
               ? t("common.removeFromFavorites")
@@ -184,7 +189,10 @@ const ProductCard = ({
         </div>
         <button
           className={`${commonStyles.findBreederButton} ${commonStyles.small}`}
-          onClick={handleClick}
+          onClick={(e) => {
+            e.stopPropagation(); // Предотвращаем всплытие события
+            handleClick(e);
+          }}
         >
           <FaShoppingCart className={styles.cartIcon} />
           {getButtonText()}

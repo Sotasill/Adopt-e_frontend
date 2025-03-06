@@ -103,15 +103,25 @@ const PetCard = ({ pet, isFavorite, onFavoriteClick, onOpenAuthModal }) => {
     })),
   ];
 
+  const handleCardClick = () => {
+    navigate(`/pets/${pet.type}/${pet.id}`);
+  };
+
   return (
-    <div className={styles.petCard}>
+    <div className={styles.petCard} onClick={handleCardClick}>
       <div className={styles.imageContainer}>
         <img src={pet.image} alt={pet.name} className={styles.petImage} />
         <button
           className={styles.favoriteButton}
-          onClick={(e) =>
-            handleAuthFavoriteClick(e, pet.id, onFavoriteClick, onOpenAuthModal)
-          }
+          onClick={(e) => {
+            e.stopPropagation(); // Предотвращаем всплытие события
+            handleAuthFavoriteClick(
+              e,
+              pet.id,
+              onFavoriteClick,
+              onOpenAuthModal
+            );
+          }}
           aria-label={
             isFavorite
               ? t("common.removeFromFavorites")
@@ -194,7 +204,10 @@ const PetCard = ({ pet, isFavorite, onFavoriteClick, onOpenAuthModal }) => {
         </div>
         <button
           className={`${commonStyles.findBreederButton} ${commonStyles.small}`}
-          onClick={handleBreederClick}
+          onClick={(e) => {
+            e.stopPropagation(); // Предотвращаем всплытие события
+            handleBreederClick(e);
+          }}
         >
           <FaUser className={styles.breederIcon} />
           {t("pets.viewBreeder")}
