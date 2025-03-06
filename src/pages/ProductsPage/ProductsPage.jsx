@@ -11,6 +11,8 @@ import ControlPanelProducts from "../../components/ControlPanel/ControlPanelProd
 import ProductCard from "../../components/ProductsSlider/ProductCard";
 import ProductStringCard from "../../components/ProductsSlider/ProductStringCard";
 import CustomLoader from "../../components/CustomLoader/CustomLoader";
+import AuthModal from "../../components/AuthModal/AuthModal";
+import LoginModal from "../../components/LoginModal/LoginModal";
 import styles from "./ProductsPage.module.css";
 
 const ProductsPage = () => {
@@ -24,10 +26,13 @@ const ProductsPage = () => {
   const [expandedCardId, setExpandedCardId] = useState(null);
   const [searchValue, setSearchValue] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const dispatch = useDispatch();
   const productType = useSelector(selectProductType);
   const { t } = useTranslatedContent();
+  const { handleToggleFavorite, isFavorite } = useFavorites();
 
   // Обработка параметра type из URL
   useEffect(() => {
@@ -329,7 +334,17 @@ const ProductsPage = () => {
     setExpandedCardId(expandedCardId === cardId ? null : cardId);
   };
 
-  const { handleToggleFavorite, isFavorite } = useFavorites();
+  const handleOpenAuthModal = () => {
+    setIsAuthModalOpen(true);
+  };
+
+  const handleCloseAuthModal = () => {
+    setIsAuthModalOpen(false);
+  };
+
+  const handleOpenLoginModal = () => {
+    setIsLoginModalOpen(true);
+  };
 
   return (
     <div className={styles.productsPage}>
@@ -391,6 +406,7 @@ const ProductsPage = () => {
                   onExpand={() => handleCardExpand(item.id)}
                   isFavorite={isFavorite(item.id)}
                   onFavoriteClick={() => handleToggleFavorite(item)}
+                  onOpenAuthModal={handleOpenAuthModal}
                 />
               ) : (
                 <ProductStringCard
@@ -408,12 +424,23 @@ const ProductsPage = () => {
                   onExpand={() => handleCardExpand(item.id)}
                   isFavorite={isFavorite(item.id)}
                   onFavoriteClick={() => handleToggleFavorite(item)}
+                  onOpenAuthModal={handleOpenAuthModal}
                 />
               )
             )}
           </div>
         )}
       </div>
+
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={handleCloseAuthModal}
+        onLoginClick={handleOpenLoginModal}
+      />
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+      />
     </div>
   );
 };

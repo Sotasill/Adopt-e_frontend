@@ -6,8 +6,11 @@ import ControlPanel from "../../components/ControlPanel/ControlPanel";
 import PetCard from "../../components/PetSlider/PetCard";
 import PetStringCard from "../../components/PetSlider/PetStringCard";
 import CustomLoader from "../../components/CustomLoader/CustomLoader";
+import AuthModal from "../../components/AuthModal/AuthModal";
+import LoginModal from "../../components/LoginModal/LoginModal";
 import commonStyles from "../../styles/common.module.css";
 import styles from "./PetsListPageDirectory.module.css";
+import { useFavorites } from "../../redux/hooks/useFavorites";
 
 const PetsListPage = () => {
   const [viewMode, setViewMode] = useState("grid");
@@ -22,10 +25,13 @@ const PetsListPage = () => {
   const [expandedCardId, setExpandedCardId] = useState(null);
   const [searchValue, setSearchValue] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const dispatch = useDispatch();
   const petType = useSelector(selectPetType);
   const { t } = useTranslatedContent();
+  const { handleToggleFavorite, isFavorite } = useFavorites();
 
   useEffect(() => {
     // Имитация загрузки данных
@@ -334,6 +340,18 @@ const PetsListPage = () => {
     setExpandedCardId(expandedCardId === cardId ? null : cardId);
   };
 
+  const handleOpenAuthModal = () => {
+    setIsAuthModalOpen(true);
+  };
+
+  const handleCloseAuthModal = () => {
+    setIsAuthModalOpen(false);
+  };
+
+  const handleOpenLoginModal = () => {
+    setIsLoginModalOpen(true);
+  };
+
   return (
     <div className={styles.petsListPage}>
       <div className={styles.header}>
@@ -381,21 +399,33 @@ const PetsListPage = () => {
                 <PetCard
                   key={pet.id}
                   pet={pet}
-                  expanded={expandedCardId === pet.id}
-                  onExpand={() => handleCardExpand(pet.id)}
+                  isFavorite={isFavorite(pet.id)}
+                  onFavoriteClick={() => handleToggleFavorite(pet)}
+                  onOpenAuthModal={handleOpenAuthModal}
                 />
               ) : (
                 <PetStringCard
                   key={pet.id}
                   pet={pet}
-                  expanded={expandedCardId === pet.id}
-                  onExpand={() => handleCardExpand(pet.id)}
+                  isFavorite={isFavorite(pet.id)}
+                  onFavoriteClick={() => handleToggleFavorite(pet)}
+                  onOpenAuthModal={handleOpenAuthModal}
                 />
               )
             )}
           </div>
         )}
       </div>
+
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={handleCloseAuthModal}
+        onLoginClick={handleOpenLoginModal}
+      />
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+      />
     </div>
   );
 };

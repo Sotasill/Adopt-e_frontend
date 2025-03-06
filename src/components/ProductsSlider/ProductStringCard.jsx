@@ -34,6 +34,18 @@ const ProductStringCard = ({
     navigate(`/${productType}`);
   };
 
+  const handleDetailsClick = (e) => {
+    e.preventDefault();
+    handleAuthFavoriteClick(
+      e,
+      id,
+      () => {
+        onExpand(id);
+      },
+      onOpenAuthModal
+    );
+  };
+
   // Специальный рендер для карточки "Показать больше"
   if (category === "more") {
     return (
@@ -118,7 +130,7 @@ const ProductStringCard = ({
             </div>
             <button
               className={`${commonStyles.findBreederButton} ${commonStyles.small}`}
-              onClick={() => onExpand(id)}
+              onClick={handleDetailsClick}
             >
               <FaShoppingCart className={styles.cartIcon} />
               {t(`${productType}.viewDetails`)}

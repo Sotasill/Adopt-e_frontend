@@ -68,8 +68,16 @@ const PetCard = ({ pet, isFavorite, onFavoriteClick, onOpenAuthModal }) => {
     }
   };
 
-  const handleBreederClick = () => {
-    navigate(`/breeder/${pet.breederId}`);
+  const handleBreederClick = (e) => {
+    e.preventDefault();
+    handleAuthFavoriteClick(
+      e,
+      pet.id,
+      () => {
+        navigate(`/breeders/${pet.breederId}`);
+      },
+      onOpenAuthModal
+    );
   };
 
   const countryInfo = getCountryInfo(pet.country);

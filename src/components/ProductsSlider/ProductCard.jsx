@@ -1,5 +1,5 @@
 import { useTranslatedContent } from "../../redux/hooks/useTranslatedContent";
-import { FaShoppingCart, FaHeart, FaRegHeart } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -79,8 +79,16 @@ const ProductCard = ({
 
   const countryInfo = getCountryInfo(country);
 
-  const handleClick = () => {
-    navigate(`/${productType}/${id}`);
+  const handleClick = (e) => {
+    e.preventDefault();
+    handleAuthFavoriteClick(
+      e,
+      id,
+      () => {
+        navigate(`/${productType}/${id}`);
+      },
+      onOpenAuthModal
+    );
   };
 
   const getButtonText = () => {
