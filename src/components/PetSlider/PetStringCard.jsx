@@ -11,17 +11,20 @@ import dogBreeds from "../../redux/language/dictionaries/dogs.json";
 import countries from "../../redux/language/dictionaries/countries.json";
 import { useSelector } from "react-redux";
 import { useAuthModal } from "../../redux/hooks/useAuthModal";
-import AuthModal from "../AuthModal/AuthModal";
 
-const PetStringCard = ({ pet, isFavorite, onFavoriteClick }) => {
+const PetStringCard = ({
+  pet,
+  isFavorite,
+  onFavoriteClick,
+  onOpenAuthModal,
+}) => {
   const { t } = useTranslatedContent();
   const navigate = useNavigate();
   const currentLanguage = useSelector(
     (state) => state.language.currentLanguage
   );
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const { isAuthModalOpen, closeAuthModal, handleFavoriteClick } =
-    useAuthModal();
+  const { handleFavoriteClick: handleAuthFavoriteClick } = useAuthModal();
 
   const getBreedName = (breedKey, petType) => {
     try {
@@ -72,8 +75,16 @@ const PetStringCard = ({ pet, isFavorite, onFavoriteClick }) => {
     }
   };
 
-  const handleBreederClick = () => {
-    navigate(`/breeder/${pet.breederId}`);
+  const handleBreederClick = (e) => {
+    e.preventDefault();
+    handleAuthFavoriteClick(
+      e,
+      pet.id,
+      () => {
+        navigate(`/breeders/${pet.breederId}`);
+      },
+      onOpenAuthModal
+    );
   };
 
   const countryInfo = getCountryInfo(pet.country);
@@ -90,7 +101,14 @@ const PetStringCard = ({ pet, isFavorite, onFavoriteClick }) => {
           <img src={pet.image} alt={pet.name} className={styles.media} />
           <button
             className={styles.favoriteButton}
-            onClick={(e) => handleFavoriteClick(e, pet.id, onFavoriteClick)}
+            onClick={(e) =>
+              handleAuthFavoriteClick(
+                e,
+                pet.id,
+                onFavoriteClick,
+                onOpenAuthModal
+              )
+            }
             aria-label={
               isFavorite
                 ? t("common.removeFromFavorites")
@@ -158,8 +176,6 @@ const PetStringCard = ({ pet, isFavorite, onFavoriteClick }) => {
           </div>
         </div>
       </div>
-
-      <AuthModal isOpen={isAuthModalOpen} onClose={closeAuthModal} />
     </div>
   );
 };
@@ -187,6 +203,7 @@ PetStringCard.propTypes = {
   }).isRequired,
   isFavorite: PropTypes.bool.isRequired,
   onFavoriteClick: PropTypes.func.isRequired,
+  onOpenAuthModal: PropTypes.func.isRequired,
 };
 
 export default PetStringCard;
