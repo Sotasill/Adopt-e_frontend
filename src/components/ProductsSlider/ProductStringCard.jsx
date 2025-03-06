@@ -5,7 +5,7 @@ import { FaArrowRight } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import { useTranslatedContent } from "../../redux/hooks/useTranslatedContent";
 import { useNavigate } from "react-router-dom";
-import styles from "./ProductsSlider.module.css";
+import styles from "./ProductStringCard.module.css";
 import commonStyles from "../../styles/common.module.css";
 import { useAuthModal } from "../../redux/hooks/useAuthModal";
 
@@ -70,6 +70,11 @@ const ProductStringCard = ({
     );
   }
 
+  // Вычисляем процент скидки если есть старая цена
+  const discount = oldPrice
+    ? Math.round(((oldPrice - price) / oldPrice) * 100)
+    : 0;
+
   return (
     <div className={styles.card}>
       <div className={styles.cardContent}>
@@ -112,7 +117,7 @@ const ProductStringCard = ({
               <span>
                 {city && country
                   ? `${city}, ${country}`
-                  : "Местоположение не указано"}
+                  : t("common.locationNotSpecified")}
               </span>
             </div>
           </div>
@@ -125,6 +130,11 @@ const ProductStringCard = ({
               {oldPrice && (
                 <span className={styles.oldPrice}>
                   {t(`${productType}.price`, { price: oldPrice })}
+                </span>
+              )}
+              {oldPrice && (
+                <span className={styles.priceDiscount}>
+                  {t("common.discount", { percent: discount })}
                 </span>
               )}
             </div>

@@ -68,16 +68,16 @@
 
 .productsList {
   display: grid;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .productsList.grid {
   grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
 }
 
 .productsList.list {
   grid-template-columns: 1fr;
-  gap: 1rem;
 }
 
 /* Стили для CustomLoader */

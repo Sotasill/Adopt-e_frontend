@@ -1,15 +1,15 @@
 .card {
   width: 100%;
   background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
   overflow: hidden;
 }
 
 .card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .cardContent {
@@ -23,26 +23,28 @@
 .mediaContainer {
   position: relative;
   overflow: hidden;
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
 }
 
 .media {
-  width: 120px;
-  height: 120px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  flex-shrink: 0;
   transition: transform 0.3s ease;
   border-radius: 8px 0 0 8px;
 }
 
 .card:hover .media {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .content {
   flex: 1;
   display: flex;
   align-items: center;
-  padding: 12px 16px !important;
+  padding: 12px 16px;
   gap: 24px;
 }
 
@@ -52,23 +54,23 @@
 }
 
 .title {
-  font-family: "Montserrat", sans-serif !important;
-  font-size: 16px !important;
-  font-weight: 700 !important;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
   color: #2c3e50;
-  margin: 0 !important;
+  margin: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.2 !important;
+  line-height: 1.2;
 }
 
 .subtitle {
-  font-family: "Montserrat", sans-serif !important;
-  font-size: 14px !important;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
   color: #666;
-  margin-top: 4px !important;
-  font-weight: 500 !important;
+  margin-top: 4px;
+  font-weight: 500;
 }
 
 .badges {
@@ -103,13 +105,13 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-family: "Montserrat", sans-serif !important;
-  font-size: 14px !important;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
 }
 
 .locationIcon {
-  color: #3d69b9;
-  font-size: 1.25rem;
+  color: #3498db;
+  font-size: 20px;
 }
 
 .priceContainer {
@@ -128,19 +130,19 @@
 }
 
 .price {
-  font-family: "Montserrat", sans-serif !important;
-  font-size: 18px !important;
-  font-weight: 700 !important;
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
   color: #2c3e50;
   white-space: nowrap;
 }
 
 .oldPrice {
-  font-family: "Montserrat", sans-serif !important;
-  font-size: 14px !important;
-  color: #999 !important;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  color: #999;
   text-decoration: line-through;
-  font-weight: 500 !important;
+  font-weight: 500;
 }
 
 .cartIcon {
@@ -203,7 +205,7 @@
 @media (max-width: 960px) {
   .content {
     flex-wrap: wrap;
-    padding: 8px !important;
+    padding: 8px 12px;
     gap: 16px;
   }
 
@@ -227,16 +229,20 @@
     height: auto;
   }
 
-  .media {
+  .mediaContainer {
     width: 100%;
     height: 160px;
-    border-radius: 8px 8px 0 0;
+  }
+
+  .media {
+    border-radius: 12px 12px 0 0;
   }
 
   .content {
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
+    padding: 16px;
   }
 
   .mainInfo,

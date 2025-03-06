@@ -485,6 +485,23 @@ const deuTranslation = {
       apple: "Mit Apple fortfahren",
     },
   },
+
+  // Passwort wiederherstellen
+  forgotPassword: {
+    title: "Passwort wiederherstellen",
+    description:
+      "Geben Sie Ihre registrierte E-Mail-Adresse ein und wir senden Ihnen Anweisungen zum Zurücksetzen des Passworts.",
+    submitButton: "Anweisungen senden",
+    success: {
+      title: "Überprüfen Sie Ihre E-Mail",
+      message:
+        "Wir haben Anweisungen zum Zurücksetzen des Passworts an Ihre E-Mail-Adresse gesendet. Wenn Sie sie nicht sehen, überprüfen Sie bitte Ihren Spam-Ordner.",
+      backToLogin: "Zurück zum Login",
+    },
+    error:
+      "Beim Senden ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.",
+    emailPlaceholder: "Geben Sie Ihre E-Mail ein",
+  },
 };
 
 export default deuTranslation;

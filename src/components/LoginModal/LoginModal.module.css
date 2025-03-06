@@ -646,3 +646,142 @@
 .modal.closing {
   animation: slideOutRight 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
+
+.successMessage {
+  text-align: center;
+  padding: 20px;
+}
+
+.successIcon {
+  font-size: 48px;
+  color: #4caf50;
+  margin-bottom: 20px;
+}
+
+.loadingSpinner {
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.description {
+  color: #666;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+
+.errorMessage {
+  color: #f44336;
+  margin: 10px 0;
+  text-align: center;
+  font-size: 0.9em;
+}
+
+/* Стили для ForgotPasswordModal */
+.forgotPasswordForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.forgotPasswordForm form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.forgotPasswordForm .description {
+  color: #2c3e50;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 15px 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 320px;
+  user-select: text;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.forgotPasswordForm .successMessage {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 15px;
+  max-width: 320px;
+  margin: 0 auto;
+  user-select: text;
+}
+
+.forgotPasswordForm .successMessage h2 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.forgotPasswordForm .successMessage p {
+  color: #2c3e50;
+  line-height: 1.6;
+}
+
+.forgotPasswordForm .formGroup {
+  margin: 0;
+  width: 100%;
+  max-width: 320px;
+}
+
+.forgotPasswordForm h2 {
+  margin: 0;
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  background: linear-gradient(90deg, #2c3e50 0%, #3498db 50%, #2c3e50 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  animation: gradientMove 3s ease infinite;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.forgotPasswordForm h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, #3498db, #2c3e50);
+  border-radius: 1.5px;
+  transition: width 0.3s ease;
+}
+
+.forgotPasswordForm h2:hover::after {
+  width: 120px;
+}

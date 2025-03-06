@@ -469,6 +469,22 @@ const enTranslation = {
       apple: "Continue with Apple",
     },
   },
+
+  // Password Recovery
+  forgotPassword: {
+    title: "Password Recovery",
+    description:
+      "Enter your registered email address and we'll send you password reset instructions.",
+    submitButton: "Send Instructions",
+    success: {
+      title: "Check Your Email",
+      message:
+        "We've sent password reset instructions to your email address. If you don't see it, please check your spam folder.",
+      backToLogin: "Back to Login",
+    },
+    error: "An error occurred while sending. Please try again later.",
+    emailPlaceholder: "Enter your email",
+  },
 };
 
 export default enTranslation;

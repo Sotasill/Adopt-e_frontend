@@ -13,6 +13,7 @@ import {
   FaEyeSlash,
 } from "react-icons/fa";
 import Aurora from "../Aurora/Aurora";
+import ForgotPasswordModal from "./ForgotPasswordModal";
 import styles from "./LoginModal.module.css";
 
 const backdropVariants = {
@@ -87,6 +88,7 @@ const LoginModal = ({
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [auroraKey, setAuroraKey] = useState(0);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
 
   // Обновляем ключ Aurora при изменении типа
   useEffect(() => {
@@ -166,7 +168,7 @@ const LoginModal = ({
 
   const handleForgotPassword = (e) => {
     e.preventDefault();
-    navigate("/forgot-password");
+    setShowForgotPassword(true);
   };
 
   const renderBackButton = () => {
@@ -191,190 +193,204 @@ const LoginModal = ({
   if (!isOpen) return null;
 
   return (
-    <motion.div
-      className={styles.backdrop}
-      variants={backdropVariants}
-      initial="hidden"
-      animate="visible"
-      exit="exit"
-      onClick={onClose}
-    >
-      <motion.div
-        className={styles.modal}
-        variants={modalVariants}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className={styles.auroraContainer}>
-          <Aurora
-            key={`aurora-${auroraKey}`}
-            colorStops={
-              !selectedType
-                ? colorSchemes.default
-                : selectedType === "seller" &&
-                  specialistSubtype === "specialist"
-                ? colorSchemes.specialist
-                : selectedType === "seller" && specialistSubtype === "bcs"
-                ? colorSchemes.bcs
-                : selectedType === "seller"
-                ? colorSchemes.seller
-                : colorSchemes.user
-            }
-            amplitude={0.7}
-            speed={0.5}
+    <>
+      <AnimatePresence>
+        {showForgotPassword ? (
+          <ForgotPasswordModal
+            isOpen={showForgotPassword}
+            onClose={onClose}
+            onBack={() => setShowForgotPassword(false)}
           />
-        </div>
-        <div className={styles.modalInner}>
-          <div className={styles.modalContent}>
-            <button className={styles.closeButton} onClick={onClose}>
-              ×
-            </button>
-            {renderBackButton()}
+        ) : (
+          <motion.div
+            className={styles.backdrop}
+            variants={backdropVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            onClick={onClose}
+          >
+            <motion.div
+              className={styles.modal}
+              variants={modalVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className={styles.auroraContainer}>
+                <Aurora
+                  key={`aurora-${auroraKey}`}
+                  colorStops={
+                    !selectedType
+                      ? colorSchemes.default
+                      : selectedType === "seller" &&
+                        specialistSubtype === "specialist"
+                      ? colorSchemes.specialist
+                      : selectedType === "seller" && specialistSubtype === "bcs"
+                      ? colorSchemes.bcs
+                      : selectedType === "seller"
+                      ? colorSchemes.seller
+                      : colorSchemes.user
+                  }
+                  amplitude={0.7}
+                  speed={0.5}
+                />
+              </div>
+              <div className={styles.modalInner}>
+                <div className={styles.modalContent}>
+                  <button className={styles.closeButton} onClick={onClose}>
+                    ×
+                  </button>
+                  {renderBackButton()}
 
-            <AnimatePresence mode="wait">
-              {!selectedType ? (
-                <motion.div
-                  key="type-selection"
-                  variants={contentVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  className={styles.typeSelection}
-                >
-                  <h2>{t("loginModal.title")}</h2>
-                  <div className={styles.userTypeButtons}>
-                    <UserTypeButton
-                      icon={FaUser}
-                      label={t("loginModal.userTypes.individual.title")}
-                      onClick={() => setSelectedType("user")}
-                    />
-                    <UserTypeButton
-                      icon={FaUserTie}
-                      label={t("loginModal.userTypes.breeder.title")}
-                      onClick={() => setSelectedType("seller")}
-                    />
-                  </div>
-                </motion.div>
-              ) : selectedType === "seller" && !specialistSubtype ? (
-                <motion.div
-                  key="specialist-type-selection"
-                  variants={contentVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  className={styles.typeSelection}
-                >
-                  <h2>{t("loginModal.title")}</h2>
-                  <div className={styles.userTypeButtons}>
-                    <UserTypeButton
-                      icon={FaPaw}
-                      label={t("loginModal.userTypes.breeder.title")}
-                      onClick={() => setSpecialistSubtype("bcs")}
-                    />
-                    <UserTypeButton
-                      icon={FaStethoscope}
-                      label={t("loginModal.userTypes.specialist.title")}
-                      onClick={() => setSpecialistSubtype("specialist")}
-                    />
-                  </div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="login-form"
-                  variants={contentVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  className={styles.loginForm}
-                >
-                  <h2>{t("loginModal.title")}</h2>
-                  <form onSubmit={handleLogin}>
-                    <div className={styles.formGroup}>
-                      <FaEnvelope className={styles.inputIcon} />
-                      <input
-                        type="email"
-                        placeholder={t("loginModal.form.email")}
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                      />
-                    </div>
-                    <div className={styles.formGroup}>
-                      <FaLock className={styles.inputIcon} />
-                      <input
-                        type={showPassword ? "text" : "password"}
-                        placeholder={t("loginModal.form.password")}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                      />
-                      {showPassword ? (
-                        <FaEyeSlash
-                          className={styles.passwordToggleIcon}
-                          onClick={() => setShowPassword(false)}
-                        />
-                      ) : (
-                        <FaEye
-                          className={styles.passwordToggleIcon}
-                          onClick={() => setShowPassword(true)}
-                        />
-                      )}
-                    </div>
-                    <button type="submit" className={styles.loginButton}>
-                      {t("loginModal.form.loginButton")}
-                    </button>
-                    {selectedType === "user" && (
-                      <>
-                        <div className={styles.divider}>
-                          <span>{t("loginModal.form.orContinueWith")}</span>
-                        </div>
-                        <div className={styles.socialButtons}>
-                          <SocialButton
-                            icon="/icons/google.svg"
-                            label={t("loginModal.social.google")}
-                            onClick={() => handleSocialLogin("google")}
+                  <AnimatePresence mode="wait">
+                    {!selectedType ? (
+                      <motion.div
+                        key="type-selection"
+                        variants={contentVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        className={styles.typeSelection}
+                      >
+                        <h2>{t("loginModal.title")}</h2>
+                        <div className={styles.userTypeButtons}>
+                          <UserTypeButton
+                            icon={FaUser}
+                            label={t("loginModal.userTypes.individual.title")}
+                            onClick={() => setSelectedType("user")}
                           />
-                          <SocialButton
-                            icon="/icons/facebook.svg"
-                            label={t("loginModal.social.facebook")}
-                            onClick={() => handleSocialLogin("facebook")}
-                          />
-                          <SocialButton
-                            icon="/icons/apple.svg"
-                            label={t("loginModal.social.apple")}
-                            onClick={() => handleSocialLogin("apple")}
+                          <UserTypeButton
+                            icon={FaUserTie}
+                            label={t("loginModal.userTypes.breeder.title")}
+                            onClick={() => setSelectedType("seller")}
                           />
                         </div>
-                      </>
+                      </motion.div>
+                    ) : selectedType === "seller" && !specialistSubtype ? (
+                      <motion.div
+                        key="specialist-type-selection"
+                        variants={contentVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        className={styles.typeSelection}
+                      >
+                        <h2>{t("loginModal.title")}</h2>
+                        <div className={styles.userTypeButtons}>
+                          <UserTypeButton
+                            icon={FaPaw}
+                            label={t("loginModal.userTypes.breeder.title")}
+                            onClick={() => setSpecialistSubtype("bcs")}
+                          />
+                          <UserTypeButton
+                            icon={FaStethoscope}
+                            label={t("loginModal.userTypes.specialist.title")}
+                            onClick={() => setSpecialistSubtype("specialist")}
+                          />
+                        </div>
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="login-form"
+                        variants={contentVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        className={styles.loginForm}
+                      >
+                        <h2>{t("loginModal.title")}</h2>
+                        <form onSubmit={handleLogin}>
+                          <div className={styles.formGroup}>
+                            <FaEnvelope className={styles.inputIcon} />
+                            <input
+                              type="email"
+                              placeholder={t("loginModal.form.email")}
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
+                              required
+                            />
+                          </div>
+                          <div className={styles.formGroup}>
+                            <FaLock className={styles.inputIcon} />
+                            <input
+                              type={showPassword ? "text" : "password"}
+                              placeholder={t("loginModal.form.password")}
+                              value={password}
+                              onChange={(e) => setPassword(e.target.value)}
+                              required
+                            />
+                            {showPassword ? (
+                              <FaEyeSlash
+                                className={styles.passwordToggleIcon}
+                                onClick={() => setShowPassword(false)}
+                              />
+                            ) : (
+                              <FaEye
+                                className={styles.passwordToggleIcon}
+                                onClick={() => setShowPassword(true)}
+                              />
+                            )}
+                          </div>
+                          <button type="submit" className={styles.loginButton}>
+                            {t("loginModal.form.loginButton")}
+                          </button>
+                          {selectedType === "user" && (
+                            <>
+                              <div className={styles.divider}>
+                                <span>
+                                  {t("loginModal.form.orContinueWith")}
+                                </span>
+                              </div>
+                              <div className={styles.socialButtons}>
+                                <SocialButton
+                                  icon="/icons/google.svg"
+                                  label={t("loginModal.social.google")}
+                                  onClick={() => handleSocialLogin("google")}
+                                />
+                                <SocialButton
+                                  icon="/icons/facebook.svg"
+                                  label={t("loginModal.social.facebook")}
+                                  onClick={() => handleSocialLogin("facebook")}
+                                />
+                                <SocialButton
+                                  icon="/icons/apple.svg"
+                                  label={t("loginModal.social.apple")}
+                                  onClick={() => handleSocialLogin("apple")}
+                                />
+                              </div>
+                            </>
+                          )}
+                          <button
+                            type="button"
+                            className={styles.forgotPasswordButton}
+                            onClick={handleForgotPassword}
+                          >
+                            {t("loginModal.form.forgotPassword")}
+                          </button>
+                          {selectedType === "seller" && (
+                            <p className={styles.sellerNote}>
+                              {t("loginModal.form.sellerNote")}{" "}
+                              <a
+                                href="mailto:support@example.com"
+                                className={styles.supportLink}
+                              >
+                                {t("loginModal.form.supportLink")}
+                              </a>
+                            </p>
+                          )}
+                        </form>
+                      </motion.div>
                     )}
-                    <button
-                      type="button"
-                      className={styles.forgotPasswordButton}
-                      onClick={handleForgotPassword}
-                    >
-                      {t("loginModal.form.forgotPassword")}
-                    </button>
-                    {selectedType === "seller" && (
-                      <p className={styles.sellerNote}>
-                        {t("loginModal.form.sellerNote")}{" "}
-                        <a
-                          href="mailto:support@example.com"
-                          className={styles.supportLink}
-                        >
-                          {t("loginModal.form.supportLink")}
-                        </a>
-                      </p>
-                    )}
-                  </form>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </div>
-      </motion.div>
-    </motion.div>
+                  </AnimatePresence>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

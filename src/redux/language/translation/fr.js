@@ -493,6 +493,23 @@ const frTranslation = {
       apple: "Continuer avec Apple",
     },
   },
+
+  // Récupération du mot de passe
+  forgotPassword: {
+    title: "Récupération du mot de passe",
+    description:
+      "Entrez votre adresse e-mail enregistrée et nous vous enverrons les instructions de réinitialisation.",
+    submitButton: "Envoyer les instructions",
+    success: {
+      title: "Vérifiez votre e-mail",
+      message:
+        "Nous avons envoyé les instructions de réinitialisation à votre adresse e-mail. Si vous ne le voyez pas, veuillez vérifier votre dossier spam.",
+      backToLogin: "Retour à la connexion",
+    },
+    error:
+      "Une erreur s'est produite lors de l'envoi. Veuillez réessayer plus tard.",
+    emailPlaceholder: "Entrez votre e-mail",
+  },
 };
 
 export default frTranslation;
