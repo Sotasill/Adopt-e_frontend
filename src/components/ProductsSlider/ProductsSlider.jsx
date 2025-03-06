@@ -10,6 +10,7 @@ import ProductContent from "./ProductContent";
 import ViewControlsProducts from "../ViewControlsProducts/ViewControls";
 import CustomLoader from "../CustomLoader/CustomLoader";
 import AuthModal from "../AuthModal/AuthModal";
+import LoginModal from "../LoginModal/LoginModal";
 import styles from "./ProductsSlider.module.css";
 
 // Моковые данные
@@ -208,6 +209,7 @@ const ProductsSlider = () => {
   const [sortOrder, setSortOrder] = useState("asc");
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   useEffect(() => {
     // Имитация загрузки данных
@@ -267,6 +269,10 @@ const ProductsSlider = () => {
     setIsAuthModalOpen(false);
   };
 
+  const handleOpenLoginModal = () => {
+    setIsLoginModalOpen(true);
+  };
+
   return (
     <section id="products-slider" className={styles.productsSection}>
       <div className={styles.productsSectionHeader}>
@@ -295,7 +301,15 @@ const ProductsSlider = () => {
           onOpenAuthModal={handleOpenAuthModal}
         />
       )}
-      <AuthModal isOpen={isAuthModalOpen} onClose={handleCloseAuthModal} />
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={handleCloseAuthModal}
+        onLoginClick={handleOpenLoginModal}
+      />
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+      />
     </section>
   );
 };

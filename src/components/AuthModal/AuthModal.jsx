@@ -1,25 +1,51 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { useTranslatedContent } from "../../redux/hooks/useTranslatedContent";
 import styles from "./AuthModal.module.css";
-import { FaHeart, FaUser, FaTimes } from "react-icons/fa";
+import {
+  FaHeart,
+  FaUser,
+  FaTimes,
+  FaSignInAlt,
+  FaUserPlus,
+} from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-const AuthModal = ({ isOpen, onClose }) => {
+const AuthModal = ({ isOpen, onClose, onLoginClick }) => {
   const { t } = useTranslatedContent();
   const modalRef = useRef(null);
+  const [isClosing, setIsClosing] = useState(false);
+  const [isClosingToLogin, setIsClosingToLogin] = useState(false);
+
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsClosing(false);
+      onClose();
+    }, 300);
+  };
+
+  const handleLoginClick = () => {
+    setIsClosingToLogin(true);
+    setTimeout(() => {
+      setIsClosingToLogin(false);
+      onClose();
+      onLoginClick();
+    }, 400);
+  };
 
   useEffect(() => {
     if (!isOpen) return;
 
     const handleEsc = (e) => {
       if (e.key === "Escape") {
-        onClose();
+        handleClose();
       }
     };
 
     const handleClickOutside = (e) => {
       if (modalRef.current && !modalRef.current.contains(e.target)) {
-        onClose();
+        handleClose();
       }
     };
 
@@ -37,9 +63,18 @@ const AuthModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className={styles.modalOverlay}>
-      <div className={styles.modalContent} ref={modalRef}>
-        <button className={styles.closeButton} onClick={onClose}>
+    <div
+      className={`${styles.modalOverlay} ${isClosing ? styles.closing : ""} ${
+        isClosingToLogin ? styles.closingToLogin : ""
+      }`}
+    >
+      <div
+        className={`${styles.modalContent} ${isClosing ? styles.closing : ""} ${
+          isClosingToLogin ? styles.closingToLogin : ""
+        }`}
+        ref={modalRef}
+      >
+        <button className={styles.closeButton} onClick={handleClose}>
           <FaTimes />
         </button>
 
@@ -57,6 +92,30 @@ const AuthModal = ({ isOpen, onClose }) => {
               <span>{t("auth.benefits.personalAccount")}</span>
             </div>
           </div>
+
+          <div className={styles.authButtons}>
+            <Link
+              to="/register"
+              className={styles.authButton}
+              onClick={handleClose}
+              title={t("auth.register")}
+            >
+              <div className={styles.buttonIcon}>
+                <FaUserPlus size={24} />
+              </div>
+              <span className={styles.buttonLabel}>{t("auth.register")}</span>
+            </Link>
+            <button
+              className={styles.authButton}
+              onClick={handleLoginClick}
+              title={t("auth.login")}
+            >
+              <div className={styles.buttonIcon}>
+                <FaSignInAlt size={24} />
+              </div>
+              <span className={styles.buttonLabel}>{t("auth.login")}</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -66,6 +125,7 @@ const AuthModal = ({ isOpen, onClose }) => {
 AuthModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  onLoginClick: PropTypes.func.isRequired,
 };
 
 export default AuthModal;

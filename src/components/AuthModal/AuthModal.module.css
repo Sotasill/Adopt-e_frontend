@@ -9,7 +9,13 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  animation: fadeIn 0.3s ease;
+  animation: fadeIn 0.3s ease forwards;
+  backdrop-filter: blur(0);
+  -webkit-backdrop-filter: blur(0);
+}
+
+.modalOverlay.closing {
+  animation: fadeOut 0.3s ease forwards;
 }
 
 .modalContent {
@@ -20,8 +26,29 @@
   padding: 20px;
   position: relative;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  animation: slideIn 0.3s ease;
+  animation: slideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   outline: none;
+  transform: translateY(-40px);
+  opacity: 0;
+  perspective: 1000px;
+  transform-origin: center center;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 2;
+}
+
+.modalContent.closing {
+  animation: slideOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.modalContent.closingToLogin {
+  animation: slideOutLeft 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.modalOverlay.closingToLogin {
+  animation: none;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .closeButton {
@@ -141,19 +168,71 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
+    backdrop-filter: blur(0);
   }
   to {
     opacity: 1;
+    backdrop-filter: blur(8px);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    backdrop-filter: blur(8px);
+  }
+  to {
+    opacity: 0;
+    backdrop-filter: blur(0);
   }
 }
 
 @keyframes slideIn {
   from {
-    transform: translateY(-20px);
+    transform: translateY(-40px) scale(0.95);
     opacity: 0;
   }
   to {
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(40px) scale(0.95);
+    opacity: 0;
+  }
+}
+
+@keyframes slideOutLeft {
+  0% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+    z-index: 2;
+  }
+  100% {
+    transform: translateX(-30px) scale(0.95);
+    opacity: 0;
+    z-index: 1;
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(100%) rotate(15deg) scale(0.9);
+    opacity: 0;
+  }
+  80% {
+    transform: translateX(20%) rotate(5deg) scale(0.95);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(0) rotate(0) scale(1);
     opacity: 1;
   }
 }
@@ -172,4 +251,105 @@
     font-size: 0.8rem !important;
     padding: 0.35rem 0.7rem !important;
   }
+}
+
+.authButtons {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: buttonsAppear 0.5s ease forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes buttonsAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.authButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0;
+  width: auto;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.buttonIcon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(90deg, #2c3e50 0%, #3498db 50%, #2c3e50 100%);
+  background-size: 200% auto;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #fff;
+  font-size: 24px;
+}
+
+.buttonLabel {
+  font-size: 1rem;
+  color: #2c3e50;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.authButton:hover .buttonIcon {
+  background-position: 100% center;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.authButton:hover .buttonLabel {
+  color: #3498db;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для всплывающих подсказок */
+.authButton::after {
+  content: attr(title);
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.authButton:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) scale(1);
+  top: -35px;
 }

@@ -24,6 +24,11 @@
   position: relative;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
+  animation: slideInRight 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  perspective: 1000px;
+  transform-origin: center center;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 1;
 }
 
 .auroraContainer {
@@ -610,4 +615,34 @@
     transform: scale(4);
     opacity: 0.5;
   }
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(30px) scale(0.95);
+    opacity: 0;
+    z-index: 1;
+  }
+  100% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+    z-index: 2;
+  }
+}
+
+@keyframes slideOutRight {
+  0% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+    z-index: 2;
+  }
+  100% {
+    transform: translateX(30px) scale(0.95);
+    opacity: 0;
+    z-index: 1;
+  }
+}
+
+.modal.closing {
+  animation: slideOutRight 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }

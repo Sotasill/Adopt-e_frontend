@@ -11,6 +11,7 @@ import PetContent from "./PetContent";
 import ViewControls from "../ViewControls/ViewControls";
 import CustomLoader from "../CustomLoader/CustomLoader";
 import AuthModal from "../AuthModal/AuthModal";
+import LoginModal from "../LoginModal/LoginModal";
 import styles from "./PetSlider.module.css";
 
 const PetSlider = () => {
@@ -22,6 +23,7 @@ const PetSlider = () => {
   const [sortOrder, setSortOrder] = useState("asc");
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   // Моковые данные для питомцев
   const MOCK_PETS = {
@@ -247,6 +249,10 @@ const PetSlider = () => {
     setIsAuthModalOpen(false);
   };
 
+  const handleOpenLoginModal = () => {
+    setIsLoginModalOpen(true);
+  };
+
   return (
     <section id="pet-slider" className={styles.petsSection}>
       <div className={styles.petsSectionHeader}>
@@ -272,7 +278,15 @@ const PetSlider = () => {
           onOpenAuthModal={handleOpenAuthModal}
         />
       )}
-      <AuthModal isOpen={isAuthModalOpen} onClose={handleCloseAuthModal} />
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={handleCloseAuthModal}
+        onLoginClick={handleOpenLoginModal}
+      />
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+      />
     </section>
   );
 };
