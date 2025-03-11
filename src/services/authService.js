@@ -14,7 +14,7 @@ export const authService = {
   // Валидация полей
   validateFields: {
     username: (username) => {
-      const regex = /^[A-Z][a-zA-Z0-9_-]*$/;
+      const regex = /^[A-Z][a-zA-Z0-9_-]{2,29}$/;
       return regex.test(username);
     },
 
@@ -36,6 +36,20 @@ export const authService = {
     specialization: {
       breeder: (spec) => ["dog", "cat"].includes(spec),
       specialist: (spec) => ["veterinary", "petshop", "service"].includes(spec),
+    },
+  },
+
+  // Описания ошибок валидации
+  validationErrors: {
+    username:
+      "Имя пользователя должно начинаться с заглавной буквы и содержать от 3 до 30 символов (буквы, цифры, _ или -)",
+    password:
+      "Пароль должен содержать минимум 8 символов, включая хотя бы одну букву и одну цифру",
+    email: "Неверный формат email",
+    companyName: "Название компании должно начинаться с заглавной буквы",
+    specialization: {
+      breeder: "Выберите специализацию: dog или cat",
+      specialist: "Выберите специализацию: veterinary, petshop или service",
     },
   },
 
@@ -98,7 +112,6 @@ export const authService = {
       localStorage.removeItem("user");
     } catch (error) {
       console.error("Ошибка при выходе:", error);
-      // В любом случае очищаем хранилище
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       localStorage.removeItem("user");
@@ -144,6 +157,20 @@ export const authService = {
       headers: { "Content-Type": "multipart/form-data" },
     });
     return response.data;
+  },
+
+  async checkEmail(email) {
+    try {
+      const response = await authApi.post("/auth/check-email", { email });
+      return response.data;
+    } catch (error) {
+      // Если сервер вернул 409, значит email занят
+      if (error.response?.status === 409) {
+        return { available: false };
+      }
+      // В случае других ошибок считаем email доступным
+      return { available: true };
+    }
   },
 };
 

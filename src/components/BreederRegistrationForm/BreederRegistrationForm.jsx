@@ -80,11 +80,11 @@ const BreederRegistrationForm = () => {
   const validateField = (name, value) => {
     switch (name) {
       case "username":
-        if (value.length < 3) {
-          return t("registration.errors.minLength", { count: 3 });
+        if (!value) {
+          return t("registration.errors.required");
         }
-        if (value.length > 30) {
-          return t("registration.errors.maxLength", { count: 30 });
+        if (!/^[A-Z][a-zA-Z0-9_-]{2,29}$/.test(value)) {
+          return "Имя пользователя должно начинаться с заглавной буквы и содержать от 3 до 30 символов (буквы, цифры, _ или -)";
         }
         break;
       case "email":
@@ -190,8 +190,44 @@ const BreederRegistrationForm = () => {
           navigate("/mainbcs");
         }
       }
-    } catch (err) {
-      toast.error(err.message || t("registration.error"));
+    } catch (error) {
+      console.error("Registration error:", error);
+
+      let errorMessage = t("registration.error");
+
+      // Проверяем ответ сервера
+      const serverError = error.response?.data?.message || error.message;
+
+      if (serverError) {
+        if (serverError.includes("Email already in use")) {
+          errorMessage = "❌ Этот email уже используется другим пользователем";
+        } else if (serverError.includes("Username already exists")) {
+          errorMessage = "❌ Это имя пользователя уже занято";
+        } else if (serverError.includes("ConflictError")) {
+          // Проверяем текст ошибки на наличие конкретной причины
+          if (serverError.toLowerCase().includes("email")) {
+            errorMessage =
+              "❌ Этот email уже используется другим пользователем";
+          } else if (serverError.toLowerCase().includes("username")) {
+            errorMessage = "❌ Это имя пользователя уже занято";
+          }
+        }
+      }
+
+      toast.error(errorMessage, {
+        duration: 5000,
+        position: "top-center",
+        style: {
+          background: "#ff5252",
+          color: "#fff",
+          fontSize: "16px",
+          padding: "16px",
+          borderRadius: "8px",
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
+        },
+      });
     }
   };
 

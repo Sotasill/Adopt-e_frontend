@@ -80,11 +80,11 @@ const SpecialistRegistrationForm = () => {
   const validateField = (name, value) => {
     switch (name) {
       case "username":
-        if (value.length < 3) {
-          return t("registration.errors.minLength", { count: 3 });
+        if (!value) {
+          return t("registration.errors.required");
         }
-        if (value.length > 30) {
-          return t("registration.errors.maxLength", { count: 30 });
+        if (!/^[A-Z][a-zA-Z0-9_-]{2,29}$/.test(value)) {
+          return "Имя пользователя должно начинаться с заглавной буквы и содержать от 3 до 30 символов (буквы, цифры, _ или -)";
         }
         break;
       case "email":
@@ -173,12 +173,12 @@ const SpecialistRegistrationForm = () => {
         registerSpecialist(formData)
       ).unwrap();
 
-      toast.success(t("registration.success"), {
-        duration: 3000,
-        position: "top-center",
-      });
-
       if (registrationResult) {
+        toast.success(t("registration.success"), {
+          duration: 3000,
+          position: "top-center",
+        });
+
         const loginResult = await dispatch(
           login({
             username: formData.username,
@@ -190,8 +190,111 @@ const SpecialistRegistrationForm = () => {
           navigate("/mainspecialist");
         }
       }
-    } catch (err) {
-      toast.error(err.message || t("registration.error"));
+    } catch (error) {
+      console.error("Registration error:", error);
+      console.error("Error response:", error.response);
+      console.error("Full error object:", JSON.stringify(error, null, 2));
+
+      let errorMessage = "";
+
+      console.log("Начинаем обработку ошибки:", error);
+
+      // Если ошибка пришла как строка
+      if (typeof error === "string") {
+        const lowerError = error.toLowerCase();
+        if (lowerError.includes("email already in use")) {
+          errorMessage = "Этот email уже используется другим пользователем";
+        } else if (lowerError.includes("username already exists")) {
+          errorMessage = "Это имя пользователя уже занято";
+        } else {
+          errorMessage = error.replace("❌ ", "");
+        }
+      }
+      // Проверяем наличие ConflictError в сообщении об ошибке
+      else if (error?.message) {
+        const errorText = error.message;
+        console.log("Проверяем сообщение об ошибке:", errorText);
+
+        if (errorText === "ConflictError: Email already in use") {
+          errorMessage = "Этот email уже используется другим пользователем";
+        } else if (errorText === "ConflictError: Username already exists") {
+          errorMessage = "Это имя пользователя уже занято";
+        } else if (errorText.includes("Email already in use")) {
+          errorMessage = "Этот email уже используется другим пользователем";
+        } else if (errorText.includes("Username already exists")) {
+          errorMessage = "Это имя пользователя уже занято";
+        } else {
+          errorMessage = errorText;
+        }
+      }
+      // Проверяем наличие response.data.message
+      else if (error?.response?.data?.message) {
+        const serverMessage = error.response.data.message;
+        console.log("Проверяем серверное сообщение:", serverMessage);
+
+        if (typeof serverMessage === "string") {
+          const lowerMessage = serverMessage.toLowerCase();
+          if (lowerMessage.includes("email already in use")) {
+            errorMessage = "Этот email уже используется другим пользователем";
+          } else if (lowerMessage.includes("username already exists")) {
+            errorMessage = "Это имя пользователя уже занято";
+          } else if (serverMessage.includes("Invalid username pattern")) {
+            errorMessage =
+              "Неверный формат имени пользователя. Имя должно начинаться с заглавной буквы и содержать от 3 до 30 символов (буквы, цифры, _ или -)";
+          } else if (serverMessage.includes("Invalid email format")) {
+            errorMessage = "Неверный формат email адреса";
+          } else if (serverMessage.includes("Password too weak")) {
+            errorMessage =
+              "Пароль слишком слабый. Он должен содержать минимум 8 символов, включая заглавные, строчные буквы и цифры";
+          } else if (serverMessage.includes("Invalid company name")) {
+            errorMessage =
+              "Неверный формат названия компании. Используйте только латинские буквы, цифры и символы - _ ; *";
+          } else if (serverMessage.includes("Invalid specialization")) {
+            errorMessage = "Пожалуйста, выберите специализацию из списка";
+          } else if (serverMessage.includes("Invalid city name")) {
+            errorMessage =
+              "Название города должно содержать только латинские буквы";
+          } else {
+            errorMessage = serverMessage;
+          }
+        }
+      }
+      // Проверяем наличие response.data.error
+      else if (error?.response?.data?.error) {
+        const errorText = error.response.data.error.toLowerCase();
+        console.log("Проверяем response.data.error:", errorText);
+
+        if (errorText.includes("email already in use")) {
+          errorMessage = "Этот email уже используется другим пользователем";
+        } else if (errorText.includes("username already exists")) {
+          errorMessage = "Это имя пользователя уже занято";
+        } else {
+          errorMessage = error.response.data.error;
+        }
+      }
+      // Если ничего не подошло, используем общее сообщение
+      else {
+        errorMessage =
+          "Произошла ошибка при регистрации. Пожалуйста, попробуйте позже";
+      }
+
+      // Убираем эмодзи из сообщения, если он есть
+      errorMessage = errorMessage.replace("❌ ", "");
+
+      console.log("Итоговое сообщение об ошибке:", errorMessage);
+
+      // Показываем уведомление об ошибке через sonner
+      toast.error(errorMessage, {
+        position: "top-center",
+        duration: 5000,
+        style: {
+          background: "#ff5252",
+          color: "#fff",
+          fontSize: "16px",
+          padding: "16px",
+          borderRadius: "8px",
+        },
+      });
     }
   };
 

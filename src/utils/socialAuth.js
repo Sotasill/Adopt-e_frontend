@@ -1,4 +1,5 @@
 import { authService } from "../services/authService";
+import { DEFAULT_ROUTES_BY_ROLE } from "../constants/routes";
 
 export const handleSocialAuth = async (provider) => {
   try {
@@ -48,19 +49,25 @@ export const handleSocialAuth = async (provider) => {
               acceptTerms: true,
             });
 
+            const { user, tokens } = response;
+
             // Сохраняем токены
-            if (response.tokens) {
-              localStorage.setItem("accessToken", response.tokens.accessToken);
-              localStorage.setItem(
-                "refreshToken",
-                response.tokens.refreshToken
-              );
+            if (tokens) {
+              localStorage.setItem("accessToken", tokens.accessToken);
+              localStorage.setItem("refreshToken", tokens.refreshToken);
             }
+
+            localStorage.setItem("user", JSON.stringify(user));
+
+            // Перенаправляем на соответствующую страницу в зависимости от роли
+            const redirectUrl =
+              DEFAULT_ROUTES_BY_ROLE[user.role] || DEFAULT_ROUTES_BY_ROLE.user;
+            window.location.href = redirectUrl;
 
             // Отправляем событие успешной авторизации
             window.dispatchEvent(
               new CustomEvent("social_auth_success", {
-                detail: response.user,
+                detail: user,
               })
             );
           } else if (data.type === "auth_error") {

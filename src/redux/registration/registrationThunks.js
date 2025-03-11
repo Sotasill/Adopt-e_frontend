@@ -1,25 +1,22 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { authService } from "../../services/authService";
 import { checkServerAvailability } from "../../services/api";
+import { DEFAULT_ROUTES_BY_ROLE } from "../../constants/routes";
 
 const validateRegistrationData = (data, role) => {
   const errors = [];
 
   // Базовая валидация
   if (!authService.validateFields.username(data.username)) {
-    errors.push(
-      "Имя пользователя должно начинаться с заглавной буквы и может содержать только буквы, цифры, подчеркивание и тире"
-    );
+    errors.push(authService.validationErrors.username);
   }
 
   if (!authService.validateFields.email(data.email)) {
-    errors.push("Неверный формат email");
+    errors.push(authService.validationErrors.email);
   }
 
   if (!authService.validateFields.password(data.password)) {
-    errors.push(
-      "Пароль должен содержать минимум 8 символов, включая хотя бы одну букву и одну цифру"
-    );
+    errors.push(authService.validationErrors.password);
   }
 
   if (!data.acceptTerms) {
@@ -29,14 +26,14 @@ const validateRegistrationData = (data, role) => {
   // Дополнительная валидация для заводчиков и специалистов
   if (role !== "user") {
     if (!authService.validateFields.companyName(data.companyName)) {
-      errors.push("Название компании должно начинаться с заглавной буквы");
+      errors.push(authService.validationErrors.companyName);
     }
 
     if (role === "breeder") {
       if (
         !authService.validateFields.specialization.breeder(data.specialization)
       ) {
-        errors.push("Выберите специализацию: dog или cat");
+        errors.push(authService.validationErrors.specialization.breeder);
       }
     } else if (role === "specialist") {
       if (
@@ -44,7 +41,7 @@ const validateRegistrationData = (data, role) => {
           data.specialization
         )
       ) {
-        errors.push("Выберите специализацию: veterinary, petshop или service");
+        errors.push(authService.validationErrors.specialization.specialist);
       }
     }
 
@@ -58,6 +55,28 @@ const validateRegistrationData = (data, role) => {
   }
 
   return errors;
+};
+
+const handleSuccessfulRegistration = (response) => {
+  if (!response || !response.user || !response.tokens) {
+    throw new Error("Некорректный ответ от сервера");
+  }
+
+  const { user, tokens } = response;
+
+  // Сохраняем токены
+  localStorage.setItem("accessToken", tokens.accessToken);
+  localStorage.setItem("refreshToken", tokens.refreshToken);
+
+  // Сохраняем базовую информацию о пользователе
+  localStorage.setItem("user", JSON.stringify(user));
+
+  // Перенаправляем на соответствующую страницу
+  const redirectUrl =
+    DEFAULT_ROUTES_BY_ROLE[user.role] || DEFAULT_ROUTES_BY_ROLE.user;
+  window.location.href = redirectUrl;
+
+  return response;
 };
 
 export const registerUser = createAsyncThunk(
@@ -77,12 +96,56 @@ export const registerUser = createAsyncThunk(
       }
 
       const response = await authService.registerUser(userData);
-      return response;
+      return handleSuccessfulRegistration(response);
     } catch (error) {
-      console.error("Ошибка при регистрации пользователя:", error);
-      return rejectWithValue(
-        error.message || "Произошла ошибка при регистрации"
-      );
+      let errorMessage;
+
+      if (error?.response?.status === 409) {
+        const conflictData = error.response?.data;
+        const errorText = (
+          conflictData?.message ||
+          error.message ||
+          ""
+        ).toLowerCase();
+
+        if (
+          errorText.includes("email already") ||
+          errorText.includes("email уже") ||
+          errorText.includes("email exists")
+        ) {
+          errorMessage = "❌ Этот email уже используется другим пользователем";
+        } else if (
+          errorText.includes("username already") ||
+          errorText.includes("имя пользователя уже") ||
+          errorText.includes("username exists")
+        ) {
+          errorMessage = "❌ Это имя пользователя уже занято";
+        } else {
+          errorMessage = "❌ Пользователь с такими данными уже существует";
+        }
+      } else if (error?.response?.data?.message) {
+        const errorText = error.response.data.message.toLowerCase();
+
+        if (errorText.includes("email")) {
+          errorMessage =
+            "❌ Ошибка при проверке email. Пожалуйста, используйте другой email";
+        } else if (
+          errorText.includes("username") ||
+          errorText.includes("имя пользователя")
+        ) {
+          errorMessage =
+            "❌ Ошибка при проверке имени пользователя. Пожалуйста, используйте другое имя";
+        } else {
+          errorMessage = error.response.data.message;
+        }
+      } else if (typeof error === "string") {
+        errorMessage = error;
+      } else {
+        errorMessage =
+          "❌ Произошла ошибка при регистрации. Пожалуйста, попробуйте позже";
+      }
+
+      return rejectWithValue(errorMessage);
     }
   }
 );
@@ -104,12 +167,33 @@ export const registerBreeder = createAsyncThunk(
       }
 
       const response = await authService.registerBreeder(breederData);
-      return response;
+      return handleSuccessfulRegistration(response);
     } catch (error) {
-      console.error("Ошибка при регистрации заводчика:", error);
-      return rejectWithValue(
-        error.message || "Произошла ошибка при регистрации заводчика"
-      );
+      let errorMessage;
+
+      if (error.response?.data?.message) {
+        const responseError = error.response.data.message;
+        if (responseError.includes("Email already in use")) {
+          errorMessage = "❌ Этот email уже используется другим пользователем";
+        } else if (responseError.includes("Username already exists")) {
+          errorMessage = "❌ Это имя пользователя уже занято";
+        } else {
+          errorMessage = responseError;
+        }
+      } else if (error.message) {
+        const errorText = error.message;
+        if (errorText.includes("Email already in use")) {
+          errorMessage = "❌ Этот email уже используется другим пользователем";
+        } else if (errorText.includes("Username already exists")) {
+          errorMessage = "❌ Это имя пользователя уже занято";
+        } else {
+          errorMessage = errorText;
+        }
+      } else {
+        errorMessage = "Произошла ошибка при регистрации заводчика";
+      }
+
+      return rejectWithValue(errorMessage);
     }
   }
 );
@@ -134,12 +218,33 @@ export const registerSpecialist = createAsyncThunk(
       }
 
       const response = await authService.registerSpecialist(specialistData);
-      return response;
+      return handleSuccessfulRegistration(response);
     } catch (error) {
-      console.error("Ошибка при регистрации специалиста:", error);
-      return rejectWithValue(
-        error.message || "Произошла ошибка при регистрации специалиста"
-      );
+      let errorMessage;
+
+      if (error.response?.data?.message) {
+        const responseError = error.response.data.message;
+        if (responseError.includes("Email already in use")) {
+          errorMessage = "❌ Этот email уже используется другим пользователем";
+        } else if (responseError.includes("Username already exists")) {
+          errorMessage = "❌ Это имя пользователя уже занято";
+        } else {
+          errorMessage = responseError;
+        }
+      } else if (error.message) {
+        const errorText = error.message;
+        if (errorText.includes("Email already in use")) {
+          errorMessage = "❌ Этот email уже используется другим пользователем";
+        } else if (errorText.includes("Username already exists")) {
+          errorMessage = "❌ Это имя пользователя уже занято";
+        } else {
+          errorMessage = errorText;
+        }
+      } else {
+        errorMessage = "Произошла ошибка при регистрации специалиста";
+      }
+
+      return rejectWithValue(errorMessage);
     }
   }
 );

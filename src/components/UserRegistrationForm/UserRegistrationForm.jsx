@@ -30,8 +30,10 @@ import commonStyles from "../../styles/common.module.css";
 
 const validationSchema = Yup.object().shape({
   username: Yup.string()
-    .min(3, "Имя пользователя должно содержать минимум 3 символа")
-    .max(30, "Имя пользователя не должно превышать 30 символов")
+    .matches(
+      /^[A-Z][a-zA-Z0-9_-]{2,29}$/,
+      "Имя пользователя должно начинаться с заглавной буквы и содержать от 3 до 30 символов (буквы, цифры, _ или -)"
+    )
     .required("Введите имя пользователя"),
   email: Yup.string()
     .email("Введите корректный email адрес")
@@ -74,13 +76,112 @@ const UserRegistrationForm = ({ selectedRole }) => {
         throw new Error("Неверный тип пользователя");
       }
 
-      await dispatch(registerAction(values));
+      const result = await dispatch(registerAction(values)).unwrap();
 
-      toast.success("Регистрация прошла успешно!", {
-        duration: 3000,
+      if (result) {
+        toast.success("Регистрация прошла успешно!", {
+          duration: 3000,
+          position: "top-center",
+          style: {
+            background: "#4caf50",
+            color: "#fff",
+            fontSize: "16px",
+            padding: "16px",
+            borderRadius: "8px",
+          },
+        });
+
+        dispatch(
+          addNotification({
+            id: Date.now(),
+            title: "Добро пожаловать!",
+            message: `Здравствуйте, ${values.username}! Мы рады приветствовать вас на нашей платформе.`,
+            timestamp: new Date().toISOString(),
+          })
+        );
+
+        const loginResult = await dispatch(
+          login({
+            username: values.username,
+            password: values.password,
+          })
+        );
+
+        if (loginResult?.payload?.user) {
+          const redirectPaths = {
+            breeder: "/mainbcs",
+            specialist: "/mainspecialistsystem",
+            user: "/mainusersystem",
+          };
+          navigate(redirectPaths[selectedRole.id]);
+        }
+      }
+    } catch (error) {
+      console.error("Registration error details:", {
+        errorType: typeof error,
+        errorValue: error,
+        isString: typeof error === "string",
+        stack: error?.stack,
+      });
+
+      let errorMessage = "";
+
+      // Пропускаем ошибку 404 для check-email
+      if (
+        error?.response?.status === 404 &&
+        error.config?.url?.includes("/check-email")
+      ) {
+        console.log("Пропускаем ошибку проверки email");
+        return;
+      }
+
+      // Получаем текст ошибки
+      const errorText =
+        typeof error === "string" ? error : error?.message || "";
+      console.log("Исходный текст ошибки:", errorText);
+
+      // Очищаем текст от эмодзи и пробелов
+      const cleanErrorText = errorText.replace(/❌\s*/g, "").trim();
+      console.log("Очищенный текст ошибки:", cleanErrorText);
+
+      // Проверяем наличие ключевых слов в тексте ошибки
+      const lowerErrorText = cleanErrorText.toLowerCase();
+      console.log("Текст ошибки в нижнем регистре:", lowerErrorText);
+
+      // Проверяем различные варианты текста ошибки для email
+      if (
+        lowerErrorText.includes("email already in use") ||
+        lowerErrorText.includes("email уже используется") ||
+        lowerErrorText.includes("этот email уже") ||
+        lowerErrorText.includes("такой email уже существует")
+      ) {
+        errorMessage = "Этот email уже используется другим пользователем";
+        console.log("Определен конфликт email");
+      }
+      // Проверяем различные варианты текста ошибки для username
+      else if (
+        lowerErrorText.includes("username already exists") ||
+        lowerErrorText.includes("имя пользователя уже занято") ||
+        lowerErrorText.includes("такое имя уже существует")
+      ) {
+        errorMessage = "Это имя пользователя уже занято";
+        console.log("Определен конфликт username");
+      }
+      // Если не удалось определить тип ошибки
+      else {
+        errorMessage =
+          cleanErrorText ||
+          "Произошла ошибка при регистрации. Пожалуйста, попробуйте позже";
+        console.log("Использовано общее сообщение об ошибке");
+      }
+
+      console.log("Итоговое сообщение об ошибке:", errorMessage);
+
+      toast.error(errorMessage, {
         position: "top-center",
+        duration: 5000,
         style: {
-          background: "#4caf50",
+          background: "#ff5252",
           color: "#fff",
           fontSize: "16px",
           padding: "16px",
@@ -88,37 +189,7 @@ const UserRegistrationForm = ({ selectedRole }) => {
         },
       });
 
-      dispatch(
-        addNotification({
-          id: Date.now(),
-          title: "Добро пожаловать!",
-          message: `Здравствуйте, ${values.username}! Мы рады приветствовать вас на нашей платформе.`,
-          timestamp: new Date().toISOString(),
-        })
-      );
-
-      const loginResult = await dispatch(
-        login({
-          username: values.username,
-          password: values.password,
-        })
-      );
-
-      if (loginResult?.payload?.user) {
-        const redirectPaths = {
-          breeder: "/mainbcs",
-          specialist: "/mainspecialistsystem",
-          user: "/mainusersystem",
-        };
-        navigate(redirectPaths[selectedRole.id]);
-      }
-    } catch (error) {
-      console.error("Registration/Login error:", error);
-      setStatus("Ошибка при регистрации");
-      toast.error(
-        error.response?.data?.message || "Произошла ошибка при регистрации"
-      );
-    } finally {
+      setStatus(errorMessage);
       setSubmitting(false);
     }
   };
