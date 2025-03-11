@@ -116,15 +116,23 @@ const enTranslation = {
       facebook: "Facebook",
       apple: "Apple",
     },
-    license: {
-      agree: "I agree to the",
-      text: "terms of service",
-    },
     errors: {
       required: "This field is required",
       email: "Invalid email address",
       minLength: "Minimum {{count}} characters",
       maxLength: "Maximum {{count}} characters",
+      acceptTerms: "You must accept the terms of service",
+      countryFirstLetter: "Country name must start with a capital letter",
+      cityFirstLetter: "City name must start with a capital letter",
+      username:
+        "Username must start with a capital letter and contain 3-30 characters (letters, numbers, _ or -)",
+      password:
+        "Password must be at least 8 characters long and include at least one letter and one number",
+      companyName: "Company name must start with a capital letter",
+      specialization: {
+        breeder: "Select specialization: dog or cat",
+        specialist: "Select specialization: veterinary, petshop, or service",
+      },
     },
   },
 
@@ -425,15 +433,31 @@ const enTranslation = {
   auth: {
     favoriteFeature: "Favorites Feature",
     registerToUse:
-      "This feature is only available to registered users, please login or register on the site",
+      "This feature is only available to registered users, please sign in or register",
     benefitsDescription:
-      "Registration on the site gives you access to additional features:",
+      "Registration gives you access to additional features:",
     benefits: {
-      favorites: "Save favorite products and pets",
-      personalAccount: "Personal account with browsing history",
+      favorites: "Save favorite pets and products",
+      personalAccount: "Personal account with viewing history",
     },
     register: "Register",
-    login: "Login",
+    login: "Sign in",
+    errors: {
+      serverUnavailable:
+        "❌ Server is temporarily unavailable. Please try again later.",
+      emailInUse: "❌ This email is already in use by another user",
+      usernameInUse: "❌ This username is already taken",
+      userExists: "❌ User with these credentials already exists",
+      emailCheckError: "❌ Error checking email. Please use a different email",
+      usernameCheckError:
+        "❌ Error checking username. Please use a different username",
+      registrationError:
+        "❌ Registration error occurred. Please try again later",
+      breederRegistrationError: "❌ Error occurred during breeder registration",
+      specialistRegistrationError:
+        "❌ Error occurred during specialist registration",
+      invalidServerResponse: "❌ Invalid server response",
+    },
   },
 
   // Login Modal

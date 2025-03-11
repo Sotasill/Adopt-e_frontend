@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { authService } from "../../services/authService";
 import { checkServerAvailability } from "../../services/api";
 import { DEFAULT_ROUTES_BY_ROLE } from "../../constants/routes";
+import i18next from "i18next";
 
 const validateRegistrationData = (data, role) => {
   const errors = [];
@@ -20,7 +21,7 @@ const validateRegistrationData = (data, role) => {
   }
 
   if (!data.acceptTerms) {
-    errors.push("Необходимо принять условия использования");
+    errors.push(i18next.t("registration.errors.acceptTerms"));
   }
 
   // Дополнительная валидация для заводчиков и специалистов
@@ -46,11 +47,11 @@ const validateRegistrationData = (data, role) => {
     }
 
     if (!data.country || data.country[0] !== data.country[0].toUpperCase()) {
-      errors.push("Название страны должно начинаться с заглавной буквы");
+      errors.push(i18next.t("registration.errors.countryFirstLetter"));
     }
 
     if (data.city && data.city[0] !== data.city[0].toUpperCase()) {
-      errors.push("Название города должно начинаться с заглавной буквы");
+      errors.push(i18next.t("registration.errors.cityFirstLetter"));
     }
   }
 
@@ -59,7 +60,7 @@ const validateRegistrationData = (data, role) => {
 
 const handleSuccessfulRegistration = (response) => {
   if (!response || !response.user || !response.tokens) {
-    throw new Error("Некорректный ответ от сервера");
+    throw new Error(i18next.t("auth.errors.invalidServerResponse"));
   }
 
   const { user, tokens } = response;
@@ -85,9 +86,7 @@ export const registerUser = createAsyncThunk(
     try {
       const isServerAvailable = await checkServerAvailability();
       if (!isServerAvailable) {
-        return rejectWithValue(
-          "Сервер временно недоступен. Пожалуйста, попробуйте позже."
-        );
+        return rejectWithValue(i18next.t("auth.errors.serverUnavailable"));
       }
 
       const validationErrors = validateRegistrationData(userData, "user");
@@ -113,36 +112,33 @@ export const registerUser = createAsyncThunk(
           errorText.includes("email уже") ||
           errorText.includes("email exists")
         ) {
-          errorMessage = "❌ Этот email уже используется другим пользователем";
+          errorMessage = i18next.t("auth.errors.emailInUse");
         } else if (
           errorText.includes("username already") ||
           errorText.includes("имя пользователя уже") ||
           errorText.includes("username exists")
         ) {
-          errorMessage = "❌ Это имя пользователя уже занято";
+          errorMessage = i18next.t("auth.errors.usernameInUse");
         } else {
-          errorMessage = "❌ Пользователь с такими данными уже существует";
+          errorMessage = i18next.t("auth.errors.userExists");
         }
       } else if (error?.response?.data?.message) {
         const errorText = error.response.data.message.toLowerCase();
 
         if (errorText.includes("email")) {
-          errorMessage =
-            "❌ Ошибка при проверке email. Пожалуйста, используйте другой email";
+          errorMessage = i18next.t("auth.errors.emailCheckError");
         } else if (
           errorText.includes("username") ||
           errorText.includes("имя пользователя")
         ) {
-          errorMessage =
-            "❌ Ошибка при проверке имени пользователя. Пожалуйста, используйте другое имя";
+          errorMessage = i18next.t("auth.errors.usernameCheckError");
         } else {
           errorMessage = error.response.data.message;
         }
       } else if (typeof error === "string") {
         errorMessage = error;
       } else {
-        errorMessage =
-          "❌ Произошла ошибка при регистрации. Пожалуйста, попробуйте позже";
+        errorMessage = i18next.t("auth.errors.registrationError");
       }
 
       return rejectWithValue(errorMessage);
@@ -156,9 +152,7 @@ export const registerBreeder = createAsyncThunk(
     try {
       const isServerAvailable = await checkServerAvailability();
       if (!isServerAvailable) {
-        return rejectWithValue(
-          "Сервер временно недоступен. Пожалуйста, попробуйте позже."
-        );
+        return rejectWithValue(i18next.t("auth.errors.serverUnavailable"));
       }
 
       const validationErrors = validateRegistrationData(breederData, "breeder");
@@ -174,23 +168,23 @@ export const registerBreeder = createAsyncThunk(
       if (error.response?.data?.message) {
         const responseError = error.response.data.message;
         if (responseError.includes("Email already in use")) {
-          errorMessage = "❌ Этот email уже используется другим пользователем";
+          errorMessage = i18next.t("auth.errors.emailInUse");
         } else if (responseError.includes("Username already exists")) {
-          errorMessage = "❌ Это имя пользователя уже занято";
+          errorMessage = i18next.t("auth.errors.usernameInUse");
         } else {
           errorMessage = responseError;
         }
       } else if (error.message) {
         const errorText = error.message;
         if (errorText.includes("Email already in use")) {
-          errorMessage = "❌ Этот email уже используется другим пользователем";
+          errorMessage = i18next.t("auth.errors.emailInUse");
         } else if (errorText.includes("Username already exists")) {
-          errorMessage = "❌ Это имя пользователя уже занято";
+          errorMessage = i18next.t("auth.errors.usernameInUse");
         } else {
           errorMessage = errorText;
         }
       } else {
-        errorMessage = "Произошла ошибка при регистрации заводчика";
+        errorMessage = i18next.t("auth.errors.breederRegistrationError");
       }
 
       return rejectWithValue(errorMessage);
@@ -204,9 +198,7 @@ export const registerSpecialist = createAsyncThunk(
     try {
       const isServerAvailable = await checkServerAvailability();
       if (!isServerAvailable) {
-        return rejectWithValue(
-          "Сервер временно недоступен. Пожалуйста, попробуйте позже."
-        );
+        return rejectWithValue(i18next.t("auth.errors.serverUnavailable"));
       }
 
       const validationErrors = validateRegistrationData(
@@ -225,23 +217,23 @@ export const registerSpecialist = createAsyncThunk(
       if (error.response?.data?.message) {
         const responseError = error.response.data.message;
         if (responseError.includes("Email already in use")) {
-          errorMessage = "❌ Этот email уже используется другим пользователем";
+          errorMessage = i18next.t("auth.errors.emailInUse");
         } else if (responseError.includes("Username already exists")) {
-          errorMessage = "❌ Это имя пользователя уже занято";
+          errorMessage = i18next.t("auth.errors.usernameInUse");
         } else {
           errorMessage = responseError;
         }
       } else if (error.message) {
         const errorText = error.message;
         if (errorText.includes("Email already in use")) {
-          errorMessage = "❌ Этот email уже используется другим пользователем";
+          errorMessage = i18next.t("auth.errors.emailInUse");
         } else if (errorText.includes("Username already exists")) {
-          errorMessage = "❌ Это имя пользователя уже занято";
+          errorMessage = i18next.t("auth.errors.usernameInUse");
         } else {
           errorMessage = errorText;
         }
       } else {
-        errorMessage = "Произошла ошибка при регистрации специалиста";
+        errorMessage = i18next.t("auth.errors.specialistRegistrationError");
       }
 
       return rejectWithValue(errorMessage);

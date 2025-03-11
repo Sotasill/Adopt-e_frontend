@@ -149,6 +149,19 @@ const frTranslation = {
       email: "Adresse e-mail invalide",
       minLength: "Minimum {{count}} caractères",
       maxLength: "Maximum {{count}} caractères",
+      acceptTerms: "Vous devez accepter les conditions d'utilisation",
+      countryFirstLetter: "Le nom du pays doit commencer par une majuscule",
+      cityFirstLetter: "Le nom de la ville doit commencer par une majuscule",
+      username:
+        "Le nom d'utilisateur doit commencer par une majuscule et contenir 3-30 caractères (lettres, chiffres, _ ou -)",
+      password:
+        "Le mot de passe doit contenir au moins 8 caractères, dont au moins une lettre et un chiffre",
+      companyName: "Le nom de l'entreprise doit commencer par une majuscule",
+      specialization: {
+        breeder: "Choisissez une spécialisation : dog ou cat",
+        specialist:
+          "Choisissez une spécialisation : veterinary, petshop ou service",
+      },
     },
   },
 
@@ -458,6 +471,23 @@ const frTranslation = {
     },
     register: "S'inscrire",
     login: "Se connecter",
+    errors: {
+      serverUnavailable:
+        "❌ Serveur temporairement indisponible. Veuillez réessayer plus tard.",
+      emailInUse: "❌ Cet e-mail est déjà utilisé par un autre utilisateur",
+      usernameInUse: "❌ Ce nom d'utilisateur est déjà pris",
+      userExists: "❌ Un utilisateur avec ces identifiants existe déjà",
+      emailCheckError:
+        "❌ Erreur lors de la vérification de l'e-mail. Veuillez utiliser un autre e-mail",
+      usernameCheckError:
+        "❌ Erreur lors de la vérification du nom d'utilisateur. Veuillez utiliser un autre nom",
+      registrationError:
+        "❌ Une erreur s'est produite lors de l'inscription. Veuillez réessayer plus tard",
+      breederRegistrationError: "❌ Erreur lors de l'inscription de l'éleveur",
+      specialistRegistrationError:
+        "❌ Erreur lors de l'inscription du spécialiste",
+      invalidServerResponse: "❌ Réponse du serveur invalide",
+    },
   },
 
   // Login Modal

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { processUserData } from "../utils/userUtils";
+import i18next from "i18next";
 
 const BASE_URL = "http://localhost:3000/api";
 
@@ -41,15 +42,13 @@ export const authService = {
 
   // Описания ошибок валидации
   validationErrors: {
-    username:
-      "Имя пользователя должно начинаться с заглавной буквы и содержать от 3 до 30 символов (буквы, цифры, _ или -)",
-    password:
-      "Пароль должен содержать минимум 8 символов, включая хотя бы одну букву и одну цифру",
-    email: "Неверный формат email",
-    companyName: "Название компании должно начинаться с заглавной буквы",
+    username: i18next.t("registration.errors.username"),
+    password: i18next.t("registration.errors.password"),
+    email: i18next.t("registration.errors.email"),
+    companyName: i18next.t("registration.errors.companyName"),
     specialization: {
-      breeder: "Выберите специализацию: dog или cat",
-      specialist: "Выберите специализацию: veterinary, petshop или service",
+      breeder: i18next.t("registration.errors.specialization.breeder"),
+      specialist: i18next.t("registration.errors.specialization.specialist"),
     },
   },
 
@@ -87,7 +86,7 @@ export const authService = {
       const response = await authApi.post("/auth/login", credentials);
 
       if (!response.data) {
-        throw new Error("Пустой ответ от сервера");
+        throw new Error(i18next.t("auth.errors.invalidServerResponse"));
       }
 
       const { user, tokens } = response.data;
@@ -99,7 +98,6 @@ export const authService = {
 
       return { user: processUserData(user), tokens };
     } catch (error) {
-      console.error("Ошибка при входе:", error);
       throw error;
     }
   },
