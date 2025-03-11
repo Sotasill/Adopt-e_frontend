@@ -1,3 +1,5 @@
+import { authService } from "../services/authService";
+
 export const handleSocialAuth = async (provider) => {
   try {
     let authUrl;
@@ -12,7 +14,7 @@ export const handleSocialAuth = async (provider) => {
         authUrl = `${process.env.REACT_APP_API_URL}/auth/apple`;
         break;
       default:
-        throw new Error("Unsupported provider");
+        throw new Error("Неподдерживаемый провайдер авторизации");
     }
 
     // Открываем окно авторизации
@@ -29,20 +31,39 @@ export const handleSocialAuth = async (provider) => {
 
     if (authWindow) {
       // Слушаем сообщения от окна авторизации
-      const handleMessage = (event) => {
+      const handleMessage = async (event) => {
         if (event.origin !== process.env.REACT_APP_API_URL) return;
 
         try {
           const data = JSON.parse(event.data);
           if (data.type === "auth_success") {
-            // Обработка успешной авторизации
+            const { email, name, providerId } = data.user;
+
+            // Отправляем данные на сервер для завершения авторизации
+            const response = await authService.socialAuth({
+              email,
+              name,
+              providerId,
+              provider,
+              acceptTerms: true,
+            });
+
+            // Сохраняем токены
+            if (response.tokens) {
+              localStorage.setItem("accessToken", response.tokens.accessToken);
+              localStorage.setItem(
+                "refreshToken",
+                response.tokens.refreshToken
+              );
+            }
+
+            // Отправляем событие успешной авторизации
             window.dispatchEvent(
               new CustomEvent("social_auth_success", {
-                detail: data.user,
+                detail: response.user,
               })
             );
           } else if (data.type === "auth_error") {
-            // Обработка ошибки
             window.dispatchEvent(
               new CustomEvent("social_auth_error", {
                 detail: data.error,
@@ -50,7 +71,12 @@ export const handleSocialAuth = async (provider) => {
             );
           }
         } catch (error) {
-          console.error("Failed to parse auth message:", error);
+          console.error("Ошибка при обработке сообщения авторизации:", error);
+          window.dispatchEvent(
+            new CustomEvent("social_auth_error", {
+              detail: "Ошибка при обработке ответа от сервера",
+            })
+          );
         }
 
         window.removeEventListener("message", handleMessage);
@@ -60,7 +86,7 @@ export const handleSocialAuth = async (provider) => {
       window.addEventListener("message", handleMessage);
     }
   } catch (error) {
-    console.error("Social auth error:", error);
+    console.error("Ошибка социальной авторизации:", error);
     throw error;
   }
 };

@@ -1,57 +1,89 @@
-import api, { API_URLS } from "./api";
+import axios from "axios";
 import { processUserData } from "../utils/userUtils";
 
+const BASE_URL = "http://localhost:3000/api";
+
+const authApi = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
 export const authService = {
-  async registerBreeder(userData) {
-    // Убеждаемся, что регистрируем именно заводчика
-    const breederData = {
-      ...userData,
-      role: "breeder",
-    };
-    const response = await api.post(API_URLS.registerBreeder, breederData);
-    return response.data;
+  // Валидация полей
+  validateFields: {
+    username: (username) => {
+      const regex = /^[A-Z][a-zA-Z0-9_-]*$/;
+      return regex.test(username);
+    },
+
+    password: (password) => {
+      const hasLetter = /[a-zA-Z]/.test(password);
+      const hasNumber = /\d/.test(password);
+      return password.length >= 8 && hasLetter && hasNumber;
+    },
+
+    email: (email) => {
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return regex.test(email);
+    },
+
+    companyName: (name) => {
+      return name && name[0] === name[0].toUpperCase();
+    },
+
+    specialization: {
+      breeder: (spec) => ["dog", "cat"].includes(spec),
+      specialist: (spec) => ["veterinary", "petshop", "service"].includes(spec),
+    },
   },
 
   async registerUser(userData) {
-    // Убеждаемся, что регистрируем обычного пользователя
-    const userWithRole = {
+    const response = await authApi.post("/auth/register/user", {
       ...userData,
       role: "user",
-    };
-    const response = await api.post(API_URLS.registerUser, userWithRole);
+    });
+    return response.data;
+  },
+
+  async registerBreeder(userData) {
+    const response = await authApi.post("/auth/register/breeder", {
+      ...userData,
+      role: "breeder",
+    });
+    return response.data;
+  },
+
+  async registerSpecialist(userData) {
+    const response = await authApi.post("/auth/register/specialist", {
+      ...userData,
+      role: "specialist",
+    });
+    return response.data;
+  },
+
+  async socialAuth(socialData) {
+    const response = await authApi.post("/auth/social-auth", socialData);
     return response.data;
   },
 
   async login(credentials) {
     try {
-      const response = await api.post(API_URLS.login, credentials);
+      const response = await authApi.post("/auth/login", credentials);
 
       if (!response.data) {
         throw new Error("Пустой ответ от сервера");
       }
 
-      const responseData = response.data;
-      const token = responseData.accessToken || responseData.token;
+      const { user, tokens } = response.data;
 
-      // Собираем все данные пользователя
-      const rawUser = responseData.user || {
-        id: responseData.id || responseData._id,
-        username: responseData.username,
-        email: responseData.email,
-        role: responseData.role || responseData.userType,
-        userId: responseData.userId,
-        specialization: responseData.specialization,
-      };
-
-      // Обрабатываем данные пользователя
-      const user = processUserData(rawUser);
-
-      // Проверяем корректность роли
-      if (user.role === "breeder" && !user.specialization) {
-        console.error("Заводчик без специализации:", user);
+      if (tokens) {
+        localStorage.setItem("accessToken", tokens.accessToken);
+        localStorage.setItem("refreshToken", tokens.refreshToken);
       }
 
-      return { token, user };
+      return { user: processUserData(user), tokens };
     } catch (error) {
       console.error("Ошибка при входе:", error);
       throw error;
@@ -60,36 +92,42 @@ export const authService = {
 
   async logout() {
     try {
-      await api.post(API_URLS.logout);
-      // Очищаем локальное хранилище
-      localStorage.removeItem("token");
+      await authApi.post("/auth/logout");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
       localStorage.removeItem("user");
     } catch (error) {
       console.error("Ошибка при выходе:", error);
       // В любом случае очищаем хранилище
-      localStorage.removeItem("token");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
       localStorage.removeItem("user");
     }
   },
 
   async refreshToken() {
-    const response = await api.post(API_URLS.refresh);
-    const data = response.data;
-
-    if (data.user) {
-      // Обрабатываем данные пользователя при обновлении токена
-      data.user = processUserData(data.user);
+    const refreshToken = localStorage.getItem("refreshToken");
+    if (!refreshToken) {
+      throw new Error("Отсутствует refresh token");
     }
 
-    return data;
+    const response = await authApi.post("/auth/refresh", { refreshToken });
+    const { user, tokens } = response.data;
+
+    if (tokens) {
+      localStorage.setItem("accessToken", tokens.accessToken);
+      localStorage.setItem("refreshToken", tokens.refreshToken);
+    }
+
+    return { user: processUserData(user), tokens };
   },
 
   async updateProfileBackground(imageFile) {
     const formData = new FormData();
     formData.append("background", imageFile);
 
-    const response = await api.post(
-      API_URLS.updateProfileBackground,
+    const response = await authApi.post(
+      "/auth/update-profile-background",
       formData,
       {
         headers: { "Content-Type": "multipart/form-data" },
@@ -102,7 +140,7 @@ export const authService = {
     const formData = new FormData();
     formData.append("avatar", avatarFile);
 
-    const response = await api.post(API_URLS.updateAvatar, formData, {
+    const response = await authApi.post("/auth/update-avatar", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
     return response.data;

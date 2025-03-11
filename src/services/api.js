@@ -14,10 +14,11 @@ export const API_URLS = {
   registerBreeder: "/auth/register/breeder",
   registerUser: "/auth/register/user",
   registerSpecialist: "/auth/register/specialist",
+  socialAuth: "/auth/social-auth",
   refresh: "/auth/refresh",
   logout: "/auth/logout",
-  updateAvatar: "/user/avatar",
-  updateProfileBackground: "/user/profile/background",
+  updateAvatar: "/auth/update-avatar",
+  updateProfileBackground: "/auth/update-profile-background",
   registerAnimal: "/animals",
 };
 
@@ -34,15 +35,14 @@ export const checkServerAvailability = async () => {
 // Интерцептор для добавления токена к запросам
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token");
-    const user = localStorage.getItem("user");
+    const accessToken = localStorage.getItem("accessToken");
 
-    // Публичные эндпоинты, не требующие авторизации
     const publicEndpoints = [
       API_URLS.login,
       API_URLS.registerBreeder,
       API_URLS.registerUser,
       API_URLS.registerSpecialist,
+      API_URLS.socialAuth,
       API_URLS.refresh,
       "/health",
     ];
@@ -52,13 +52,10 @@ api.interceptors.request.use(
       config.headers["Content-Type"] = "application/json";
     }
 
-    if (token && user) {
-      config.headers.Authorization = `Bearer ${token}`;
-    } else if (!publicEndpoints.includes(config.url)) {
-      // Если нет токена и пользователя, и это не публичный эндпоинт
-      window.location.href = "/login";
-      return Promise.reject("Не авторизован");
+    if (accessToken && !publicEndpoints.includes(config.url)) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
+
     return config;
   },
   (error) => {
@@ -101,32 +98,40 @@ api.interceptors.response.use(
       isRefreshing = true;
 
       try {
+        const refreshTokenValue = localStorage.getItem("refreshToken");
+        if (!refreshTokenValue) {
+          throw new Error("Отсутствует refresh token");
+        }
+
         const { dispatch } = store;
         const response = await dispatch(refreshToken());
-        const { token } = response;
+        const { tokens } = response.payload;
 
-        if (!token) {
+        if (!tokens?.accessToken) {
           throw new Error("Не удалось обновить токен");
         }
 
-        // Обновляем заголовок авторизации для текущего запроса
-        originalRequest.headers.Authorization = `Bearer ${token}`;
+        localStorage.setItem("accessToken", tokens.accessToken);
+        localStorage.setItem("refreshToken", tokens.refreshToken);
+
+        api.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${tokens.accessToken}`;
+        originalRequest.headers.Authorization = `Bearer ${tokens.accessToken}`;
 
         isRefreshing = false;
-        processQueue(null, token);
+        processQueue(null, tokens.accessToken);
 
-        // Повторяем оригинальный запрос с новым токеном
         return api(originalRequest);
       } catch (refreshError) {
         isRefreshing = false;
         processQueue(refreshError, null);
 
-        // Очищаем данные пользователя
-        localStorage.removeItem("token");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
         localStorage.removeItem("user");
-        store.dispatch(logout());
 
-        // Перенаправляем на страницу входа
+        store.dispatch(logout());
         window.location.href = "/login";
 
         return Promise.reject(refreshError);
@@ -139,6 +144,9 @@ api.interceptors.response.use(
     switch (error.response?.status) {
       case 400:
         errorMessage = error.response.data.message || "Неверный запрос";
+        break;
+      case 409:
+        errorMessage = error.response.data.message || "Конфликт данных";
         break;
       case 404:
         errorMessage = "Ресурс не найден";
