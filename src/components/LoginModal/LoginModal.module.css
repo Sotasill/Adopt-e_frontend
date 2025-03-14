@@ -422,6 +422,33 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.loginButton.loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+  position: relative;
+}
+
+.loginButton.loading::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin-top: -8px;
+  margin-left: -8px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .divider {
   position: relative;
   text-align: center;
@@ -784,4 +811,14 @@
 
 .forgotPasswordForm h2:hover::after {
   width: 120px;
+}
+
+.error {
+  color: #ff4d4f;
+  margin-bottom: 16px;
+  text-align: center;
+  font-size: 14px;
+  padding: 8px;
+  background-color: rgba(255, 77, 79, 0.1);
+  border-radius: 4px;
 }

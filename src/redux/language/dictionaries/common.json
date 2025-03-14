@@ -45,7 +45,10 @@
       "login": "Увійти",
       "zootovary": "Зоотовари",
       "services": "Послуги для тварин",
-      "veterinary": "Ветеринарні послуги"
+      "veterinary": "Ветеринарні послуги",
+      "savedAds": "Збережені оголошення",
+      "profileSettings": "Налаштування профілю",
+      "logout": "Вийти"
     },
     "rus": {
       "about": "О нас",
@@ -55,7 +58,10 @@
       "login": "Войти",
       "zootovary": "Зоотовары",
       "services": "Услуги для животных",
-      "veterinary": "Ветеринарные услуги"
+      "veterinary": "Ветеринарные услуги",
+      "savedAds": "Сохраненные объявления",
+      "profileSettings": "Настройки профиля",
+      "logout": "Выйти"
     },
     "en": {
       "about": "About",
@@ -65,7 +71,10 @@
       "login": "Sign in",
       "zootovary": "Pet Supplies",
       "services": "Pet Services",
-      "veterinary": "Veterinary Services"
+      "veterinary": "Veterinary Services",
+      "savedAds": "Saved Ads",
+      "profileSettings": "Profile Settings",
+      "logout": "Sign Out"
     },
     "deu": {
       "about": "Über uns",
@@ -75,7 +84,10 @@
       "login": "Anmelden",
       "zootovary": "Tierbedarfsartikel",
       "services": "Tierdienstleistungen",
-      "veterinary": "Tierärztliche Dienste"
+      "veterinary": "Tierärztliche Dienste",
+      "savedAds": "Gespeicherte Anzeigen",
+      "profileSettings": "Profileinstellungen",
+      "logout": "Abmelden"
     },
     "fr": {
       "about": "À propos",
@@ -85,7 +97,10 @@
       "login": "Se connecter",
       "zootovary": "Articles pour animaux",
       "services": "Services animaliers",
-      "veterinary": "Services vétérinaires"
+      "veterinary": "Services vétérinaires",
+      "savedAds": "Annonces sauvegardées",
+      "profileSettings": "Paramètres du profil",
+      "logout": "Déconnexion"
     }
   },
   "pets": {

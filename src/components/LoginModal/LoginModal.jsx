@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { login } from "../../redux/auth/authActions";
 import {
   FaUser,
   FaUserTie,
@@ -81,6 +83,7 @@ const LoginModal = ({
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const [selectedType, setSelectedType] = useState(initialType);
   const [specialistSubtype, setSpecialistSubtype] = useState(initialSubtype);
@@ -89,6 +92,8 @@ const LoginModal = ({
   const [showPassword, setShowPassword] = useState(false);
   const [auroraKey, setAuroraKey] = useState(0);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   // Обновляем ключ Aurora при изменении типа
   useEffect(() => {
@@ -144,9 +149,29 @@ const LoginModal = ({
     };
   }, [isOpen, onClose]);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("Login attempt:", { email, password, userType: selectedType });
+    setError("");
+    setIsLoading(true);
+
+    try {
+      const credentials = {
+        email,
+        password,
+      };
+
+      await dispatch(login(credentials));
+      onClose();
+      navigate(location.state?.from || "/");
+    } catch (error) {
+      setError(
+        error.response?.data?.message ||
+          t("loginModal.errors.default") ||
+          "Неверный email или пароль"
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSocialLogin = (provider) => {
@@ -301,6 +326,7 @@ const LoginModal = ({
                         className={styles.loginForm}
                       >
                         <h2>{t("loginModal.title")}</h2>
+                        {error && <div className={styles.error}>{error}</div>}
                         <form onSubmit={handleLogin}>
                           <div className={styles.formGroup}>
                             <FaEnvelope className={styles.inputIcon} />
@@ -310,6 +336,7 @@ const LoginModal = ({
                               value={email}
                               onChange={(e) => setEmail(e.target.value)}
                               required
+                              disabled={isLoading}
                             />
                           </div>
                           <div className={styles.formGroup}>
@@ -320,6 +347,7 @@ const LoginModal = ({
                               value={password}
                               onChange={(e) => setPassword(e.target.value)}
                               required
+                              disabled={isLoading}
                             />
                             {showPassword ? (
                               <FaEyeSlash
@@ -333,8 +361,16 @@ const LoginModal = ({
                               />
                             )}
                           </div>
-                          <button type="submit" className={styles.loginButton}>
-                            {t("loginModal.form.loginButton")}
+                          <button
+                            type="submit"
+                            className={`${styles.loginButton} ${
+                              isLoading ? styles.loading : ""
+                            }`}
+                            disabled={isLoading}
+                          >
+                            {isLoading
+                              ? t("loginModal.form.loggingIn")
+                              : t("loginModal.form.loginButton")}
                           </button>
                           {selectedType === "user" && (
                             <>
