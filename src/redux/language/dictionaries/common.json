@@ -48,7 +48,8 @@
       "veterinary": "Ветеринарні послуги",
       "savedAds": "Збережені оголошення",
       "profileSettings": "Налаштування профілю",
-      "logout": "Вийти"
+      "logout": "Вийти",
+      "myProfile": "Мій профіль"
     },
     "rus": {
       "about": "О нас",
@@ -61,7 +62,8 @@
       "veterinary": "Ветеринарные услуги",
       "savedAds": "Сохраненные объявления",
       "profileSettings": "Настройки профиля",
-      "logout": "Выйти"
+      "logout": "Выйти",
+      "myProfile": "Мой профиль"
     },
     "en": {
       "about": "About",
@@ -74,7 +76,8 @@
       "veterinary": "Veterinary Services",
       "savedAds": "Saved Ads",
       "profileSettings": "Profile Settings",
-      "logout": "Sign Out"
+      "logout": "Sign Out",
+      "myProfile": "My Profile"
     },
     "deu": {
       "about": "Über uns",
@@ -87,7 +90,8 @@
       "veterinary": "Tierärztliche Dienste",
       "savedAds": "Gespeicherte Anzeigen",
       "profileSettings": "Profileinstellungen",
-      "logout": "Abmelden"
+      "logout": "Abmelden",
+      "myProfile": "Mein Profil"
     },
     "fr": {
       "about": "À propos",
@@ -100,7 +104,8 @@
       "veterinary": "Services vétérinaires",
       "savedAds": "Annonces sauvegardées",
       "profileSettings": "Paramètres du profil",
-      "logout": "Déconnexion"
+      "logout": "Déconnexion",
+      "myProfile": "Mon Profil"
     }
   },
   "pets": {

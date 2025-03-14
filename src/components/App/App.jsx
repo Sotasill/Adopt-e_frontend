@@ -31,8 +31,20 @@ const PublicRoute = ({ children }) => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
   const location = useLocation();
 
-  // Если это главная страница, не делаем перенаправление
-  if (location.pathname === "/") {
+  // Список путей, которые доступны всем пользователям
+  const publicPaths = [
+    "/",
+    "/about",
+    "/breeds",
+    "/pets",
+    "/products",
+    "/services",
+    "/veterinary",
+    "/kennels",
+  ];
+
+  // Если это публичный путь, не делаем перенаправление
+  if (publicPaths.some((path) => location.pathname.startsWith(path))) {
     return children;
   }
 

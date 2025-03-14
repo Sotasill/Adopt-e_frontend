@@ -35,6 +35,11 @@ const Navigation = () => {
     setIsSidebarOpen(false);
   };
 
+  const handleNavigation = (path) => {
+    navigate(path);
+    setIsSidebarOpen(false);
+  };
+
   // Обработчик клика вне сайдбара
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -158,58 +163,65 @@ const Navigation = () => {
 
       <div className={styles.sidebarDivider} />
 
-      <Link
-        to="/about"
+      {isAuthenticated ? (
+        <div
+          className={styles.sidebarLink}
+          onClick={() => handleNavigation("/MainUserSystem")}
+        >
+          <span>{translate("common", "navigation.myProfile")}</span>
+        </div>
+      ) : (
+        <div
+          className={styles.sidebarLink}
+          onClick={() => handleNavigation("/about")}
+        >
+          <span>{translate("common", "navigation.about")}</span>
+        </div>
+      )}
+
+      <div
         className={styles.sidebarLink}
-        onClick={() => setIsSidebarOpen(false)}
-      >
-        <span>{translate("common", "navigation.about")}</span>
-      </Link>
-      <Link
-        to="/breeds"
-        className={styles.sidebarLink}
-        onClick={() => setIsSidebarOpen(false)}
+        onClick={() => handleNavigation("/breeds")}
       >
         <span>{translate("common", "breeds.title")}</span>
-      </Link>
-      <a
-        href="/#kennels-slider"
+      </div>
+
+      <div
         className={styles.sidebarLink}
-        onClick={() => setIsSidebarOpen(false)}
+        onClick={() => handleNavigation("/kennels")}
       >
         <span>{translate("common", "navigation.findBreeder")}</span>
-      </a>
-      <Link
-        to="/pets"
+      </div>
+
+      <div
         className={styles.sidebarLink}
-        onClick={() => setIsSidebarOpen(false)}
+        onClick={() => handleNavigation("/pets")}
       >
         <span>{translate("common", "navigation.findYourPet")}</span>
-      </Link>
+      </div>
 
       <div className={styles.sidebarDivider} />
 
-      <Link
-        to="/products?type=products"
+      <div
         className={styles.sidebarLink}
-        onClick={() => setIsSidebarOpen(false)}
+        onClick={() => handleNavigation("/products")}
       >
         <span>{translate("common", "navigation.zootovary")}</span>
-      </Link>
-      <Link
-        to="/products?type=services"
+      </div>
+
+      <div
         className={styles.sidebarLink}
-        onClick={() => setIsSidebarOpen(false)}
+        onClick={() => handleNavigation("/services")}
       >
         <span>{translate("common", "navigation.services")}</span>
-      </Link>
-      <Link
-        to="/products?type=veterinary"
+      </div>
+
+      <div
         className={styles.sidebarLink}
-        onClick={() => setIsSidebarOpen(false)}
+        onClick={() => handleNavigation("/veterinary")}
       >
         <span>{translate("common", "navigation.veterinary")}</span>
-      </Link>
+      </div>
 
       {isAuthenticated && (
         <>
