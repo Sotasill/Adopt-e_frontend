@@ -31,6 +31,11 @@ const PublicRoute = ({ children }) => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
   const location = useLocation();
 
+  // Если это главная страница, не делаем перенаправление
+  if (location.pathname === "/") {
+    return children;
+  }
+
   // Если пользователь аутентифицирован и у него есть роль
   if (isAuthenticated && user?.role) {
     const userRole = user.role.toLowerCase();

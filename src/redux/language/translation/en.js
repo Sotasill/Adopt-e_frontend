@@ -1,11 +1,11 @@
 const enTranslation = {
   // General
   welcome: {
-    title: "Welcome to the World of Pets!",
+    title: "Welcome to the world of pets!",
     subtitle: "Find your perfect pet with verified breeders",
   },
-  login: "Sign in",
-  register: "Sign up",
+  login: "Login",
+  register: "Register",
   logout: "Logout",
 
   // Navigation
@@ -61,9 +61,9 @@ const enTranslation = {
           "Create a breeder profile to list your pets and connect with potential owners",
       },
       specialist: {
-        title: "Specialist",
+        title: "Specialist Registration",
         description:
-          "Register as a pet care specialist (veterinarian, groomer, trainer)",
+          "Register as a pet care specialist (veterinarian, pet store owner, groomer)",
       },
     },
     user: {
@@ -99,12 +99,6 @@ const enTranslation = {
           label: "City",
           placeholder: "Enter city in Latin letters",
         },
-        description: "Kennel Description",
-        experience: "Years of Experience",
-        certificates: {
-          label: "Upload Certificates",
-          hint: "You can select multiple files",
-        },
         submit: "Complete Registration",
         next: "Next",
         back: "Back",
@@ -116,6 +110,10 @@ const enTranslation = {
       facebook: "Facebook",
       apple: "Apple",
     },
+    license: {
+      agree: "I agree to the",
+      text: "terms of service",
+    },
     errors: {
       required: "This field is required",
       email: "Invalid email address",
@@ -125,10 +123,11 @@ const enTranslation = {
       countryFirstLetter: "Country name must start with a capital letter",
       cityFirstLetter: "City name must start with a capital letter",
       username:
-        "Username must start with a capital letter and contain 3-30 characters (letters, numbers, _ or -)",
+        "Username must start with a capital letter and contain between 3 and 30 characters (letters, numbers, _ or -)",
       password:
         "Password must be at least 8 characters long and include at least one letter and one number",
       companyName: "Company name must start with a capital letter",
+      companyNameFormat: "Only Latin letters and symbols are allowed: - _ ; *",
       specialization: {
         breeder: "Select specialization: dog or cat",
         specialist: "Select specialization: veterinary, petshop, or service",
@@ -390,11 +389,14 @@ const enTranslation = {
       about: "About Us",
       findBreeder: "Find a Breeder",
       findYourPet: "Find Your Pet",
-      login: "Sign In",
-      register: "Sign Up",
+      login: "Login",
+      register: "Register",
       zootovary: "Pet Supplies",
-      services: "Pet Services",
-      veterinary: "Veterinary Services",
+      services: "Services",
+      veterinary: "Veterinary",
+      savedAds: "Saved Listings",
+      profileSettings: "Profile Settings",
+      logout: "Logout",
     },
   },
 

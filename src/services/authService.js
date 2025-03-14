@@ -53,11 +53,46 @@ export const authService = {
   },
 
   async registerUser(userData) {
-    const response = await authApi.post("/auth/register/user", {
-      ...userData,
-      role: "user",
-    });
-    return response.data;
+    try {
+      console.log("Отправка данных на регистрацию:", userData);
+      const response = await authApi.post("/auth/register/user", {
+        ...userData,
+        role: "user",
+      });
+
+      console.log("Ответ сервера:", response.data);
+
+      // Если сервер вернул только user без tokens, создаем структуру самостоятельно
+      const user = response.data.user || response.data;
+      const tokens = response.data.tokens || {
+        accessToken: response.data.token || "",
+        refreshToken: response.data.refreshToken || "",
+      };
+
+      // Проверяем наличие хотя бы user
+      if (!user) {
+        throw new Error(i18next.t("auth.errors.invalidServerResponse"));
+      }
+
+      // Сохраняем токены, если они есть
+      if (tokens.accessToken) {
+        localStorage.setItem("accessToken", tokens.accessToken);
+      }
+      if (tokens.refreshToken) {
+        localStorage.setItem("refreshToken", tokens.refreshToken);
+      }
+
+      // Сохраняем информацию о пользователе
+      localStorage.setItem("user", JSON.stringify(user));
+
+      return {
+        user: processUserData(user),
+        tokens,
+      };
+    } catch (error) {
+      console.error("Ошибка при регистрации:", error);
+      throw error;
+    }
   },
 
   async registerBreeder(userData) {
@@ -65,7 +100,19 @@ export const authService = {
       ...userData,
       role: "breeder",
     });
-    return response.data;
+
+    if (!response.data) {
+      throw new Error(i18next.t("auth.errors.invalidServerResponse"));
+    }
+
+    const { user, tokens } = response.data;
+
+    if (tokens) {
+      localStorage.setItem("accessToken", tokens.accessToken);
+      localStorage.setItem("refreshToken", tokens.refreshToken);
+    }
+
+    return { user: processUserData(user), tokens };
   },
 
   async registerSpecialist(userData) {
@@ -73,7 +120,19 @@ export const authService = {
       ...userData,
       role: "specialist",
     });
-    return response.data;
+
+    if (!response.data) {
+      throw new Error(i18next.t("auth.errors.invalidServerResponse"));
+    }
+
+    const { user, tokens } = response.data;
+
+    if (tokens) {
+      localStorage.setItem("accessToken", tokens.accessToken);
+      localStorage.setItem("refreshToken", tokens.refreshToken);
+    }
+
+    return { user: processUserData(user), tokens };
   },
 
   async socialAuth(socialData) {

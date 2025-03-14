@@ -26,6 +26,7 @@ import {
 import styles from "./SpecialistRegistrationForm.module.css";
 import commonStyles from "../../styles/common.module.css";
 import countries from "../../redux/language/dictionaries/countries.json";
+import authService from "../../services/authService";
 
 const formAnimation = {
   hidden: { opacity: 0, x: -20 },
@@ -84,7 +85,7 @@ const SpecialistRegistrationForm = () => {
           return t("registration.errors.required");
         }
         if (!/^[A-Z][a-zA-Z0-9_-]{2,29}$/.test(value)) {
-          return "Имя пользователя должно начинаться с заглавной буквы и содержать от 3 до 30 символов (буквы, цифры, _ или -)";
+          return t("registration.errors.username");
         }
         break;
       case "email":
@@ -102,10 +103,10 @@ const SpecialistRegistrationForm = () => {
           return t("registration.errors.required");
         }
         if (!/^[A-Z]/.test(value)) {
-          return "Название должно начинаться с заглавной буквы";
+          return t("registration.errors.companyName");
         }
         if (!/^[A-Za-z\-_;\s*]+$/.test(value)) {
-          return "Разрешены только латинские буквы и символы: - _ ; *";
+          return t("registration.errors.companyNameFormat");
         }
         break;
       case "specialization":
@@ -123,7 +124,7 @@ const SpecialistRegistrationForm = () => {
           return t("registration.errors.required");
         }
         if (!/^[a-zA-Z\s]*$/.test(value)) {
-          return "Только латинские буквы";
+          return t("registration.errors.cityFirstLetter");
         }
         break;
       default:
@@ -132,7 +133,7 @@ const SpecialistRegistrationForm = () => {
     return "";
   };
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     const { name, value, type, checked } = e.target;
 
     if (name === "companyName") {
@@ -157,28 +158,63 @@ const SpecialistRegistrationForm = () => {
         ...prev,
         [name]: error,
       }));
+
+      // Проверка доступности email
+      if (name === "email" && value && !error) {
+        try {
+          const { available } = await authService.checkEmail(value);
+          if (!available) {
+            setErrors((prev) => ({
+              ...prev,
+              email: t("auth.errors.emailInUse"),
+            }));
+          }
+        } catch (error) {
+          console.error("Error checking email:", error);
+        }
+      }
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Проверяем все поля на наличие ошибок
+    const hasErrors = Object.values(errors).some((error) => error !== "");
+    if (hasErrors) {
+      toast.error(t("registration.errors.validation"));
+      return; // Прерываем выполнение если есть ошибки
+    }
+
     if (!formData.acceptTerms) {
       toast.error(t("registration.errors.acceptTerms"));
       return;
     }
 
+    // Повторная проверка email перед отправкой
     try {
+      const { available } = await authService.checkEmail(formData.email);
+      if (!available) {
+        setErrors((prev) => ({
+          ...prev,
+          email: t("auth.errors.emailInUse"),
+        }));
+        toast.error(t("auth.errors.emailInUse"));
+        return;
+      }
+
       const registrationResult = await dispatch(
         registerSpecialist(formData)
       ).unwrap();
 
-      if (registrationResult) {
-        toast.success(t("registration.success"), {
-          duration: 3000,
-          position: "top-center",
-        });
+      // Если мы дошли до этой точки, значит регистрация успешна
+      toast.success(t("registration.success"), {
+        duration: 3000,
+        position: "top-center",
+      });
 
+      // Пытаемся выполнить вход
+      try {
         const loginResult = await dispatch(
           login({
             username: formData.username,
@@ -186,104 +222,38 @@ const SpecialistRegistrationForm = () => {
           })
         ).unwrap();
 
-        if (loginResult) {
-          navigate("/mainspecialist");
-        }
+        // Если вход успешен, переходим на страницу
+        navigate("/mainspecialist");
+      } catch (loginError) {
+        console.error("Login error after registration:", loginError);
+        // Даже если вход не удался, регистрация всё равно прошла успешно
+        navigate("/login");
       }
     } catch (error) {
       console.error("Registration error:", error);
-      console.error("Error response:", error.response);
-      console.error("Full error object:", JSON.stringify(error, null, 2));
+      let errorMessage = t("registration.error");
 
-      let errorMessage = "";
-
-      console.log("Начинаем обработку ошибки:", error);
-
-      // Если ошибка пришла как строка
-      if (typeof error === "string") {
-        const lowerError = error.toLowerCase();
-        if (lowerError.includes("email already in use")) {
-          errorMessage = "Этот email уже используется другим пользователем";
-        } else if (lowerError.includes("username already exists")) {
-          errorMessage = "Это имя пользователя уже занято";
-        } else {
-          errorMessage = error.replace("❌ ", "");
-        }
-      }
-      // Проверяем наличие ConflictError в сообщении об ошибке
-      else if (error?.message) {
-        const errorText = error.message;
-        console.log("Проверяем сообщение об ошибке:", errorText);
-
-        if (errorText === "ConflictError: Email already in use") {
-          errorMessage = "Этот email уже используется другим пользователем";
-        } else if (errorText === "ConflictError: Username already exists") {
-          errorMessage = "Это имя пользователя уже занято";
-        } else if (errorText.includes("Email already in use")) {
-          errorMessage = "Этот email уже используется другим пользователем";
-        } else if (errorText.includes("Username already exists")) {
-          errorMessage = "Это имя пользователя уже занято";
-        } else {
-          errorMessage = errorText;
-        }
-      }
-      // Проверяем наличие response.data.message
-      else if (error?.response?.data?.message) {
+      if (error?.response?.data?.message) {
         const serverMessage = error.response.data.message;
-        console.log("Проверяем серверное сообщение:", serverMessage);
-
-        if (typeof serverMessage === "string") {
-          const lowerMessage = serverMessage.toLowerCase();
-          if (lowerMessage.includes("email already in use")) {
-            errorMessage = "Этот email уже используется другим пользователем";
-          } else if (lowerMessage.includes("username already exists")) {
-            errorMessage = "Это имя пользователя уже занято";
-          } else if (serverMessage.includes("Invalid username pattern")) {
-            errorMessage =
-              "Неверный формат имени пользователя. Имя должно начинаться с заглавной буквы и содержать от 3 до 30 символов (буквы, цифры, _ или -)";
-          } else if (serverMessage.includes("Invalid email format")) {
-            errorMessage = "Неверный формат email адреса";
-          } else if (serverMessage.includes("Password too weak")) {
-            errorMessage =
-              "Пароль слишком слабый. Он должен содержать минимум 8 символов, включая заглавные, строчные буквы и цифры";
-          } else if (serverMessage.includes("Invalid company name")) {
-            errorMessage =
-              "Неверный формат названия компании. Используйте только латинские буквы, цифры и символы - _ ; *";
-          } else if (serverMessage.includes("Invalid specialization")) {
-            errorMessage = "Пожалуйста, выберите специализацию из списка";
-          } else if (serverMessage.includes("Invalid city name")) {
-            errorMessage =
-              "Название города должно содержать только латинские буквы";
-          } else {
-            errorMessage = serverMessage;
-          }
+        if (serverMessage.includes("Email already in use")) {
+          errorMessage = t("auth.errors.emailInUse");
+        } else if (serverMessage.includes("Username already exists")) {
+          errorMessage = t("auth.errors.usernameInUse");
+        } else if (serverMessage.includes("Invalid username pattern")) {
+          errorMessage = t("registration.errors.username");
+        } else if (serverMessage.includes("Invalid email format")) {
+          errorMessage = t("registration.errors.email");
+        } else if (serverMessage.includes("Password too weak")) {
+          errorMessage = t("registration.errors.password");
+        } else if (serverMessage.includes("Invalid company name")) {
+          errorMessage = t("registration.errors.companyName");
+        } else if (serverMessage.includes("Invalid specialization")) {
+          errorMessage = t("registration.errors.specialization.specialist");
+        } else if (serverMessage.includes("Invalid city name")) {
+          errorMessage = t("registration.errors.cityFirstLetter");
         }
       }
-      // Проверяем наличие response.data.error
-      else if (error?.response?.data?.error) {
-        const errorText = error.response.data.error.toLowerCase();
-        console.log("Проверяем response.data.error:", errorText);
 
-        if (errorText.includes("email already in use")) {
-          errorMessage = "Этот email уже используется другим пользователем";
-        } else if (errorText.includes("username already exists")) {
-          errorMessage = "Это имя пользователя уже занято";
-        } else {
-          errorMessage = error.response.data.error;
-        }
-      }
-      // Если ничего не подошло, используем общее сообщение
-      else {
-        errorMessage =
-          "Произошла ошибка при регистрации. Пожалуйста, попробуйте позже";
-      }
-
-      // Убираем эмодзи из сообщения, если он есть
-      errorMessage = errorMessage.replace("❌ ", "");
-
-      console.log("Итоговое сообщение об ошибке:", errorMessage);
-
-      // Показываем уведомление об ошибке через sonner
       toast.error(errorMessage, {
         position: "top-center",
         duration: 5000,

@@ -35,18 +35,19 @@
 
 .homeLink {
   text-decoration: none;
-  color: #2c3e50;
-  position: relative;
-  transition: all 0.3s ease;
-  padding: 8px 16px;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 .homeLink h2 {
   margin: 0;
-  font-size: 24px;
-  font-weight: 700;
-  color: #2c3e50;
-  transition: all 0.3s ease;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .homeLink:hover h2 {
@@ -68,27 +69,27 @@
   }
 }
 
+.userAvatar {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.userAvatar:hover {
+  transform: scale(1.1);
+}
+
 .profileButton {
-  background: rgba(240, 240, 240, 0.3);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: none;
   border: none;
-  width: 32px;
-  height: 32px;
   padding: 0;
   cursor: pointer;
-  color: #333;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
-  border-radius: 50%;
-}
-
-.profileButton:hover {
-  color: #666;
-  background: rgba(240, 240, 240, 0.5);
-  transform: scale(1.05);
+  color: inherit;
 }
 
 /* Стили для языкового переключателя */
@@ -257,8 +258,8 @@
 }
 
 .buttonIcon {
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   background: linear-gradient(90deg, #2c3e50 0%, #3498db 50%, #2c3e50 100%);
   background-size: 200% auto;
   backdrop-filter: blur(8px);
@@ -270,6 +271,7 @@
   transition: all 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.4);
   color: #fff;
+  margin-right: 0;
 }
 
 .buttonLabel {
@@ -443,8 +445,8 @@
   }
 
   .buttonIcon {
-    width: 36px;
-    height: 36px;
+    width: 50px;
+    height: 50px;
   }
 
   .buttonLabel {
@@ -622,4 +624,26 @@
   height: 1px;
   background: rgba(255, 255, 255, 0.3);
   margin: 1rem 0;
+}
+
+.logoutButton {
+  margin-top: auto;
+  background: linear-gradient(
+    90deg,
+    #e74c3c 0%,
+    #c0392b 50%,
+    #e74c3c 100%
+  ) !important;
+  color: white !important;
+  border: none !important;
+  cursor: pointer;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.logoutButton:hover {
+  background-position: 100% center !important;
+  transform: translateX(4px);
 }

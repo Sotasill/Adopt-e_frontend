@@ -26,6 +26,7 @@ import {
 import styles from "./BreederRegistrationForm.module.css";
 import commonStyles from "../../styles/common.module.css";
 import countries from "../../redux/language/dictionaries/countries.json";
+import authService from "../../services/authService";
 
 const formAnimation = {
   hidden: { opacity: 0, x: -20 },
@@ -84,7 +85,7 @@ const BreederRegistrationForm = () => {
           return t("registration.errors.required");
         }
         if (!/^[A-Z][a-zA-Z0-9_-]{2,29}$/.test(value)) {
-          return "Имя пользователя должно начинаться с заглавной буквы и содержать от 3 до 30 символов (буквы, цифры, _ или -)";
+          return t("registration.errors.username");
         }
         break;
       case "email":
@@ -102,10 +103,10 @@ const BreederRegistrationForm = () => {
           return t("registration.errors.required");
         }
         if (!/^[A-Z]/.test(value)) {
-          return "Название должно начинаться с заглавной буквы";
+          return t("registration.errors.companyName");
         }
         if (!/^[A-Za-z\-_;\s*]+$/.test(value)) {
-          return "Разрешены только латинские буквы и символы: - _ ; *";
+          return t("registration.errors.companyNameFormat");
         }
         break;
       case "specialization":
@@ -123,7 +124,7 @@ const BreederRegistrationForm = () => {
           return t("registration.errors.required");
         }
         if (!/^[a-zA-Z\s]*$/.test(value)) {
-          return "Только латинские буквы";
+          return t("registration.errors.cityFirstLetter");
         }
         break;
       default:
@@ -132,7 +133,7 @@ const BreederRegistrationForm = () => {
     return "";
   };
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     const { name, value, type, checked } = e.target;
 
     if (name === "companyName") {
@@ -157,28 +158,63 @@ const BreederRegistrationForm = () => {
         ...prev,
         [name]: error,
       }));
+
+      // Проверка доступности email
+      if (name === "email" && value && !error) {
+        try {
+          const { available } = await authService.checkEmail(value);
+          if (!available) {
+            setErrors((prev) => ({
+              ...prev,
+              email: t("auth.errors.emailInUse"),
+            }));
+          }
+        } catch (error) {
+          console.error("Error checking email:", error);
+        }
+      }
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Проверяем все поля на наличие ошибок
+    const hasErrors = Object.values(errors).some((error) => error !== "");
+    if (hasErrors) {
+      toast.error(t("registration.errors.validation"));
+      return; // Прерываем выполнение если есть ошибки
+    }
+
     if (!formData.acceptTerms) {
       toast.error(t("registration.errors.acceptTerms"));
       return;
     }
 
+    // Повторная проверка email перед отправкой
     try {
+      const { available } = await authService.checkEmail(formData.email);
+      if (!available) {
+        setErrors((prev) => ({
+          ...prev,
+          email: t("auth.errors.emailInUse"),
+        }));
+        toast.error(t("auth.errors.emailInUse"));
+        return;
+      }
+
       const registrationResult = await dispatch(
         registerBreeder(formData)
       ).unwrap();
 
+      // Если мы дошли до этой точки, значит регистрация успешна
       toast.success(t("registration.success"), {
         duration: 3000,
         position: "top-center",
       });
 
-      if (registrationResult) {
+      // Пытаемся выполнить вход
+      try {
         const loginResult = await dispatch(
           login({
             username: formData.username,
@@ -186,31 +222,23 @@ const BreederRegistrationForm = () => {
           })
         ).unwrap();
 
-        if (loginResult) {
-          navigate("/mainbcs");
-        }
+        // Если вход успешен, переходим на страницу
+        navigate("/mainbcs");
+      } catch (loginError) {
+        console.error("Login error after registration:", loginError);
+        // Даже если вход не удался, регистрация всё равно прошла успешно
+        navigate("/login");
       }
     } catch (error) {
       console.error("Registration error:", error);
-
       let errorMessage = t("registration.error");
 
-      // Проверяем ответ сервера
-      const serverError = error.response?.data?.message || error.message;
-
-      if (serverError) {
-        if (serverError.includes("Email already in use")) {
-          errorMessage = "❌ Этот email уже используется другим пользователем";
-        } else if (serverError.includes("Username already exists")) {
-          errorMessage = "❌ Это имя пользователя уже занято";
-        } else if (serverError.includes("ConflictError")) {
-          // Проверяем текст ошибки на наличие конкретной причины
-          if (serverError.toLowerCase().includes("email")) {
-            errorMessage =
-              "❌ Этот email уже используется другим пользователем";
-          } else if (serverError.toLowerCase().includes("username")) {
-            errorMessage = "❌ Это имя пользователя уже занято";
-          }
+      if (error?.response?.data?.message) {
+        const serverMessage = error.response.data.message;
+        if (serverMessage.includes("Email already in use")) {
+          errorMessage = t("auth.errors.emailInUse");
+        } else if (serverMessage.includes("Username already exists")) {
+          errorMessage = t("auth.errors.usernameInUse");
         }
       }
 

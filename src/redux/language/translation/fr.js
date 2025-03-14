@@ -153,10 +153,12 @@ const frTranslation = {
       countryFirstLetter: "Le nom du pays doit commencer par une majuscule",
       cityFirstLetter: "Le nom de la ville doit commencer par une majuscule",
       username:
-        "Le nom d'utilisateur doit commencer par une majuscule et contenir 3-30 caractères (lettres, chiffres, _ ou -)",
+        "Le nom d'utilisateur doit commencer par une majuscule et contenir entre 3 et 30 caractères (lettres, chiffres, _ ou -)",
       password:
         "Le mot de passe doit contenir au moins 8 caractères, dont au moins une lettre et un chiffre",
       companyName: "Le nom de l'entreprise doit commencer par une majuscule",
+      companyNameFormat:
+        "Seuls les lettres latines et les symboles sont autorisés : - _ ; *",
       specialization: {
         breeder: "Choisissez une spécialisation : dog ou cat",
         specialist:

@@ -32,18 +32,20 @@ const deTranslation = {
   },
   registration: {
     errors: {
-      required: "Pflichtfeld",
+      required: "Dieses Feld ist erforderlich",
       email: "Ungültige E-Mail-Adresse",
       minLength: "Mindestens {{count}} Zeichen",
       maxLength: "Maximal {{count}} Zeichen",
       acceptTerms: "Sie müssen die Nutzungsbedingungen akzeptieren",
-      countryFirstLetter: "Ländername muss mit einem Großbuchstaben beginnen",
-      cityFirstLetter: "Stadtname muss mit einem Großbuchstaben beginnen",
+      countryFirstLetter:
+        "Der Ländername muss mit einem Großbuchstaben beginnen",
+      cityFirstLetter: "Der Stadtname muss mit einem Großbuchstaben beginnen",
       username:
-        "Benutzername muss mit einem Großbuchstaben beginnen und 3-30 Zeichen enthalten (Buchstaben, Zahlen, _ oder -)",
+        "Der Benutzername muss mit einem Großbuchstaben beginnen und zwischen 3 und 30 Zeichen enthalten (Buchstaben, Zahlen, _ oder -)",
       password:
-        "Passwort muss mindestens 8 Zeichen lang sein und mindestens einen Buchstaben und eine Zahl enthalten",
-      companyName: "Firmenname muss mit einem Großbuchstaben beginnen",
+        "Das Passwort muss mindestens 8 Zeichen lang sein und mindestens einen Buchstaben und eine Zahl enthalten",
+      companyName: "Der Firmenname muss mit einem Großbuchstaben beginnen",
+      companyNameFormat: "Nur lateinische Buchstaben und Symbole sind erlaubt: - _ ; *",
       specialization: {
         breeder: "Wählen Sie eine Spezialisierung: dog oder cat",
         specialist:

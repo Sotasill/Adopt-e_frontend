@@ -95,8 +95,27 @@ export const registerUser = createAsyncThunk(
       }
 
       const response = await authService.registerUser(userData);
-      return handleSuccessfulRegistration(response);
+
+      // Проверяем наличие user в ответе
+      if (!response || !response.user) {
+        console.error("Неверный формат ответа сервера:", response);
+        throw new Error(i18next.t("auth.errors.invalidServerResponse"));
+      }
+
+      // Сохраняем информацию о пользователе
+      localStorage.setItem("user", JSON.stringify(response.user));
+
+      // Если есть токены, сохраняем их
+      if (response.tokens) {
+        localStorage.setItem("accessToken", response.tokens.accessToken);
+        if (response.tokens.refreshToken) {
+          localStorage.setItem("refreshToken", response.tokens.refreshToken);
+        }
+      }
+
+      return response;
     } catch (error) {
+      console.error("Registration error details:", error);
       let errorMessage;
 
       if (error?.response?.status === 409) {
@@ -135,8 +154,8 @@ export const registerUser = createAsyncThunk(
         } else {
           errorMessage = error.response.data.message;
         }
-      } else if (typeof error === "string") {
-        errorMessage = error;
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
       } else {
         errorMessage = i18next.t("auth.errors.registrationError");
       }

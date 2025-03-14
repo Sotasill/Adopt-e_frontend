@@ -25,6 +25,17 @@ const ukrTranslation = {
     zootovary: "Зоотовари",
     services: "Послуги для тварин",
     veterinary: "Ветеринарні послуги",
+    login: "Увійти",
+    register: "Зареєструватися",
+    about: "Про нас",
+    findBreeder: "Знайти заводчика",
+    findYourPet: "Знайти вихованця",
+    zootovary: "Зоотовари",
+    services: "Послуги",
+    veterinary: "Ветеринарія",
+    savedAds: "Збережені оголошення",
+    profileSettings: "Налаштування профілю",
+    logout: "Вийти",
   },
 
   // Породи
@@ -162,6 +173,8 @@ const ukrTranslation = {
       password:
         "Пароль повинен містити мінімум 8 символів, включаючи хоча б одну літеру та одну цифру",
       companyName: "Назва компанії повинна починатися з великої літери",
+      companyNameFormat:
+        "Дозволені тільки латинські літери та символи: - _ ; *",
       specialization: {
         breeder: "Оберіть спеціалізацію: dog або cat",
         specialist: "Оберіть спеціалізацію: veterinary, petshop або service",

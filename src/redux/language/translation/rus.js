@@ -10,10 +10,23 @@ const ruTranslation = {
   logout: "Выйти",
 
   // Навигация
+  navigation: {
+    login: "Войти",
+    register: "Зарегистрироваться",
+    about: "О нас",
+    findBreeder: "Найти заводчика",
+    findYourPet: "Найти питомца",
+    zootovary: "Зоотовары",
+    services: "Услуги",
+    veterinary: "Ветеринария",
+    savedAds: "Сохраненные объявления",
+    profileSettings: "Настройки профиля",
+    logout: "Выйти",
+  },
+
   home: "Главная",
   animals: "Животные",
   gallery: "Галерея",
-  about: "О нас",
   ourMission: "Наша миссия",
   breeders: {
     title: "Найди своего заводчика",
@@ -447,7 +460,7 @@ const ruTranslation = {
       register: "Регистрация",
       zootovary: "Зоотовары",
       services: "Услуги для животных",
-      veterinary: "Ветеринарные услуги",
+      veterinary: "Ветеринария",
     },
     breeds: {
       title: "Породы",

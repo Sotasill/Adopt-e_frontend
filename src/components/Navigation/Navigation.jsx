@@ -1,22 +1,39 @@
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { useTranslations } from "../../redux/hooks/useTranslations";
 import styles from "./Navigation.module.css";
 import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 import LoginModal from "../LoginModal/LoginModal";
 import { useState, useEffect, useRef } from "react";
-import { FaUserCircle, FaSignInAlt, FaUserPlus } from "react-icons/fa";
+import {
+  FaUserCircle,
+  FaSignInAlt,
+  FaUserPlus,
+  FaHeart,
+  FaCog,
+} from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { MdStorefront } from "react-icons/md";
 import Aurora from "../Aurora/Aurora";
+import { Avatar } from "@mui/material";
+import { logout } from "../../redux/auth/authActions";
 
 const Navigation = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
+  const user = useSelector((state) => state.auth.user);
   const { translate } = useTranslations();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isBcsLoginModalOpen, setIsBcsLoginModalOpen] = useState(false);
   const sidebarRef = useRef(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+    setIsSidebarOpen(false);
+  };
 
   // Обработчик клика вне сайдбара
   useEffect(() => {
@@ -31,6 +48,11 @@ const Navigation = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const handleLogoClick = () => {
+    navigate("/");
+    setIsSidebarOpen(false);
+  };
 
   const SidebarContent = () => (
     <div className={styles.sidebarContent}>
@@ -54,7 +76,7 @@ const Navigation = () => {
             title={translate("common", "navigation.login")}
           >
             <div className={styles.buttonIcon}>
-              <FaSignInAlt size={18} />
+              <FaSignInAlt size={32} />
             </div>
             <span className={styles.buttonLabel}>
               {translate("common", "navigation.login")}
@@ -68,7 +90,7 @@ const Navigation = () => {
             title={translate("common", "navigation.register")}
           >
             <div className={styles.buttonIcon}>
-              <FaUserPlus size={18} />
+              <FaUserPlus size={32} />
             </div>
             <span className={styles.buttonLabel}>
               {translate("common", "navigation.register")}
@@ -85,23 +107,53 @@ const Navigation = () => {
             title="BCS"
           >
             <div className={styles.buttonIcon}>
-              <MdStorefront size={18} />
+              <MdStorefront size={32} />
             </div>
             <span className={styles.buttonLabel}>BCS</span>
           </button>
         </div>
       ) : (
-        <Link
-          to="/MainBCS"
-          className={styles.sidebarButton}
-          onClick={() => setIsSidebarOpen(false)}
-          title="MainBCS"
-        >
-          <div className={styles.buttonIcon}>
-            <MdStorefront size={18} />
-          </div>
-          <span className={styles.buttonLabel}>MainBCS</span>
-        </Link>
+        <>
+          {user?.role?.toLowerCase() === "breeder" && (
+            <Link
+              to="/MainBCS"
+              className={styles.sidebarButton}
+              onClick={() => setIsSidebarOpen(false)}
+              title="MainBCS"
+            >
+              <div className={styles.buttonIcon}>
+                <MdStorefront size={18} />
+              </div>
+              <span className={styles.buttonLabel}>MainBCS</span>
+            </Link>
+          )}
+
+          {user?.role?.toLowerCase() === "user" && (
+            <>
+              <Link
+                to="/favorites"
+                className={styles.sidebarLink}
+                onClick={() => setIsSidebarOpen(false)}
+              >
+                <div className={styles.buttonIcon}>
+                  <FaHeart size={18} />
+                </div>
+                <span>{translate("common", "navigation.savedAds")}</span>
+              </Link>
+
+              <Link
+                to="/profile/settings"
+                className={styles.sidebarLink}
+                onClick={() => setIsSidebarOpen(false)}
+              >
+                <div className={styles.buttonIcon}>
+                  <FaCog size={18} />
+                </div>
+                <span>{translate("common", "navigation.profileSettings")}</span>
+              </Link>
+            </>
+          )}
+        </>
       )}
 
       <div className={styles.sidebarDivider} />
@@ -158,6 +210,18 @@ const Navigation = () => {
       >
         <span>{translate("common", "navigation.veterinary")}</span>
       </Link>
+
+      {isAuthenticated && (
+        <>
+          <div className={styles.sidebarDivider} />
+          <button
+            onClick={handleLogout}
+            className={`${styles.sidebarLink} ${styles.logoutButton}`}
+          >
+            <span>{translate("common", "navigation.logout")}</span>
+          </button>
+        </>
+      )}
     </div>
   );
 
@@ -166,9 +230,9 @@ const Navigation = () => {
       <nav className={styles.navigation}>
         <div className={styles.navContainer}>
           <div className={styles.leftSide}>
-            <Link to="/" className={styles.homeLink}>
+            <button onClick={handleLogoClick} className={styles.homeLink}>
               <h2>Adopt-e</h2>
-            </Link>
+            </button>
           </div>
 
           <div className={styles.rightSide}>
@@ -177,7 +241,15 @@ const Navigation = () => {
               className={styles.profileButton}
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             >
-              <FaUserCircle size={20} />
+              {isAuthenticated && user?.avatar ? (
+                <Avatar
+                  src={user.avatar}
+                  alt={user.name || "User"}
+                  className={styles.userAvatar}
+                />
+              ) : (
+                <FaUserCircle size={20} />
+              )}
             </button>
           </div>
         </div>
