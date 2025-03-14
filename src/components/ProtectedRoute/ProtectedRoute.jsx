@@ -10,13 +10,13 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate("/login");
+      navigate("/");
       return;
     }
 
     if (!user || !user.role) {
       toast.error("Ошибка: роль пользователя не определена");
-      navigate("/login");
+      navigate("/");
       return;
     }
 

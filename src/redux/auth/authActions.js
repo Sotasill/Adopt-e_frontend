@@ -1,5 +1,6 @@
 import { AUTH_TYPES } from "./authTypes";
 import { authService } from "../../services/authService";
+import { clearFavorites } from "../actions/favoritesActions";
 
 export const loginSuccess = (userData) => ({
   type: AUTH_TYPES.LOGIN_SUCCESS,
@@ -99,10 +100,13 @@ export const logoutUser = () => async (dispatch) => {
     await authService.logout();
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("favorites");
     dispatch(logout());
+    dispatch(clearFavorites());
   } catch (error) {
     console.error("Ошибка при выходе:", error);
     dispatch(logout());
+    dispatch(clearFavorites());
   }
 };
 

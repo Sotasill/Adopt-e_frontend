@@ -1,15 +1,19 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { toggleFavorite } from '../actions/favoritesActions';
+import { useSelector, useDispatch } from "react-redux";
+import { toggleFavorite } from "../actions/favoritesActions";
 
 export const useFavorites = () => {
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites.items);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const handleToggleFavorite = (item) => {
-    dispatch(toggleFavorite(item));
+    if (isAuthenticated) {
+      dispatch(toggleFavorite(item));
+    }
   };
 
   const isFavorite = (itemId) => {
+    if (!isAuthenticated) return false;
     return favorites.some((item) => item.id === itemId);
   };
 
@@ -18,4 +22,4 @@ export const useFavorites = () => {
     handleToggleFavorite,
     isFavorite,
   };
-}; 
+};

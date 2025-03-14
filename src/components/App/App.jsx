@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next";
 import Layout from "../Layout/Layout";
 import HomePage from "../../pages/HomePage/HomePage";
 import RegistrationPage from "../../pages/RegistrationPage/RegistrationPage";
-import LoginPage from "../../pages/LoginPage/LoginPage";
 import MainBCS from "../../pages/MainBCS/MainBCS";
 import MainUserSystem from "../../pages/MainUserSysytem/MainUserSysytem";
 import AuthProvider from "../AuthProvider/AuthProvider";
@@ -120,19 +119,6 @@ const App = () => {
               </PublicRoute>
               <Toaster position="top-right" richColors />
             </main>
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <Layout className={styles.root}>
-              <main className={styles.main}>
-                <PublicRoute>
-                  <LoginPage />
-                </PublicRoute>
-                <Toaster position="top-right" richColors />
-              </main>
-            </Layout>
           }
         />
         <Route
