@@ -17,6 +17,8 @@ import { MdStorefront } from "react-icons/md";
 import Aurora from "../Aurora/Aurora";
 import { Avatar } from "@mui/material";
 import { logout } from "../../redux/auth/authActions";
+import ProfileSettingsModal from "../ProfileSettingsModal/ProfileSettingsModal";
+import FavoritesModal from "../FavoritesModal/FavoritesModal";
 
 const Navigation = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
@@ -25,6 +27,8 @@ const Navigation = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isBcsLoginModalOpen, setIsBcsLoginModalOpen] = useState(false);
+  const [isProfileSettingsOpen, setIsProfileSettingsOpen] = useState(false);
+  const [isFavoritesModalOpen, setIsFavoritesModalOpen] = useState(false);
   const sidebarRef = useRef(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -135,27 +139,31 @@ const Navigation = () => {
 
           {user?.role?.toLowerCase() === "user" && (
             <>
-              <Link
-                to="/favorites"
+              <div
                 className={styles.sidebarLink}
-                onClick={() => setIsSidebarOpen(false)}
+                onClick={() => {
+                  setIsFavoritesModalOpen(true);
+                  setIsSidebarOpen(false);
+                }}
               >
                 <div className={styles.buttonIcon}>
                   <FaHeart size={18} />
                 </div>
                 <span>{translate("common", "navigation.savedAds")}</span>
-              </Link>
+              </div>
 
-              <Link
-                to="/profile/settings"
+              <div
                 className={styles.sidebarLink}
-                onClick={() => setIsSidebarOpen(false)}
+                onClick={() => {
+                  setIsProfileSettingsOpen(true);
+                  setIsSidebarOpen(false);
+                }}
               >
                 <div className={styles.buttonIcon}>
                   <FaCog size={18} />
                 </div>
                 <span>{translate("common", "navigation.profileSettings")}</span>
-              </Link>
+              </div>
             </>
           )}
         </>
@@ -292,6 +300,16 @@ const Navigation = () => {
         }}
         initialType={isBcsLoginModalOpen ? "seller" : null}
         initialSubtype={isBcsLoginModalOpen ? "bcs" : null}
+      />
+
+      <ProfileSettingsModal
+        isOpen={isProfileSettingsOpen}
+        onClose={() => setIsProfileSettingsOpen(false)}
+      />
+
+      <FavoritesModal
+        isOpen={isFavoritesModalOpen}
+        onClose={() => setIsFavoritesModalOpen(false)}
       />
     </>
   );

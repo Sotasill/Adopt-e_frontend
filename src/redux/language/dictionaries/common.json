@@ -204,5 +204,125 @@
         "en": "Maximum {{count}} characters"
       }
     }
+  },
+  "uk": {
+    "favorites": {
+      "title": "Обране",
+      "pets": "Улюбленці",
+      "products": "Товари та послуги",
+      "noPets": "У вас поки немає обраних улюбленців",
+      "noProducts": "У вас поки немає обраних товарів чи послуг",
+      "viewAll": "Показати все"
+    },
+    "profile": {
+      "settings": "Налаштування профілю",
+      "avatar": "Аватар",
+      "background": "Фонове зображення",
+      "username": "Ім'я користувача",
+      "email": "Електронна пошта",
+      "phone": "Телефон",
+      "save": "Зберегти зміни",
+      "avatarUpdateSuccess": "Аватар успішно оновлено",
+      "avatarUpdateError": "Помилка при оновленні аватара",
+      "backgroundUpdateSuccess": "Фонове зображення успішно оновлено",
+      "backgroundUpdateError": "Помилка при оновленні фонового зображення",
+      "updateSuccess": "Профіль успішно оновлено"
+    }
+  },
+  "ru": {
+    "favorites": {
+      "title": "Избранное",
+      "pets": "Питомцы",
+      "products": "Товары и услуги",
+      "noPets": "У вас пока нет избранных питомцев",
+      "noProducts": "У вас пока нет избранных товаров или услуг",
+      "viewAll": "Показать все"
+    },
+    "profile": {
+      "settings": "Настройки профиля",
+      "avatar": "Аватар",
+      "background": "Фоновое изображение",
+      "username": "Имя пользователя",
+      "email": "Электронная почта",
+      "phone": "Телефон",
+      "save": "Сохранить изменения",
+      "avatarUpdateSuccess": "Аватар успешно обновлен",
+      "avatarUpdateError": "Ошибка при обновлении аватара",
+      "backgroundUpdateSuccess": "Фоновое изображение успешно обновлено",
+      "backgroundUpdateError": "Ошибка при обновлении фонового изображения",
+      "updateSuccess": "Профиль успешно обновлен"
+    }
+  },
+  "en": {
+    "favorites": {
+      "title": "Favorites",
+      "pets": "Pets",
+      "products": "Products & Services",
+      "noPets": "You don't have any favorite pets yet",
+      "noProducts": "You don't have any favorite products or services yet",
+      "viewAll": "View All"
+    },
+    "profile": {
+      "settings": "Profile Settings",
+      "avatar": "Avatar",
+      "background": "Background Image",
+      "username": "Username",
+      "email": "Email",
+      "phone": "Phone",
+      "save": "Save Changes",
+      "avatarUpdateSuccess": "Avatar updated successfully",
+      "avatarUpdateError": "Error updating avatar",
+      "backgroundUpdateSuccess": "Background image updated successfully",
+      "backgroundUpdateError": "Error updating background image",
+      "updateSuccess": "Profile updated successfully"
+    }
+  },
+  "de": {
+    "favorites": {
+      "title": "Favoriten",
+      "pets": "Haustiere",
+      "products": "Produkte & Dienstleistungen",
+      "noPets": "Sie haben noch keine Lieblingshaustiere",
+      "noProducts": "Sie haben noch keine Lieblingsprodukte oder -dienstleistungen",
+      "viewAll": "Alle anzeigen"
+    },
+    "profile": {
+      "settings": "Profileinstellungen",
+      "avatar": "Avatar",
+      "background": "Hintergrundbild",
+      "username": "Benutzername",
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "save": "Änderungen speichern",
+      "avatarUpdateSuccess": "Avatar erfolgreich aktualisiert",
+      "avatarUpdateError": "Fehler beim Aktualisieren des Avatars",
+      "backgroundUpdateSuccess": "Hintergrundbild erfolgreich aktualisiert",
+      "backgroundUpdateError": "Fehler beim Aktualisieren des Hintergrundbildes",
+      "updateSuccess": "Profil erfolgreich aktualisiert"
+    }
+  },
+  "fr": {
+    "favorites": {
+      "title": "Favoris",
+      "pets": "Animaux",
+      "products": "Produits et Services",
+      "noPets": "Vous n'avez pas encore d'animaux favoris",
+      "noProducts": "Vous n'avez pas encore de produits ou services favoris",
+      "viewAll": "Voir tout"
+    },
+    "profile": {
+      "settings": "Paramètres du profil",
+      "avatar": "Avatar",
+      "background": "Image de fond",
+      "username": "Nom d'utilisateur",
+      "email": "E-mail",
+      "phone": "Téléphone",
+      "save": "Enregistrer les modifications",
+      "avatarUpdateSuccess": "Avatar mis à jour avec succès",
+      "avatarUpdateError": "Erreur lors de la mise à jour de l'avatar",
+      "backgroundUpdateSuccess": "Image de fond mise à jour avec succès",
+      "backgroundUpdateError": "Erreur lors de la mise à jour de l'image de fond",
+      "updateSuccess": "Profil mis à jour avec succès"
+    }
   }
 }

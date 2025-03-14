@@ -24,6 +24,7 @@ import MainSpecialist from "../../pages/MainSpecialist/MainSpecialist.jsx";
 import BreederPage from "../../pages/BreederPage/BreederPage";
 import PetPage from "../../pages/PetPage/PetPage";
 import ProductPage from "../../pages/ProductPage/ProductPage";
+import FavoritesPage from "../../pages/FavoritesPage/FavoritesPage";
 import styles from "./App.module.css";
 
 const PublicRoute = ({ children }) => {
@@ -313,6 +314,19 @@ const App = () => {
                 <PublicRoute>
                   <PetsListPage />
                 </PublicRoute>
+                <Toaster position="top-right" richColors />
+              </main>
+            </Layout>
+          }
+        />
+        <Route
+          path="/favorites"
+          element={
+            <Layout className={styles.root}>
+              <main className={styles.main}>
+                <ProtectedRoute allowedRoles={["user", "User", "USER"]}>
+                  <FavoritesPage />
+                </ProtectedRoute>
                 <Toaster position="top-right" richColors />
               </main>
             </Layout>
