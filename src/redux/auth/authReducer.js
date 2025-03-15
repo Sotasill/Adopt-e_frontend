@@ -56,9 +56,6 @@ const authReducer = (state = initialState, action) => {
       };
 
     case AUTH_TYPES.LOGOUT:
-      // Очищаем данные пользователя при выходе
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
       return {
         ...state,
         isAuthenticated: false,
@@ -89,6 +86,20 @@ const authReducer = (state = initialState, action) => {
             : null,
       };
     }
+
+    case AUTH_TYPES.REFRESH_TOKEN_SUCCESS:
+      return {
+        ...state,
+        error: null,
+      };
+
+    case AUTH_TYPES.REFRESH_TOKEN_FAILURE:
+      return {
+        ...state,
+        isAuthenticated: false,
+        user: null,
+        error: "Ошибка обновления токена",
+      };
 
     default:
       return state;

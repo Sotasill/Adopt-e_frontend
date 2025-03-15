@@ -1,22 +1,12 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileOverview from "../ProfileOverviewBCS/ProfileOverviewBCS";
 import QuickLinks from "../QuickLinksUser/QuickLinksUser";
-import Navigation from "../../components/Navigation/Navigation";
 import AvatarEditorComponent from "../../components/AvatarEditor/AvatarEditor";
-import {
-  Container,
-  Modal,
-  Typography,
-  IconButton,
-  Button,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import LogoutIcon from "@mui/icons-material/Logout";
+import { Container, Modal, Typography, Box, Paper } from "@mui/material";
 import {
   updateAvatar,
   updateProfileBackground,
-  logout,
 } from "../../redux/auth/authActions";
 import styles from "./MainUserSysytem.module.css";
 
@@ -27,36 +17,6 @@ const MainUserSystem = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isBackgroundEditing, setIsBackgroundEditing] = useState(false);
   const [selectedBackground, setSelectedBackground] = useState(null);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const handleLogout = () => {
-    dispatch(logout());
-    localStorage.removeItem("token");
-    window.location.href = "/login";
-  };
-
-  // Закрываем сайдбар при клике вне его на мобильных устройствах
-  const handleClickOutside = useCallback((event) => {
-    const sidebar = document.querySelector(`.${styles.sidebar}`);
-    const menuButton = document.querySelector(`.${styles.menuButton}`);
-
-    if (
-      window.innerWidth <= 760 &&
-      sidebar &&
-      !sidebar.contains(event.target) &&
-      menuButton &&
-      !menuButton.contains(event.target)
-    ) {
-      setIsSidebarOpen(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [handleClickOutside]);
 
   // Обработчики для изображений
   const handleImageSelect = (event) => {
@@ -96,43 +56,29 @@ const MainUserSystem = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <IconButton
-        className={styles.menuButton}
-        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+    <Box className={styles.mainContainer}>
+      <Container maxWidth="lg">
+        <Box className={styles.contentWrapper}>
+          <Paper elevation={3} className={styles.profileSection}>
+            <ProfileOverview
+              user={user}
+              onImageSelect={handleImageSelect}
+              onBackgroundSelect={handleBackgroundSelect}
+            />
+          </Paper>
+
+          <Paper elevation={3} className={styles.quickLinksSection}>
+            <QuickLinks />
+          </Paper>
+        </Box>
+      </Container>
+
+      <Modal
+        open={isEditing}
+        onClose={() => setIsEditing(false)}
+        className={styles.modal}
       >
-        <MenuIcon />
-      </IconButton>
-
-      <div className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ""}`}>
-        <div className={styles.sidebarContent}>
-          <Navigation />
-          <Button
-            variant="contained"
-            color="error"
-            startIcon={<LogoutIcon />}
-            onClick={handleLogout}
-            className={styles.logoutButton}
-            fullWidth
-          >
-            Выйти
-          </Button>
-        </div>
-      </div>
-
-      <div className={styles.content}>
-        <Container>
-          <ProfileOverview
-            user={user}
-            onImageSelect={handleImageSelect}
-            onBackgroundSelect={handleBackgroundSelect}
-          />
-          <QuickLinks />
-        </Container>
-      </div>
-
-      <Modal open={isEditing} onClose={() => setIsEditing(false)}>
-        <div className={styles.modalContent}>
+        <Paper className={styles.modalContent}>
           <Typography variant="h6" className={styles.modalTitle}>
             Редактировать аватар
           </Typography>
@@ -143,14 +89,15 @@ const MainUserSystem = () => {
               onCancel={() => setIsEditing(false)}
             />
           )}
-        </div>
+        </Paper>
       </Modal>
 
       <Modal
         open={isBackgroundEditing}
         onClose={() => setIsBackgroundEditing(false)}
+        className={styles.modal}
       >
-        <div className={styles.modalContent}>
+        <Paper className={styles.modalContent}>
           <Typography variant="h6" className={styles.modalTitle}>
             Редактировать фон профиля
           </Typography>
@@ -161,9 +108,9 @@ const MainUserSystem = () => {
               onCancel={() => setIsBackgroundEditing(false)}
             />
           )}
-        </div>
+        </Paper>
       </Modal>
-    </div>
+    </Box>
   );
 };
 

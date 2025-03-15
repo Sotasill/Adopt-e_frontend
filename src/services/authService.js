@@ -148,15 +148,48 @@ export const authService = {
         throw new Error(i18next.t("auth.errors.invalidServerResponse"));
       }
 
-      const { user, tokens } = response.data;
+      console.log("Ответ сервера при входе:", response.data);
 
-      if (tokens) {
+      // Обрабатываем разные форматы ответа
+      const user = response.data.user || response.data;
+      const tokens = response.data.tokens || {
+        accessToken: response.data.token || response.data.accessToken || "",
+        refreshToken: response.data.refreshToken || "",
+      };
+
+      // Проверяем наличие минимально необходимых данных
+      if (!user || (!tokens.accessToken && !response.data.token)) {
+        console.error("Неполные данные от сервера:", {
+          user,
+          tokens,
+          responseData: response.data,
+        });
+        throw new Error(i18next.t("auth.errors.invalidServerResponse"));
+      }
+
+      // Сохраняем токены
+      if (tokens.accessToken) {
         localStorage.setItem("accessToken", tokens.accessToken);
+      } else if (response.data.token) {
+        localStorage.setItem("accessToken", response.data.token);
+      }
+
+      if (tokens.refreshToken) {
         localStorage.setItem("refreshToken", tokens.refreshToken);
       }
 
-      return { user: processUserData(user), tokens };
+      // Сохраняем информацию о пользователе
+      localStorage.setItem("user", JSON.stringify(user));
+
+      return {
+        user: processUserData(user),
+        tokens: {
+          accessToken: tokens.accessToken || response.data.token,
+          refreshToken: tokens.refreshToken,
+        },
+      };
     } catch (error) {
+      console.error("Ошибка в authService.login:", error);
       throw error;
     }
   },
