@@ -1,4 +1,4 @@
-import * as Yup from "yup";
+import * as Yup from "/node_modules/yup/index.esm.js";
 
 export const nameValidationSchema = (currentName, companyName) =>
   Yup.string()
