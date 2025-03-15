@@ -1,7 +1,7 @@
-import * as Yup from "/node_modules/yup/index.esm.js";
+import { string } from "yup";
 
 export const nameValidationSchema = (currentName, companyName) =>
-  Yup.string()
+  string()
     .required("Кличка обязательна")
     .min(2, "Минимум 2 символа")
     .max(50, "Максимум 50 символов")
@@ -40,7 +40,7 @@ export const nameValidationSchema = (currentName, companyName) =>
     );
 
 export const microchipValidationSchema = () =>
-  Yup.string().matches(
+  string().matches(
     /^\d{3} \d{4} \d{8}$/,
     "Номер микрочипа должен соответствовать формату: XXX XXXX XXXXXXXX (например: 643 0981 00000003)"
   );

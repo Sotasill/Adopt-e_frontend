@@ -5,14 +5,14 @@ import path from "path";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  build: {
-    rollupOptions: {
-      external: ["yup"],
-    },
+  optimizeDeps: {
+    include: ["yup"],
   },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+    dedupe: ["yup"],
+    mainFields: ["module", "main", "browser"],
   },
 });
