@@ -1,19 +1,29 @@
-import { Avatar, Typography, IconButton } from '@mui/material';
-import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { updateProfileBackground } from '../../redux/auth/authActions';
-import AvatarEditorComponent from '../../components/AvatarEditor/AvatarEditor';
-import Modal from '@mui/material/Modal';
-import EditIcon from '@mui/icons-material/Edit';
-import styles from './ProfileOverviewBCS.module.css';
+import { Avatar, Typography, IconButton } from "@mui/material";
+import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateProfileBackground } from "../../redux/auth/authActions";
+import AvatarEditorComponent from "../../components/AvatarEditor/AvatarEditor";
+import Modal from "@mui/material/Modal";
+import EditIcon from "@mui/icons-material/Edit";
+import styles from "./ProfileOverviewBCS.module.css";
 
 const ProfileOverview = ({ onAvatarClick }) => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const [isBackgroundEditing, setIsBackgroundEditing] = useState(false);
   const [selectedBackground, setSelectedBackground] = useState(null);
+
+  const getInitials = (username) => {
+    if (!username) return "";
+    return username
+      .split(" ")
+      .map((word) => word[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
+  };
 
   const handleBackgroundSelect = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -27,37 +37,43 @@ const ProfileOverview = ({ onAvatarClick }) => {
       await dispatch(updateProfileBackground(blob));
       setIsBackgroundEditing(false);
     } catch (error) {
-      console.error('Ошибка при сохранении фона:', error);
+      console.error("Ошибка при сохранении фона:", error);
     }
   };
 
   return (
-    <div 
+    <div
       className={styles.profileOverview}
-      style={{ 
+      style={{
         backgroundImage: `url(${user?.profileBackground})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        position: 'relative',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        position: "relative",
       }}
     >
       <IconButton
         className={styles.editBackgroundButton}
-        onClick={() => document.getElementById('profile-background-input').click()}
+        onClick={() =>
+          document.getElementById("profile-background-input").click()
+        }
         size="large"
       >
         <EditIcon />
       </IconButton>
-      
+
       <div className={styles.avatarSection}>
         <Avatar
-          src={user?.avatar || '/default-avatar.png'}
+          src={user?.avatar}
           onClick={onAvatarClick}
           className={styles.avatar}
-        />
-        <Typography variant="h5">
-          {user?.name || 'Пользователь'}
-        </Typography>
+          sx={{
+            bgcolor: user?.avatar ? "transparent" : "primary.main",
+            fontSize: "2rem",
+          }}
+        >
+          {!user?.avatar && getInitials(user?.username)}
+        </Avatar>
+        <Typography variant="h5">{user?.username}</Typography>
         <Typography variant="body1" color="textSecondary">
           {user?.email}
         </Typography>

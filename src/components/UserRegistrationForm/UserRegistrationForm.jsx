@@ -100,21 +100,11 @@ const UserRegistrationForm = ({ selectedRole }) => {
           })
         );
 
-        const loginResult = await dispatch(
-          login({
-            username: values.username,
-            password: values.password,
-          })
+        await dispatch(
+          login({ email: values.email, password: values.password })
         );
 
-        if (loginResult?.payload?.user) {
-          const redirectPaths = {
-            breeder: "/mainbcs",
-            specialist: "/mainspecialistsystem",
-            user: "/mainusersystem",
-          };
-          navigate(redirectPaths[selectedRole.id]);
-        }
+        navigate("/");
       }
     } catch (error) {
       console.error("Registration error details:", {
@@ -213,7 +203,7 @@ const UserRegistrationForm = ({ selectedRole }) => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {({ errors, touched, isSubmitting, isValid, dirty, values }) => (
+      {({ errors, touched, isSubmitting, isValid, values }) => (
         <Form className={styles.form}>
           <div className={styles.formHeader}>
             <h2 className={styles.formTitle}>{t("registration.user.title")}</h2>
