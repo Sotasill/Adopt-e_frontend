@@ -71,26 +71,22 @@ export const updateAvatarFailure = (error) => ({
 // Асинхронные действия
 export const login = (credentials) => async (dispatch) => {
   try {
-    const response = await authService.login(credentials);
-    const { user, tokens } = response;
+    console.log("Отправка данных для входа:", credentials);
+    const response = await authService.login(
+      credentials.email,
+      credentials.password
+    );
+    console.log("Ответ сервера при входе:", response);
 
-    if (!user || !tokens) {
-      throw new Error("Не удалось получить данные пользователя или токены");
+    if (!response) {
+      throw new Error("Не удалось получить данные пользователя");
     }
 
-    // Сохраняем токены
-    localStorage.setItem("accessToken", tokens.accessToken);
-    if (tokens.refreshToken) {
-      localStorage.setItem("refreshToken", tokens.refreshToken);
-    }
-
-    localStorage.setItem("user", JSON.stringify(user));
-
-    dispatch(setUser(user));
+    dispatch(setUser(response));
     dispatch(setAuth(true));
-    dispatch(loginSuccess({ user, tokens }));
+    dispatch(loginSuccess({ user: response }));
 
-    return { user, tokens };
+    return response;
   } catch (error) {
     console.error("Ошибка при входе:", error);
     dispatch(loginFailure(error.message));
@@ -110,6 +106,7 @@ export const logoutUser = () => async (dispatch) => {
     localStorage.removeItem("favorites");
     dispatch(logout());
     dispatch(clearFavorites());
+    window.location.replace("/");
   }
 };
 

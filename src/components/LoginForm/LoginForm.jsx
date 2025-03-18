@@ -82,12 +82,12 @@ const LoginForm = () => {
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
     try {
       console.log("Attempting login with credentials:", {
-        username: values.username,
+        email: values.username,
         hasPassword: !!values.password,
       });
 
       await dispatch(
-        login({ username: values.username, password: values.password })
+        login({ email: values.username, password: values.password })
       );
 
       // Сохраняем учетные данные только если вход успешен

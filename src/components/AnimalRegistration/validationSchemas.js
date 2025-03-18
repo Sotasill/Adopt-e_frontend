@@ -197,7 +197,14 @@ const DOG_FUR_TYPES = {
 // Функция для проверки уникальности имени животного
 const checkNameUniqueness = async (name) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      console.error("Отсутствует токен доступа");
+      return false;
+    }
+
+    console.log("Отправка запроса на проверку имени с токеном:", token);
+
     const response = await fetch(
       "http://localhost:3000/api/animals/check-name",
       {
@@ -210,7 +217,17 @@ const checkNameUniqueness = async (name) => {
       }
     );
 
+    if (!response.ok) {
+      console.error(
+        "Ошибка при проверке имени:",
+        response.status,
+        response.statusText
+      );
+      return false;
+    }
+
     const data = await response.json();
+    console.log("Ответ сервера при проверке имени:", data);
 
     if (data.status === "success") {
       return !data.data.exists; // Возвращаем true если имя уникально (exists: false)

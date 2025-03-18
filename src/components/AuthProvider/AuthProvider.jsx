@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setAuth, setUser, refreshToken } from "../../redux/auth/authActions";
 import { jwtDecode } from "jwt-decode";
+import { authService } from "../../services/authService";
 
 const AuthProvider = ({ children }) => {
   const dispatch = useDispatch();
@@ -10,6 +11,15 @@ const AuthProvider = ({ children }) => {
     const initializeAuth = async () => {
       try {
         console.log("Начало инициализации аутентификации");
+
+        // Проверяем авторизацию через сервис
+        if (!authService.isAuthenticated()) {
+          console.log("Пользователь не авторизован");
+          dispatch(setAuth(false));
+          dispatch(setUser(null));
+          return;
+        }
+
         const accessToken = localStorage.getItem("accessToken");
         const storedUser = localStorage.getItem("user");
 
@@ -20,8 +30,7 @@ const AuthProvider = ({ children }) => {
 
         if (!accessToken || !storedUser) {
           console.log("Отсутствует токен или данные пользователя");
-          dispatch(setAuth(false));
-          dispatch(setUser(null));
+          authService.logout();
           return;
         }
 
@@ -47,21 +56,13 @@ const AuthProvider = ({ children }) => {
               console.log("Токен успешно обновлен");
             } catch (error) {
               console.error("Ошибка при обновлении токена:", error);
-              localStorage.removeItem("accessToken");
-              localStorage.removeItem("refreshToken");
-              localStorage.removeItem("user");
-              dispatch(setAuth(false));
-              dispatch(setUser(null));
+              authService.logout();
               return;
             }
           }
         } catch (error) {
           console.error("Ошибка при проверке токена:", error);
-          localStorage.removeItem("accessToken");
-          localStorage.removeItem("refreshToken");
-          localStorage.removeItem("user");
-          dispatch(setAuth(false));
-          dispatch(setUser(null));
+          authService.logout();
           return;
         }
 
@@ -72,7 +73,8 @@ const AuthProvider = ({ children }) => {
 
           if (!userData || !userData.role) {
             console.error("Некорректные данные пользователя");
-            throw new Error("Некорректные данные пользователя");
+            authService.logout();
+            return;
           }
 
           // Нормализуем роль
@@ -84,19 +86,11 @@ const AuthProvider = ({ children }) => {
           console.log("Аутентификация успешно восстановлена");
         } catch (error) {
           console.error("Ошибка при обработке данных пользователя:", error);
-          localStorage.removeItem("accessToken");
-          localStorage.removeItem("refreshToken");
-          localStorage.removeItem("user");
-          dispatch(setAuth(false));
-          dispatch(setUser(null));
+          authService.logout();
         }
       } catch (error) {
         console.error("Общая ошибка инициализации:", error);
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-        localStorage.removeItem("user");
-        dispatch(setAuth(false));
-        dispatch(setUser(null));
+        authService.logout();
       }
     };
 
@@ -104,6 +98,11 @@ const AuthProvider = ({ children }) => {
 
     // Устанавливаем интервал для периодической проверки токена
     const tokenCheckInterval = setInterval(() => {
+      if (!authService.isAuthenticated()) {
+        authService.logout();
+        return;
+      }
+
       const accessToken = localStorage.getItem("accessToken");
       if (accessToken) {
         try {
@@ -115,20 +114,12 @@ const AuthProvider = ({ children }) => {
             console.log("Плановое обновление токена");
             dispatch(refreshToken()).catch((error) => {
               console.error("Ошибка при плановом обновлении токена:", error);
-              localStorage.removeItem("accessToken");
-              localStorage.removeItem("refreshToken");
-              localStorage.removeItem("user");
-              dispatch(setAuth(false));
-              dispatch(setUser(null));
+              authService.logout();
             });
           }
         } catch (error) {
           console.error("Ошибка при проверке токена в интервале:", error);
-          localStorage.removeItem("accessToken");
-          localStorage.removeItem("refreshToken");
-          localStorage.removeItem("user");
-          dispatch(setAuth(false));
-          dispatch(setUser(null));
+          authService.logout();
         }
       }
     }, 60000);

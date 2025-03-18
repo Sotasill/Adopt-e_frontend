@@ -16,7 +16,7 @@ import { IoMdClose } from "react-icons/io";
 import { MdStorefront } from "react-icons/md";
 import Aurora from "../Aurora/Aurora";
 import { Avatar } from "@mui/material";
-import { logout } from "../../redux/auth/authActions";
+import { logoutUser } from "../../redux/auth/authActions";
 import ProfileSettingsModal from "../ProfileSettingsModal/ProfileSettingsModal";
 import FavoritesModal from "../FavoritesModal/FavoritesModal";
 
@@ -33,10 +33,14 @@ const Navigation = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate("/");
-    setIsSidebarOpen(false);
+  const handleLogout = async () => {
+    try {
+      await dispatch(logoutUser());
+      navigate("/");
+      setIsSidebarOpen(false);
+    } catch (error) {
+      console.error("Ошибка при выходе:", error);
+    }
   };
 
   const handleNavigation = (path) => {

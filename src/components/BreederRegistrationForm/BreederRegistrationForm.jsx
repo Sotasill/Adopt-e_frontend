@@ -94,8 +94,14 @@ const BreederRegistrationForm = () => {
         }
         break;
       case "password":
-        if (value.length < 6) {
-          return t("registration.errors.minLength", { count: 6 });
+        if (value.length < 8) {
+          return t("registration.errors.minLength", { count: 8 });
+        }
+        if (!/[a-zA-Z]/.test(value)) {
+          return t("registration.errors.passwordLetter");
+        }
+        if (!/\d/.test(value)) {
+          return t("registration.errors.passwordNumber");
         }
         break;
       case "companyName":
@@ -113,17 +119,20 @@ const BreederRegistrationForm = () => {
         if (!value || value === "") {
           return t("registration.errors.required");
         }
+        if (!["dog", "cat"].includes(value)) {
+          return t("registration.errors.specialization.breeder");
+        }
         break;
       case "country":
         if (!value) {
           return t("registration.errors.required");
         }
+        if (!/^[A-Z]/.test(value)) {
+          return t("registration.errors.countryFirstLetter");
+        }
         break;
       case "city":
-        if (!value) {
-          return t("registration.errors.required");
-        }
-        if (!/^[a-zA-Z\s]*$/.test(value)) {
+        if (value && !/^[A-Z]/.test(value)) {
           return t("registration.errors.cityFirstLetter");
         }
         break;
@@ -213,22 +222,7 @@ const BreederRegistrationForm = () => {
         position: "top-center",
       });
 
-      // Пытаемся выполнить вход
-      try {
-        const loginResult = await dispatch(
-          login({
-            username: formData.username,
-            password: formData.password,
-          })
-        ).unwrap();
-
-        // Если вход успешен, переходим на страницу
-        navigate("/mainbcs");
-      } catch (loginError) {
-        console.error("Login error after registration:", loginError);
-        // Даже если вход не удался, регистрация всё равно прошла успешно
-        navigate("/login");
-      }
+      // Перенаправление на mainbcs происходит в thunk
     } catch (error) {
       console.error("Registration error:", error);
       let errorMessage = t("registration.error");
@@ -248,12 +242,6 @@ const BreederRegistrationForm = () => {
         style: {
           background: "#ff5252",
           color: "#fff",
-          fontSize: "16px",
-          padding: "16px",
-          borderRadius: "8px",
-          display: "flex",
-          alignItems: "center",
-          gap: "8px",
         },
       });
     }
@@ -277,7 +265,7 @@ const BreederRegistrationForm = () => {
         return (
           formData.username.length >= 3 &&
           formData.email.includes("@") &&
-          formData.password.length >= 6 &&
+          formData.password.length >= 8 &&
           !errors.username &&
           !errors.email &&
           !errors.password

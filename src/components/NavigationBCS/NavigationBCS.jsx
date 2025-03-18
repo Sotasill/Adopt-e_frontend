@@ -6,7 +6,7 @@ import PetsIcon from "@mui/icons-material/Pets";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { logout } from "../../redux/auth/authActions";
+import { logoutUser } from "../../redux/auth/authActions";
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const Navigation = () => {
 
   const handleLogout = async () => {
     try {
-      await dispatch(logout());
+      await dispatch(logoutUser());
       navigate("/");
     } catch (error) {
       console.error("Ошибка при выходе:", error);

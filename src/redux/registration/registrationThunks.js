@@ -36,6 +36,14 @@ const validateRegistrationData = (data, role) => {
       ) {
         errors.push(authService.validationErrors.specialization.breeder);
       }
+
+      if (!authService.validateFields.country(data.country)) {
+        errors.push(i18next.t("registration.errors.countryFirstLetter"));
+      }
+
+      if (data.city && !authService.validateFields.city(data.city)) {
+        errors.push(i18next.t("registration.errors.cityFirstLetter"));
+      }
     } else if (role === "specialist") {
       if (
         !authService.validateFields.specialization.specialist(
@@ -44,14 +52,6 @@ const validateRegistrationData = (data, role) => {
       ) {
         errors.push(authService.validationErrors.specialization.specialist);
       }
-    }
-
-    if (!data.country || data.country[0] !== data.country[0].toUpperCase()) {
-      errors.push(i18next.t("registration.errors.countryFirstLetter"));
-    }
-
-    if (data.city && data.city[0] !== data.city[0].toUpperCase()) {
-      errors.push(i18next.t("registration.errors.cityFirstLetter"));
     }
   }
 
@@ -73,9 +73,8 @@ const handleSuccessfulRegistration = (response) => {
   localStorage.setItem("user", JSON.stringify(user));
 
   // Перенаправляем на соответствующую страницу
-  const redirectUrl =
-    DEFAULT_ROUTES_BY_ROLE[user.role] || DEFAULT_ROUTES_BY_ROLE.user;
-  window.location.href = redirectUrl;
+  const redirectUrl = DEFAULT_ROUTES_BY_ROLE[user.role] || "/mainbcs";
+  window.location.replace(redirectUrl);
 
   return response;
 };
@@ -167,7 +166,7 @@ export const registerUser = createAsyncThunk(
 
 export const registerBreeder = createAsyncThunk(
   "registration/registerBreeder",
-  async (breederData, { rejectWithValue }) => {
+  async (breederData, { rejectWithValue, dispatch }) => {
     try {
       const isServerAvailable = await checkServerAvailability();
       if (!isServerAvailable) {
@@ -180,28 +179,110 @@ export const registerBreeder = createAsyncThunk(
       }
 
       const response = await authService.registerBreeder(breederData);
-      return handleSuccessfulRegistration(response);
+
+      // Подробное логирование ответа сервера
+      console.log("=== Ответ сервера при регистрации заводчика ===");
+      console.log("Полный ответ:", response);
+      console.log("Структура ответа:", {
+        hasUser: !!response.user,
+        hasTokens: !!response.tokens,
+        hasToken: !!response.token,
+        userData: response.user,
+        tokensData: response.tokens,
+        tokenData: response.token,
+      });
+
+      // Проверяем наличие минимально необходимых данных
+      if (!response || !response.user) {
+        console.error("Неполные данные от сервера:", response);
+        throw new Error(i18next.t("auth.errors.invalidServerResponse"));
+      }
+
+      // Сохраняем информацию о пользователе
+      const userData = {
+        ...response.user,
+        role: "breeder", // Явно указываем роль
+      };
+      localStorage.setItem("user", JSON.stringify(userData));
+
+      // Если есть токены, сохраняем их
+      if (response.tokens) {
+        console.log("Сохранение токенов из response.tokens:", response.tokens);
+        if (response.tokens.accessToken) {
+          localStorage.setItem("accessToken", response.tokens.accessToken);
+        }
+        if (response.tokens.refreshToken) {
+          localStorage.setItem("refreshToken", response.tokens.refreshToken);
+        }
+      } else if (response.token) {
+        console.log("Сохранение токена из response.token:", response.token);
+        localStorage.setItem("accessToken", response.token);
+      }
+
+      // Проверяем, что токены и данные пользователя сохранены
+      const savedUser = localStorage.getItem("user");
+      const savedToken = localStorage.getItem("accessToken");
+      const savedRefreshToken = localStorage.getItem("refreshToken");
+
+      console.log("=== Проверка сохраненных данных ===");
+      console.log("Сохраненный пользователь:", savedUser);
+      console.log("Сохраненный accessToken:", savedToken);
+      console.log("Сохраненный refreshToken:", savedRefreshToken);
+
+      // Обновляем состояние аутентификации
+      const authPayload = {
+        user: userData,
+        tokens: response.tokens || { accessToken: response.token },
+      };
+      console.log(
+        "Данные для обновления состояния аутентификации:",
+        authPayload
+      );
+
+      dispatch({
+        type: "auth/loginSuccess",
+        payload: authPayload,
+      });
+
+      // Перенаправляем на страницу mainbcs
+      window.location.replace("/mainbcs");
+
+      return response;
     } catch (error) {
+      console.error("=== Ошибка при регистрации заводчика ===");
+      console.error("Полная ошибка:", error);
+      console.error("Ответ сервера:", error.response?.data);
+      console.error("Статус ошибки:", error.response?.status);
+
       let errorMessage;
 
-      if (error.response?.data?.message) {
-        const responseError = error.response.data.message;
-        if (responseError.includes("Email already in use")) {
+      if (error?.response?.status === 409) {
+        const conflictData = error.response?.data;
+        const errorText = (
+          conflictData?.message ||
+          error.message ||
+          ""
+        ).toLowerCase();
+
+        if (
+          errorText.includes("email already") ||
+          errorText.includes("email уже") ||
+          errorText.includes("email exists")
+        ) {
           errorMessage = i18next.t("auth.errors.emailInUse");
-        } else if (responseError.includes("Username already exists")) {
+        } else if (
+          errorText.includes("username already") ||
+          errorText.includes("имя пользователя уже") ||
+          errorText.includes("username exists")
+        ) {
           errorMessage = i18next.t("auth.errors.usernameInUse");
         } else {
-          errorMessage = responseError;
+          errorMessage = i18next.t("auth.errors.userExists");
         }
+      } else if (error?.response?.data?.message) {
+        errorMessage = error.response.data.message;
       } else if (error.message) {
-        const errorText = error.message;
-        if (errorText.includes("Email already in use")) {
-          errorMessage = i18next.t("auth.errors.emailInUse");
-        } else if (errorText.includes("Username already exists")) {
-          errorMessage = i18next.t("auth.errors.usernameInUse");
-        } else {
-          errorMessage = errorText;
-        }
+        errorMessage = error.message;
       } else {
         errorMessage = i18next.t("auth.errors.breederRegistrationError");
       }
