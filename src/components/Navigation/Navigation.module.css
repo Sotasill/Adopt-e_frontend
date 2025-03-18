@@ -75,6 +75,9 @@
   border-radius: 50%;
   cursor: pointer;
   transition: transform 0.2s ease;
+  background-color: #1976d2 !important;
+  color: #fff !important;
+  font-weight: 500 !important;
 }
 
 .userAvatar:hover {
@@ -260,18 +263,19 @@
 .buttonIcon {
   width: 60px;
   height: 60px;
-  background: linear-gradient(90deg, #2c3e50 0%, #3498db 50%, #2c3e50 100%);
-  background-size: 200% auto;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-radius: 50%;
+  background: none;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: none;
   color: #fff;
   margin-right: 0;
+}
+
+.buttonIcon:has(.sidebarButtonAvatar) {
+  background: none;
+  border: none;
 }
 
 .buttonLabel {
@@ -642,4 +646,22 @@
 .logoutButton:hover {
   background-position: 100% center !important;
   transform: translateX(4px);
+}
+
+.userIcon {
+  color: #333;
+  transition: transform 0.2s ease;
+}
+
+.userIcon:hover {
+  transform: scale(1.1);
+}
+
+.sidebarButtonAvatar {
+  width: 60px !important;
+  height: 60px !important;
+  background-color: #1976d2 !important;
+  color: #fff !important;
+  font-weight: 500 !important;
+  font-size: 24px !important;
 }

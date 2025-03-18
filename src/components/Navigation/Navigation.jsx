@@ -122,51 +122,62 @@ const Navigation = () => {
           </button>
         </div>
       ) : (
-        <>
-          {user?.role?.toLowerCase() === "breeder" && (
-            <Link
-              to="/MainBCS"
-              className={styles.sidebarButton}
-              onClick={() => setIsSidebarOpen(false)}
-              title="MainBCS"
-            >
-              <div className={styles.buttonIcon}>
-                <MdStorefront size={18} />
-              </div>
-              <span className={styles.buttonLabel}>MainBCS</span>
-            </Link>
-          )}
+        <div className={styles.actionButtons}>
+          <button
+            onClick={() => handleNavigation("/MainUserSystem")}
+            className={styles.sidebarButton}
+            title={translate("common", "navigation.myProfile")}
+          >
+            <div className={styles.buttonIcon}>
+              {user?.avatar ? (
+                <Avatar
+                  src={user.avatar}
+                  alt={user.name || "User"}
+                  className={styles.sidebarButtonAvatar}
+                />
+              ) : (
+                <Avatar className={styles.sidebarButtonAvatar}>
+                  {(user?.name || user?.email || "U").charAt(0).toUpperCase()}
+                </Avatar>
+              )}
+            </div>
+            <span className={styles.buttonLabel}>
+              {translate("common", "navigation.myProfile")}
+            </span>
+          </button>
 
-          {user?.role?.toLowerCase() === "user" && (
-            <>
-              <div
-                className={styles.sidebarLink}
-                onClick={() => {
-                  setIsFavoritesModalOpen(true);
-                  setIsSidebarOpen(false);
-                }}
-              >
-                <div className={styles.buttonIcon}>
-                  <FaHeart size={18} />
-                </div>
-                <span>{translate("common", "navigation.savedAds")}</span>
-              </div>
+          <button
+            onClick={() => {
+              setIsFavoritesModalOpen(true);
+              setIsSidebarOpen(false);
+            }}
+            className={styles.sidebarButton}
+            title={translate("common", "navigation.savedAds")}
+          >
+            <div className={styles.buttonIcon}>
+              <FaHeart size={32} />
+            </div>
+            <span className={styles.buttonLabel}>
+              {translate("common", "navigation.savedAds")}
+            </span>
+          </button>
 
-              <div
-                className={styles.sidebarLink}
-                onClick={() => {
-                  setIsProfileSettingsOpen(true);
-                  setIsSidebarOpen(false);
-                }}
-              >
-                <div className={styles.buttonIcon}>
-                  <FaCog size={18} />
-                </div>
-                <span>{translate("common", "navigation.profileSettings")}</span>
-              </div>
-            </>
-          )}
-        </>
+          <button
+            onClick={() => {
+              setIsProfileSettingsOpen(true);
+              setIsSidebarOpen(false);
+            }}
+            className={styles.sidebarButton}
+            title={translate("common", "navigation.profileSettings")}
+          >
+            <div className={styles.buttonIcon}>
+              <FaCog size={32} />
+            </div>
+            <span className={styles.buttonLabel}>
+              {translate("common", "navigation.profileSettings")}
+            </span>
+          </button>
+        </div>
       )}
 
       <div className={styles.sidebarDivider} />
@@ -261,14 +272,20 @@ const Navigation = () => {
               className={styles.profileButton}
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             >
-              {isAuthenticated && user?.avatar ? (
-                <Avatar
-                  src={user.avatar}
-                  alt={user.name || "User"}
-                  className={styles.userAvatar}
-                />
+              {isAuthenticated ? (
+                user?.avatar ? (
+                  <Avatar
+                    src={user.avatar}
+                    alt={user.name || "User"}
+                    className={styles.userAvatar}
+                  />
+                ) : (
+                  <Avatar className={styles.userAvatar}>
+                    {(user?.name || user?.email || "U").charAt(0).toUpperCase()}
+                  </Avatar>
+                )
               ) : (
-                <FaUserCircle size={20} />
+                <FaUserCircle size={24} className={styles.userIcon} />
               )}
             </button>
           </div>
