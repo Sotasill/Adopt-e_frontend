@@ -294,7 +294,7 @@ export const registerBreeder = createAsyncThunk(
 
 export const registerSpecialist = createAsyncThunk(
   "registration/registerSpecialist",
-  async (specialistData, { rejectWithValue }) => {
+  async (specialistData, { rejectWithValue, dispatch }) => {
     try {
       const isServerAvailable = await checkServerAvailability();
       if (!isServerAvailable) {
@@ -310,30 +310,91 @@ export const registerSpecialist = createAsyncThunk(
       }
 
       const response = await authService.registerSpecialist(specialistData);
-      return handleSuccessfulRegistration(response);
+
+      // Проверяем наличие минимально необходимых данных
+      if (!response || !response.user) {
+        console.error("Неполные данные от сервера:", response);
+        throw new Error(i18next.t("auth.errors.invalidServerResponse"));
+      }
+
+      // Сохраняем информацию о пользователе
+      const userData = {
+        ...response.user,
+        role: "specialist", // Явно указываем роль
+      };
+      localStorage.setItem("user", JSON.stringify(userData));
+
+      // Сохраняем токены
+      if (response.tokens) {
+        localStorage.setItem("accessToken", response.tokens.accessToken);
+        if (response.tokens.refreshToken) {
+          localStorage.setItem("refreshToken", response.tokens.refreshToken);
+        }
+      }
+
+      // Обновляем состояние аутентификации
+      dispatch({
+        type: "auth/loginSuccess",
+        payload: {
+          user: userData,
+          tokens: response.tokens,
+        },
+      });
+
+      // Перенаправляем на страницу специалиста
+      window.location.replace("/mainspecialist");
+
+      return response;
     } catch (error) {
+      console.error("Registration error details:", error);
       let errorMessage;
 
-      if (error.response?.data?.message) {
-        const responseError = error.response.data.message;
-        if (responseError.includes("Email already in use")) {
+      if (error?.response?.status === 409) {
+        const conflictData = error.response?.data;
+        const errorText = (
+          conflictData?.message ||
+          error.message ||
+          ""
+        ).toLowerCase();
+
+        if (
+          errorText.includes("email already") ||
+          errorText.includes("email уже") ||
+          errorText.includes("email exists")
+        ) {
           errorMessage = i18next.t("auth.errors.emailInUse");
-        } else if (responseError.includes("Username already exists")) {
+        } else if (
+          errorText.includes("username already") ||
+          errorText.includes("имя пользователя уже") ||
+          errorText.includes("username exists")
+        ) {
           errorMessage = i18next.t("auth.errors.usernameInUse");
         } else {
-          errorMessage = responseError;
+          errorMessage = i18next.t("auth.errors.userExists");
         }
-      } else if (error.message) {
-        const errorText = error.message;
-        if (errorText.includes("Email already in use")) {
-          errorMessage = i18next.t("auth.errors.emailInUse");
-        } else if (errorText.includes("Username already exists")) {
-          errorMessage = i18next.t("auth.errors.usernameInUse");
+      } else if (error?.response?.data?.message) {
+        const errorText = error.response.data.message.toLowerCase();
+
+        if (errorText.includes("email")) {
+          errorMessage = i18next.t("auth.errors.emailCheckError");
+        } else if (
+          errorText.includes("username") ||
+          errorText.includes("имя пользователя")
+        ) {
+          errorMessage = i18next.t("auth.errors.usernameCheckError");
+        } else if (errorText.includes("company name")) {
+          errorMessage = i18next.t("registration.errors.companyName");
+        } else if (errorText.includes("specialization")) {
+          errorMessage = i18next.t(
+            "registration.errors.specialization.specialist"
+          );
         } else {
-          errorMessage = errorText;
+          errorMessage = error.response.data.message;
         }
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
       } else {
-        errorMessage = i18next.t("auth.errors.specialistRegistrationError");
+        errorMessage = i18next.t("auth.errors.registrationError");
       }
 
       return rejectWithValue(errorMessage);
