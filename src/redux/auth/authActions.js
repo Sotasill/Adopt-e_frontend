@@ -71,12 +71,10 @@ export const updateAvatarFailure = (error) => ({
 // Асинхронные действия
 export const login = (credentials) => async (dispatch) => {
   try {
-    console.log("Отправка данных для входа:", credentials);
     const response = await authService.login(
       credentials.email,
       credentials.password
     );
-    console.log("Ответ сервера при входе:", response);
 
     if (!response) {
       throw new Error("Не удалось получить данные пользователя");
@@ -88,7 +86,6 @@ export const login = (credentials) => async (dispatch) => {
 
     return response;
   } catch (error) {
-    console.error("Ошибка при входе:", error);
     dispatch(loginFailure(error.message));
     throw error;
   }

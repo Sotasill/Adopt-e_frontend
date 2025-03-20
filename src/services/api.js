@@ -1,5 +1,5 @@
 import axios from "axios";
-import store from "../redux/store";
+import { store } from "../redux/store";
 import { refreshToken, logout } from "../redux/auth/authActions";
 
 // Создаем экземпляр axios с базовой конфигурацией

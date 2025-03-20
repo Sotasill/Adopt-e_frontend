@@ -13,7 +13,6 @@ const validateUserRole = (user) => {
 
   // Проверяем корректность роли
   if (user.role === "breeder" && !user.specialization) {
-    console.error("Заводчик без специализации:", user);
     return null;
   }
 

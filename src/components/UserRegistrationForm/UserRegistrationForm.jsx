@@ -28,28 +28,6 @@ import { handleSocialAuth } from "../../utils/socialAuth";
 import styles from "./UserRegistrationForm.module.css";
 import commonStyles from "../../styles/common.module.css";
 
-const validationSchema = Yup.object().shape({
-  username: Yup.string()
-    .matches(
-      /^[A-Z][a-zA-Z0-9_-]{2,29}$/,
-      "Имя пользователя должно начинаться с заглавной буквы и содержать от 3 до 30 символов (буквы, цифры, _ или -)"
-    )
-    .required("Введите имя пользователя"),
-  email: Yup.string()
-    .email("Введите корректный email адрес")
-    .required("Введите email"),
-  password: Yup.string()
-    .min(8, "Пароль должен содержать минимум 8 символов")
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-      "Пароль должен содержать заглавные, строчные буквы и цифры"
-    )
-    .required("Введите пароль"),
-  acceptTerms: Yup.boolean()
-    .oneOf([true], "Необходимо принять условия использования")
-    .required("Необходимо принять условия использования"),
-});
-
 const socialIcons = {
   google: FaGoogle,
   facebook: FaFacebook,
@@ -62,6 +40,34 @@ const UserRegistrationForm = ({ selectedRole }) => {
   const navigate = useNavigate();
   const { t } = useTranslatedContent();
   const loading = useSelector(selectRegistrationLoading);
+
+  const validationSchema = Yup.object().shape({
+    username: Yup.string()
+      .required(t("registration.errors.required"))
+      .matches(/^[A-Z]/, t("registration.errors.username"))
+      .test(
+        "no-repeating",
+        t("registration.errors.usernameRepeating"),
+        (value) => {
+          if (!value) return true;
+          return !(/(.)\1{2,}/.test(value) || /([A-Za-z])\s+\1/.test(value));
+        }
+      )
+      .matches(/^[A-Z][a-zA-Z0-9_-]{2,29}$/, t("registration.errors.username")),
+    email: Yup.string()
+      .email(t("registration.errors.email"))
+      .required(t("registration.errors.required")),
+    password: Yup.string()
+      .min(8, t("registration.errors.minLength", { count: 8 }))
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+        t("registration.errors.password")
+      )
+      .required(t("registration.errors.required")),
+    acceptTerms: Yup.boolean()
+      .oneOf([true], t("registration.errors.acceptTerms"))
+      .required(t("registration.errors.acceptTerms")),
+  });
 
   const handleSubmit = async (values, { setSubmitting, setStatus }) => {
     try {

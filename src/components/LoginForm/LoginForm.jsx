@@ -27,38 +27,23 @@ const LoginForm = () => {
   // Следим за изменением статуса аутентификации
   useEffect(() => {
     if (isAuthenticated && user) {
-      console.log("Login successful, user data:", {
-        user,
-        isAuthenticated,
-        role: user.role,
-        roleType: typeof user.role,
-      });
+      if (!user.role) {
+        toast.error("Ошибка: роль пользователя не определена");
+        return;
+      }
 
-      const redirectUser = () => {
-        if (!user.role) {
-          console.error("Роль пользователя не определена");
-          toast.error("Ошибка: роль пользователя не определена");
-          return;
-        }
+      const userRole = user.role.toLowerCase();
 
-        const userRole = user.role.toLowerCase();
-        console.log("Redirecting user with role:", {
-          originalRole: user.role,
-          normalizedRole: userRole,
-        });
-
-        switch (userRole) {
-          case "breeder":
-            navigate("/mainbcs");
-            break;
-          case "user":
-            navigate("/mainusersystem");
-            break;
-          default:
-            console.error("Неизвестная роль пользователя:", user.role);
-            toast.error("Ошибка: неизвестная роль пользователя");
-        }
-      };
+      switch (userRole) {
+        case "breeder":
+          navigate("/mainbcs");
+          break;
+        case "user":
+          navigate("/mainusersystem");
+          break;
+        default:
+          toast.error("Ошибка: неизвестная роль пользователя");
+      }
 
       toast.success("Вход выполнен успешно!");
       const timer = setTimeout(redirectUser, 500);
@@ -81,11 +66,6 @@ const LoginForm = () => {
 
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
     try {
-      console.log("Attempting login with credentials:", {
-        email: values.username,
-        hasPassword: !!values.password,
-      });
-
       await dispatch(
         login({ email: values.username, password: values.password })
       );
@@ -95,74 +75,56 @@ const LoginForm = () => {
         saveCredentials(values);
       }
     } catch (err) {
-      console.error("Login error details:", err);
-
       const userFriendlyMessage = getErrorMessage(err.message);
       toast.error(userFriendlyMessage);
-
-      if (userFriendlyMessage === "Неверное имя пользователя или пароль") {
-        setFieldError("password", "Проверьте правильность введенного пароля");
-      } else if (userFriendlyMessage === "Пользователь не найден") {
-        setFieldError("username", "Пользователь с таким именем не найден");
-      }
-    } finally {
-      setSubmitting(false);
     }
   };
 
   return (
-    <div className={styles.loginContainer}>
-      <Formik
-        initialValues={loadSavedCredentials()}
-        validationSchema={LoginSchema}
-        onSubmit={handleSubmit}
-      >
-        {({ errors, touched, isSubmitting }) => (
-          <Form className={styles.loginForm}>
-            <h2>Вход</h2>
-
-            <TextField
-              name="username"
-              label="Имя пользователя:"
-              autoComplete="username"
-              disabled={loading || isSubmitting}
-              error={errors.username}
-              touched={touched.username}
+    <Formik
+      initialValues={{
+        username: "",
+        password: "",
+        rememberMe: false,
+      }}
+      validationSchema={LoginSchema}
+      onSubmit={handleSubmit}
+    >
+      {({ isSubmitting, errors, touched }) => (
+        <Form className={styles.form}>
+          <TextField
+            name="username"
+            label="Email"
+            type="email"
+            error={touched.username && errors.username}
+          />
+          <PasswordField
+            name="password"
+            label="Пароль"
+            showPassword={showPassword}
+            togglePasswordVisibility={togglePasswordVisibility}
+            error={touched.password && errors.password}
+          />
+          <div className={styles.rememberForgot}>
+            <CheckboxField
+              name="rememberMe"
+              label="Запомнить меня"
+              error={touched.rememberMe && errors.rememberMe}
             />
-
-            <PasswordField
-              name="password"
-              label="Пароль:"
-              autoComplete="current-password"
-              showPassword={showPassword}
-              onTogglePassword={togglePasswordVisibility}
-              disabled={loading || isSubmitting}
-              error={errors.password}
-              touched={touched.password}
-            />
-
-            <div className={styles.rememberMeContainer}>
-              <CheckboxField
-                name="rememberMe"
-                label="Запомнить меня"
-                disabled={loading || isSubmitting}
-              />
-              <Link to="/forgot-password" className={styles.forgotPasswordLink}>
-                Забыли пароль?
-              </Link>
-            </div>
-
-            <button
-              type="submit"
-              className={styles.submitButton}
-              disabled={loading || isSubmitting}
-            >
-              {loading || isSubmitting ? "Вход..." : "Войти"}
-            </button>
-          </Form>
-        )}
-      </Formik>
-    </div>
+            <Link to="/forgot-password" className={styles.forgotPassword}>
+              Забыли пароль?
+            </Link>
+          </div>
+          <button
+            type="submit"
+            className={styles.submitButton}
+            disabled={isSubmitting || loading}
+          >
+            {loading ? "Вход..." : "Войти"}
+          </button>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

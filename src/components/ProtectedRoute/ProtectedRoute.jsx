@@ -25,7 +25,6 @@ const ProtectedRoute = ({ children, allowedRoles = [] }) => {
 
         setIsChecking(false);
       } catch (error) {
-        console.error("Ошибка при проверке аутентификации:", error);
         setIsChecking(false);
       }
     };
@@ -52,21 +51,9 @@ const ProtectedRoute = ({ children, allowedRoles = [] }) => {
   }
 
   // Проверка роли пользователя
-  if (allowedRoles.length > 0) {
-    const userRole = user.role.toLowerCase();
-    if (!allowedRoles.map((role) => role.toLowerCase()).includes(userRole)) {
-      toast.error("У вас нет доступа к этой странице");
-      // Перенаправляем на соответствующую страницу в зависимости от роли
-      const redirectPath =
-        userRole === "breeder"
-          ? "/mainbcs"
-          : userRole === "user"
-          ? "/mainusersystem"
-          : userRole === "specialist"
-          ? "/mainspecialist"
-          : "/";
-      return <Navigate to={redirectPath} replace />;
-    }
+  if (allowedRoles.length > 0 && !allowedRoles.includes(user.role)) {
+    toast.error("У вас нет доступа к этой странице");
+    return <Navigate to="/" replace />;
   }
 
   return children;

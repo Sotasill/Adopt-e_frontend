@@ -1,0 +1,45 @@
+.countrySelect {
+  width: 100%;
+}
+
+.countrySelect :global(.country-select__control) {
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.countrySelect :global(.country-select__indicator-separator) {
+  display: none;
+}
+
+.countrySelect :global(.country-select__dropdown-indicator) {
+  color: #999;
+}
+
+.countrySelect :global(.country-select__menu) {
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.countrySelect :global(.country-select__option) {
+  font-size: 14px;
+}
+
+.countrySelect :global(.country-select__single-value) {
+  font-size: 14px;
+}
+
+.flagWrapper {
+  width: 24px;
+  height: 16px;
+  overflow: hidden;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flagWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

@@ -25,13 +25,11 @@ const PetCard = ({ pet, isFavorite, onFavoriteClick, onOpenAuthModal }) => {
       const breedData = breedsData[breedKey];
 
       if (!breedData) {
-        console.warn(`No breed data found for key: ${breedKey}`);
         return breedKey;
       }
 
       return breedData.ru || breedData.en || breedKey;
     } catch (error) {
-      console.error("Error getting breed name:", error);
       return breedKey;
     }
   };

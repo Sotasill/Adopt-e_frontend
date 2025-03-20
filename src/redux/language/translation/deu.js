@@ -291,10 +291,20 @@ const deuTranslation = {
       text: "Nutzungsbedingungen zu",
     },
     errors: {
-      required: "Dieses Feld ist erforderlich",
-      email: "Ungültige E-Mail-Adresse",
+      required: "Pflichtfeld",
+      email: "Ungültige E-Mail",
       minLength: "Mindestens {{count}} Zeichen",
       maxLength: "Maximal {{count}} Zeichen",
+      acceptTerms: "Sie müssen die Nutzungsbedingungen akzeptieren",
+      countryFirstLetter:
+        "Der Landesname muss mit einem Großbuchstaben beginnen",
+      cityFirstLetter: "Der Stadtname muss mit einem Großbuchstaben beginnen",
+      username:
+        "Der Benutzername muss mit einem Großbuchstaben beginnen und 3 bis 30 Zeichen enthalten (Buchstaben, Zahlen, _ oder -)",
+      usernameRepeating:
+        "Der Benutzername darf keine sich wiederholenden Zeichen oder Buchstaben enthalten (z.B. AAA, A A A)",
+      password:
+        "Das Passwort muss mindestens 8 Zeichen lang sein und mindestens einen Buchstaben und eine Zahl enthalten",
     },
   },
 

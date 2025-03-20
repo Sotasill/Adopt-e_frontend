@@ -162,16 +162,18 @@ const ukrTranslation = {
     },
     errors: {
       required: "Обов'язкове поле",
-      email: "Некоректна електронна пошта",
+      email: "Невірний email",
       minLength: "Мінімум {{count}} символів",
       maxLength: "Максимум {{count}} символів",
-      acceptTerms: "Необхідно прийняти умови використання",
+      acceptTerms: "Ви повинні прийняти умови використання",
       countryFirstLetter: "Назва країни повинна починатися з великої літери",
       cityFirstLetter: "Назва міста повинна починатися з великої літери",
       username:
         "Ім'я користувача повинно починатися з великої літери та містити від 3 до 30 символів (літери, цифри, _ або -)",
+      usernameRepeating:
+        "Ім'я користувача не повинно містити символи або літери, що повторюються (наприклад, AAA, A A A)",
       password:
-        "Пароль повинен містити мінімум 8 символів, включаючи хоча б одну літеру та одну цифру",
+        "Пароль повинен бути не менше 8 символів і містити хоча б одну літеру та одну цифру",
       companyName: "Назва компанії повинна починатися з великої літери",
       companyNameFormat:
         "Дозволені тільки латинські літери та символи: - _ ; *",
@@ -573,10 +575,5 @@ const ukrTranslation = {
     emailPlaceholder: "Введіть ваш email",
   },
 };
-
-console.log("Ukrainian translations loaded:", {
-  navigationBreeds: ukrTranslation.navigation?.breeds,
-  breedsTitle: ukrTranslation.breeds?.title,
-});
 
 export default ukrTranslation;

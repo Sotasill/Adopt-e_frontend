@@ -27,6 +27,7 @@ import styles from "./BreederRegistrationForm.module.css";
 import commonStyles from "../../styles/common.module.css";
 import countries from "../../redux/language/dictionaries/countries.json";
 import authService from "../../services/authService";
+import CountrySelect from "../CountrySelect/CountrySelect";
 
 const formAnimation = {
   hidden: { opacity: 0, x: -20 },
@@ -81,8 +82,11 @@ const BreederRegistrationForm = () => {
   const validateField = (name, value) => {
     switch (name) {
       case "username":
-        if (!value) {
-          return t("registration.errors.required");
+        if (!/^[A-Z]/.test(value)) {
+          return t("registration.errors.username");
+        }
+        if (/(.)\1{2,}/.test(value) || /([A-Za-z])\s+\1/.test(value)) {
+          return t("registration.errors.usernameRepeating");
         }
         if (!/^[A-Z][a-zA-Z0-9_-]{2,29}$/.test(value)) {
           return t("registration.errors.username");
@@ -220,9 +224,15 @@ const BreederRegistrationForm = () => {
       toast.success(t("registration.success"), {
         duration: 3000,
         position: "top-center",
+        style: {
+          background: "#4caf50",
+          color: "#fff",
+          fontSize: "16px",
+          padding: "16px",
+        },
       });
 
-      // Перенаправление на mainbcs происходит в thunk
+      // Перенаправление происходит в thunk после показа уведомления
     } catch (error) {
       console.error("Registration error:", error);
       let errorMessage = t("registration.error");
@@ -442,30 +452,25 @@ const BreederRegistrationForm = () => {
             style={{ width: "100%" }}
             className={styles.formFields}
           >
-            <div className={styles.formGroup}>
+            <div className={styles.inputGroup}>
               <div className={styles.inputWrapper}>
-                <FaGlobe className={styles.inputIcon} />
-                <select
-                  name="country"
+                <CountrySelect
                   value={formData.country}
-                  onChange={handleChange}
-                  className={`${styles.input} ${
-                    errors.country ? styles.inputError : ""
-                  }`}
-                  required
-                >
-                  <option value="">
-                    {t("registration.breeder.form.country.placeholder")}
-                  </option>
-                  {Object.entries(countries).map(([key, country]) => (
-                    <option key={key} value={country.iso}>
-                      {country.ru} {country.flag}
-                    </option>
-                  ))}
-                </select>
+                  onChange={(value) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      country: value,
+                    }))
+                  }
+                  placeholder={t(
+                    "registration.breeder.form.country.placeholder"
+                  )}
+                  isDisabled={loading}
+                  error={errors.country}
+                />
               </div>
               {errors.country && (
-                <div className={styles.errorText}>{errors.country}</div>
+                <div className={styles.error}>{errors.country}</div>
               )}
             </div>
 

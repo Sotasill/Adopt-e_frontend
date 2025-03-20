@@ -1,21 +1,28 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { Provider } from "react-redux";
+import React from "react";
+import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 import { HelmetProvider } from "react-helmet-async";
-import "./redux/language/i18n";
-import store from "./redux/store";
+import { store } from "./redux/store";
+import App from "./components/App/App";
 import "./index.css";
-import App from "./components/App/App.jsx";
+import "./redux/language/i18n";
 
-createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <Provider store={store}>
-      <HelmetProvider>
-        <BrowserRouter>
+// Настройка future flags для React Router
+const router = {
+  future: {
+    v7_startTransition: true,
+  },
+};
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <HelmetProvider>
+      <BrowserRouter {...router}>
+        <Provider store={store}>
           <App />
-        </BrowserRouter>
-      </HelmetProvider>
-    </Provider>
-  </StrictMode>
+        </Provider>
+      </BrowserRouter>
+    </HelmetProvider>
+  </React.StrictMode>
 );

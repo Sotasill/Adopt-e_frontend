@@ -115,15 +115,17 @@ const enTranslation = {
       text: "terms of service",
     },
     errors: {
-      required: "This field is required",
-      email: "Invalid email address",
+      required: "Required field",
+      email: "Invalid email",
       minLength: "Minimum {{count}} characters",
       maxLength: "Maximum {{count}} characters",
-      acceptTerms: "You must accept the terms of service",
+      acceptTerms: "You must accept the terms of use",
       countryFirstLetter: "Country name must start with a capital letter",
       cityFirstLetter: "City name must start with a capital letter",
       username:
-        "Username must start with a capital letter and contain between 3 and 30 characters (letters, numbers, _ or -)",
+        "Username must start with a capital letter and contain 3 to 30 characters (letters, numbers, _ or -)",
+      usernameRepeating:
+        "Username must not contain repeating characters or letters (e.g., AAA, A A A)",
       password:
         "Password must be at least 8 characters long and include at least one letter and one number",
       companyName: "Company name must start with a capital letter",

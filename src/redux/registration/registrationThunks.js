@@ -166,7 +166,7 @@ export const registerUser = createAsyncThunk(
 
 export const registerBreeder = createAsyncThunk(
   "registration/registerBreeder",
-  async (breederData, { rejectWithValue, dispatch }) => {
+  async (breederData, { rejectWithValue }) => {
     try {
       const isServerAvailable = await checkServerAvailability();
       if (!isServerAvailable) {
@@ -178,113 +178,43 @@ export const registerBreeder = createAsyncThunk(
         return rejectWithValue(validationErrors.join(". "));
       }
 
+      console.log("Отправка данных на регистрацию:", breederData);
       const response = await authService.registerBreeder(breederData);
+      console.log("Ответ от сервиса регистрации:", response);
 
-      // Подробное логирование ответа сервера
-      console.log("=== Ответ сервера при регистрации заводчика ===");
-      console.log("Полный ответ:", response);
-      console.log("Структура ответа:", {
-        hasUser: !!response.user,
-        hasTokens: !!response.tokens,
-        hasToken: !!response.token,
-        userData: response.user,
-        tokensData: response.tokens,
-        tokenData: response.token,
-      });
-
-      // Проверяем наличие минимально необходимых данных
-      if (!response || !response.user) {
-        console.error("Неполные данные от сервера:", response);
-        throw new Error(i18next.t("auth.errors.invalidServerResponse"));
+      if (!response?.user?._id) {
+        console.error("Отсутствуют данные пользователя:", response);
+        throw new Error("Не удалось получить данные пользователя");
       }
 
-      // Сохраняем информацию о пользователе
-      const userData = {
-        ...response.user,
-        role: "breeder", // Явно указываем роль
+      // Задержка перед перенаправлением, чтобы уведомление успело показаться
+      setTimeout(() => {
+        window.location.replace("/");
+      }, 2000);
+
+      return {
+        ...response,
+        success: true,
       };
-      localStorage.setItem("user", JSON.stringify(userData));
-
-      // Если есть токены, сохраняем их
-      if (response.tokens) {
-        console.log("Сохранение токенов из response.tokens:", response.tokens);
-        if (response.tokens.accessToken) {
-          localStorage.setItem("accessToken", response.tokens.accessToken);
-        }
-        if (response.tokens.refreshToken) {
-          localStorage.setItem("refreshToken", response.tokens.refreshToken);
-        }
-      } else if (response.token) {
-        console.log("Сохранение токена из response.token:", response.token);
-        localStorage.setItem("accessToken", response.token);
-      }
-
-      // Проверяем, что токены и данные пользователя сохранены
-      const savedUser = localStorage.getItem("user");
-      const savedToken = localStorage.getItem("accessToken");
-      const savedRefreshToken = localStorage.getItem("refreshToken");
-
-      console.log("=== Проверка сохраненных данных ===");
-      console.log("Сохраненный пользователь:", savedUser);
-      console.log("Сохраненный accessToken:", savedToken);
-      console.log("Сохраненный refreshToken:", savedRefreshToken);
-
-      // Обновляем состояние аутентификации
-      const authPayload = {
-        user: userData,
-        tokens: response.tokens || { accessToken: response.token },
-      };
-      console.log(
-        "Данные для обновления состояния аутентификации:",
-        authPayload
-      );
-
-      dispatch({
-        type: "auth/loginSuccess",
-        payload: authPayload,
-      });
-
-      // Перенаправляем на страницу mainbcs
-      window.location.replace("/mainbcs");
-
-      return response;
     } catch (error) {
-      console.error("=== Ошибка при регистрации заводчика ===");
-      console.error("Полная ошибка:", error);
-      console.error("Ответ сервера:", error.response?.data);
-      console.error("Статус ошибки:", error.response?.status);
+      console.error("Ошибка в процессе регистрации:", {
+        error,
+        message: error.message,
+        response: error.response?.data,
+      });
 
-      let errorMessage;
+      let errorMessage = error.message || "Произошла ошибка при регистрации";
 
       if (error?.response?.status === 409) {
-        const conflictData = error.response?.data;
-        const errorText = (
-          conflictData?.message ||
-          error.message ||
-          ""
-        ).toLowerCase();
+        const errorText = (error.response?.data?.message || "").toLowerCase();
 
-        if (
-          errorText.includes("email already") ||
-          errorText.includes("email уже") ||
-          errorText.includes("email exists")
-        ) {
-          errorMessage = i18next.t("auth.errors.emailInUse");
-        } else if (
-          errorText.includes("username already") ||
-          errorText.includes("имя пользователя уже") ||
-          errorText.includes("username exists")
-        ) {
-          errorMessage = i18next.t("auth.errors.usernameInUse");
+        if (errorText.includes("email")) {
+          errorMessage = "Этот email уже используется";
+        } else if (errorText.includes("username")) {
+          errorMessage = "Это имя пользователя уже занято";
         } else {
-          errorMessage = i18next.t("auth.errors.userExists");
+          errorMessage = "Пользователь с такими данными уже существует";
         }
-      } else if (error?.response?.data?.message) {
-        errorMessage = error.response.data.message;
-      } else if (error.message) {
-        errorMessage = error.message;
-      } else {
-        errorMessage = i18next.t("auth.errors.breederRegistrationError");
       }
 
       return rejectWithValue(errorMessage);
@@ -294,7 +224,7 @@ export const registerBreeder = createAsyncThunk(
 
 export const registerSpecialist = createAsyncThunk(
   "registration/registerSpecialist",
-  async (specialistData, { rejectWithValue, dispatch }) => {
+  async (specialistData, { rejectWithValue }) => {
     try {
       const isServerAvailable = await checkServerAvailability();
       if (!isServerAvailable) {
@@ -311,76 +241,45 @@ export const registerSpecialist = createAsyncThunk(
 
       const response = await authService.registerSpecialist(specialistData);
 
-      // Проверяем наличие минимально необходимых данных
-      if (!response || !response.user) {
-        console.error("Неполные данные от сервера:", response);
-        throw new Error(i18next.t("auth.errors.invalidServerResponse"));
+      if (!response?.user?._id) {
+        console.error("Отсутствуют данные пользователя:", response);
+        throw new Error("Не удалось получить данные пользователя");
       }
 
-      // Сохраняем информацию о пользователе
-      const userData = {
-        ...response.user,
-        role: "specialist", // Явно указываем роль
+      // Задержка перед перенаправлением, чтобы уведомление успело показаться
+      setTimeout(() => {
+        window.location.replace("/");
+      }, 2000);
+
+      return {
+        ...response,
+        success: true,
       };
-      localStorage.setItem("user", JSON.stringify(userData));
-
-      // Сохраняем токены
-      if (response.tokens) {
-        localStorage.setItem("accessToken", response.tokens.accessToken);
-        if (response.tokens.refreshToken) {
-          localStorage.setItem("refreshToken", response.tokens.refreshToken);
-        }
-      }
-
-      // Обновляем состояние аутентификации
-      dispatch({
-        type: "auth/loginSuccess",
-        payload: {
-          user: userData,
-          tokens: response.tokens,
-        },
+    } catch (error) {
+      console.error("Ошибка в процессе регистрации:", {
+        error,
+        message: error.message,
+        response: error.response?.data,
       });
 
-      // Перенаправляем на страницу специалиста
-      window.location.replace("/mainspecialist");
-
-      return response;
-    } catch (error) {
-      console.error("Registration error details:", error);
-      let errorMessage;
+      let errorMessage = error.message || "Произошла ошибка при регистрации";
 
       if (error?.response?.status === 409) {
-        const conflictData = error.response?.data;
-        const errorText = (
-          conflictData?.message ||
-          error.message ||
-          ""
-        ).toLowerCase();
+        const errorText = (error.response?.data?.message || "").toLowerCase();
 
-        if (
-          errorText.includes("email already") ||
-          errorText.includes("email уже") ||
-          errorText.includes("email exists")
-        ) {
-          errorMessage = i18next.t("auth.errors.emailInUse");
-        } else if (
-          errorText.includes("username already") ||
-          errorText.includes("имя пользователя уже") ||
-          errorText.includes("username exists")
-        ) {
-          errorMessage = i18next.t("auth.errors.usernameInUse");
+        if (errorText.includes("email")) {
+          errorMessage = "Этот email уже используется";
+        } else if (errorText.includes("username")) {
+          errorMessage = "Это имя пользователя уже занято";
         } else {
-          errorMessage = i18next.t("auth.errors.userExists");
+          errorMessage = "Пользователь с такими данными уже существует";
         }
       } else if (error?.response?.data?.message) {
         const errorText = error.response.data.message.toLowerCase();
 
         if (errorText.includes("email")) {
           errorMessage = i18next.t("auth.errors.emailCheckError");
-        } else if (
-          errorText.includes("username") ||
-          errorText.includes("имя пользователя")
-        ) {
+        } else if (errorText.includes("username")) {
           errorMessage = i18next.t("auth.errors.usernameCheckError");
         } else if (errorText.includes("company name")) {
           errorMessage = i18next.t("registration.errors.companyName");
@@ -391,10 +290,6 @@ export const registerSpecialist = createAsyncThunk(
         } else {
           errorMessage = error.response.data.message;
         }
-      } else if (error instanceof Error) {
-        errorMessage = error.message;
-      } else {
-        errorMessage = i18next.t("auth.errors.registrationError");
       }
 
       return rejectWithValue(errorMessage);
